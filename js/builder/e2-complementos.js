@@ -75,16 +75,40 @@ class ComplementosManager {
     });
   }
 
-  selectSer(serId) {
-    // Remove seleção anterior
+    selectSer(serId) {
+    const detailsContainer = document.getElementById('ser-details-container');
+    const selectedButton = document.querySelector(`[data-ser-id="${serId}"]`);
+    
+    // Verifica se o ser clicado já está selecionado
+    const isSameSer = this.selectedSer && this.selectedSer.id === serId;
+    
+    if (isSameSer) {
+        // Se for o mesmo ser, aplica a animação de saída e depois esconde
+        detailsContainer.classList.add('closing');
+        
+        setTimeout(() => {
+        detailsContainer.style.display = 'none';
+        detailsContainer.classList.remove('closing');
+        }, 300); // Mesmo tempo da transição CSS
+        
+        this.selectedSer = null;
+        
+        // Remove a seleção do botão
+        document.querySelectorAll('.ser-button').forEach(btn => {
+        btn.classList.remove('selected');
+        });
+        
+        return;
+    }
+    
+    // Remove seleção anterior de outros botões
     document.querySelectorAll('.ser-button').forEach(btn => {
-      btn.classList.remove('selected');
+        btn.classList.remove('selected');
     });
     
     // Adiciona seleção ao botão clicado
-    const selectedButton = document.querySelector(`[data-ser-id="${serId}"]`);
     if (selectedButton) {
-      selectedButton.classList.add('selected');
+        selectedButton.classList.add('selected');
     }
     
     // Encontra o ser selecionado nos dados
@@ -92,8 +116,7 @@ class ComplementosManager {
     
     // Renderiza os detalhes do ser
     this.renderSerDetails();
-  }
-
+    }
   renderSerDetails() {
     if (!this.selectedSer) return;
     
@@ -102,7 +125,7 @@ class ComplementosManager {
     const caracteristicasElement = detailsContainer.querySelector('.ser-caracteristicas');
     const descricaoElement = detailsContainer.querySelector('.ser-descricao');
     
-    // CORREÇÃO: Filtra por id === 'seres_item' em vez de procurar pela propriedade seres_item
+    // Filtra por id === 'seres_item' para pegar todas as características
     const caracteristicasList = this.selectedSer.content.filter(item => item.id === 'seres_item');
     
     // Encontra o item com "item_descrip" (descrição do ser)

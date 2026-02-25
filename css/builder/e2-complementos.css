@@ -96,7 +96,16 @@
   padding: 1.5rem;
   margin-top: 1rem;
   box-shadow: var(--shadow);
-  animation: slideUp 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Estado de saída (fechando) */
+.ser-details.closing {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
 }
 
 .ser-title {
@@ -138,15 +147,6 @@
   text-align: justify;
 }
 
-.ser-caracteristicas p {
-  background: rgba(212, 175, 55, 0.05);
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(212, 175, 55, 0.1);
-}
-
-/* Adicione ao final do arquivo e2-complementos.css */
-
 .caracteristica-item {
   background: rgba(212, 175, 55, 0.05);
   padding: 1rem;
@@ -169,35 +169,11 @@
   margin-right: 0.5rem;
 }
 
-/* Responsivo */
-@media (max-width: 480px) {
-  .caracteristica-item {
-    padding: 0.8rem;
-    font-size: 0.95rem;
-  }
-  
-  .caracteristica-item strong {
-    display: block;
-    margin-bottom: 0.3rem;
-  }
-}
-
 /* Animações */
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -243,5 +219,15 @@
   .ser-caracteristicas h4,
   .ser-descricao h4 {
     font-size: 1rem;
+  }
+  
+  .caracteristica-item {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+  
+  .caracteristica-item strong {
+    display: block;
+    margin-bottom: 0.3rem;
   }
 }
