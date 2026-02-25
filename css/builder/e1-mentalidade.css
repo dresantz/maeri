@@ -1,0 +1,148 @@
+/* =========================
+   Maeri RPG - Etapa 1: Mentalidade
+   Estilos específicos para a primeira etapa do construtor
+========================= */
+
+.mentalidade-container {
+  animation: fadeIn 0.3s ease;
+}
+
+.mentalidade-intro {
+  color: var(--gold);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+/* Tabela de Mentalidades */
+.mentalidade-table-container {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+  background: var(--surface-light);
+  border-radius: var(--radius);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.mentalidade-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Crimson Text', serif;
+}
+
+.mentalidade-table th {
+  background: var(--surface);
+  color: var(--gold);
+  font-weight: 600;
+  padding: 1rem 0.8rem;
+  text-align: left;
+  font-size: 0.9rem;
+  border-bottom: 2px solid var(--gold);
+}
+
+.mentalidade-table td {
+  padding: 1rem 0.8rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  color: var(--text);
+}
+
+.mentalidade-table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.mentalidade-table tbody tr:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.mentalidade-table .loading-row,
+.mentalidade-table .error-row {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 2rem;
+}
+
+.mentalidade-table .error-row {
+  color: #ff6b6b;
+}
+
+/* Informações e fórmulas */
+.mentalidade-info {
+  background: rgba(26, 26, 46, 0.8);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.mentalidade-info p {
+  color: var(--text);
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.mentalidade-info p:last-child {
+  margin-bottom: 0;
+}
+
+.formulas {
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid var(--gold);
+}
+
+.formulas p {
+  margin-bottom: 0.5rem;
+  font-family: 'Cinzel', serif;
+}
+
+.formulas p:last-child {
+  margin-bottom: 0;
+}
+
+.formulas strong {
+  color: var(--gold);
+}
+
+/* Responsivo */
+@media (min-width: 768px) {
+  .mentalidade-table th,
+  .mentalidade-table td {
+    padding: 1.2rem 1rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .mentalidade-table th,
+  .mentalidade-table td {
+    padding: 0.8rem 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .mentalidade-info {
+    padding: 1rem;
+  }
+  
+  .mentalidade-info p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Reutiliza a animação do builder-base */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

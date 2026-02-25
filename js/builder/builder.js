@@ -26,14 +26,6 @@ class PlayerAreaManager {
   setupTabs() {
     this.tabButtons.forEach(button => {
       button.addEventListener('click', () => this.switchTab(button.id));
-      
-      // Suporte a teclado para acessibilidade
-      button.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          this.switchTab(button.id);
-        }
-      });
     });
   }
 
@@ -43,57 +35,24 @@ class PlayerAreaManager {
       const isSelected = button.id === selectedId;
       button.classList.toggle('active', isSelected);
       button.setAttribute('aria-selected', isSelected);
-      
-      // Habilita/desabilita foco para navegação por teclado
-      if (isSelected) {
-        button.removeAttribute('tabindex');
-      } else {
-        button.setAttribute('tabindex', '-1');
-      }
     });
 
     // Atualiza painéis
     this.tabPanels.forEach(panel => {
       const isActive = panel.id === selectedId.replace('tab-', '') + '-panel';
       panel.classList.toggle('active', isActive);
-      panel.setAttribute('aria-hidden', !isActive);
     });
-
-    // Dispara evento customizado
-    this.dispatchEvent('tab:changed', { tabId: selectedId });
   }
 
   // ===== CONSTRUTOR =====
   setupBuilderSteps() {
-    this.builderSteps.forEach((step, index) => {
+    this.builderSteps.forEach(step => {
       step.addEventListener('click', () => this.handleBuilderStep(step));
-      
-      // Suporte a teclado
-      step.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          this.handleBuilderStep(step);
-        }
-      });
-
-      // Navegação entre etapas com setas
-      step.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-          e.preventDefault();
-          const nextStep = this.builderSteps[index + 1] || this.builderSteps[0];
-          nextStep.focus();
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-          e.preventDefault();
-          const prevStep = this.builderSteps[index - 1] || this.builderSteps[this.builderSteps.length - 1];
-          prevStep.focus();
-        }
-      });
     });
   }
 
   handleBuilderStep(step) {
     const stepNum = step.dataset.step;
-    const stepTitle = step.querySelector('.step-title').textContent;
     
     // Remove active de todos os steps
     this.builderSteps.forEach(s => s.classList.remove('active'));
@@ -101,66 +60,112 @@ class PlayerAreaManager {
     // Adiciona active no step selecionado
     step.classList.add('active');
     
-    // Atualiza preview
-    this.updateBuilderPreview(stepNum, stepTitle);
-    
-    // Dispara evento
-    this.dispatchEvent('builder:stepSelected', { 
-      step: stepNum, 
-      title: stepTitle 
-    });
+    if (stepNum === '1') {
+      this.renderMentalidadeStep();
+    } else {
+      // Para as outras etapas, mostra apenas placeholder
+      this.renderPlaceholder(stepNum);
+    }
   }
 
-  updateBuilderPreview(stepNum, stepTitle) {
+  renderMentalidadeStep() {
     if (!this.builderPreview) return;
     
-    const previewContent = this.createPreviewContent(stepNum, stepTitle);
-    this.builderPreview.innerHTML = previewContent;
+    this.builderPreview.innerHTML = `
+      <div class="mentalidade-container">
+        <p class="mentalidade-intro">Escolha uma Mentalidade.</p>
+        
+        <div class="mentalidade-table-container">
+          <table class="mentalidade-table">
+            <thead>
+              <tr>
+                <th>Mentalidade</th>
+                <th>CF</th>
+                <th>CM</th>
+                <th>Aspectos</th>
+                <th>Vit</th>
+                <th>Con</th>
+              </tr>
+            </thead>
+            <tbody id="mentalidade-table-body">
+              <tr>
+                <td colspan="6" class="loading-row">Carregando mentalidades...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mentalidade-info">
+          <p>Em seguida, distribua em CF (F, V, D) e CM (S, I, A) os bônus de acordo com a Mentalidade escolhida, lembrando que cada personagem já começa com 2 em cada característica básica.</p>
+          
+          <p>Em seguida, defina Vit e Con de acordo com as suas fórmulas:</p>
+          
+          <div class="formulas">
+            <p><strong>Vit = F + V + Mentalidade</strong></p>
+            <p><strong>Con = S + I + Mentalidade</strong></p>
+          </div>
+          
+          <p>Aspectos são usados para adquirir um Estudo, uma Técnica Marcial ou um Estudo Mágico, que poderão ser escolhidos na Etapa 2.</p>
+        </div>
+      </div>
+    `;
     
-    // Animação de entrada
-    this.builderPreview.style.animation = 'none';
-    this.builderPreview.offsetHeight; // Reflow
-    this.builderPreview.style.animation = 'fadeIn 0.3s ease';
+    // Carrega os dados da tabela
+    this.loadMentalidadeData();
   }
 
-  createPreviewContent(stepNum, stepTitle) {
-    const previews = {
-      '1': {
-        title: 'Mentalidade',
-        description: 'Escolha sua essência, origem e arquétipo.',
-        options: ['Bárbaro', 'Guerreiro', 'Paladino', 'Clérigo', 'Mago', 'Ladino']
-      },
-      '2': {
-        title: 'Complementos',
-        description: 'Aprimore suas habilidades com talentos e perícias.',
-        options: ['Força', 'Destreza', 'Constituição', 'Inteligência', 'Sabedoria', 'Carisma']
-      },
-      '3': {
-        title: 'Narrativa',
-        description: 'Forje a história e os laços do seu personagem.',
-        options: ['Antecedente', 'Ideais', 'Vínculos', 'Fraquezas']
-      },
-      '4': {
-        title: 'Inventário',
-        description: 'Equipe seu herói com armas, armaduras e itens.',
-        options: ['Armas', 'Armaduras', 'Poções', 'Equipamento de Aventura']
+  async loadMentalidadeData() {
+    try {
+      const response = await fetch('../../data/rulebook/01-fundamentos.json');
+      const data = await response.json();
+      
+      // Encontra a seção de mentalidade
+      const mentalidadeSection = data.sections.find(s => s.id === 'mentalidade');
+      const tableData = mentalidadeSection.content.find(c => c.type === 'table');
+      
+      this.renderMentalidadeTable(tableData);
+    } catch (error) {
+      console.error('Erro ao carregar dados de mentalidade:', error);
+      const tbody = document.getElementById('mentalidade-table-body');
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="6" class="error-row">Erro ao carregar dados</td></tr>';
       }
-    };
+    }
+  }
 
-    const preview = previews[stepNum] || previews['1'];
+  renderMentalidadeTable(tableData) {
+    const tbody = document.getElementById('mentalidade-table-body');
+    if (!tbody) return;
     
-    return `
-      <div class="preview-header">
-        <h3 class="preview-title">Etapa ${stepNum}: ${preview.title}</h3>
-        <p class="preview-description">${preview.description}</p>
-      </div>
-      <div class="preview-options">
-        ${preview.options.map(opt => `
-          <button class="preview-option" data-option="${opt}">
-            <span class="option-icon">⚔️</span>
-            <span class="option-name">${opt}</span>
-          </button>
-        `).join('')}
+    let html = '';
+    tableData.rows.forEach(row => {
+      html += `
+        <tr class="mentalidade-row">
+          <td><strong>${row[0]}</strong></td>
+          <td>${row[1]}</td>
+          <td>${row[2]}</td>
+          <td>${row[3]}</td>
+          <td>${row[4]}</td>
+          <td>${row[5]}</td>
+        </tr>
+      `;
+    });
+    
+    tbody.innerHTML = html;
+  }
+
+  renderPlaceholder(stepNum) {
+    if (!this.builderPreview) return;
+    
+    const titles = {
+      '2': 'Complementos',
+      '3': 'Narrativa',
+      '4': 'Inventário'
+    };
+    
+    this.builderPreview.innerHTML = `
+      <div class="placeholder-container">
+        <p class="placeholder-text">Etapa ${stepNum} - ${titles[stepNum]} (em desenvolvimento)</p>
       </div>
     `;
   }
@@ -169,195 +174,33 @@ class PlayerAreaManager {
   setupCharCards() {
     this.charCards.forEach(card => {
       card.addEventListener('click', () => this.handleCharCard(card));
-      
-      // Prevenir clique em cards vazios (comportamento diferente)
-      if (card.classList.contains('char-card--empty')) {
-        card.addEventListener('click', (e) => this.handleEmptyCharCard(e, card));
-      }
     });
   }
 
   handleCharCard(card) {
     if (card.classList.contains('char-card--empty')) {
-      // Card vazio - criar novo personagem
-      this.createNewCharacter();
+      console.log('Criar novo personagem');
     } else {
-      // Card de personagem existente - selecionar/abrir
-      this.selectCharacter(card);
+      card.classList.add('selected');
+      setTimeout(() => card.classList.remove('selected'), 200);
     }
-  }
-
-  handleEmptyCharCard(e, card) {
-    e.preventDefault();
-    this.showNewCharacterModal();
-  }
-
-  createNewCharacter() {
-    // Placeholder para criação de novo personagem
-    console.log('Criar novo personagem');
-    this.showToast('Funcionalidade de criação em desenvolvimento');
-  }
-
-  selectCharacter(card) {
-    // Remove seleção anterior
-    this.charCards.forEach(c => c.classList.remove('selected'));
-    
-    // Adiciona seleção no card atual
-    card.classList.add('selected');
-    
-    // Pega dados do personagem
-    const charData = this.extractCharData(card);
-    
-    // Dispara evento
-    this.dispatchEvent('character:selected', charData);
-    
-    // Feedback visual
-    this.showToast(`${charData.name || 'Personagem'} selecionado`);
-  }
-
-  extractCharData(card) {
-    if (card.classList.contains('char-card--ready')) {
-      return {
-        name: card.querySelector('.char-name')?.textContent || 'Personagem',
-        class: card.querySelector('.char-class')?.textContent || '',
-        level: card.querySelector('.char-level')?.textContent || 'Nível 1',
-        description: card.querySelector('.char-desc')?.textContent || '',
-        type: 'ready'
-      };
-    }
-    return { type: 'empty' };
   }
 
   updateCharsCounter() {
     if (!this.charsCounter) return;
     
-    // Conta personagens salvos (não vazios)
     const savedChars = document.querySelectorAll('.saved-chars .char-card:not(.char-card--empty)');
     this.charsCounter.textContent = `${savedChars.length}/3`;
-  }
-
-  // ===== UTILITÁRIOS =====
-  showNewCharacterModal() {
-    // Placeholder para modal de criação
-    const modal = document.createElement('div');
-    modal.className = 'char-modal';
-    modal.innerHTML = `
-      <div class="char-modal-content">
-        <h3>Criar Novo Personagem</h3>
-        <p>Escolha como deseja criar:</p>
-        <div class="modal-options">
-          <button class="modal-option" data-type="builder">
-            <span class="option-icon">🏗️</span>
-            <span>Usar Construtor</span>
-          </button>
-          <button class="modal-option" data-type="quick">
-            <span class="option-icon">⚡</span>
-            <span>Criação Rápida</span>
-          </button>
-          <button class="modal-option" data-type="import">
-            <span class="option-icon">📥</span>
-            <span>Importar</span>
-          </button>
-        </div>
-        <button class="modal-close">Fechar</button>
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-    
-    // Força reflow para animação
-    modal.offsetHeight;
-    modal.classList.add('active');
-
-    // Event listeners
-    modal.querySelector('.modal-close').addEventListener('click', () => {
-      modal.classList.remove('active');
-      setTimeout(() => modal.remove(), 300);
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-      }
-    });
-  }
-
-  showToast(message, duration = 2000) {
-    const toast = document.createElement('div');
-    toast.className = 'builder-toast';
-    toast.textContent = message;
-    toast.setAttribute('role', 'alert');
-    
-    document.body.appendChild(toast);
-    
-    // Força reflow
-    toast.offsetHeight;
-    toast.classList.add('active');
-    
-    setTimeout(() => {
-      toast.classList.remove('active');
-      setTimeout(() => toast.remove(), 300);
-    }, duration);
-  }
-
-  dispatchEvent(eventName, detail) {
-    const event = new CustomEvent(eventName, { 
-      detail, 
-      bubbles: true,
-      cancelable: true 
-    });
-    document.dispatchEvent(event);
-  }
-
-  // ===== NAVEGAÇÃO POR TECLADO =====
-  setupKeyboardNavigation() {
-    document.addEventListener('keydown', (e) => {
-      // Atalhos globais
-      if (e.altKey) {
-        switch(e.key) {
-          case '1':
-            e.preventDefault();
-            this.switchTab('tab-builder');
-            break;
-          case '2':
-            e.preventDefault();
-            this.switchTab('tab-chars');
-            break;
-        }
-      }
-      
-      // Fechar modal com ESC
-      if (e.key === 'Escape') {
-        const modal = document.querySelector('.char-modal.active');
-        if (modal) {
-          modal.classList.remove('active');
-          setTimeout(() => modal.remove(), 300);
-        }
-      }
-    });
   }
 }
 
 // ===== INICIALIZAÇÃO =====
-document.addEventListener('DOMContentLoaded', () => {
-  // Aguarda modais carregarem (se necessário)
-  if (document.readyState === 'complete') {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
     new PlayerAreaManager();
-  } else {
-    window.addEventListener('load', () => new PlayerAreaManager());
-  }
-});
-
-// Export para uso em outros módulos (se necessário)
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = PlayerAreaManager;
+  });
+} else {
+  new PlayerAreaManager();
 }
 
-// Export default para ES Modules
 export default PlayerAreaManager;
-
-// Também manter para compatibilidade com CommonJS (opcional)
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = PlayerAreaManager;
-}
