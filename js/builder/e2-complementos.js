@@ -1,13 +1,15 @@
 // =========================
 // Maeri RPG - Etapa 2: Complementos
-// Gerencia a seleção do tipo de ser do personagem
+// Gerencia a seleção do tipo de ser do personagem e estudos
 // =========================
 
 class ComplementosManager {
   constructor(previewElement) {
     this.previewElement = previewElement;
     this.seresData = null;
+    this.estudosData = null;
     this.selectedSer = null;
+    this.selectedEstudo = null;
   }
 
   render() {
@@ -15,6 +17,7 @@ class ComplementosManager {
     
     this.previewElement.innerHTML = `
       <div class="complementos-container">
+        <!-- Seção de Seres -->
         <p class="complementos-intro">Escolha o tipo de ser do personagem:</p>
         
         <div class="seres-buttons" id="seres-buttons-container">
@@ -26,19 +29,39 @@ class ComplementosManager {
           <div class="ser-caracteristicas"></div>
           <div class="ser-descricao"></div>
         </div>
+
+        <!-- Seção de Estudos -->
+        <div class="estudos-section" id="estudos-section">
+          <p class="estudos-intro">Escolha onde gastar Aspectos</p>
+          <p class="estudos-subtitle">Estudos</p>
+          
+          <div class="estudos-buttons" id="estudos-buttons-container">
+            <button class="estudo-button loading" disabled>Carregando estudos...</button>
+          </div>
+          
+          <div class="estudo-details" id="estudo-details-container" style="display: none;">
+            <h3 class="estudo-title"></h3>
+            <div class="estudo-descricao"></div>
+            <div class="estudo-conhecimentos">
+              <h4>Conhecimentos</h4>
+              <div class="conhecimentos-list"></div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
     
-    // Carrega os dados dos seres
+    // Carrega os dados dos seres e estudos
     this.loadSeresData();
+    this.loadEstudosData();
   }
 
+  // ===== SERES =====
   async loadSeresData() {
     try {
       const response = await fetch('../../data/rulebook/06-seres.json');
       const data = await response.json();
       
-      // Filtra apenas as seções que são seres jogáveis (ignora a seção "O que são Seres")
       this.seresData = data.sections.filter(section => 
         section.id !== 'o-que-sao-seres' && 
         section.id !== 'introducao'
@@ -69,54 +92,46 @@ class ComplementosManager {
     
     container.innerHTML = buttonsHtml;
     
-    // Adiciona eventos aos botões
     container.querySelectorAll('.ser-button').forEach(button => {
       button.addEventListener('click', () => this.selectSer(button.dataset.serId));
     });
   }
 
-    selectSer(serId) {
+  selectSer(serId) {
     const detailsContainer = document.getElementById('ser-details-container');
     const selectedButton = document.querySelector(`[data-ser-id="${serId}"]`);
     
-    // Verifica se o ser clicado já está selecionado
     const isSameSer = this.selectedSer && this.selectedSer.id === serId;
     
     if (isSameSer) {
-        // Se for o mesmo ser, aplica a animação de saída e depois esconde
-        detailsContainer.classList.add('closing');
-        
-        setTimeout(() => {
+      detailsContainer.classList.add('closing');
+      
+      setTimeout(() => {
         detailsContainer.style.display = 'none';
         detailsContainer.classList.remove('closing');
-        }, 300); // Mesmo tempo da transição CSS
-        
-        this.selectedSer = null;
-        
-        // Remove a seleção do botão
-        document.querySelectorAll('.ser-button').forEach(btn => {
+      }, 300);
+      
+      this.selectedSer = null;
+      
+      document.querySelectorAll('.ser-button').forEach(btn => {
         btn.classList.remove('selected');
-        });
-        
-        return;
+      });
+      
+      return;
     }
     
-    // Remove seleção anterior de outros botões
     document.querySelectorAll('.ser-button').forEach(btn => {
-        btn.classList.remove('selected');
+      btn.classList.remove('selected');
     });
     
-    // Adiciona seleção ao botão clicado
     if (selectedButton) {
-        selectedButton.classList.add('selected');
+      selectedButton.classList.add('selected');
     }
     
-    // Encontra o ser selecionado nos dados
     this.selectedSer = this.seresData.find(ser => ser.id === serId);
-    
-    // Renderiza os detalhes do ser
     this.renderSerDetails();
-    }
+  }
+
   renderSerDetails() {
     if (!this.selectedSer) return;
     
@@ -125,20 +140,15 @@ class ComplementosManager {
     const caracteristicasElement = detailsContainer.querySelector('.ser-caracteristicas');
     const descricaoElement = detailsContainer.querySelector('.ser-descricao');
     
-    // Filtra por id === 'seres_item' para pegar todas as características
     const caracteristicasList = this.selectedSer.content.filter(item => item.id === 'seres_item');
-    
-    // Encontra o item com "item_descrip" (descrição do ser)
     const descricao = this.selectedSer.content.find(item => item.item_descrip);
     
     titleElement.textContent = this.selectedSer.title;
     
-    // Renderiza todas as características encontradas
     if (caracteristicasList.length > 0) {
       let caracteristicasHtml = '<h4>Características</h4>';
       
       caracteristicasList.forEach(item => {
-        // Extrai o título da característica (antes do ponto) se possível
         const textParts = item.text.split('. ');
         const titulo = textParts.length > 1 ? textParts[0] : 'Característica';
         const descricaoChar = textParts.length > 1 ? textParts.slice(1).join('. ') : item.text;
@@ -164,7 +174,156 @@ class ComplementosManager {
       descricaoElement.innerHTML = '';
     }
     
-    // Mostra o container de detalhes
+    detailsContainer.style.display = 'block';
+  }
+
+  // ===== ESTUDOS =====
+  async loadEstudosData() {
+    try {
+      const response = await fetch('../../data/rulebook/02-personagem.json');
+      const data = await response.json();
+      
+      // Encontra a seção de Estudo e Conhecimento
+      const estudosSection = data.sections.find(s => s.id === 'estudo-e-conhecimento');
+      this.processarEstudos(estudosSection.content);
+      
+      this.renderEstudosButtons();
+    } catch (error) {
+      console.error('Erro ao carregar dados dos estudos:', error);
+      const container = document.getElementById('estudos-buttons-container');
+      if (container) {
+        container.innerHTML = '<button class="estudo-button error" disabled>Erro ao carregar estudos</button>';
+      }
+    }
+  }
+
+    processarEstudos(content) {
+    this.estudosData = [];
+    let currentEstudo = null;
+    
+    content.forEach(item => {
+        // Verifica se é um estudo válido (estudos_item existe e é curto)
+        if (item.estudos_item) {
+        // Filtra itens que são muito longos (regras gerais) ou contêm palavras-chave
+        const isRegraGeral = 
+            item.estudos_item.length > 30 || // Nomes de estudos são curtos
+            item.estudos_item.includes('custo') ||
+            item.estudos_item.includes('xpm') ||
+            item.estudos_item.includes('teste') ||
+            item.estudos_item.includes('Fonte') ||
+            item.estudos_item.includes('repouso');
+        
+        if (!isRegraGeral) {
+            // É um novo estudo válido
+            if (currentEstudo) {
+            this.estudosData.push(currentEstudo);
+            }
+            
+            currentEstudo = {
+            nome: item.estudos_item,
+            descricao: item.text,
+            conhecimentos: []
+            };
+        }
+        } else if (item.id === 'estudos_item' && currentEstudo) {
+        // É um conhecimento do estudo atual
+        currentEstudo.conhecimentos.push(item.text);
+        }
+    });
+    
+    // Adiciona o último estudo
+    if (currentEstudo) {
+        this.estudosData.push(currentEstudo);
+    }
+    }
+
+  renderEstudosButtons() {
+    const container = document.getElementById('estudos-buttons-container');
+    if (!container || !this.estudosData) return;
+    
+    let buttonsHtml = '';
+    this.estudosData.forEach((estudo, index) => {
+      buttonsHtml += `
+        <button class="estudo-button" data-estudo-index="${index}">
+          ${estudo.nome}
+        </button>
+      `;
+    });
+    
+    container.innerHTML = buttonsHtml;
+    
+    container.querySelectorAll('.estudo-button').forEach(button => {
+      button.addEventListener('click', () => this.selectEstudo(button.dataset.estudoIndex));
+    });
+  }
+
+  selectEstudo(index) {
+    const detailsContainer = document.getElementById('estudo-details-container');
+    const selectedButton = document.querySelector(`[data-estudo-index="${index}"]`);
+    
+    const isSameEstudo = this.selectedEstudo && this.selectedEstudo.index === index;
+    
+    if (isSameEstudo) {
+      detailsContainer.classList.add('closing');
+      
+      setTimeout(() => {
+        detailsContainer.style.display = 'none';
+        detailsContainer.classList.remove('closing');
+      }, 300);
+      
+      this.selectedEstudo = null;
+      
+      document.querySelectorAll('.estudo-button').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      
+      return;
+    }
+    
+    document.querySelectorAll('.estudo-button').forEach(btn => {
+      btn.classList.remove('selected');
+    });
+    
+    if (selectedButton) {
+      selectedButton.classList.add('selected');
+    }
+    
+    this.selectedEstudo = {
+      index: index,
+      data: this.estudosData[index]
+    };
+    
+    this.renderEstudoDetails();
+  }
+
+  renderEstudoDetails() {
+    if (!this.selectedEstudo) return;
+    
+    const detailsContainer = document.getElementById('estudo-details-container');
+    const titleElement = detailsContainer.querySelector('.estudo-title');
+    const descricaoElement = detailsContainer.querySelector('.estudo-descricao');
+    const conhecimentosList = detailsContainer.querySelector('.conhecimentos-list');
+    
+    const estudo = this.selectedEstudo.data;
+    
+    titleElement.textContent = estudo.nome;
+    descricaoElement.innerHTML = `<p>${estudo.descricao}</p>`;
+    
+    let conhecimentosHtml = '';
+    estudo.conhecimentos.forEach(conhecimento => {
+      // Extrai o título do conhecimento (antes do ponto)
+      const textParts = conhecimento.split('. ');
+      const titulo = textParts.length > 1 ? textParts[0] : 'Conhecimento';
+      const descricao = textParts.length > 1 ? textParts.slice(1).join('. ') : conhecimento;
+      
+      conhecimentosHtml += `
+        <div class="conhecimento-item">
+          <strong>${titulo}:</strong> ${descricao}
+        </div>
+      `;
+    });
+    
+    conhecimentosList.innerHTML = conhecimentosHtml;
     detailsContainer.style.display = 'block';
   }
 }

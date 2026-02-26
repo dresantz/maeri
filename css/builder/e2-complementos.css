@@ -1,12 +1,13 @@
 /* =========================
    Maeri RPG - Etapa 2: Complementos
-   Estilos para seleção de Seres
+   Estilos para seleção de Seres e Estudos
 ========================= */
 
 .complementos-container {
   animation: fadeIn 0.3s ease;
 }
 
+/* ===== SEÇÃO DE SERES ===== */
 .complementos-intro {
   color: var(--gold);
   font-size: 1.2rem;
@@ -17,7 +18,6 @@
   border-bottom: 2px solid rgba(212, 175, 55, 0.3);
 }
 
-/* Botões de Seres */
 .seres-buttons {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -70,10 +70,6 @@
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
-.ser-button.selected .ser-button-text {
-  color: var(--gold);
-}
-
 .ser-button.loading,
 .ser-button.error {
   cursor: not-allowed;
@@ -88,20 +84,19 @@
   border-color: #ff6b6b;
 }
 
-/* Detalhes do Ser */
 .ser-details {
   background: var(--surface);
   border: 2px solid var(--gold);
   border-radius: var(--radius);
   padding: 1.5rem;
   margin-top: 1rem;
+  margin-bottom: 2rem;
   box-shadow: var(--shadow);
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Estado de saída (fechando) */
 .ser-details.closing {
   opacity: 0;
   transform: translateY(-20px);
@@ -138,15 +133,6 @@
   border-left: 3px solid var(--gold);
 }
 
-.ser-caracteristicas p,
-.ser-descricao p {
-  color: var(--text-muted);
-  font-family: 'Crimson Text', serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: justify;
-}
-
 .caracteristica-item {
   background: rgba(212, 175, 55, 0.05);
   padding: 1rem;
@@ -169,7 +155,181 @@
   margin-right: 0.5rem;
 }
 
-/* Animações */
+/* ===== SEÇÃO DE ESTUDOS ===== */
+.estudos-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(212, 175, 55, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+.estudos-intro {
+  color: var(--gold);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.estudos-subtitle {
+  color: var(--text-muted);
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.estudos-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.estudo-button {
+  background: linear-gradient(145deg, var(--surface) 0%, var(--surface-light) 100%);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: var(--radius);
+  padding: 1rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.estudo-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.estudo-button:hover:not(.loading):not(.error) {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+}
+
+.estudo-button:hover::before {
+  transform: translateX(100%);
+}
+
+.estudo-button.selected {
+  border-color: var(--gold);
+  background: linear-gradient(145deg, var(--surface) 0%, #2a2a4a 100%);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.estudo-button.loading,
+.estudo-button.error {
+  cursor: not-allowed;
+  opacity: 0.7;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.estudo-button.error {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.estudo-details {
+  background: var(--surface);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.estudo-details.closing {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+
+.estudo-title {
+  color: var(--gold);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.estudo-descricao {
+  background: rgba(212, 175, 55, 0.05);
+  padding: 1.2rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--gold);
+}
+
+.estudo-descricao p {
+  color: var(--text);
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.estudo-conhecimentos h4 {
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--gold);
+}
+
+.conhecimentos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.conhecimento-item {
+  background: rgba(26, 26, 46, 0.8);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  font-family: 'Crimson Text', serif;
+  line-height: 1.6;
+  transition: all 0.2s ease;
+}
+
+.conhecimento-item:hover {
+  background: rgba(212, 175, 55, 0.05);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.conhecimento-item strong {
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+/* ===== ANIMAÇÕES ===== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -181,53 +341,72 @@
   }
 }
 
-/* Responsivo */
+/* ===== RESPONSIVO ===== */
 @media (min-width: 768px) {
   .seres-buttons {
     grid-template-columns: repeat(4, 1fr);
   }
   
-  .ser-details {
+  .estudos-buttons {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .ser-details,
+  .estudo-details {
     padding: 2rem;
   }
   
   .ser-caracteristicas p,
-  .ser-descricao p {
+  .ser-descricao p,
+  .estudo-descricao p {
     font-size: 1.1rem;
   }
 }
 
-/* Mobile */
 @media (max-width: 480px) {
   .seres-buttons {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .ser-button {
+  .estudos-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .ser-button,
+  .estudo-button {
     padding: 0.8rem 0.3rem;
     font-size: 0.9rem;
   }
   
-  .ser-details {
+  .ser-details,
+  .estudo-details {
     padding: 1rem;
   }
   
-  .ser-title {
+  .ser-title,
+  .estudo-title {
     font-size: 1.3rem;
   }
   
   .ser-caracteristicas h4,
-  .ser-descricao h4 {
+  .ser-descricao h4,
+  .estudo-conhecimentos h4 {
     font-size: 1rem;
   }
   
-  .caracteristica-item {
+  .caracteristica-item,
+  .conhecimento-item {
     padding: 0.8rem;
     font-size: 0.95rem;
   }
   
-  .caracteristica-item strong {
+  .caracteristica-item strong,
+  .conhecimento-item strong {
     display: block;
     margin-bottom: 0.3rem;
+  }
+  
+  .estudo-descricao {
+    padding: 1rem;
   }
 }
