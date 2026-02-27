@@ -6,6 +6,7 @@
 import MentalidadeManager from './e1-mentalidade.js';
 import ComplementosManager from './e2-complementos.js';
 import NarrativaManager from './e3-narrativa.js';
+import InventarioManager from './e4-inventario.js';
 
 class PlayerAreaManager {
   constructor() {
@@ -20,6 +21,7 @@ class PlayerAreaManager {
     this.mentalidadeManager = new MentalidadeManager(this.builderPreview);
     this.complementosManager = new ComplementosManager(this.builderPreview);
     this.narrativaManager = new NarrativaManager(this.builderPreview);
+    this.inventarioManager = new InventarioManager(this.builderPreview);
     
     this.init();
   }
@@ -85,7 +87,7 @@ class PlayerAreaManager {
         this.narrativaManager.render();
         break;
       case '4':
-        this.renderPlaceholder('4', 'Inventário');
+        this.inventarioManager.render();
         break;
       default:
         this.renderPlaceholder(stepNum, 'Em desenvolvimento');

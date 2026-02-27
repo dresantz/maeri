@@ -397,9 +397,6 @@ async loadContatosData() {
       }
     });
     
-    // Debug: mostra os contatos encontrados no console
-    console.log('Contatos carregados:', this.contatosData);
-    
     this.renderContatosButtons();
   } catch (error) {
     console.error('Erro ao carregar dados dos contatos:', error);
