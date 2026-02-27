@@ -452,6 +452,75 @@
 }
 
 /* =========================
+   Botão Salvar na Área do Jogador
+========================= */
+
+.sheet-save-section {
+  margin: 1rem 0;
+  position: relative;
+}
+
+.sheet-save-button {
+  width: 100%;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+  border: none;
+  border-radius: 30px;
+  color: #1a1a1a;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Cinzel', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sheet-save-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+}
+
+.sheet-save-button:active {
+  transform: translateY(0);
+}
+
+.save-icon {
+  font-size: 1.2rem;
+}
+
+.save-feedback {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(46, 125, 50, 0.2);
+  border: 1px solid #2e7d32;
+  border-radius: 20px;
+  color: #81c784;
+  text-align: center;
+  font-family: 'Crimson Text', serif;
+  font-weight: 600;
+  animation: fadeInOut 2s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Feedback de erro */
+.save-feedback.error {
+  background: rgba(192, 57, 43, 0.2);
+  border-color: #c0392b;
+  color: #e74c3c;
+}
+
+/* =========================
    BOTÃO LIMPAR
 ========================= */
 .sheet-clear-button {

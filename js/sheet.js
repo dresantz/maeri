@@ -273,6 +273,136 @@ function initSheet() {
     cancelBtn.addEventListener('click', () => confirmBox.hidden = true);
     confirmBtn.addEventListener('click', clearSheet);
   }
+
+  // sheet.js - Adicionar no final do arquivo, dentro da função initSheet()
+
+// Função para salvar na Área do Jogador
+function saveToPlayerArea() {
+  const modal = document.getElementById('sheet-modal');
+  if (!modal) return;
+  
+  // Primeiro, salva o auto-save normal
+  saveSheetData();
+  
+  // Carregar personagens existentes
+  const characters = JSON.parse(localStorage.getItem('maeri-characters') || '{}');
+  const characterCount = Object.keys(characters).length;
+  
+  // Verificar se já tem 3 personagens
+  if (characterCount >= 3) {
+    showSaveFeedback('Área do Jogador cheia! Remova um personagem.', 'error');
+    return;
+  }
+  
+  // Coletar dados atuais da ficha
+  const currentData = getCurrentSheetData();
+  
+  // Gerar ID único para o personagem
+  const characterId = 'char_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+  
+  // Criar objeto do personagem
+  const character = {
+    id: characterId,
+    name: currentData.name || 'Personagem sem nome',
+    lastModified: new Date().toISOString(),
+    data: currentData
+  };
+  
+  // Salvar no localStorage
+  characters[characterId] = character;
+  localStorage.setItem('maeri-characters', JSON.stringify(characters));
+  
+  // Mostrar feedback de sucesso
+  showSaveFeedback('✅ Ficha Salva na Área do Jogador');
+  
+  // Opcional: Atualizar contador se a página da área do jogador estiver aberta
+  updatePlayerAreaCounter();
+}
+
+// Função auxiliar para pegar dados atuais da ficha (reaproveitando saveSheetData)
+function getCurrentSheetData() {
+  const modal = document.getElementById('sheet-modal');
+  if (!modal) return {};
+  
+  return {
+    name: modal.querySelector('#char-name')?.value || '',
+    level: modal.querySelector('#char-level')?.value || '1',
+    attributes: {
+      f: modal.querySelector('#attr-f')?.value || '',
+      v: modal.querySelector('#attr-v')?.value || '',
+      d: modal.querySelector('#attr-d')?.value || '',
+      s: modal.querySelector('#attr-s')?.value || '',
+      i: modal.querySelector('#attr-i')?.value || '',
+      a: modal.querySelector('#attr-a')?.value || ''
+    },
+    vit: {
+      current: modal.querySelector('#vit-current')?.value || '8',
+      total: modal.querySelector('#vit-total')?.value || '8'
+    },
+    con: {
+      current: modal.querySelector('#con-current')?.value || '8',
+      total: modal.querySelector('#con-total')?.value || '8'
+    },
+    notas: modal.querySelector('#notas')?.value || '',
+    complemento: {
+      ser: modal.querySelector('#ser')?.value || '',
+      estudos: modal.querySelector('#estudos')?.value || '',
+      tecnicas: modal.querySelector('#tecnicas')?.value || '',
+      magias: modal.querySelector('#magias')?.value || '',
+      xp: {
+        m: modal.querySelector('#xpm')?.value || '0',
+        l: modal.querySelector('#xpl')?.value || '0',
+        p: modal.querySelector('#xpp')?.value || '0'
+      }
+    },
+    narrativa: {
+      arquetipo: modal.querySelector('#arquetipo')?.value || '',
+      motivacao: modal.querySelector('#motivacao')?.value || '',
+      disposicao: modal.querySelector('#disposicao')?.value || '',
+      historia: modal.querySelector('#historia')?.value || '',
+      contatos: modal.querySelector('#contatos')?.value || ''
+    },
+    itens: {
+      fo: modal.querySelector('#fo')?.value || '0',
+      dp: modal.querySelector('#dp')?.value || '0',
+      tc: modal.querySelector('#tc')?.value || '0',
+      pesoFx2: modal.querySelector('#peso-fx2')?.value || '0',
+      pesoFx4: modal.querySelector('#peso-fx4')?.value || '0',
+      pesoTotal: modal.querySelector('#peso-total')?.value || '0',
+      lista: modal.querySelector('#itens-lista')?.value || ''
+    }
+  };
+}
+
+// Função para mostrar feedback
+function showSaveFeedback(message, type = 'success') {
+  const feedback = document.getElementById('save-feedback');
+  if (!feedback) return;
+  
+  feedback.textContent = message;
+  feedback.className = 'save-feedback';
+  if (type === 'error') {
+    feedback.classList.add('error');
+  }
+  feedback.hidden = false;
+  
+  // Esconder após 3 segundos
+  setTimeout(() => {
+    feedback.hidden = true;
+  }, 3000);
+}
+
+// Função para atualizar contador (opcional - via localStorage event)
+function updatePlayerAreaCounter() {
+  // Disparar evento para a área do jogador saber que algo mudou
+  window.dispatchEvent(new CustomEvent('characters-updated'));
+}
+
+// Dentro da função initSheet(), adicionar:
+const saveToAreaBtn = document.getElementById('save-to-player-area');
+if (saveToAreaBtn) {
+  saveToAreaBtn.addEventListener('click', saveToPlayerArea);
+}
 }
 
 // Inicializar

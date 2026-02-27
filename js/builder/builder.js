@@ -7,6 +7,7 @@ import MentalidadeManager from './e1-mentalidade.js';
 import ComplementosManager from './e2-complementos.js';
 import NarrativaManager from './e3-narrativa.js';
 import InventarioManager from './e4-inventario.js';
+import PlayerCharManager from './player-char.js';
 
 class PlayerAreaManager {
   constructor() {
@@ -16,21 +17,22 @@ class PlayerAreaManager {
     this.builderPreview = document.querySelector('.builder-preview');
     this.charCards = document.querySelectorAll('.char-card');
     this.charsCounter = document.querySelector('.chars-counter');
-    
+
     // Managers das etapas
     this.mentalidadeManager = new MentalidadeManager(this.builderPreview);
     this.complementosManager = new ComplementosManager(this.builderPreview);
     this.narrativaManager = new NarrativaManager(this.builderPreview);
     this.inventarioManager = new InventarioManager(this.builderPreview);
-    
+    this.playerCharManager = new PlayerCharManager();
+
     this.init();
   }
 
   init() {
     this.setupTabs();
     this.setupBuilderSteps();
-    this.setupCharCards();
-    this.updateCharsCounter();
+    // this.setupCharCards();
+    // this.updateCharsCounter();
   }
 
   // ===== SISTEMA DE ABAS =====
@@ -52,6 +54,11 @@ class PlayerAreaManager {
     this.tabPanels.forEach(panel => {
       const isActive = panel.id === selectedId.replace('tab-', '') + '-panel';
       panel.classList.toggle('active', isActive);
+      
+      // 🔥 NOVO: Se for o painel de personagens, carregar lista
+      if (isActive && panel.id === 'chars-panel') {
+        this.playerCharManager.loadCharacters();
+      }
     });
   }
 
@@ -64,13 +71,13 @@ class PlayerAreaManager {
 
   handleBuilderStep(step) {
     const stepNum = step.dataset.step;
-    
+
     // Remove active de todos os steps
     this.builderSteps.forEach(s => s.classList.remove('active'));
-    
+
     // Adiciona active no step selecionado
     step.classList.add('active');
-    
+
     // Renderiza a etapa apropriada
     this.renderStep(stepNum);
   }
@@ -96,7 +103,7 @@ class PlayerAreaManager {
 
   renderPlaceholder(stepNum, title) {
     if (!this.builderPreview) return;
-    
+
     this.builderPreview.innerHTML = `
       <div class="placeholder-container">
         <p class="placeholder-text">Etapa ${stepNum} - ${title} (em desenvolvimento)</p>
@@ -104,28 +111,28 @@ class PlayerAreaManager {
     `;
   }
 
-  // ===== PERSONAGENS =====
-  setupCharCards() {
-    this.charCards.forEach(card => {
-      card.addEventListener('click', () => this.handleCharCard(card));
-    });
-  }
+  // // ===== PERSONAGENS =====
+  // setupCharCards() {
+  //   this.charCards.forEach(card => {
+  //     card.addEventListener('click', () => this.handleCharCard(card));
+  //   });
+  // }
 
-  handleCharCard(card) {
-    if (card.classList.contains('char-card--empty')) {
-      console.log('Criar novo personagem');
-    } else {
-      card.classList.add('selected');
-      setTimeout(() => card.classList.remove('selected'), 200);
-    }
-  }
+  // handleCharCard(card) {
+  //   if (card.classList.contains('char-card--empty')) {
+  //     console.log('Criar novo personagem');
+  //   } else {
+  //     card.classList.add('selected');
+  //     setTimeout(() => card.classList.remove('selected'), 200);
+  //   }
+  // }
 
-  updateCharsCounter() {
-    if (!this.charsCounter) return;
-    
-    const savedChars = document.querySelectorAll('.saved-chars .char-card:not(.char-card--empty)');
-    this.charsCounter.textContent = `${savedChars.length}/3`;
-  }
+  // updateCharsCounter() {
+  //   if (!this.charsCounter) return;
+
+  //   const savedChars = document.querySelectorAll('.saved-chars .char-card:not(.char-card--empty)');
+  //   this.charsCounter.textContent = `${savedChars.length}/3`;
+  // }
 }
 
 // ===== INICIALIZAÇÃO =====

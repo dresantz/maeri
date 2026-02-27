@@ -1,0 +1,349 @@
+/* =========================
+   Maeri RPG - Character Cards
+   Estilos para cards de personagens salvos e diálogos
+   ========================= */
+
+/* ====================================
+   CARDS DE PERSONAGENS SALVOS
+   ==================================== */
+
+.char-card--saved {
+  background: var(--surface);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  transition: all 0.25s ease;
+  min-height: 140px;
+}
+
+.char-card--saved .char-card-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 140px;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+/* Card ativo (personagem carregado na ficha) */
+.char-card--saved.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3), 0 4px 12px rgba(0,0,0,0.3);
+  background: linear-gradient(145deg, var(--surface) 0%, #2a2a4a 100%);
+}
+
+/* Cabeçalho do card */
+.char-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.char-card-name {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  color: var(--gold);
+  font-size: 1rem;
+  line-height: 1.3;
+  max-width: 80%;
+  word-break: break-word;
+}
+
+/* Botão deletar */
+.char-card-delete {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1;
+}
+
+.char-card-delete:hover,
+.char-card-delete:focus {
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.1);
+}
+
+/* Corpo do card */
+.char-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+}
+
+.char-card-level {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: rgba(212, 175, 55, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.char-card-modified {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ====================================
+   DIÁLOGOS E MODAIS
+   ==================================== */
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  animation: dialogFadeIn 0.2s ease;
+}
+
+.dialog-box {
+  background: var(--surface);
+  border: 2px solid var(--gold);
+  border-radius: 24px;
+  padding: 1.8rem 1.5rem;
+  max-width: 90%;
+  width: 340px;
+  box-shadow: var(--shadow);
+  animation: dialogSlideUp 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito decorativo no topo do diálogo */
+.dialog-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.dialog-title {
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+}
+
+.dialog-message {
+  color: var(--text);
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  margin-bottom: 1.8rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Container dos botões */
+.dialog-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Botões base */
+.dialog-button {
+  padding: 0.9rem;
+  border: none;
+  border-radius: 40px;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Variantes de botões */
+.dialog-button--save {
+  background: var(--gold);
+  color: #1a1a1a;
+  border: 2px solid var(--gold);
+}
+
+.dialog-button--save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+}
+
+.dialog-button--discard {
+  background: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+}
+
+.dialog-button--discard:hover {
+  background: rgba(212, 175, 55, 0.1);
+  transform: translateY(-2px);
+}
+
+.dialog-button--danger {
+  background: #c0392b;
+  color: white;
+  border: 2px solid #c0392b;
+}
+
+.dialog-button--danger:hover {
+  background: #e74c3c;
+  border-color: #e74c3c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(192, 57, 43, 0.3);
+}
+
+.dialog-button--cancel {
+  background: transparent;
+  border: 2px solid var(--text-muted);
+  color: var(--text-muted);
+}
+
+.dialog-button--cancel:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+/* ====================================
+   TOAST NOTIFICATIONS
+   ==================================== */
+
+.global-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--surface);
+  border: 2px solid var(--gold);
+  border-radius: 40px;
+  padding: 0.9rem 2rem;
+  color: var(--text);
+  font-family: 'Crimson Text', serif;
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 2002;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  text-align: center;
+  max-width: 90%;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+.global-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Variantes de toast */
+.global-toast--success {
+  border-color: #2e7d32;
+  background: rgba(46, 125, 50, 0.2);
+  color: #81c784;
+}
+
+.global-toast--error {
+  border-color: #c0392b;
+  background: rgba(192, 57, 43, 0.2);
+  color: #e74c3c;
+}
+
+/* ====================================
+   ANIMAÇÕES
+   ==================================== */
+
+@keyframes dialogFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dialogSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====================================
+   RESPONSIVIDADE
+   ==================================== */
+
+@media (max-width: 480px) {
+  .char-card--saved .char-card-content {
+    padding: 0.8rem;
+  }
+  
+  .char-card-name {
+    font-size: 0.95rem;
+  }
+  
+  .dialog-box {
+    width: 90%;
+    padding: 1.5rem 1.2rem;
+  }
+  
+  .dialog-title {
+    font-size: 1.2rem;
+  }
+  
+  .dialog-message {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .dialog-button {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .global-toast {
+    bottom: 70px;
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 360px) {
+  .char-card--saved .char-card-content {
+    padding: 0.6rem;
+  }
+  
+  .char-card-name {
+    font-size: 0.85rem;
+    max-width: 75%;
+  }
+  
+  .dialog-box {
+    padding: 1.2rem 1rem;
+  }
+}
