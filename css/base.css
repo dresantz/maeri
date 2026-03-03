@@ -26,7 +26,6 @@ html, body {
 }
 
 /* HEADER */
-/* ===== HEADER PADRONIZADO ===== */
 .app-header {
   position: relative;
   text-align: center;
@@ -78,28 +77,7 @@ html, body {
   color: var(--gold);
 }
 
-/* Ajuste para mobile */
-@media (max-width: 480px) {
-  .app-header {
-    padding: 1.5rem 0.5rem;
-  }
-  
-  .app-header h1 {
-    font-size: 1.8rem;
-  }
-  
-  .app-header .subtitle {
-    font-size: 0.85rem;
-  }
-  
-  .app-header .subtitle::before,
-  .app-header .subtitle::after {
-    margin: 0 4px;
-    font-size: 0.7rem;
-  }
-}
-
-/* MAIN - com padding para a barra flutuante */
+/* MAIN */
 main {
   max-width: 500px; margin: 0 auto;
   padding: 1.5rem 1rem;
@@ -146,48 +124,6 @@ main {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* BOTÕES FLUTUANTES */
-.floating-actions {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: rgba(26,26,46,0.95);
-  border-top: 2px solid rgba(212,175,55,0.3);
-  padding: 0.8rem; display: flex;
-  justify-content: space-around; z-index: 1000;
-  height: var(--floating-bar-height);
-}
-.floating-button {
-  padding: 0.8rem 1.4rem;
-  background: var(--surface);
-  border: 2px solid rgba(212,175,55,0.3);
-  border-radius: 50px; padding: 0.8rem 1.4rem;
-  color: var(--gold); font-weight: 700;
-  cursor: pointer; display: flex;
-  flex-direction: column; align-items: center;
-  gap: 0.3rem; transition: all 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
-.floating-button:focus-visible {
-  outline: 3px solid var(--gold);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(212,175,55,0.3);
-}
-.floating-button:hover {
-  transform: translateY(-2px);
-  border-color: var(--gold);
-}
-.floating-button:active {
-  transform: translateY(0);
-}
-.floating-button--primary {
-  background: var(--gold); color: #1a1a1a;
-}
-.floating-button--secondary {
-  background: #3a5fcc; color: white;
-  border-color: #3a5fcc;
-}
-.floating-label { font-size: 0.75rem; }
-
 /* UTILITÁRIOS */
 .no-scroll { overflow: hidden; }
 
@@ -206,6 +142,24 @@ main {
   .floating-button {
     min-width: 80px; /* Garante área mínima de toque */
     padding: 0.8rem 0.5rem; /* Ajuste horizontal */
+  }
+
+    .app-header {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .app-header .subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .app-header .subtitle::before,
+  .app-header .subtitle::after {
+    margin: 0 4px;
+    font-size: 0.7rem;
   }
 }
 
