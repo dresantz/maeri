@@ -1,35 +1,70 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // 🔑 reset global definitivo (scroll + layout)
-  unlockBodyScroll();
+/**
+ * uiReset.js - Reset de estado da UI
+ * 
+ * Responsável por:
+ * - Destravar scroll do body
+ * - Fechar modais genéricos
+ * - Preservar componentes específicos (Dice Roller)
+ */
 
-  // Fecha SOMENTE overlays genéricos (exclui Dice Roller)
-  document.querySelectorAll(
-    ".modal.open, .drawer.open, .overlay.open"
-  ).forEach(el => {
-    if (el.id === "dice-panel" || el.id === "dice-overlay") return;
-    el.classList.remove("open");
+// ===== CONSTANTES =====
+const PRESERVED_ELEMENTS = ['dice-panel', 'dice-overlay'];
+const MODAL_SELECTORS = [
+  '.modal.open, .drawer.open, .overlay.open',
+  '.modal.active, .drawer.active, .overlay.active'
+];
+
+/**
+ * Remove classes de modal de elementos não preservados
+ */
+function closeGenericModals() {
+  MODAL_SELECTORS.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      // Preserva elementos específicos
+      if (PRESERVED_ELEMENTS.includes(el.id)) return;
+      
+      el.classList.remove('open', 'active');
+    });
   });
+}
 
-  document.querySelectorAll(
-    ".modal.active, .drawer.active, .overlay.active"
-  ).forEach(el => {
-    if (el.id === "dice-panel" || el.id === "dice-overlay") return;
-    el.classList.remove("active");
-  });
-});
-
+/**
+ * Garante que o scroll do body está liberado
+ */
 export function unlockBodyScroll() {
   requestAnimationFrame(() => {
-    document.body.classList.remove("no-scroll");
+    // Remove classe de scroll travado
+    document.body.classList.remove('no-scroll');
 
-    // 🔥 limpeza defensiva de TODAS as propriedades críticas
-    document.body.style.overflow = "";
-    document.body.style.paddingRight = "";
-    document.body.style.marginRight = "";
-    document.body.style.width = "";
-    document.body.style.position = "";
+    // Limpa estilos inline que podem ter sido aplicados
+    const styleProps = [
+      'overflow', 'paddingRight', 'marginRight', 
+      'width', 'position', 'top', 'left'
+    ];
+    
+    styleProps.forEach(prop => {
+      document.body.style[prop] = '';
+    });
 
-    // 🔁 força reflow imediato (corrige deslocamento fantasma)
+    // Força reflow para corrigir deslocamentos
     void document.body.offsetWidth;
   });
 }
+
+/**
+ * Reset completo da UI
+ */
+export function resetUI() {
+  unlockBodyScroll();
+  closeGenericModals();
+}
+
+// Auto-inicialização quando o DOM estiver pronto
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', resetUI);
+} else {
+  resetUI();
+}
+
+// Também escuta eventos de carregamento de modais
+document.addEventListener('modals:loaded', resetUI);

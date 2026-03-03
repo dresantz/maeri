@@ -1,108 +1,288 @@
-// spell-detail.js - Modal de detalhes da magia
+/**
+ * spell-detail.js - Modal de detalhes da magia
+ * Versão refatorada com eventos e encapsulamento
+ * 
+ * Dependências: Nenhuma
+ * Eventos ouvidos: spell:selected
+ * Eventos disparados: spell-detail:opened, spell-detail:closed
+ */
 
-let isSpellDetailOpen = false;
-let currentSpell = null;
-
-// Torna a função global
-window.openSpellDetail = function(spell) {
+const SpellDetailManager = (function() {
+  'use strict';
   
-  const modal = document.getElementById('spell-detail-modal');
-  const overlay = document.getElementById('spell-detail-overlay');
-  
-  if (!modal || !overlay) {
-    return;
-  }
-  
-  currentSpell = spell;
-  
-  // Preenche os dados - busca diretamente no documento
-  const title = document.getElementById('spell-detail-title');
-  const cost = document.getElementById('spell-detail-cost');
-  const school = document.getElementById('spell-detail-school');
-  const level = document.getElementById('spell-detail-level');
-  const description = document.getElementById('spell-detail-description');
-  const tagsContainer = document.getElementById('spell-detail-tags');
-  
-  if (title) title.textContent = spell.name;
-  if (cost) cost.textContent = spell.cost || '—';
-  
-  // Formata o nome da escola
-  const schoolNames = {
+  // ===== CONSTANTES =====
+  const SCHOOL_NAMES = {
     'neofita': 'Neófita',
     'bruxaria': 'Bruxaria',
     'divinacao': 'Divinação',
     'feiticaria': 'Feitiçaria'
   };
-  if (school) school.textContent = schoolNames[spell.school] || spell.school;
   
-  if (level) level.textContent = `Nível ${spell.level}`;
-  if (description) description.textContent = spell.description || '';
+  // ===== ESTADO PRIVADO =====
+  let isOpen = false;
+  let currentSpell = null;
   
-  // Renderiza tags
-  if (tagsContainer) {
+  // ===== UTILITÁRIOS =====
+  
+  /**
+   * Retorna o modal de detalhes
+   */
+  function getModal() {
+    return document.getElementById('spell-detail-modal');
+  }
+  
+  /**
+   * Retorna o overlay
+   */
+  function getOverlay() {
+    return document.getElementById('spell-detail-overlay');
+  }
+  
+  /**
+   * Escapa HTML para prevenir XSS
+   */
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
+  /**
+   * Define o conteúdo de um elemento com segurança
+   */
+  function setElementContent(elementId, content, isHtml = false) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    if (isHtml) {
+      element.innerHTML = content;
+    } else {
+      element.textContent = content;
+    }
+  }
+  
+  // ===== RENDERIZAÇÃO =====
+  
+  /**
+   * Preenche o modal com os dados da magia
+   */
+  function populateSpellDetails(spell) {
+    if (!spell) return;
+    
+    // Título
+    setElementContent('spell-detail-title', spell.name || 'Magia sem nome');
+    
+    // Custo
+    setElementContent('spell-detail-cost', spell.cost || '—');
+    
+    // Escola (formatada)
+    const schoolName = SCHOOL_NAMES[spell.school] || 
+                      (spell.school ? spell.school.charAt(0).toUpperCase() + spell.school.slice(1) : 'Desconhecida');
+    setElementContent('spell-detail-school', schoolName);
+    
+    // Nível
+    setElementContent('spell-detail-level', spell.level ? `Nível ${spell.level}` : 'Nível —');
+    
+    // Descrição
+    setElementContent('spell-detail-description', spell.description || 'Descrição não disponível.');
+    
+    // Tags
+    renderTags(spell);
+  }
+  
+  /**
+   * Renderiza as tags da magia
+   */
+  function renderTags(spell) {
+    const tagsContainer = document.getElementById('spell-detail-tags');
+    if (!tagsContainer) return;
+    
     tagsContainer.innerHTML = '';
     
+    const tags = [];
+    
+    // Adiciona tags do array
     if (spell.tags && Array.isArray(spell.tags)) {
-      spell.tags.forEach(tag => {
-        const tagSpan = document.createElement('span');
-        tagSpan.className = 'spell-detail-tag';
-        tagSpan.textContent = tag;
-        tagsContainer.appendChild(tagSpan);
-      });
+      tags.push(...spell.tags);
     }
     
+    // Adiciona tag de combate se existir
     if (spell.combat) {
-      const combatTag = document.createElement('span');
-      combatTag.className = 'spell-detail-tag combat';
-      combatTag.textContent = 'combate';
-      tagsContainer.appendChild(combatTag);
+      tags.push('combate');
+    }
+    
+    // Adiciona tag de escola como fallback
+    if (tags.length === 0 && spell.school) {
+      tags.push(schoolName.toLowerCase());
+    }
+    
+    // Renderiza cada tag
+    tags.forEach(tag => {
+      const tagSpan = document.createElement('span');
+      tagSpan.className = 'spell-detail-tag';
+      
+      // Adiciona classe especial para tag de combate
+      if (tag.toLowerCase() === 'combate') {
+        tagSpan.classList.add('combat');
+      }
+      
+      tagSpan.textContent = tag;
+      tagsContainer.appendChild(tagSpan);
+    });
+    
+    // Se ainda não houver tags, mostra uma mensagem
+    if (tagsContainer.children.length === 0) {
+      const emptyTag = document.createElement('span');
+      emptyTag.className = 'spell-detail-tag empty';
+      emptyTag.textContent = 'sem tags';
+      tagsContainer.appendChild(emptyTag);
     }
   }
   
-  isSpellDetailOpen = true;
-  modal.classList.add('active');
-  overlay.classList.add('active');
-  document.body.classList.add('no-scroll');
-};
-
-window.closeSpellDetail = function() {
-  const modal = document.getElementById('spell-detail-modal');
-  const overlay = document.getElementById('spell-detail-overlay');
+  // ===== CONTROLE DO MODAL =====
   
-  if (!isSpellDetailOpen || !modal || !overlay) return;
+  /**
+   * Abre o modal de detalhes com uma magia específica
+   */
+  function openSpellDetail(spell) {
+    const modal = getModal();
+    const overlay = getOverlay();
+    
+    if (!modal || !overlay) {
+      console.warn('Elementos do modal de detalhes não encontrados');
+      return;
+    }
+    
+    if (!spell) {
+      console.warn('Tentativa de abrir detalhes sem magia');
+      return;
+    }
+    
+    currentSpell = spell;
+    populateSpellDetails(spell);
+    
+    isOpen = true;
+    modal.classList.add('active');
+    overlay.classList.add('active');
+    document.body.classList.add('no-scroll');
+    
+    // Focar no modal para acessibilidade
+    setTimeout(() => {
+      modal.focus();
+    }, 100);
+    
+    // Disparar evento
+    document.dispatchEvent(new CustomEvent('spell-detail:opened', {
+      detail: { spell }
+    }));
+  }
   
-  isSpellDetailOpen = false;
-  modal.classList.remove('active');
-  overlay.classList.remove('active');
-  document.body.classList.remove('no-scroll');
-  currentSpell = null;
-};
-
-// Inicialização
-function initSpellDetail() {
+  /**
+   * Fecha o modal de detalhes
+   */
+  function closeSpellDetail() {
+    const modal = getModal();
+    const overlay = getOverlay();
+    
+    if (!isOpen || !modal || !overlay) return;
+    
+    isOpen = false;
+    modal.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.classList.remove('no-scroll');
+    
+    // Disparar evento
+    document.dispatchEvent(new CustomEvent('spell-detail:closed', {
+      detail: { spell: currentSpell }
+    }));
+    
+    currentSpell = null;
+  }
+  
+  /**
+   * Handler para tecla ESC
+   */
+  function handleKeyDown(e) {
+    if (e.key === 'Escape' && isOpen) {
+      closeSpellDetail();
+    }
+  }
+  
+  /**
+   * Handler para evento de seleção de magia
+   */
+  function handleSpellSelected(event) {
+    const { spell } = event.detail || {};
+    if (spell) {
+      openSpellDetail(spell);
+    }
+  }
+  
+  // ===== INICIALIZAÇÃO =====
+  
+  /**
+   * Inicializa o gerenciador de detalhes
+   */
+function init() {
+  const modal = getModal();
   const closeBtn = document.getElementById('spell-detail-close');
-  const overlay = document.getElementById('spell-detail-overlay');
+  const overlay = getOverlay();
   
-  if (closeBtn) {
-    closeBtn.onclick = window.closeSpellDetail;
+  if (!modal || !closeBtn || !overlay) {
+    console.warn('Elementos do modal de detalhes não encontrados');
+    return;
   }
   
-  if (overlay) {
-    overlay.onclick = window.closeSpellDetail;
+  if (modal.dataset.initialized === 'true') {
+    return;
   }
   
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isSpellDetailOpen) {
-      window.closeSpellDetail();
-    }
-  });
+  modal.dataset.initialized = 'true';
+  
+  // Botões de fechar
+  closeBtn.addEventListener('click', closeSpellDetail);
+  overlay.addEventListener('click', closeSpellDetail);
+  
+  // Fechar com ESC
+  document.addEventListener('keydown', handleKeyDown);
+  
+  // Ouvir evento de seleção de magia (DESACOPLADO)
+  document.addEventListener('spell:selected', handleSpellSelected);
+  
+}
+  
+  // ===== API PÚBLICA =====
+  return {
+    init: init,
+    open: openSpellDetail,
+    close: closeSpellDetail,
+    getCurrentSpell: () => currentSpell,
+    isOpen: () => isOpen
+  };
+})();
+
+// ===== INICIALIZAÇÃO AUTOMÁTICA =====
+
+/**
+ * Inicializa o SpellDetailManager quando os modais estiverem carregados
+ */
+function initializeSpellDetail() {
+  if (document.getElementById('spell-detail-modal')) {
+    SpellDetailManager.init();
+  } else {
+    document.addEventListener('modals:loaded', SpellDetailManager.init);
+  }
 }
 
-// Bootstrap
+// Inicializar quando o DOM estiver pronto
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initSpellDetail);
+  document.addEventListener('DOMContentLoaded', initializeSpellDetail);
 } else {
-  initSpellDetail();
+  initializeSpellDetail();
 }
 
-document.addEventListener('modals:loaded', initSpellDetail);
+// Exportar para uso em outros módulos
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = SpellDetailManager;
+}

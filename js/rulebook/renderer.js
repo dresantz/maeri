@@ -1,147 +1,285 @@
+/**
+ * renderer.js - Renderização do conteúdo do rulebook
+ * Converte dados JSON em elementos DOM
+ * 
+ * Dependências:
+ * - ./navigation.js: Scroll spy e restauração de tópico
+ */
+
 import { observeTopics, restoreLastTopic } from "./navigation.js";
 
-export function renderRulebookChapter(chapterData) {
-  const container = document.getElementById("rulebook-content");
-  if (!container) return;
+// ===== CONSTANTES =====
+const MARK_PATTERN = /\[(.*?)\]/g;
+const MARK_CLASS = 'mark';
 
-  container.innerHTML = ""; // Limpa o conteúdo anterior
-  container.offsetHeight; // Força reflow do DOM
+// ===== UTILITÁRIOS =====
 
-  const header = document.createElement("header");
-  header.className = "chapter-header";
-  header.appendChild(createElement("h1", null, chapterData.title || "Rulebook"));
-  if (chapterData.description) {
-    header.appendChild(createElement("p", "chapter-description", chapterData.description));
-  }
-  container.appendChild(header); // Adiciona cabeçalho do capítulo
-
-  (chapterData.sections || []).forEach((section) => {
-    const sectionEl = document.createElement("section");
-    sectionEl.className = "chapter-section";
-    if (section.id) {
-      sectionEl.id = section.id;
-      sectionEl.dataset.topic = "true";
-      sectionEl.setAttribute("aria-labelledby", `${section.id}-title`);
-    }
-
-    const h2 = createElement("h2", "section-title", section.title || "Untitled Section");
-    if (section.id) h2.id = `${section.id}-title`;
-    sectionEl.appendChild(h2); // Título da seção
-
-    (section.content || []).forEach((block) => renderContentBlock(sectionEl, block));
-    container.appendChild(sectionEl); // Adiciona seção completa
-  });
-
-  observeTopics(); // Ativa observadores de navegação
-  restoreLastTopic(); // Restaura último tópico visitado
-}
-
+/**
+ * Cria um elemento DOM com atributos básicos
+ */
 function createElement(tag, className, text) {
   const el = document.createElement(tag);
   if (className) el.className = className;
   if (text !== undefined) el.textContent = text;
-  return el; // Cria elemento DOM com atributos básicos
+  return el;
 }
 
-function renderParagraph(container, block) {
-  const p = document.createElement("p");
-  p.innerHTML = (block.text || "").replace(/\[(.*?)\]/g, '<span class="mark">$1</span>');
-  container.appendChild(p); // Renderiza parágrafo com marcações [ ]
+/**
+ * Aplica marcações [texto] em um elemento
+ */
+function applyMarkings(element, text) {
+  if (!text) return;
+  element.innerHTML = text.replace(MARK_PATTERN, `<span class="${MARK_CLASS}">$1</span>`);
 }
 
-function renderSpellList(container, block) {
-  if (!Array.isArray(block.spells)) return;
-  block.spells.forEach((spell) => renderContentBlock(container, { ...spell, type: "spell" })); // Processa lista de magias
+/**
+ * Processa um bloco de conteúdo recursivamente
+ */
+function processBlock(block) {
+  if (!block?.type) return null;
+  
+  const handlers = {
+    paragraph: renderParagraph,
+    list: renderList,
+    table: renderTable,
+    subsections: renderSubsections,
+    spellList: renderSpellList,
+    spell: renderSpellAsParagraph,
+    nestedList: renderNestedList
+  };
+  
+  const handler = handlers[block.type];
+  return handler ? handler(block) : null;
 }
 
-function renderSpellAsParagraph(container, spell) {
-  const parts = [];
-  if (spell.name) parts.push(spell.name.endsWith(".") ? spell.name : `${spell.name}.`);
-  if (spell.description) parts.push(spell.description.trim());
-  if (spell.cost) parts.push(spell.cost.endsWith(".") ? spell.cost : `${spell.cost}.`);
-  container.appendChild(createElement("p", null, parts.join(" "))); // Magia em formato texto
+// ===== RENDERIZADORES ESPECÍFICOS =====
+
+function renderParagraph(block) {
+  const p = document.createElement('p');
+  if (block.id) {
+    p.id = block.id;
+    p.dataset.topic = 'true';
+  }
+  applyMarkings(p, block.text);
+  return p;
 }
 
-function renderList(container, block) {
-  const listEl = document.createElement(block.style === "ordered" ? "ol" : "ul");
-  (block.items || []).forEach((item) => {
-    const li = document.createElement("li");
-    if (typeof item === "string") {
-      li.innerHTML = item.replace(/\[(.*?)\]/g, '<span class="mark">$1</span>');
+function renderList(block) {
+  const listEl = document.createElement(block.style === 'ordered' ? 'ol' : 'ul');
+  
+  (block.items || []).forEach(item => {
+    const li = document.createElement('li');
+    
+    if (typeof item === 'string') {
+      applyMarkings(li, item);
     } else if (item?.text) {
-      li.innerHTML = item.text.replace(/\[(.*?)\]/g, '<span class="mark">$1</span>');
+      applyMarkings(li, item.text);
       if (Array.isArray(item.subitems)) {
-        const subUl = document.createElement("ul");
-        item.subitems.forEach((sub) => subUl.appendChild(createElement("li", null, sub)));
-        li.appendChild(subUl); // Subitens aninhados
+        const subUl = document.createElement('ul');
+        item.subitems.forEach(sub => {
+          const subLi = createElement('li', null, sub);
+          subUl.appendChild(subLi);
+        });
+        li.appendChild(subUl);
       }
     }
+    
     listEl.appendChild(li);
   });
-  container.appendChild(listEl); // Renderiza lista ordenada ou não
+  
+  return listEl;
 }
 
-function renderTable(container, block) {
-  if (block.caption) container.appendChild(createElement("p", "table-caption", block.caption));
-  const wrapper = createElement("div", "table-wrapper");
-  const table = document.createElement("table");
+function renderNestedList(block) {
+  const ul = createElement('ul', 'nested-list');
+  
+  (block.items || []).forEach(item => {
+    const li = document.createElement('li');
+    
+    if (item.title) {
+      li.appendChild(createElement('strong', null, item.title));
+    }
+    
+    if (Array.isArray(item.items)) {
+      const subUl = document.createElement('ul');
+      item.items.forEach(sub => {
+        subUl.appendChild(createElement('li', null, sub));
+      });
+      li.appendChild(subUl);
+    }
+    
+    ul.appendChild(li);
+  });
+  
+  return ul;
+}
 
+function renderTable(block) {
+  const fragment = document.createDocumentFragment();
+  
+  if (block.caption) {
+    fragment.appendChild(createElement('p', 'table-caption', block.caption));
+  }
+  
+  const wrapper = createElement('div', 'table-wrapper');
+  const table = document.createElement('table');
+
+  // Cabeçalho
   if (block.columns?.length) {
-    const thead = document.createElement("thead");
-    const tr = document.createElement("tr");
-    block.columns.forEach((col) => tr.appendChild(createElement("th", null, col)));
+    const thead = document.createElement('thead');
+    const tr = document.createElement('tr');
+    block.columns.forEach(col => {
+      tr.appendChild(createElement('th', null, col));
+    });
     thead.appendChild(tr);
-    table.appendChild(thead); // Cabeçalho da tabela
+    table.appendChild(thead);
   }
 
-  const tbody = document.createElement("tbody");
-  (block.rows || []).forEach((row) => {
-    const tr = document.createElement("tr");
-    row.forEach((cell) => {
-      const td = createElement("td", null, cell);
-      td.innerHTML = td.innerHTML.replace(/\[(.*?)\]/g, '<span class="mark">$1</span>');
-      tr.appendChild(td); // Célula com suporte a marcações
+  // Corpo
+  const tbody = document.createElement('tbody');
+  (block.rows || []).forEach(row => {
+    const tr = document.createElement('tr');
+    row.forEach(cell => {
+      const td = createElement('td', null, cell);
+      applyMarkings(td, cell);
+      tr.appendChild(td);
     });
     tbody.appendChild(tr);
   });
+  
   table.appendChild(tbody);
   wrapper.appendChild(table);
-  container.appendChild(wrapper); // Tabela completa com wrapper responsivo
+  fragment.appendChild(wrapper);
+  
+  return fragment;
 }
 
-function renderSubsections(container, block) {
-  (block.items || []).forEach((sub) => {
-    const wrap = createElement("div", "subsection");
+function renderSubsections(block) {
+  const fragment = document.createDocumentFragment();
+  
+  (block.items || []).forEach(sub => {
+    const wrap = createElement('div', 'subsection');
     if (sub.id) wrap.id = sub.id;
-    wrap.appendChild(createElement("h3", null, sub.title || "Untitled"));
-    (sub.content || []).forEach((subBlock) => renderContentBlock(wrap, subBlock));
-    container.appendChild(wrap); // Subseção com título e conteúdo próprio
+    
+    wrap.appendChild(createElement('h3', null, sub.title || 'Untitled'));
+    
+    (sub.content || []).forEach(subBlock => {
+      const element = processBlock(subBlock);
+      if (element) wrap.appendChild(element);
+    });
+    
+    fragment.appendChild(wrap);
+  });
+  
+  return fragment;
+}
+
+function renderSpellList(block) {
+  const fragment = document.createDocumentFragment();
+  
+  (block.spells || []).forEach(spell => {
+    const element = renderSpellAsParagraph({ ...spell, type: 'spell' });
+    if (element) fragment.appendChild(element);
+  });
+  
+  return fragment;
+}
+
+function renderSpellAsParagraph(block) {
+  const parts = [];
+  
+  if (block.name) {
+    parts.push(block.name.endsWith('.') ? block.name : `${block.name}.`);
+  }
+  
+  if (block.description) {
+    const desc = block.description.trim();
+    parts.push(desc.endsWith('.') ? desc : `${desc}.`);
+  }
+  
+  if (block.cost) {
+    parts.push(block.cost.endsWith('.') ? block.cost : `${block.cost}.`);
+  }
+  
+  if (parts.length === 0) return null;
+  
+  const p = document.createElement('p');
+  p.className = 'spell-entry';
+  if (block.id) p.id = block.id;
+  
+  applyMarkings(p, parts.join(' '));
+  
+  return p;
+}
+
+// ===== RENDERIZADOR PRINCIPAL =====
+
+/**
+ * Renderiza um capítulo completo do rulebook
+ */
+export function renderRulebookChapter(chapterData) {
+  const container = document.getElementById('rulebook-content');
+  if (!container) {
+    console.error('Container rulebook-content não encontrado');
+    return;
+  }
+
+  // Limpa o conteúdo anterior
+  container.innerHTML = '';
+  
+  // Força reflow (necessário para animações/transições)
+  container.offsetHeight;
+
+  // Usa DocumentFragment para melhor performance
+  const fragment = document.createDocumentFragment();
+
+  // Cabeçalho do capítulo
+  const header = document.createElement('header');
+  header.className = 'chapter-header';
+  header.appendChild(createElement('h1', null, chapterData.id || 'Rulebook'));
+  
+  if (chapterData.description) {
+    header.appendChild(createElement('p', 'chapter-description', chapterData.description));
+  }
+  
+    fragment.appendChild(header);
+
+    // Seções do capítulo
+    (chapterData.sections || []).forEach(section => {
+      const sectionEl = document.createElement('section');
+      sectionEl.className = 'chapter-section';
+      
+      if (section.id) {
+        sectionEl.id = section.id;
+        sectionEl.dataset.topic = 'true';
+        sectionEl.setAttribute('aria-labelledby', `${section.id}-title`);
+      }
+
+      const h2 = createElement('h2', 'section-title', section.title || 'Untitled Section');
+      if (section.id) h2.id = `${section.id}-title`;
+      sectionEl.appendChild(h2);
+
+      (section.content || []).forEach(block => {
+        const element = processBlock(block);
+        if (element) sectionEl.appendChild(element);
+      });
+
+      fragment.appendChild(sectionEl);
+    });
+
+    // Adiciona todo o conteúdo de uma vez
+    container.appendChild(fragment);
+
+    // Usa requestAnimationFrame para garantir que o DOM está pronto
+    requestAnimationFrame(() => {
+    // Ativa observadores de navegação
+    observeTopics();
+    
+    // Restaura último tópico visitado
+    restoreLastTopic();
+
   });
 }
 
-function renderContentBlock(container, block) {
-  if (!block?.type) return;
-  switch (block.type) {
-    case "paragraph": return renderParagraph(container, block);
-    case "list": return renderList(container, block);
-    case "table": return renderTable(container, block);
-    case "subsections": return renderSubsections(container, block);
-    case "spellList": return renderSpellList(container, block);
-    case "spell": return renderSpellAsParagraph(container, block);
-    case "nestedList": {
-      const ul = createElement("ul", "nested-list");
-      block.items?.forEach((item) => {
-        const li = document.createElement("li");
-        if (item.title) li.appendChild(createElement("strong", null, item.title));
-        if (Array.isArray(item.items)) {
-          const subUl = document.createElement("ul");
-          item.items.forEach((sub) => subUl.appendChild(createElement("li", null, sub)));
-          li.appendChild(subUl); // Lista aninhada com títulos
-        }
-        ul.appendChild(li);
-      });
-      container.appendChild(ul); // Lista hierárquica
-      return;
-    }
-  }
-}
+// ===== EXPORTAÇÕES ADICIONAIS (opcional) =====
+export { processBlock }; // Útil para testes ou uso em outros contextos

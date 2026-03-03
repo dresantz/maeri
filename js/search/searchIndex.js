@@ -1,4 +1,4 @@
-/*
+/**
  * Índice + motor de busca do Rulebook
  * Responsável por:
  * - Armazenar dados indexados
@@ -6,7 +6,7 @@
  * - Executar buscas com ranking
  */
 
-import { currentChapterFile } from "../rulebook/state.js";
+import { getCurrentChapter } from "../rulebook/navigation.js";
 
 const index = [];
 
@@ -84,6 +84,8 @@ export function search(query, { limit = 20 } = {}) {
   const q = normalizeText(query);
   const terms = q.split(" ").filter(Boolean);
   const results = [];
+
+  const currentChapter = getCurrentChapter();
 
   for (const entry of index) {
     let score = 0;
@@ -164,8 +166,9 @@ export function search(query, { limit = 20 } = {}) {
 
     /* =========================
        Boost contextual
+       (prioriza resultados do capítulo atual)
     ========================= */
-    if (entry.chapterFile === currentChapterFile) {
+    if (entry.chapterFile === currentChapter) {
       score += 3;
     }
 

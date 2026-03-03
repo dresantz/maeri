@@ -1,7 +1,17 @@
-// dice-pool.js - Lógica para pool de dados 3D individuais
+/**
+ * dice-pool.js - Lógica para pool de dados 3D individuais
+ * Versão refatorada com prevenção de duplicação de eventos
+ */
 
 class DicePool {
   constructor() {
+    // ===== CONSTANTES =====
+    this.MAX_DICE = 6;
+    this.HISTORY_LIMIT = 10;
+    this.ANIMATION_DURATION = 1200;
+    this.FEEDBACK_DURATION = 1500;
+    this.REMOVE_FEEDBACK_DURATION = 500;
+    
     // Estado dos dados
     this.diceCounts = {
       d2: 0,
@@ -9,9 +19,16 @@ class DicePool {
       d6: 0
     };
     
-    this.dicePool = []; // Array para armazenar os dados no pool
+    this.dicePool = [];
     this.history = [];
     this.isRolling = false;
+    this.pendingResults = null;
+    this.pendingTotal = null;
+    
+    // Controle de inicialização
+    this.isSetup = false;
+    this.abortController = null;
+    this.animationStyles = new Set();
     
     // Configurações de rotação para cada face do dado
     this.faceRotations = {
@@ -33,14 +50,14 @@ class DicePool {
       6: 3   // Face 6 → valor 3
     };
 
-      this.d2FaceMappings = {
-    1: 1,  // Face 1 → valor 1
-    2: 1,  // Face 2 → valor 1
-    3: 1,  // Face 3 → valor 1
-    4: 2,  // Face 4 → valor 2
-    5: 2,  // Face 5 → valor 2
-    6: 2   // Face 6 → valor 2
-  };
+    this.d2FaceMappings = {
+      1: 1,  // Face 1 → valor 1
+      2: 1,  // Face 2 → valor 1
+      3: 1,  // Face 3 → valor 1
+      4: 2,  // Face 4 → valor 2
+      5: 2,  // Face 5 → valor 2
+      6: 2   // Face 6 → valor 2
+    };
     
     // Rotação padrão - face 1
     this.defaultRotation = { 
@@ -52,45 +69,77 @@ class DicePool {
     this.init();
   }
   
+  // ===== INICIALIZAÇÃO =====
+  
   init() {
+    const initCallback = () => this.setupEventListeners();
+    
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.setupEventListeners());
+      document.addEventListener('DOMContentLoaded', initCallback);
     } else {
       this.setupEventListeners();
     }
     
-    document.addEventListener('modals:loaded', () => {
-      this.setupEventListeners();
-    });
+    document.addEventListener('modals:loaded', initCallback);
   }
+  
+  // ===== SETUP DE EVENTOS (CORRIGIDO) =====
   
   setupEventListeners() {
     if (!this.checkElements()) return;
     
+    // Se já configurou, não configura de novo
+    if (this.isSetup) {
+      return;
+    }
+    
+    // Cancela listeners anteriores se existirem
+    if (this.abortController) {
+      this.abortController.abort();
+    }
+    
+    this.abortController = new AbortController();
+    const signal = this.abortController.signal;
+    
+    this.setupDiceButtons(signal);
+    this.setupControlButtons(signal);
+    
+    this.isSetup = true;
+  }
+  
+  setupDiceButtons(signal) {
     document.querySelectorAll('.dice-btn[data-sides]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-          const sides = parseInt(btn.dataset.sides);
-          this.addDiceToPool(sides);
-        }
-      });
+      const button = btn.tagName === 'BUTTON' ? btn : btn.querySelector('button');
+      if (!button) return;
+      
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const sides = parseInt(btn.dataset.sides);
+        this.addDiceToPool(sides);
+      }, { signal });
     });
-    
+  }
+  
+  setupControlButtons(signal) {
     const rollBtn = document.getElementById('roll-button');
-    if (rollBtn) {
-      rollBtn.addEventListener('click', () => this.rollDice());
-    }
-    
     const clearAllBtn = document.getElementById('clear-all');
-    if (clearAllBtn) {
-      clearAllBtn.addEventListener('click', () => this.clearPool());
-    }
-    
     const clearHistoryBtn = document.getElementById('clear-history');
+
+    if (rollBtn) {
+      rollBtn.addEventListener('click', () => this.rollDice(), { signal });
+    }
+
+    if (clearAllBtn) {
+      clearAllBtn.addEventListener('click', () => this.clearPool(), { signal });
+    }
+
     if (clearHistoryBtn) {
-      clearHistoryBtn.addEventListener('click', () => this.clearHistory());
+      clearHistoryBtn.addEventListener('click', () => this.clearHistory(), { signal });
     }
   }
+  
+  // ===== VALIDAÇÕES =====
   
   checkElements() {
     const elements = [
@@ -100,99 +149,70 @@ class DicePool {
       'history-output'
     ];
     
-    for (const id of elements) {
-      if (!document.getElementById(id)) {
-        return false;
-      }
-    }
-    
-    return true;
+    return elements.every(id => document.getElementById(id));
   }
   
-addDiceToPool(sides) {
-  // Verifica se já atingiu o limite de 6 dados
-  const totalDice = this.dicePool.length;
-  if (totalDice >= 6) {
-    // Feedback visual - piscar o pool em vermelho
-    const poolContainer = document.getElementById('dice-pool');
-    if (poolContainer) {
-      poolContainer.style.transition = 'background-color 0.3s ease';
-      poolContainer.style.backgroundColor = 'rgba(255, 68, 68, 0.3)';
-      poolContainer.style.outline = '2px solid #ff4444';
-      
-      // Volta ao normal após 0.5 segundos
-      setTimeout(() => {
-        poolContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-        poolContainer.style.outline = 'none';
-      }, 500);
-    }
-    
-    // Feedback visual no botão clicado
-    const btn = document.querySelector(`.dice-btn[data-sides="${sides}"] button`);
-    if (btn) {
-      btn.style.transition = 'all 0.3s ease';
-      btn.style.backgroundColor = '#ff4444';
-      btn.style.color = 'white';
-      btn.style.borderColor = '#ff4444';
-      
-      setTimeout(() => {
-        btn.style.backgroundColor = '';
-        btn.style.color = '';
-        btn.style.borderColor = '';
-      }, 500);
-    }
-    
-    return; // Não adiciona o dado
-  }
+  // ===== GERENCIAMENTO DO POOL =====
   
-  // Se não atingiu o limite, prossegue com a adição normal
-  switch(sides) {
-    case 2:
-      this.diceCounts.d2++;
-      break;
-    case 3:
-      this.diceCounts.d3++;
-      break;
-    case 6:
-      this.diceCounts.d6++;
-      break;
-    default:
+  addDiceToPool(sides) {
+    // Verifica se já atingiu o limite de dados
+    if (this.dicePool.length >= this.MAX_DICE) {
+      this.showLimitFeedback(sides);
       return;
+    }
+  
+    // Atualiza contadores
+    switch(sides) {
+      case 2:
+        this.diceCounts.d2++;
+        break;
+      case 3:
+        this.diceCounts.d3++;
+        break;
+      case 6:
+        this.diceCounts.d6++;
+        break;
+      default:
+        return;
+    }
+  
+    const newDice = {
+      sides: sides,
+      value: null,
+      id: this.generateDiceId(),
+      rotation: { ...this.defaultRotation }
+    };
+  
+    this.dicePool.push(newDice);
+    this.updateCounters();
+    this.renderPool();
   }
   
-  const newDice = {
-    sides: sides,
-    value: null,
-    id: 'dice-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
-    rotation: { ...this.defaultRotation }
-  };
-  
-  this.dicePool.push(newDice);
-  this.updateCounters();
-  this.renderPool();
-}
+  generateDiceId() {
+    return 'dice-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+  }
   
   removeDiceFromPool(id) {
     const index = this.dicePool.findIndex(dice => dice.id === id);
-    if (index !== -1) {
-      const dice = this.dicePool[index];
-      
-      switch(dice.sides) {
-        case 2:
-          this.diceCounts.d2--;
-          break;
-        case 3:
-          this.diceCounts.d3--;
-          break;
-        case 6:
-          this.diceCounts.d6--;
-          break;
-      }
-      
-      this.dicePool.splice(index, 1);
-      this.updateCounters();
-      this.renderPool();
+    if (index === -1) return;
+    
+    const dice = this.dicePool[index];
+    
+    switch(dice.sides) {
+      case 2:
+        this.diceCounts.d2--;
+        break;
+      case 3:
+        this.diceCounts.d3--;
+        break;
+      case 6:
+        this.diceCounts.d6--;
+        break;
     }
+    
+    this.dicePool.splice(index, 1);
+    this.updateCounters();
+    this.renderPool();
   }
   
   clearPool() {
@@ -201,12 +221,52 @@ addDiceToPool(sides) {
     this.updateCounters();
     this.renderPool();
     
-    document.getElementById('result-output').textContent = '—';
-    document.getElementById('total-output').textContent = '—';
+    this.updateDisplay('—', '—');
   }
   
+  // ===== FEEDBACK VISUAL =====
+  
+  showLimitFeedback(sides) {
+    // Feedback no pool
+    const poolContainer = document.getElementById('dice-pool');
+    if (poolContainer) {
+      this.applyTemporaryStyle(poolContainer, {
+        backgroundColor: 'rgba(255, 68, 68, 0.3)',
+        outline: '2px solid #ff4444',
+        transition: 'background-color 0.3s ease'
+      }, this.REMOVE_FEEDBACK_DURATION);
+    }
+    
+    // Feedback no botão
+    const btn = document.querySelector(`.dice-btn[data-sides="${sides}"] button`);
+    if (btn) {
+      this.applyTemporaryStyle(btn, {
+        backgroundColor: '#ff4444',
+        color: 'white',
+        borderColor: '#ff4444',
+        transition: 'all 0.3s ease'
+      }, this.REMOVE_FEEDBACK_DURATION);
+    }
+  }
+  
+  applyTemporaryStyle(element, styles, duration) {
+    const originalStyles = {};
+    
+    Object.keys(styles).forEach(prop => {
+      originalStyles[prop] = element.style[prop];
+      element.style[prop] = styles[prop];
+    });
+    
+    setTimeout(() => {
+      Object.keys(styles).forEach(prop => {
+        element.style[prop] = originalStyles[prop];
+      });
+    }, duration);
+  }
+  
+  // ===== RENDERIZAÇÃO =====
+  
   updateCounters() {
-    // Verifica se os elementos existem antes de atualizar
     const countD2 = document.getElementById('count-d2');
     const countD3 = document.getElementById('count-d3');
     const countD6 = document.getElementById('count-d6');
@@ -214,6 +274,14 @@ addDiceToPool(sides) {
     if (countD2) countD2.textContent = this.diceCounts.d2;
     if (countD3) countD3.textContent = this.diceCounts.d3;
     if (countD6) countD6.textContent = this.diceCounts.d6;
+  }
+  
+  updateDisplay(result, total) {
+    const resultEl = document.getElementById('result-output');
+    const totalEl = document.getElementById('total-output');
+    
+    if (resultEl) resultEl.textContent = result;
+    if (totalEl) totalEl.textContent = total;
   }
   
   renderPool() {
@@ -228,203 +296,155 @@ addDiceToPool(sides) {
     }
     
     this.dicePool.forEach(dice => {
-      const diceElement = document.createElement('div');
-      diceElement.className = 'pool-dice-3d';
-      diceElement.dataset.id = dice.id;
-      
-      // DADO DE 6
-      if (dice.sides === 6) {
-        let transformStyle;
-        
-        if (dice.value) {
-          const rot = this.faceRotations[dice.value];
-          transformStyle = `rotate3d(${rot[0]}, ${rot[1]}, ${rot[2]}, 180deg)`;
-        } else {
-          transformStyle = `rotate3d(${dice.rotation.x}, ${dice.rotation.y}, ${dice.rotation.z}, 180deg)`;
-        }
-        
-        diceElement.innerHTML = `
-          <div class="dice-3d" id="${dice.id}" data-value="${dice.value || ''}" style="transform: ${transformStyle};">
-            <div class="dice-face-3d front"></div>
-            <div class="dice-face-3d up"></div>
-            <div class="dice-face-3d left"></div>
-            <div class="dice-face-3d right"></div>
-            <div class="dice-face-3d bottom"></div>
-            <div class="dice-face-3d back"></div>
-          </div>
-          <div class="dice-info" style="position: relative; z-index: 10;">
-            <span class="dice-sides">D${dice.sides}</span>
-            ${dice.value ? `<span class="dice-value-badge">${dice.value}</span>` : ''}
-          </div>
-          <button class="remove-dice-3d" aria-label="Remover dado">✕</button>
-        `;
-      
-      // DADO DE 3.
-      } else if (dice.sides === 3) {
-        let transformStyle;
-
-      // Determina qual face mostrar baseado no valor (se existir)
-      if (dice.value) {
-        // Para D3, precisamos escolher uma das duas faces possíveis para aquele valor
-        const possibleFaces = Object.keys(this.d3FaceMappings)
-          .filter(face => this.d3FaceMappings[face] === dice.value);
-        const randomIndex = Math.floor(Math.random() * possibleFaces.length);
-        const faceToShow = parseInt(possibleFaces[randomIndex]);
-        const rot = this.faceRotations[faceToShow];
-        transformStyle = `rotate3d(${rot[0]}, ${rot[1]}, ${rot[2]}, 180deg)`;
-      } else {
-        transformStyle = `rotate3d(${dice.rotation.x}, ${dice.rotation.y}, ${dice.rotation.z}, 180deg)`;
-      }        
-
-      diceElement.innerHTML = `
-        <div class="dice-3d d3" id="${dice.id}" data-value="${dice.value || ''}" style="transform: ${transformStyle};">
-          <div class="dice-face-3d front"></div>
-          <div class="dice-face-3d up"></div>
-          <div class="dice-face-3d left"></div>
-          <div class="dice-face-3d right"></div>
-          <div class="dice-face-3d bottom"></div>
-          <div class="dice-face-3d back"></div>
-        </div>
-        <div class="dice-info" style="position: relative; z-index: 10;">
-          <span class="dice-sides">D${dice.sides}</span>
-          ${dice.value ? `<span class="dice-value-badge">${dice.value}</span>` : ''}
-        </div>
-        <button class="remove-dice-3d" aria-label="Remover dado">✕</button>
-      `;
-      
-      // DADO DE 2.
-      } else if (dice.sides === 2) {
-            let transformStyle;
-
-            // Determina qual face mostrar baseado no valor (se existir)
-            if (dice.value) {
-              // Para D2, escolhe uma das três faces possíveis para aquele valor
-              const possibleFaces = Object.keys(this.d2FaceMappings)
-                .filter(face => this.d2FaceMappings[face] === dice.value);
-              const randomIndex = Math.floor(Math.random() * possibleFaces.length);
-              const faceToShow = parseInt(possibleFaces[randomIndex]);
-              const rot = this.faceRotations[faceToShow];
-              transformStyle = `rotate3d(${rot[0]}, ${rot[1]}, ${rot[2]}, 180deg)`;
-            } else {
-              transformStyle = `rotate3d(${dice.rotation.x}, ${dice.rotation.y}, ${dice.rotation.z}, 180deg)`;
-            }        
-
-            diceElement.innerHTML = `
-              <div class="dice-3d d2" id="${dice.id}" data-value="${dice.value || ''}" style="transform: ${transformStyle};">
-                <div class="dice-face-3d front"></div>
-                <div class="dice-face-3d up"></div>
-                <div class="dice-face-3d left"></div>
-                <div class="dice-face-3d right"></div>
-                <div class="dice-face-3d bottom"></div>
-                <div class="dice-face-3d back"></div>
-              </div>
-              <div class="dice-info" style="position: relative; z-index: 10;">
-                <span class="dice-sides">D${dice.sides}</span>
-                ${dice.value ? `<span class="dice-value-badge">${dice.value}</span>` : ''}
-              </div>
-              <button class="remove-dice-3d" aria-label="Remover dado">✕</button>
-            `;
-            
-          } else {
-            // Placeholder para outros dados (mantém como está)
-            diceElement.innerHTML = `
-              <div class="dice-placeholder">
-                <span>D${dice.sides}</span>
-              </div>
-              <div class="dice-info">
-                <span class="dice-sides">D${dice.sides}</span>
-                ${dice.value ? `<span class="dice-value-badge">${dice.value}</span>` : ''}
-              </div>
-              <button class="remove-dice-3d" aria-label="Remover dado">✕</button>
-            `;
-          }
-          
-          poolContainer.appendChild(diceElement);
-          
-          // Eventos (iguais para todos - não mexer)
-          diceElement.addEventListener('click', (e) => {
-            if (e.target.classList.contains('remove-dice-3d')) return;
-            
-            document.querySelectorAll('.pool-dice-3d').forEach(el => {
-              el.classList.remove('selected');
-            });
-            
-            diceElement.classList.add('selected');
-          });
-          
-          diceElement.querySelector('.remove-dice-3d').addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.removeDiceFromPool(dice.id);
-          });
+      const diceElement = this.createDiceElement(dice);
+      poolContainer.appendChild(diceElement);
+      this.setupDiceEventListeners(diceElement, dice);
     });
   }
   
+  createDiceElement(dice) {
+    const diceElement = document.createElement('div');
+    diceElement.className = 'pool-dice-3d';
+    diceElement.dataset.id = dice.id;
+    
+    const transformStyle = this.getDiceTransformStyle(dice);
+    const diceClass = this.getDiceClass(dice.sides);
+    
+    diceElement.innerHTML = `
+      <div class="dice-3d ${diceClass}" id="${dice.id}" data-value="${dice.value || ''}" style="transform: ${transformStyle};">
+        <div class="dice-face-3d front"></div>
+        <div class="dice-face-3d up"></div>
+        <div class="dice-face-3d left"></div>
+        <div class="dice-face-3d right"></div>
+        <div class="dice-face-3d bottom"></div>
+        <div class="dice-face-3d back"></div>
+      </div>
+      <div class="dice-info" style="position: relative; z-index: 10;">
+        <span class="dice-sides">D${dice.sides}</span>
+        ${dice.value ? `<span class="dice-value-badge">${dice.value}</span>` : ''}
+      </div>
+      <button class="remove-dice-3d" aria-label="Remover dado">✕</button>
+    `;
+    
+    return diceElement;
+  }
+  
+  getDiceTransformStyle(dice) {
+    if (!dice.value) {
+      return `rotate3d(${dice.rotation.x}, ${dice.rotation.y}, ${dice.rotation.z}, 180deg)`;
+    }
+    
+    const faceToShow = this.getFaceToShow(dice);
+    const rot = this.faceRotations[faceToShow];
+    return `rotate3d(${rot[0]}, ${rot[1]}, ${rot[2]}, 180deg)`;
+  }
+  
+  getDiceClass(sides) {
+    if (sides === 3) return 'd3';
+    if (sides === 2) return 'd2';
+    return '';
+  }
+  
+  getFaceToShow(dice) {
+    if (!dice.value) return 1;
+    
+    if (dice.sides === 6) {
+      return dice.value;
+    }
+    
+    const mapping = dice.sides === 3 ? this.d3FaceMappings : this.d2FaceMappings;
+    const possibleFaces = Object.keys(mapping)
+      .filter(face => mapping[face] === dice.value)
+      .map(Number);
+    
+    const randomIndex = Math.floor(Math.random() * possibleFaces.length);
+    return possibleFaces[randomIndex];
+  }
+  
+  setupDiceEventListeners(diceElement, dice) {
+    // Selecionar dado
+    diceElement.addEventListener('click', (e) => {
+      if (e.target.classList.contains('remove-dice-3d')) return;
+      
+      document.querySelectorAll('.pool-dice-3d').forEach(el => {
+        el.classList.remove('selected');
+      });
+      
+      diceElement.classList.add('selected');
+    });
+    
+    // Remover dado
+    diceElement.querySelector('.remove-dice-3d').addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.removeDiceFromPool(dice.id);
+    });
+  }
+  
+  // ===== ROLAGEM DE DADOS =====
+  
   rollDice() {
     if (this.dicePool.length === 0) {
-      // Mostra mensagem temporária no pool
-      const poolContainer = document.getElementById('dice-pool');
-      if (poolContainer) {
-        const originalContent = poolContainer.innerHTML;
-        poolContainer.innerHTML = '<p class="empty-pool warning">Adicione dados ao pool primeiro!</p>';
-        
-        // Restaura o conteúdo original após 1.5 segundos
-        setTimeout(() => {
-          this.renderPool();
-        }, 1500);
-      }
-      
-      this.isRolling = false;
-      this.setButtonsDisabled(false);
+      this.showEmptyPoolWarning();
       return;
     }
     
     if (this.isRolling) return;
-    this.isRolling = true;
     
-    this.setButtonsDisabled(true);
+    this.startRoll();
     
-    // Esconde os resultados imediatamente
-    document.getElementById('result-output').textContent = '—';
-    document.getElementById('total-output').textContent = '—';
-    
-    // Gera os valores aleatórios para cada dado (mas não exibe ainda)
     const results = this.dicePool.map(dice => {
-      let value;
-      if (dice.sides === 6) {
-        value = Math.floor(Math.random() * 6) + 1;
-      } else if (dice.sides === 3) {
-        value = Math.floor(Math.random() * 3) + 1;
-      } else if (dice.sides === 2) {
-        value = Math.floor(Math.random() * 2) + 1;
-      } else {
-        value = Math.floor(Math.random() * dice.sides) + 1;
-      }
-      dice.value = value;
-      return value;
+      dice.value = this.rollSingleDice(dice.sides);
+      return dice.value;
     });
     
-    const total = results.reduce((sum, val) => sum + val, 0);
-    
-    // Armazena os resultados para usar no finishRoll
     this.pendingResults = results;
-    this.pendingTotal = total;
+    this.pendingTotal = results.reduce((sum, val) => sum + val, 0);
     
-    // Anima cada dado individualmente
-    const diceToAnimate = this.dicePool.filter(d => d.sides === 6 || d.sides === 3 || d.sides === 2);
-    let animatedCount = 0;
+    this.updateDisplay('—', '—');
+    this.animateAllDice();
+  }
+  
+  rollSingleDice(sides) {
+    if (sides === 6) return Math.floor(Math.random() * 6) + 1;
+    if (sides === 3) return Math.floor(Math.random() * 3) + 1;
+    if (sides === 2) return Math.floor(Math.random() * 2) + 1;
+    return Math.floor(Math.random() * sides) + 1;
+  }
+  
+  startRoll() {
+    this.isRolling = true;
+    this.setButtonsDisabled(true);
+  }
+  
+  showEmptyPoolWarning() {
+    const poolContainer = document.getElementById('dice-pool');
+    if (!poolContainer) return;
+    
+    const originalContent = poolContainer.innerHTML;
+    poolContainer.innerHTML = '<p class="empty-pool warning">Adicione dados ao pool primeiro!</p>';
+    
+    setTimeout(() => {
+      this.renderPool();
+    }, this.FEEDBACK_DURATION);
+  }
+  
+  animateAllDice() {
+    const diceToAnimate = this.dicePool.filter(d => [2, 3, 6].includes(d.sides));
     
     if (diceToAnimate.length === 0) {
       this.finishRoll();
-    } else {
-      diceToAnimate.forEach(dice => {
-        this.animateSingleDice(dice.id, dice.value, dice.sides, () => {
-          animatedCount++;
-          if (animatedCount === diceToAnimate.length) {
-            this.finishRoll();
-          }
-        });
-      });
+      return;
     }
+    
+    let animatedCount = 0;
+    diceToAnimate.forEach(dice => {
+      this.animateSingleDice(dice.id, dice.value, dice.sides, () => {
+        animatedCount++;
+        if (animatedCount === diceToAnimate.length) {
+          this.finishRoll();
+        }
+      });
+    });
   }
   
   animateSingleDice(diceId, finalValue, sides, callback) {
@@ -439,45 +459,9 @@ addDiceToPool(sides) {
     
     if (diceInfo) diceInfo.style.opacity = '0';
     
-    // Determina qual face física mostrar baseado no valor e tipo de dado
-    let faceToShow;
-    if (sides === 6) {
-      faceToShow = finalValue; // D6: valor direto = face física
-
-    } else if (sides === 3) {
-      const possibleFaces = Object.keys(this.d3FaceMappings)
-        .filter(face => this.d3FaceMappings[face] === finalValue);
-      const randomIndex = Math.floor(Math.random() * possibleFaces.length);
-      faceToShow = parseInt(possibleFaces[randomIndex]);
-
-    } else if (sides === 2) {
-      const possibleFaces = Object.keys(this.d2FaceMappings)
-        .filter(face => this.d2FaceMappings[face] === finalValue);
-      const randomIndex = Math.floor(Math.random() * possibleFaces.length);
-      faceToShow = parseInt(possibleFaces[randomIndex]);
-    }
-    
+    const faceToShow = this.getFaceFromValue(sides, finalValue);
     const finalRotation = this.faceRotations[faceToShow];
-    const animationName = `rollTo${finalValue}_${Date.now()}`;
-    const styleSheet = document.createElement('style');
-    
-    styleSheet.textContent = `
-    @keyframes ${animationName} {
-        0% { transform: rotate3d(${this.defaultRotation.x}, ${this.defaultRotation.y}, ${this.defaultRotation.z}, 180deg); }
-        10% { transform: rotate3d(0.5, 0.8, 0.7, 270deg); }
-        20% { transform: rotate3d(0.9, 0.7, 0.1, 360deg); }
-        30% { transform: rotate3d(0.6, 1.0, 0.5, 450deg); }
-        40% { transform: rotate3d(0.7, 1.1, 0.5, 540deg); }
-        50% { transform: rotate3d(0.1, 0.9, 0.7, 630deg); }
-        60% { transform: rotate3d(1.0, 0.1, 0.9, 720deg); }
-        70% { transform: rotate3d(0.7, 1.0, 0.1, 810deg); }
-        80% { transform: rotate3d(0.8, 0.2, 0.6, 900deg); }
-        90% { transform: rotate3d(0.9, 0.1, 0.7, 990deg); }
-        100% { transform: rotate3d(${finalRotation[0]}, ${finalRotation[1]}, ${finalRotation[2]}, 180deg); }
-    }
-    `;
-    
-    document.head.appendChild(styleSheet);
+    const animationName = this.createAnimation(finalRotation);
     
     diceElement.style.animation = 'none';
     void diceElement.offsetWidth;
@@ -487,7 +471,7 @@ addDiceToPool(sides) {
       diceElement.style.animation = '';
       diceElement.style.transform = `rotate3d(${finalRotation[0]}, ${finalRotation[1]}, ${finalRotation[2]}, 180deg)`;
       
-      document.head.removeChild(styleSheet);
+      this.removeAnimation(animationName);
       
       if (diceInfo) {
         diceInfo.style.opacity = '1';
@@ -495,32 +479,106 @@ addDiceToPool(sides) {
       }
       
       callback();
-    }, 1200);
+    }, this.ANIMATION_DURATION);
+  }
+  
+  getFaceFromValue(sides, value) {
+    if (sides === 6) return value;
+    
+    const mapping = sides === 3 ? this.d3FaceMappings : this.d2FaceMappings;
+    const possibleFaces = Object.keys(mapping)
+      .filter(face => mapping[face] === value)
+      .map(Number);
+    
+    const randomIndex = Math.floor(Math.random() * possibleFaces.length);
+    return possibleFaces[randomIndex];
+  }
+  
+  createAnimation(finalRotation) {
+    const animationName = `rollTo_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+    
+    const keyframes = [
+      { x: 0.5, y: 0.8, z: 0.7, deg: 270 },
+      { x: 0.9, y: 0.7, z: 0.1, deg: 360 },
+      { x: 0.6, y: 1.0, z: 0.5, deg: 450 },
+      { x: 0.7, y: 1.1, z: 0.5, deg: 540 },
+      { x: 0.1, y: 0.9, z: 0.7, deg: 630 },
+      { x: 1.0, y: 0.1, z: 0.9, deg: 720 },
+      { x: 0.7, y: 1.0, z: 0.1, deg: 810 },
+      { x: 0.8, y: 0.2, z: 0.6, deg: 900 },
+      { x: 0.9, y: 0.1, z: 0.7, deg: 990 }
+    ];
+    
+    let keyframesText = `0% { transform: rotate3d(${this.defaultRotation.x}, ${this.defaultRotation.y}, ${this.defaultRotation.z}, 180deg); }\n`;
+    
+    keyframes.forEach((frame, index) => {
+      const percent = (index + 1) * 10;
+      keyframesText += `${percent}% { transform: rotate3d(${frame.x}, ${frame.y}, ${frame.z}, ${frame.deg}deg); }\n`;
+    });
+    
+    keyframesText += `100% { transform: rotate3d(${finalRotation[0]}, ${finalRotation[1]}, ${finalRotation[2]}, 180deg); }`;
+    
+    const style = document.createElement('style');
+    style.textContent = `@keyframes ${animationName} { ${keyframesText} }`;
+    style.id = animationName;
+    
+    document.head.appendChild(style);
+    this.animationStyles.add(animationName);
+    
+    return animationName;
+  }
+  
+  removeAnimation(animationName) {
+    const style = document.getElementById(animationName);
+    if (style) {
+      document.head.removeChild(style);
+      this.animationStyles.delete(animationName);
+    }
   }
   
   finishRoll() {
-    // Agora sim, mostra os resultados
-    document.getElementById('result-output').textContent = this.pendingResults.join(' + ');
-    document.getElementById('total-output').textContent = this.pendingTotal;
+    this.updateDisplay(
+      this.pendingResults.join(' + '),
+      this.pendingTotal
+    );
     
-    const timestamp = new Date().toLocaleTimeString();
-    const historyItem = `[${timestamp}] ${this.pendingResults.join(' + ')} = ${this.pendingTotal}`;
-    this.history.unshift(historyItem);
-    
-    if (this.history.length > 10) {
-      this.history.pop();
-    }
-    
-    this.updateHistory();
+    this.addToHistory();
     this.renderPool();
     
     this.isRolling = false;
     this.setButtonsDisabled(false);
-    
-    // Limpa os resultados pendentes
     this.pendingResults = null;
     this.pendingTotal = null;
   }
+  
+  // ===== HISTÓRICO =====
+  
+  addToHistory() {
+    const timestamp = new Date().toLocaleTimeString();
+    const historyItem = `[${timestamp}] ${this.pendingResults.join(' + ')} = ${this.pendingTotal}`;
+    
+    this.history.unshift(historyItem);
+    
+    if (this.history.length > this.HISTORY_LIMIT) {
+      this.history.pop();
+    }
+    
+    this.updateHistory();
+  }
+  
+  updateHistory() {
+    const historyList = document.getElementById('history-output');
+    if (!historyList) return;
+    
+    historyList.innerHTML = this.history.map(item => `<li>${item}</li>`).join('');
+  }
+  
+  clearHistory() {
+    this.history = [];
+    this.updateHistory();
+  }
+  
+  // ===== CONTROLES DE UI =====
   
   setButtonsDisabled(disabled) {
     const rollBtn = document.getElementById('roll-button');
@@ -535,19 +593,26 @@ addDiceToPool(sides) {
     });
   }
   
-  updateHistory() {
-    const historyList = document.getElementById('history-output');
-    if (!historyList) return;
-    
-    historyList.innerHTML = this.history.map(item => `<li>${item}</li>`).join('');
-  }
+  // ===== CLEANUP =====
   
-  clearHistory() {
-    this.history = [];
-    this.updateHistory();
+  destroy() {
+    if (this.abortController) {
+      this.abortController.abort();
+      this.abortController = null;
+    }
+    
+    this.animationStyles.forEach(name => this.removeAnimation(name));
+    this.animationStyles.clear();
+    this.isSetup = false;
   }
 }
 
 // Inicializa o DicePool
 const dicePool = new DicePool();
+
+// Cleanup ao descarregar a página
+window.addEventListener('beforeunload', () => {
+  dicePool.destroy();
+});
+
 export default dicePool;

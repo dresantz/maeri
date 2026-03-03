@@ -1,11 +1,11 @@
+/**
+ * searchRouter.js - Roteador de resultados de busca
+ */
+
 import { search } from "./searchIndex.js";
 import { loadRulebookChapter } from "../rulebook/loader.js";
 
 let resultsContainer = null;
-
-/* =====================================================
-   Utils
-===================================================== */
 
 function escapeHTML(str = "") {
   return str.replace(/[&<>"']/g, (m) => ({
@@ -17,18 +17,14 @@ function escapeHTML(str = "") {
   })[m]);
 }
 
-/* =====================================================
-   Inicialização
-===================================================== */
-
 export function initSearchRouter(container) {
   if (!container) return;
   resultsContainer = container;
 }
 
-/* =====================================================
-   Busca + renderização
-===================================================== */
+export function destroySearchRouter() {
+  resultsContainer = null;
+}
 
 export function handleSearch(query) {
   if (!resultsContainer) return;
@@ -65,18 +61,12 @@ export function handleSearch(query) {
   resultsContainer.setAttribute("aria-hidden", "false");
 }
 
-/* =====================================================
-   Clique / teclado
-===================================================== */
-
 export function bindSearchResultClicks() {
   if (!resultsContainer) return;
 
   resultsContainer.addEventListener("click", activateResult);
-
   resultsContainer.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
-
     e.preventDefault();
 
     const focused = document.activeElement;
@@ -99,7 +89,6 @@ function activateResult(e) {
 
   const { chapter, topic } = item.dataset;
 
-  /* 1️⃣ Foco seguro */
   const safeFocusTarget =
     document.getElementById("rulebook-content") ||
     document.getElementById("toc-toggle");
@@ -110,10 +99,8 @@ function activateResult(e) {
     safeFocusTarget.removeAttribute("tabindex");
   }
 
-  /* 2️⃣ Esconde busca */
   resultsContainer.classList.add("hidden");
   resultsContainer.setAttribute("aria-hidden", "true");
 
-  /* 3️⃣ Navegação centralizada no loader */
   loadRulebookChapter(chapter, topic);
 }

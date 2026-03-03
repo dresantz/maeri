@@ -1,33 +1,35 @@
 /* =========================
    Rulebook – Long Form Reading
+   Depende de: base.css (variáveis)
 ========================= */
 
 .rulebook {
   font-size: 1.05rem;
   line-height: 1.7;
+  color: var(--text, #f0f0f0);
 }
 
 .rulebook h1 {
   font-size: 1.8rem;
   margin: 0 0 0.6rem;
+  color: var(--gold, #d4af37);
 }
 
 .rulebook h2 {
   font-size: 1.35rem;
   margin: 1.4rem 0 0.6rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--surface-light, #2a2a42);
 }
 
 .rulebook h3 {
   font-size: 1.1rem;
   margin: 1rem 0 0.4rem;
-  color: var(--accent-color);
+  color: var(--gold, #d4af37);
 }
 
 .rulebook p {
   margin: 0.5rem 0 0.9rem;
-  color: var(--text-color);
 }
 
 .rulebook ul {
@@ -39,7 +41,7 @@
 }
 
 .rulebook a {
-  color: var(--accent-color);
+  color: var(--gold, #d4af37);
   text-decoration: none;
   font-weight: 600;
 }
@@ -48,18 +50,12 @@
   text-decoration: underline;
 }
 
-@media (min-width: 768px) {
-  .rulebook {
-    font-size: 1.1rem;
-  }
-}
-
 /* =========================
-   Rulebook Blocks
+   Block Elements
 ========================= */
 
 .table-caption {
-  color: var(--muted-text);
+  color: var(--text-muted, #b0b0c0);
   font-size: 0.95rem;
   margin-bottom: 0.5rem;
 }
@@ -67,8 +63,8 @@
 .table-wrapper {
   overflow-x: auto;
   margin: 0.75rem 0 1rem;
-  border: 1px solid #333;
-  border-radius: 10px;
+  border: 1px solid var(--surface-light, #2a2a42);
+  border-radius: var(--radius, 12px);
 }
 
 table {
@@ -80,24 +76,30 @@ table {
 th,
 td {
   padding: 0.6rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--surface-light, #2a2a42);
   text-align: left;
   font-size: 0.95rem;
 }
 
 th {
   background: rgba(255, 255, 255, 0.03);
+  color: var(--gold, #d4af37);
+  font-weight: 600;
 }
 
 .subsection {
   margin-top: 1rem;
   padding-top: 0.5rem;
-  border-top: 1px dashed #333;
+  border-top: 1px dashed var(--surface-light, #2a2a42);
 }
 
 .warning {
   color: #ff8c8c;
   font-size: 0.95rem;
+  background: rgba(255, 68, 68, 0.1);
+  padding: 0.5rem;
+  border-radius: var(--radius, 12px);
+  border-left: 4px solid #ff8c8c;
 }
 
 /* =========================
@@ -116,6 +118,7 @@ th {
 .nested-list strong {
   display: block;
   margin-bottom: 0.25rem;
+  color: var(--gold, #d4af37);
 }
 
 .nested-list ul {
@@ -125,28 +128,43 @@ th {
 }
 
 /* =========================
-   Search
+   Search Component
 ========================= */
 
 .search-container {
   position: sticky;
   top: 0;
-  background: #111;
+  background: var(--surface, #1a1a2e);
   padding: 0.75rem;
   z-index: 10;
+  border-bottom: 2px solid var(--gold, #d4af37);
 }
 
 #search-input {
   width: 100%;
   padding: 0.6rem;
   font-size: 1rem;
+  background: var(--surface-light, #2a2a42);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius, 12px);
+  color: var(--text, #f0f0f0);
+  font-family: 'Crimson Text', serif;
+}
+
+#search-input:focus {
+  outline: none;
+  border-color: var(--gold, #d4af37);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
 }
 
 .search-results {
-  background: #1b1b1b;
-  border: 1px solid #333;
+  background: var(--surface, #1a1a2e);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius, 12px);
   max-height: 300px;
   overflow-y: auto;
+  margin-top: 0.5rem;
+  box-shadow: var(--shadow, 0 8px 24px rgba(0,0,0,0.4));
 }
 
 .search-results.hidden {
@@ -154,36 +172,121 @@ th {
 }
 
 .search-result {
-  padding: 0.5rem;
+  padding: 0.75rem;
   cursor: pointer;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--surface-light, #2a2a42);
+  transition: background-color 0.2s ease;
 }
 
 .search-result:hover {
-  background: #2a2a2a;
+  background: var(--surface-light, #2a2a42);
+}
+
+.search-result:focus {
+  outline: 2px solid var(--gold, #d4af37);
+  outline-offset: -2px;
+}
+
+.search-result:last-child {
+  border-bottom: none;
 }
 
 .search-result-title {
   font-weight: bold;
+  color: var(--gold, #d4af37);
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
 .search-result-meta {
   font-size: 0.8rem;
-  opacity: 0.7;
+  color: var(--text-muted, #b0b0c0);
+}
+
+/* =========================
+   Error
+========================= */
+
+.error-message {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--surface, #1a1a2e);
+  border: 2px solid #ff8c8c;
+  border-radius: var(--radius, 12px);
+  margin: 2rem auto;
+  max-width: 400px;
+}
+
+.error-message h2 {
+  color: #ff8c8c;
+  margin-bottom: 1rem;
+  border-bottom: none;
+}
+
+.error-message p {
+  margin-bottom: 1.5rem;
+  color: var(--text-muted, #b0b0c0);
+}
+
+.reload-button {
+  background: var(--gold, #d4af37);
+  color: var(--bg-dark, #0a0a12);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reload-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
 
 /* =========================
    Highlight
 ========================= */
+
 mark {
-  background: var(--accent-color);
-  color: #000;
+  background: var(--gold, #d4af37);
+  color: var(--bg-dark, #0a0a12);
   padding: 0 2px;
   border-radius: 3px;
+  font-weight: 600;
 }
 
 .mark {
-  background-color: #5c5934;
+  background-color: rgba(212, 175, 55, 0.3);
+  color: var(--gold, #d4af37);
   padding: 0 2px;
   border-radius: 2px;
+  font-weight: 600;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (min-width: 768px) {
+  .rulebook {
+    font-size: 1.1rem;
+  }
+  
+  .search-container {
+    padding: 1rem 2rem;
+  }
+}
+
+/* Utility class para acessibilidade */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

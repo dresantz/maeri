@@ -1,146 +1,294 @@
-/* =====================================================
-   TOC - Índice do Livro de Regras
-===================================================== */
+/**
+ * toc.js - Índice do Livro de Regras
+ * Gerencia a exibição e navegação do índice lateral
+ * 
+ * Dependências:
+ * - ./constants.js: Lista de capítulos
+ * - ./loader.js: Carregamento de capítulos
+ * - ./navigation.js: Navegação e URL (estado centralizado)
+ */
 
 import { RULEBOOK_CHAPTERS } from "./constants.js";
-import { currentChapterFile } from "./state.js";
 import { loadRulebookChapter } from "./loader.js";
-import { updateURLTopic } from "./navigation.js";
+import { getCurrentChapter, updateURLTopic } from "./navigation.js";
 
-let isTocOpen = false;
-let tocInitialized = false;
+// ===== CONSTANTES =====
+const ICONS = {
+  CLOSED: "☰",
+  OPEN: "✕"
+};
 
-const ICON_CLOSED = "☰";
-const ICON_OPEN = "✕";
+const SELECTORS = {
+  TOGGLE: 'toc-toggle',
+  PANEL: 'toc-panel',
+  OVERLAY: 'toc-overlay',
+  LIST: 'toc-list',
+  CHAPTER_TITLE: 'toc-chapter-title',
+  CHAPTER_SELECT: 'chapter-select'
+};
 
-/* =========================
-   Renderizar índice
-========================= */
+// ===== ESTADO PRIVADO =====
+let isOpen = false;
+let initialized = false;
+let keydownHandler = null;
+
+// ===== UTILITÁRIOS =====
+
+/**
+ * Obtém um elemento do DOM com verificação
+ */
+function getElement(id, required = false) {
+  const el = document.getElementById(id);
+  if (required && !el) {
+    console.warn(`Elemento necessário não encontrado: #${id}`);
+  }
+  return el;
+}
+
+/**
+ * Atualiza o ícone do botão toggle baseado no estado
+ */
+function updateToggleIcon() {
+  const toggle = getElement(SELECTORS.TOGGLE);
+  if (!toggle) return;
+  
+  toggle.textContent = isOpen ? ICONS.OPEN : ICONS.CLOSED;
+  toggle.setAttribute('aria-label', isOpen ? 'Fechar índice' : 'Abrir índice');
+  toggle.setAttribute('aria-expanded', isOpen.toString());
+}
+
+// ===== CONTROLE DO PAINEL =====
+
+/**
+ * Abre o painel do índice
+ */
+function openToc() {
+  const panel = getElement(SELECTORS.PANEL);
+  const overlay = getElement(SELECTORS.OVERLAY);
+  
+  if (isOpen || !panel || !overlay) return;
+  
+  isOpen = true;
+  panel.classList.add('active');
+  overlay.classList.add('active');
+  document.body.classList.add('no-scroll');
+  updateToggleIcon();
+  
+  // Disparar evento para outros componentes
+  document.dispatchEvent(new CustomEvent('toc:opened'));
+}
+
+/**
+ * Fecha o painel do índice
+ */
+function closeToc() {
+  const panel = getElement(SELECTORS.PANEL);
+  const overlay = getElement(SELECTORS.OVERLAY);
+  
+  if (!isOpen || !panel || !overlay) return;
+  
+  isOpen = false;
+  panel.classList.remove('active');
+  overlay.classList.remove('active');
+  document.body.classList.remove('no-scroll');
+  updateToggleIcon();
+  
+  // Disparar evento
+  document.dispatchEvent(new CustomEvent('toc:closed'));
+}
+
+/**
+ * Alterna o estado do painel
+ */
+function toggleToc() {
+  isOpen ? closeToc() : openToc();
+}
+
+// ===== RENDERIZAÇÃO DO ÍNDICE =====
+
+/**
+ * Renderiza o índice para um capítulo específico
+ */
 export function renderTOC(chapterData) {
-  const tocList = document.getElementById("toc-list");
-  const tocChapterTitle = document.getElementById("toc-chapter-title");
+  const tocList = getElement(SELECTORS.LIST);
+  const tocChapterTitle = getElement(SELECTORS.CHAPTER_TITLE);
 
   if (!tocList || !tocChapterTitle) return;
 
-  tocChapterTitle.textContent = chapterData.title || "Livro de Regras";
-  tocList.innerHTML = "";
+  tocChapterTitle.textContent = chapterData.title || 'Livro de Regras';
+  tocList.innerHTML = '';
 
-  (chapterData.sections || []).forEach((section) => {
+  const sections = chapterData.sections || [];
+  
+  if (sections.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'toc-empty';
+    li.textContent = 'Nenhuma seção disponível';
+    tocList.appendChild(li);
+    return;
+  }
+
+  sections.forEach((section) => {
     if (!section.id) return;
 
-    const li = document.createElement("li");
-    const a = document.createElement("a");
+    const li = document.createElement('li');
+    li.className = 'toc-item';
+    
+    const a = document.createElement('a');
     a.href = `#${section.id}`;
-    a.textContent = section.title || "Sem título";
+    a.textContent = section.title || 'Sem título';
+    a.setAttribute('data-section-id', section.id);
+    
     li.appendChild(a);
     tocList.appendChild(li);
   });
 }
 
-/* =========================
-   Abrir/fechar TOC
-========================= */
-function openToc() {
-  const panel = document.getElementById('toc-panel');
-  const overlay = document.getElementById('toc-overlay');
-  const toggle = document.getElementById('toc-toggle');
-  
-  if (isTocOpen || !panel || !overlay || !toggle) return;
-  
-  isTocOpen = true;
-  panel.classList.add('active');
-  overlay.classList.add('active');
-  document.body.classList.add('no-scroll');
-  toggle.textContent = ICON_OPEN;
-  toggle.setAttribute('aria-label', 'Fechar índice');
-}
+// ===== SELEÇÃO DE CAPÍTULOS =====
 
-function closeToc() {
-  const panel = document.getElementById('toc-panel');
-  const overlay = document.getElementById('toc-overlay');
-  const toggle = document.getElementById('toc-toggle');
-  
-  if (!isTocOpen || !panel || !overlay || !toggle) return;
-  
-  isTocOpen = false;
-  panel.classList.remove('active');
-  overlay.classList.remove('active');
-  document.body.classList.remove('no-scroll');
-  toggle.textContent = ICON_CLOSED;
-  toggle.setAttribute('aria-label', 'Abrir índice');
-}
-
-/* =========================
-   Inicializar TOC
-========================= */
-export function initTOCToggle() {
-  if (tocInitialized) return;
-  tocInitialized = true;
-
-  const toggle = document.getElementById('toc-toggle');
-  const panel = document.getElementById('toc-panel');
-  const overlay = document.getElementById('toc-overlay');
-  const tocList = document.getElementById('toc-list');
-
-  if (!toggle || !panel || !overlay || !tocList) return;
-
-  // Único botão: abre e fecha
-  toggle.addEventListener('click', () => {
-    isTocOpen ? closeToc() : openToc();
-  });
-
-  // Links do índice
-  tocList.addEventListener('click', (e) => {
-    const link = e.target.closest('a');
-    if (!link) return;
-
-    e.preventDefault();
-    const targetId = link.getAttribute('href')?.slice(1);
-    if (!targetId) return;
-
-    updateURLTopic(targetId);
-    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
-    closeToc();
-  });
-
-  // Tecla ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isTocOpen) closeToc();
-  });
-}
-
-/* =========================
-   Select de capítulos
-========================= */
+/**
+ * Renderiza o select de capítulos
+ */
 export function renderChapterSelect() {
-  const select = document.getElementById('chapter-select');
+  const select = getElement(SELECTORS.CHAPTER_SELECT);
   if (!select) return;
 
   select.innerHTML = '';
 
-  RULEBOOK_CHAPTERS.forEach((ch, index) => {
+  const currentChapter = getCurrentChapter();
+
+  RULEBOOK_CHAPTERS.forEach((chapter, index) => {
     const option = document.createElement('option');
-    option.value = ch.file;
-    option.textContent = ch.title;
-    option.selected = ch.file === currentChapterFile;
+    option.value = chapter.file;
+    option.textContent = chapter.title;
+    option.selected = chapter.file === currentChapter;
     option.dataset.index = index;
     select.appendChild(option);
   });
 
-  select.onchange = () => {
+  // Remove listener antigo antes de adicionar novo
+  select.onchange = null;
+  select.addEventListener('change', () => {
     loadRulebookChapter(select.value);
-  };
+  });
 }
 
-/* =========================
-   Navegação entre capítulos
-========================= */
+/**
+ * Navega para um capítulo pelo índice
+ */
 export function switchToChapterByIndex(index) {
   const chapter = RULEBOOK_CHAPTERS[index];
-  if (!chapter) return;
+  if (!chapter) {
+    console.warn(`Índice de capítulo inválido: ${index}`);
+    return;
+  }
 
   loadRulebookChapter(chapter.file);
 
-  const select = document.getElementById('chapter-select');
+  const select = getElement(SELECTORS.CHAPTER_SELECT);
   if (select) select.value = chapter.file;
+}
+
+// ===== HANDLERS DE EVENTOS =====
+
+/**
+ * Handler para clique nos links do índice
+ */
+function handleTocLinkClick(e) {
+  const link = e.target.closest('a');
+  if (!link) return;
+
+  e.preventDefault();
+  
+  const href = link.getAttribute('href');
+  if (!href || !href.startsWith('#')) return;
+  
+  const targetId = href.substring(1); // Remove o '#'
+  if (!targetId) return;
+
+  const targetElement = document.getElementById(targetId);
+  if (!targetElement) {
+    console.warn(`Elemento não encontrado: #${targetId}`);
+    return;
+  }
+
+  updateURLTopic(targetId);
+  targetElement.scrollIntoView({ behavior: 'smooth' });
+  closeToc();
+}
+
+/**
+ * Handler para tecla ESC
+ */
+function handleKeyDown(e) {
+  if (e.key === 'Escape' && isOpen) {
+    closeToc();
+  }
+}
+
+// ===== INICIALIZAÇÃO =====
+
+/**
+ * Inicializa o sistema de índice
+ */
+export function initTOCToggle() {
+  if (initialized) {
+    return;
+  }
+
+  const toggle = getElement(SELECTORS.TOGGLE, true);
+  const panel = getElement(SELECTORS.PANEL, true);
+  const overlay = getElement(SELECTORS.OVERLAY, true);
+  const tocList = getElement(SELECTORS.LIST, true);
+
+  if (!toggle || !panel || !overlay || !tocList) {
+    console.error('TOC: elementos necessários não encontrados');
+    return;
+  }
+
+  // Remove listeners antigos se existirem
+  toggle.removeEventListener('click', toggleToc);
+  tocList.removeEventListener('click', handleTocLinkClick);
+  
+  if (keydownHandler) {
+    document.removeEventListener('keydown', keydownHandler);
+  }
+
+  // Adiciona novos listeners
+  toggle.addEventListener('click', toggleToc);
+  tocList.addEventListener('click', handleTocLinkClick);
+  
+  keydownHandler = handleKeyDown;
+  document.addEventListener('keydown', keydownHandler);
+
+  // Estado inicial
+  updateToggleIcon();
+  
+  initialized = true;
+}
+
+/**
+ * Limpa os listeners (útil para hot-reload ou destruição)
+ */
+export function destroyTOC() {
+  if (keydownHandler) {
+    document.removeEventListener('keydown', keydownHandler);
+    keydownHandler = null;
+  }
+  
+  const toggle = getElement(SELECTORS.TOGGLE);
+  if (toggle) {
+    toggle.removeEventListener('click', toggleToc);
+  }
+  
+  const tocList = getElement(SELECTORS.LIST);
+  if (tocList) {
+    tocList.removeEventListener('click', handleTocLinkClick);
+  }
+  
+  initialized = false;
+  isOpen = false;
+  
+  // Garantir que o painel está fechado
+  closeToc();
 }

@@ -1,70 +1,122 @@
-let isDiceOpen = false;
+/**
+ * dice.js - Controle do painel de dados
+ * Versão refatorada com encapsulamento
+ * 
+ * Eventos ouvidos: modals:loaded
+ * Eventos disparados: dice:opened, dice:closed
+ */
 
-function openDice() {
-  const panel = document.getElementById('dice-panel');
-  const overlay = document.getElementById('dice-overlay');
+const DiceManager = (function() {
+  'use strict';
   
-  if (isDiceOpen || !panel || !overlay) return;
+  // ===== ESTADO PRIVADO =====
+  let isOpen = false;
   
-  isDiceOpen = true;
-  panel.classList.add('active');
-  overlay.classList.add('active');
-  document.body.classList.add('no-scroll');
-}
-
-function closeDice() {
-  const panel = document.getElementById('dice-panel');
-  const overlay = document.getElementById('dice-overlay');
+  // ===== UTILITÁRIOS =====
   
-  if (!isDiceOpen || !panel || !overlay) return;
-  
-  isDiceOpen = false;
-  panel.classList.remove('active');
-  overlay.classList.remove('active');
-  document.body.classList.remove('no-scroll');
-}
-
-function initDice() {
-  
-  const diceBtn = document.getElementById('dice-toggle');
-  const diceClose = document.getElementById('dice-close');
-  const dicePanel = document.getElementById('dice-panel');
-  const diceOverlay = document.getElementById('dice-overlay');
-  
-  if (!diceBtn || !diceClose || !dicePanel || !diceOverlay) {
-    console.log('Elementos do dice modal não encontrados');
-    return;
+  function getPanel() {
+    return document.getElementById('dice-panel');
   }
   
-  // Se já inicializado, não duplica listeners
-  if (dicePanel.dataset.modalInitialized === 'true') return;
-  dicePanel.dataset.modalInitialized = 'true';
+  function getOverlay() {
+    return document.getElementById('dice-overlay');
+  }
   
-  // Abrir modal
-  diceBtn.addEventListener('click', openDice);
+  // ===== CONTROLE DO MODAL =====
   
-  // Fechar modal (botão X)
-  diceClose.addEventListener('click', closeDice);
+  function openDice() {
+    const panel = getPanel();
+    const overlay = getOverlay();
+    
+    if (isOpen || !panel || !overlay) return;
+    
+    isOpen = true;
+    panel.classList.add('active');
+    overlay.classList.add('active');
+    document.body.classList.add('no-scroll');
+    
+    // Disparar evento
+    document.dispatchEvent(new CustomEvent('dice:opened'));
+  }
   
-  // Fechar modal (clique no overlay)
-  diceOverlay.addEventListener('click', closeDice);
+  function closeDice() {
+    const panel = getPanel();
+    const overlay = getOverlay();
+    
+    if (!isOpen || !panel || !overlay) return;
+    
+    isOpen = false;
+    panel.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.classList.remove('no-scroll');
+    
+    // Disparar evento
+    document.dispatchEvent(new CustomEvent('dice:closed'));
+  }
   
-  // Fechar modal (tecla ESC)
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isDiceOpen) {
-      closeDice();
+  // ===== INICIALIZAÇÃO =====
+  
+  function init() {
+    const diceBtn = document.getElementById('dice-toggle');
+    const diceClose = document.getElementById('dice-close');
+    const dicePanel = getPanel();
+    const diceOverlay = getOverlay();
+    
+    if (!diceBtn || !diceClose || !dicePanel || !diceOverlay) {
+      console.warn('Elementos do painel de dados não encontrados');
+      return;
     }
-  });
+    
+    if (dicePanel.dataset.modalInitialized === 'true') {
+      return;
+    }
+    
+    dicePanel.dataset.modalInitialized = 'true';
+    
+    // Abrir modal
+    diceBtn.addEventListener('click', openDice);
+    
+    // Fechar modal (botão X)
+    diceClose.addEventListener('click', closeDice);
+    
+    // Fechar modal (clique no overlay)
+    diceOverlay.addEventListener('click', closeDice);
+    
+    // Fechar modal (tecla ESC)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeDice();
+      }
+    });
+    
+  }
+  
+  // ===== API PÚBLICA =====
+  return {
+    init: init,
+    open: openDice,
+    close: closeDice,
+    isOpen: () => isOpen
+  };
+})();
+
+// ===== INICIALIZAÇÃO AUTOMÁTICA =====
+
+function initializeDice() {
+  if (document.getElementById('dice-panel')) {
+    DiceManager.init();
+  } else {
+    document.addEventListener('modals:loaded', DiceManager.init);
+  }
 }
 
-// Inicializa quando o DOM estiver pronto
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initDice);
+  document.addEventListener('DOMContentLoaded', initializeDice);
 } else {
-  initDice();
+  initializeDice();
 }
 
-// Reinicializa quando modais forem carregados
-document.addEventListener('modals:loaded', () => {
-  initDice();
-});
+// Exportar para uso em outros módulos
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = DiceManager;
+}

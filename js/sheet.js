@@ -60,16 +60,13 @@ const SheetManager = (function() {
     return div.innerHTML;
   }
   
-  /**
-   * Mostra feedback temporário ao usuário
-   */
+  /* Mostra feedback temporário ao usuário */
   function showFeedback(message, type = 'success') {
     // Tenta encontrar qualquer feedback disponível
     const feedback = document.getElementById('import-feedback') || 
                      document.getElementById('save-feedback');
     
     if (!feedback) {
-      console.log(`[Feedback] ${type}: ${message}`);
       return;
     }
     
@@ -655,8 +652,6 @@ const SheetManager = (function() {
         closeSheet();
       }
     });
-    
-    console.log('SheetManager inicializado com sucesso');
   }
   
   // ===== API PÚBLICA =====

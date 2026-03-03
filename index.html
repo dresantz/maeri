@@ -87,18 +87,12 @@
 <!-- Modal Loader - PRIMEIRO carrega os modais -->
 <script type="module">
   import { loadGlobalModals } from './js/modalLoader.js';
+  
+  // Apenas carrega os modais, sem listener adicional
   loadGlobalModals();
-
-  function initModals() {
-    import('./js/sheet.js');
-    import('./js/spells.js');
-    import('./js/dice.js');
-  }
-
-  document.addEventListener('modals:loaded', initModals);
 </script>
 
-<!-- notpad.js -->
+<!-- notpad.js (não é module, então mantém assim) -->
 <script src="js/notpad.js" defer></script>
 </body>
 </html>

@@ -1,8 +1,12 @@
+/**
+ * loader.js - Carregamento de capítulos do rulebook
+ */
+
 import { renderRulebookChapter } from "./renderer.js";
 import { renderTOC, renderChapterSelect } from "./toc.js";
-import { setCurrentChapter } from "./state.js";
 import { LAST_CHAPTER_KEY } from "./constants.js";
 import {
+  setCurrentChapter,
   updateChapterNavButtons,
   restoreLastTopic,
   observeTopics,
@@ -15,63 +19,44 @@ export function loadRulebookChapter(fileName, topicOverride = null) {
   const currentToken = ++loadToken;
   const path = `../data/rulebook/${fileName}`;
 
-  /* =========================
-     Estado global
-  ========================= */
+  // Atualiza estado global
   setCurrentChapter(fileName);
   localStorage.setItem(LAST_CHAPTER_KEY, fileName);
 
-  /* =========================
-     URL (?chapter)
-  ========================= */
+  // Atualiza URL
   const url = new URL(window.location);
-  const currentChapter = url.searchParams.get("chapter");
-
-  if (currentChapter !== fileName) {
+  if (url.searchParams.get("chapter") !== fileName) {
     url.searchParams.set("chapter", fileName);
     url.searchParams.delete("topic");
     window.history.replaceState({}, "", url);
   }
 
-  /* =========================
-     Fetch
-  ========================= */
   fetch(path)
-    .then((res) => {
+    .then(res => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return res.json();
     })
-    .then((data) => {
+    .then(data => {
       if (currentToken !== loadToken) return;
 
-      /* =========================
-         Render
-      ========================= */
       renderRulebookChapter(data);
       renderTOC(data);
       renderChapterSelect();
       updateChapterNavButtons();
 
-      /* =========================
-         Scroll Spy
-      ========================= */
-      observeTopics();
+      // 👇 ATIVA O SCROLL SPY DEPOIS DE RENDERIZAR
+      // Pequeno atraso para garantir que o DOM está pronto
+      setTimeout(() => {
+        observeTopics();
+      }, 100);
 
-      /* =========================
-         Restore de tópico
-         (APENAS UMA VEZ)
-      ========================= */
       requestAnimationFrame(() => {
         restoreLastTopic(topicOverride);
-
-        if (topicOverride) {
-          updateURLTopic(topicOverride);
-        }
+        if (topicOverride) updateURLTopic(topicOverride);
       });
     })
-    .catch((err) => {
+    .catch(err => {
       if (currentToken !== loadToken) return;
-
       console.error("Failed to load rulebook chapter:", err);
 
       const content = document.getElementById("rulebook-content");
