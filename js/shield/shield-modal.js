@@ -1,4 +1,4 @@
-// shield-modal.js
+// js/shield/shield-modal.js
 import { RULEBOOK_CHAPTERS } from '../rulebook/constants.js';
 
 const modal = document.getElementById('shield-modal');
@@ -8,7 +8,6 @@ const closeBtn = document.getElementById('shield-modal-close');
 
 let allData = null;
 
-// Mapeamento de botões → identificadores
 const BUTTON_CONFIG = {
   'Testes':        { id: 'teste_item',     prop: 'teste_item',     title: 'Testes' },
   'Combate':       { id: 'combate_item',   prop: 'combate_item',   title: 'Combate' },
@@ -32,7 +31,7 @@ async function loadAllChapters() {
   
   allData = { sections: [] };
   
-  for (const chapter of RULEBOOK_CHAPTERS) {
+  const fetchPromises = RULEBOOK_CHAPTERS.map(async (chapter) => {
     try {
       const response = await fetch(`../../data/rulebook/${chapter.file}`);
       const data = await response.json();
@@ -40,23 +39,22 @@ async function loadAllChapters() {
     } catch (e) {
       console.warn(`Erro ao carregar ${chapter.file}:`, e);
     }
-  }
+  });
+  
+  await Promise.all(fetchPromises);
   return allData;
 }
 
-// Busca conteúdos por tipo (ex: 'teste_item' ou id: 'teste_item')
 function findItemsByType(data, config) {
-  let items = [];
+  const items = [];
 
   function search(obj) {
     if (!obj) return;
     
-    // Propriedade direta (ex: teste_item: "texto")
     if (obj[config.prop]) {
       items.push({ type: 'paragraph', text: obj[config.prop] });
     }
     
-    // Bloco com id correspondente
     if (obj.id === config.id) {
       if (obj.items) items.push({ type: 'list', items: obj.items });
       if (obj.text) items.push({ type: 'paragraph', text: obj.text });
@@ -73,33 +71,26 @@ function findItemsByType(data, config) {
 
 function renderShieldContent(items) {
   if (!modalBody) return;
-  modalBody.innerHTML = '';
   
-  items.forEach(item => {
+  modalBody.innerHTML = items.map(item => {
     if (item.type === 'paragraph') {
-      const p = document.createElement('p');
-      p.textContent = item.text;
-      modalBody.appendChild(p);
+      return `<p>${item.text}</p>`;
     }
     if (item.type === 'list') {
-      const ul = document.createElement('ul');
-      item.items.forEach(text => {
-        const li = document.createElement('li');
-        li.textContent = text;
-        ul.appendChild(li);
-      });
-      modalBody.appendChild(ul);
+      const listItems = item.items.map(text => `<li>${text}</li>`).join('');
+      return `<ul>${listItems}</ul>`;
     }
-  });
+    return '';
+  }).join('');
 }
 
-// Abre modal genérico
 async function openShieldModal(buttonText) {
   const config = BUTTON_CONFIG[buttonText];
   if (!config) return;
   
   const data = await loadAllChapters();
   const items = findItemsByType(data, config);
+  
   modalTitle.textContent = config.title;
   renderShieldContent(items);
   modal.classList.add('active');
@@ -107,20 +98,31 @@ async function openShieldModal(buttonText) {
 
 function closeShieldModal() {
   modal.classList.remove('active');
-  modalBody.innerHTML = '';
+  if (modalBody) modalBody.innerHTML = '';
 }
 
-// Event listeners
-if (closeBtn) closeBtn.addEventListener('click', closeShieldModal);
-if (modal) modal.addEventListener('click', (e) => {
-  if (e.target === modal) closeShieldModal();
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+function setupEventListeners() {
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeShieldModal);
+  }
+  
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeShieldModal();
+    });
+  }
+  
   document.querySelectorAll('.shield-button').forEach(btn => {
     const text = btn.textContent.trim();
     if (BUTTON_CONFIG[text]) {
       btn.addEventListener('click', () => openShieldModal(text));
     }
   });
-});
+}
+
+// Inicialização
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupEventListeners);
+} else {
+  setupEventListeners();
+}

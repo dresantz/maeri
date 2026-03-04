@@ -20,6 +20,33 @@ const MODAL_SCRIPTS = [
 // Cache de scripts carregados
 const loadedScripts = new Set();
 
+// Cache de caminhos resolvidos
+const pathCache = new Map();
+
+function resolvePath(basePath, isInPages) {
+  const cacheKey = `${basePath}-${isInPages}`;
+  if (pathCache.has(cacheKey)) {
+    return pathCache.get(cacheKey);
+  }
+
+  let resolvedPath;
+  
+  if (isInPages) {
+    // Se está em /pages/algo.html, remove o prefixo 'pages/' do caminho
+    // porque já estamos dentro da pasta pages
+    if (basePath.startsWith('pages/')) {
+      resolvedPath = basePath.replace('pages/', '');
+    } else {
+      resolvedPath = `../${basePath}`;
+    }
+  } else {
+    resolvedPath = basePath;
+  }
+  
+  pathCache.set(cacheKey, resolvedPath);
+  return resolvedPath;
+}
+
 async function loadScript(src) {
   if (loadedScripts.has(src)) {
     return Promise.resolve();
@@ -60,7 +87,7 @@ export async function loadGlobalModals() {
   try {
     // Carrega HTML dos modais em paralelo
     const fetchPromises = MODAL_PATHS.map(async (path) => {
-      const fullPath = isInPages ? `../${path}` : path;
+      const fullPath = resolvePath(path, isInPages);
       try {
         const response = await fetch(fullPath);
         if (!response.ok) {
@@ -84,10 +111,11 @@ export async function loadGlobalModals() {
     
     // Carrega scripts dos modais em paralelo
     const scriptPromises = MODAL_SCRIPTS.map(async (scriptPath) => {
-      const fullPath = isInPages ? `../${scriptPath}` : scriptPath;
+      const fullPath = resolvePath(scriptPath, isInPages);
       try {
         await loadScript(fullPath);
       } catch (error) {
+        // Silencia erro de script individual
       }
     });
     
@@ -101,9 +129,7 @@ export async function loadGlobalModals() {
       }
     }));
     
-    
   } catch (error) {
-    // Tenta recuperação parcial?
     root.dataset.loaded = 'error';
   }
 }

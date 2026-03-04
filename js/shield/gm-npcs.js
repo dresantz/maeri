@@ -3,12 +3,11 @@ export class GMNPCs {
   constructor(parent) {
     this.parent = parent;
     this.npcs = [];
-    this.filteredNpcs = null; // Para armazenar resultados da busca
+    this.filteredNpcs = null;
   }
 
   init() {
     this.setupNPCForm();
-    // Não renderiza aqui, pois o pai vai chamar renderNPCs depois
   }
 
   setupNPCForm() {
@@ -16,19 +15,16 @@ export class GMNPCs {
     const clearBtn = document.getElementById('npc-clear');
     const searchInput = document.querySelector('.gmnotes-search-input');
 
-    if (addBtn) addBtn.addEventListener('click', () => this.addNPC());
-    if (clearBtn) clearBtn.addEventListener('click', () => this.clearNPCForm());
-    if (searchInput) searchInput.addEventListener('input', (e) => this.searchNPCs(e.target.value));
+    addBtn?.addEventListener('click', () => this.addNPC());
+    clearBtn?.addEventListener('click', () => this.clearNPCForm());
+    searchInput?.addEventListener('input', (e) => this.searchNPCs(e.target.value));
   }
 
-  addNPC() {
-    const npc = {
-      id: 'npc_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11),
+  getFormValues() {
+    return {
       name: document.getElementById('npc-name')?.value || 'NPC sem nome',
-      vitMax: parseInt(document.getElementById('npc-vit')?.value) || 10,
-      vitCurrent: parseInt(document.getElementById('npc-vit')?.value) || 10,
-      conMax: parseInt(document.getElementById('npc-con')?.value) || 0,
-      conCurrent: parseInt(document.getElementById('npc-con')?.value) || 0,
+      vit: parseInt(document.getElementById('npc-vit')?.value) || 10,
+      con: parseInt(document.getElementById('npc-con')?.value) || 0,
       attributes: {
         f: Math.min(99, parseInt(document.getElementById('npc-f')?.value) || 10),
         v: Math.min(99, parseInt(document.getElementById('npc-v')?.value) || 10),
@@ -37,52 +33,73 @@ export class GMNPCs {
         i: Math.min(99, parseInt(document.getElementById('npc-i')?.value) || 10),
         s: Math.min(99, parseInt(document.getElementById('npc-s')?.value) || 10)
       },
-      extra: document.getElementById('npc-extra')?.value || '',
+      extra: document.getElementById('npc-extra')?.value || ''
+    };
+  }
+
+  addNPC() {
+    const form = this.getFormValues();
+    
+    const npc = {
+      id: `npc_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
+      name: form.name,
+      vitMax: form.vit,
+      vitCurrent: form.vit,
+      conMax: form.con,
+      conCurrent: form.con,
+      attributes: form.attributes,
+      extra: form.extra,
       createdAt: new Date().toISOString()
     };
 
     this.npcs.push(npc);
-    this.filteredNpcs = null; // Limpa qualquer filtro ativo
+    this.clearNPCForm();
+    this.resetSearch();
     this.renderNPCs();
     this.parent.saveToStorage();
-    this.clearNPCForm();
     this.parent.updateStatus('NPC adicionado!');
   }
 
   clearNPCForm() {
-    document.getElementById('npc-name').value = '';
-    document.getElementById('npc-vit').value = '8';
-    document.getElementById('npc-con').value = '8';
-    document.getElementById('npc-f').value = '2';
-    document.getElementById('npc-v').value = '2';
-    document.getElementById('npc-d').value = '2';
-    document.getElementById('npc-a').value = '2';
-    document.getElementById('npc-i').value = '2';
-    document.getElementById('npc-s').value = '2';
-    document.getElementById('npc-extra').value = '';
+    const defaults = {
+      name: '',
+      vit: '8',
+      con: '8',
+      f: '2',
+      v: '2',
+      d: '2',
+      a: '2',
+      i: '2',
+      s: '2',
+      extra: ''
+    };
+
+    document.getElementById('npc-name').value = defaults.name;
+    document.getElementById('npc-vit').value = defaults.vit;
+    document.getElementById('npc-con').value = defaults.con;
+    document.getElementById('npc-f').value = defaults.f;
+    document.getElementById('npc-v').value = defaults.v;
+    document.getElementById('npc-d').value = defaults.d;
+    document.getElementById('npc-a').value = defaults.a;
+    document.getElementById('npc-i').value = defaults.i;
+    document.getElementById('npc-s').value = defaults.s;
+    document.getElementById('npc-extra').value = defaults.extra;
   }
 
-  // Verifica se NPC está na ordem de combate
+  resetSearch() {
+    this.filteredNpcs = null;
+    const searchInput = document.querySelector('.gmnotes-search-input');
+    if (searchInput) searchInput.value = '';
+  }
+
   isInCombat(npcId) {
     return this.parent.combat?.combatOrder?.some(item => item.id === npcId) || false;
   }
 
-  // Feedback visual temporário
-  showTemporaryFeedback(btn, type) {
-    btn.classList.add(type);
-    setTimeout(() => {
-      btn.classList.remove(type);
-    }, 800);
-  }
-
   renderNPCs() {
     const container = document.getElementById('npc-list');
-    if (!container) {
-      console.log('Container NPC não encontrado');
-      return;
-    }
+    if (!container) return;
 
-    // Decide qual array renderizar (filtrado ou completo)
     const npcsToRender = this.filteredNpcs || this.npcs;
 
     if (npcsToRender.length === 0) {
@@ -90,87 +107,94 @@ export class GMNPCs {
       return;
     }
 
-    container.innerHTML = npcsToRender.map(npc => {
-      const inCombat = this.isInCombat(npc.id);
-      const combatButtonClass = inCombat ? 'gmnotes-npc-btn combat-added' : 'gmnotes-npc-btn';
-      
-      return `
+    container.innerHTML = npcsToRender.map(npc => this.renderNPCItem(npc)).join('');
+  }
+
+  renderNPCItem(npc) {
+    const inCombat = this.isInCombat(npc.id);
+    const combatButtonClass = inCombat ? 'gmnotes-npc-btn combat-added' : 'gmnotes-npc-btn';
+    const combatTitle = inCombat ? 'Já está no combate' : 'Adicionar ao Combate';
+    
+    return `
       <div class="gmnotes-npc-item" data-npc-id="${npc.id}">
         <div class="gmnotes-npc-header">
           <span class="gmnotes-npc-name">${this.parent.escapeHtml(npc.name)}</span>
           <div class="gmnotes-npc-actions">
-            <button class="${combatButtonClass}" onclick="gmNotes.toggleNPCInCombat('${npc.id}', this)" title="${inCombat ? 'Já está no combate' : 'Adicionar ao Combate'}">⚔️</button>
-            <button class="gmnotes-npc-btn" onclick="gmNotes.editNPC('${npc.id}')" title="Editar">✏️</button>
-            <button class="gmnotes-npc-btn" onclick="gmNotes.duplicateNPC('${npc.id}')" title="Duplicar">📋</button>
-            <button class="gmnotes-npc-btn" onclick="gmNotes.deleteNPC('${npc.id}')" title="Remover">🗑️</button>
+            <button class="${combatButtonClass}" 
+                    onclick="gmNotes.toggleNPCInCombat('${npc.id}', this)" 
+                    title="${combatTitle}">⚔️</button>
+            <button class="gmnotes-npc-btn" 
+                    onclick="gmNotes.editNPC('${npc.id}')" 
+                    title="Editar">✏️</button>
+            <button class="gmnotes-npc-btn" 
+                    onclick="gmNotes.duplicateNPC('${npc.id}')" 
+                    title="Duplicar">📋</button>
+            <button class="gmnotes-npc-btn" 
+                    onclick="gmNotes.deleteNPC('${npc.id}')" 
+                    title="Remover">🗑️</button>
           </div>
         </div>
         
         <div class="gmnotes-npc-stats">
-          <div class="gmnotes-stat-group">
-            <span class="gmnotes-stat-label">Vit:</span>
-            <div class="gmnotes-stat-control">
-              <button class="gmnotes-stat-btn" onclick="gmNotes.adjustVit('${npc.id}', -1)">-</button>
-              <span class="gmnotes-stat-value">${npc.vitCurrent}/${npc.vitMax}</span>
-              <button class="gmnotes-stat-btn" onclick="gmNotes.adjustVit('${npc.id}', 1)">+</button>
-            </div>
-          </div>
-          <div class="gmnotes-stat-group">
-            <span class="gmnotes-stat-label">Con:</span>
-            <div class="gmnotes-stat-control">
-              <button class="gmnotes-stat-btn" onclick="gmNotes.adjustCon('${npc.id}', -1)">-</button>
-              <span class="gmnotes-stat-value">${npc.conCurrent}/${npc.conMax}</span>
-              <button class="gmnotes-stat-btn" onclick="gmNotes.adjustCon('${npc.id}', 1)">+</button>
-            </div>
-          </div>
+          ${this.renderStatControl('Vit', npc.vitCurrent, npc.vitMax, npc.id)}
+          ${this.renderStatControl('Con', npc.conCurrent, npc.conMax, npc.id)}
         </div>
 
         <div class="gmnotes-npc-attributes">
-          <span class="gmnotes-attr">F ${npc.attributes.f}</span>
-          <span class="gmnotes-attr">V ${npc.attributes.v}</span>
-          <span class="gmnotes-attr">D ${npc.attributes.d}</span>
-          <span class="gmnotes-attr">A ${npc.attributes.a}</span>
-          <span class="gmnotes-attr">I ${npc.attributes.i}</span>
-          <span class="gmnotes-attr">S ${npc.attributes.s}</span>
+          ${Object.entries(npc.attributes).map(([key, value]) => 
+            `<span class="gmnotes-attr">${key.toUpperCase()} ${value}</span>`
+          ).join('')}
         </div>
 
-        ${npc.extra ? `
-        <div class="gmnotes-npc-extra">
-          <span class="gmnotes-extra-label">Extra:</span>
-          <span class="gmnotes-extra-text">${this.parent.escapeHtml(npc.extra)}</span>
-        </div>
-        ` : ''}
+        ${npc.extra ? this.renderExtra(npc.extra) : ''}
       </div>
-    `}).join('');
+    `;
+  }
+
+  renderStatControl(label, current, max, npcId) {
+    const adjustFn = label === 'Vit' ? 'adjustVit' : 'adjustCon';
+    
+    return `
+      <div class="gmnotes-stat-group">
+        <span class="gmnotes-stat-label">${label}:</span>
+        <div class="gmnotes-stat-control">
+          <button class="gmnotes-stat-btn" 
+                  onclick="gmNotes.${adjustFn}('${npcId}', -1)">-</button>
+          <span class="gmnotes-stat-value">${current}/${max}</span>
+          <button class="gmnotes-stat-btn" 
+                  onclick="gmNotes.${adjustFn}('${npcId}', 1)">+</button>
+        </div>
+      </div>
+    `;
+  }
+
+  renderExtra(extra) {
+    return `
+      <div class="gmnotes-npc-extra">
+        <span class="gmnotes-extra-label">Extra:</span>
+        <span class="gmnotes-extra-text">${this.parent.escapeHtml(extra)}</span>
+      </div>
+    `;
   }
 
   adjustVit(npcId, change) {
     const npc = this.npcs.find(n => n.id === npcId);
-    if (npc) {
-      npc.vitCurrent = Math.max(0, Math.min(npc.vitMax, npc.vitCurrent + change));
-      this.renderNPCs();
-      
-      if (this.parent.combat) {
-        this.parent.combat.adjustCombatVit(npcId, change);
-      }
-      
-      this.parent.saveToStorage();
-    }
+    if (!npc) return;
+    
+    npc.vitCurrent = Math.max(0, Math.min(npc.vitMax, npc.vitCurrent + change));
+    this.renderNPCs();
+    this.parent.combat?.adjustCombatVit(npcId, change);
+    this.parent.saveToStorage();
   }
 
   adjustCon(npcId, change) {
     const npc = this.npcs.find(n => n.id === npcId);
-    if (npc) {
-      npc.conCurrent = Math.max(0, Math.min(npc.conMax, npc.conCurrent + change));
-      this.renderNPCs();
-      
-      // CORREÇÃO: Usa o método EXISTENTE adjustCombatCon
-      if (this.parent.combat) {
-        this.parent.combat.adjustCombatCon(npcId, change);
-      }
-      
-      this.parent.saveToStorage();
-    }
+    if (!npc) return;
+    
+    npc.conCurrent = Math.max(0, Math.min(npc.conMax, npc.conCurrent + change));
+    this.renderNPCs();
+    this.parent.combat?.adjustCombatCon(npcId, change);
+    this.parent.saveToStorage();
   }
 
   editNPC(npcId) {
@@ -194,61 +218,54 @@ export class GMNPCs {
 
   duplicateNPC(npcId) {
     const npc = this.npcs.find(n => n.id === npcId);
-    if (npc) {
-      const duplicate = JSON.parse(JSON.stringify(npc));
-      duplicate.id = 'npc_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
-      duplicate.name = npc.name + ' (Cópia)';
-      this.npcs.push(duplicate);
-      this.renderNPCs();
-      this.parent.saveToStorage();
-      this.parent.updateStatus('NPC duplicado!');
-    }
+    if (!npc) return;
+    
+    const duplicate = JSON.parse(JSON.stringify(npc));
+    duplicate.id = `npc_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+    duplicate.name = `${npc.name} (Cópia)`;
+    
+    this.npcs.push(duplicate);
+    this.renderNPCs();
+    this.parent.saveToStorage();
+    this.parent.updateStatus('NPC duplicado!');
   }
   
   deleteNPC(npcId, render = true) {
     const wasInCombat = this.isInCombat(npcId);
+    
     this.npcs = this.npcs.filter(n => n.id !== npcId);
     
     if (this.parent.combat && wasInCombat) {
       this.parent.combat.removeFromCombatById(npcId);
     }
     
-    if (render) {
-      this.renderNPCs();
-      if (this.parent.combat) {
-        this.parent.combat.renderCombatOrder();
-      }
-      this.parent.saveToStorage();
-      this.parent.updateStatus('NPC removido');
-    }
+    if (!render) return;
+    
+    this.renderNPCs();
+    this.parent.combat?.renderCombatOrder();
+    this.parent.saveToStorage();
+    this.parent.updateStatus('NPC removido');
   }
 
   searchNPCs(query) {
-    if (!query || query.trim() === '') {
-      this.filteredNpcs = null; // Limpa o filtro
-      this.renderNPCs();
-      return;
+    const searchTerm = query?.trim().toLowerCase();
+    
+    if (!searchTerm) {
+      this.filteredNpcs = null;
+    } else {
+      this.filteredNpcs = this.npcs.filter(npc => 
+        npc.name.toLowerCase().includes(searchTerm) ||
+        (npc.extra && npc.extra.toLowerCase().includes(searchTerm))
+      );
     }
-
-    const searchTerm = query.toLowerCase().trim();
-    this.filteredNpcs = this.npcs.filter(npc => 
-      npc.name.toLowerCase().includes(searchTerm) ||
-      (npc.extra && npc.extra.toLowerCase().includes(searchTerm))
-    );
-
+    
     this.renderNPCs();
   }
 
   loadFromStorage(data) {
-    // Garante que os NPCs sejam carregados corretamente
-    if (data && data.npcs) {
-      this.npcs = data.npcs;
-    } else {
-      this.npcs = [];
-    }
-    this.filteredNpcs = null; // Limpa qualquer filtro ao carregar
+    this.npcs = data?.npcs || [];
+    this.filteredNpcs = null;
     
-    // Só renderiza se o container existir
     if (document.getElementById('npc-list')) {
       this.renderNPCs();
     }

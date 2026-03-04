@@ -7,13 +7,16 @@ import { GMSectionNotes } from './gm-sectionNotes.js';
 
 class GMNotesModal {
   constructor() {
+    // Elementos DOM
     this.modal = null;
     this.btn = document.getElementById('gmnotes-button');
+    
+    // Estado
     this.currentTab = 'npcs';
     this.focusableElements = null;
     this.previouslyFocused = null;
     
-    // Inicializa módulos
+    // Inicializa módulos com referência à instância principal
     this.players = new GMPlayers(this);
     this.npcs = new GMNPCs(this);
     this.combat = new GMCombat(this);
@@ -24,29 +27,12 @@ class GMNotesModal {
 
   async init() {
     await loadGMNotesModal();
-    this.afterLoad();
-    this.setupEventListeners();
-    this.loadFromStorage();
-  }
-
-  afterLoad() {
     this.cacheElements();
+    this.setupEventListeners();
     this.setupTabs();
     this.setupFocusTrap();
-    
-    // Inicializa todos os módulos
-    this.players.init();
-    this.npcs.init();
-    this.combat.init();
-    this.notes.init();
-    
-    // Renderiza tudo
-    this.players.renderPlayers();
-    this.npcs.renderNPCs();
-    this.combat.renderCombatOrder();
-    this.notes.renderSessions();
-    
-    // Inicialmente, o modal está fechado com inert
+    this.initializeModules();
+    this.loadFromStorage();
     this.setInert(true);
   }
 
@@ -60,14 +46,29 @@ class GMNotesModal {
     this.tabPanes = document.querySelectorAll('.gmnotes-tab-pane');
   }
 
+  initializeModules() {
+    this.players.init();
+    this.npcs.init();
+    this.combat.init();
+    this.notes.init();
+    
+    this.players.renderPlayers();
+    this.npcs.renderNPCs();
+    this.combat.renderCombatOrder();
+    this.notes.renderSessions();
+  }
+
   setupFocusTrap() {
-    // Elementos que podem receber foco dentro do modal
+    if (!this.modal) return;
+    
     this.focusableElements = this.modal.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
   }
 
   setInert(isInert) {
+    if (!this.modal) return;
+    
     if (isInert) {
       this.modal.setAttribute('inert', '');
       this.modal.setAttribute('aria-hidden', 'true');
@@ -78,74 +79,73 @@ class GMNotesModal {
   }
 
   setupEventListeners() {
-    if (!this.btn || !this.modal) {
-      console.error('Botão ou modal não encontrado');
-      return;
-    }
+    if (!this.btn || !this.modal) return;
 
+    // Abrir/fechar
     this.btn.addEventListener('click', () => this.open());
+    
+    [this.closeBtn, this.doneBtn].forEach(btn => {
+      if (btn) btn.addEventListener('click', () => this.close());
+    });
 
-    if (this.closeBtn) {
-      this.closeBtn.addEventListener('click', () => this.close());
-    }
-
-    if (this.doneBtn) {
-      this.doneBtn.addEventListener('click', () => this.close());
-    }
-
+    // Exportação/Importação
     if (this.exportBtn) {
       this.exportBtn.addEventListener('click', () => this.exportData());
     }
-
+    
     if (this.importBtn) {
       this.importBtn.addEventListener('click', () => this.importData());
     }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal?.classList.contains('active')) {
-        this.close();
-      }
-      
-      // Trap focus dentro do modal quando aberto
-      if (e.key === 'Tab' && this.modal?.classList.contains('active')) {
-        this.trapFocus(e);
-      }
-    });
+    // Eventos globais
+    document.addEventListener('keydown', this.handleKeyDown.bind(this));
+    this.modal.addEventListener('click', this.handleModalClick.bind(this));
+  }
 
-    this.modal?.addEventListener('click', (e) => {
-      if (e.target === this.modal) {
-        this.close();
-      }
-    });
+  handleKeyDown(e) {
+    if (!this.modal?.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
+      this.close();
+    }
+    
+    if (e.key === 'Tab') {
+      this.trapFocus(e);
+    }
+  }
+
+  handleModalClick(e) {
+    if (e.target === this.modal) {
+      this.close();
+    }
   }
 
   trapFocus(e) {
-    if (!this.focusableElements || this.focusableElements.length === 0) return;
+    if (!this.focusableElements?.length) return;
     
-    const firstFocusable = this.focusableElements[0];
-    const lastFocusable = this.focusableElements[this.focusableElements.length - 1];
+    const first = this.focusableElements[0];
+    const last = this.focusableElements[this.focusableElements.length - 1];
     
-    if (e.shiftKey && document.activeElement === firstFocusable) {
+    if (e.shiftKey && document.activeElement === first) {
       e.preventDefault();
-      lastFocusable.focus();
-    } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
       e.preventDefault();
-      firstFocusable.focus();
+      first.focus();
     }
   }
 
   open() {
-    // Guarda o elemento que estava com foco
     this.previouslyFocused = document.activeElement;
     
     this.modal.classList.add('active');
     this.setInert(false);
-    this.btn.setAttribute('aria-expanded', 'true');
+    this.btn?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     
-    // Foca no primeiro elemento do modal
+    // Foca no primeiro elemento após animação
     setTimeout(() => {
-      if (this.focusableElements && this.focusableElements.length > 0) {
+      if (this.focusableElements?.length) {
         this.focusableElements[0].focus();
       }
     }, 100);
@@ -154,20 +154,17 @@ class GMNotesModal {
   close() {
     this.modal.classList.remove('active');
     this.setInert(true);
-    this.btn.setAttribute('aria-expanded', 'false');
+    this.btn?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
     
-    // Retorna o foco para o botão que abriu o modal
-    if (this.previouslyFocused) {
-      this.previouslyFocused.focus();
-    }
+    this.previouslyFocused?.focus();
   }
 
   setupTabs() {
     this.tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const tab = btn.dataset.tab;
-        this.switchTab(tab);
+        if (tab) this.switchTab(tab);
       });
     });
   }
@@ -184,25 +181,25 @@ class GMNotesModal {
     this.currentTab = tabId;
   }
 
-// ========== MÉTODOS DELEGADOS ==========
-// NPCs
-adjustVit(npcId, change) { this.npcs.adjustVit(npcId, change); }
-adjustCon(npcId, change) { this.npcs.adjustCon(npcId, change); }
-editNPC(npcId) { this.npcs.editNPC(npcId); }
-duplicateNPC(npcId) { this.npcs.duplicateNPC(npcId); }
-deleteNPC(npcId) { this.npcs.deleteNPC(npcId); }
-toggleNPCInCombat(npcId, btnElement) { this.combat.toggleNPCInCombat(npcId, btnElement); }
+  // ========== MÉTODOS DELEGADOS ==========
+  // NPCs
+  adjustVit(npcId, change) { this.npcs.adjustVit(npcId, change); }
+  adjustCon(npcId, change) { this.npcs.adjustCon(npcId, change); }
+  editNPC(npcId) { this.npcs.editNPC(npcId); }
+  duplicateNPC(npcId) { this.npcs.duplicateNPC(npcId); }
+  deleteNPC(npcId) { this.npcs.deleteNPC(npcId); }
+  toggleNPCInCombat(npcId, btnElement) { this.combat.toggleNPCInCombat(npcId, btnElement); }
 
-// Players
-editPlayer(playerId) { this.players.editPlayer(playerId); }
-deletePlayer(playerId) { this.players.deletePlayer(playerId); }
-togglePlayerInCombat(playerId, btnElement) { this.combat.togglePlayerInCombat(playerId, btnElement); }
+  // Players
+  editPlayer(playerId) { this.players.editPlayer(playerId); }
+  deletePlayer(playerId) { this.players.deletePlayer(playerId); }
+  togglePlayerInCombat(playerId, btnElement) { this.combat.togglePlayerInCombat(playerId, btnElement); }
 
-// Combat
-adjustCombatVit(combatId, change) { this.combat.adjustCombatVit(combatId, change); }
-adjustCombatCon(combatId, change) { this.combat.adjustCombatCon(combatId, change); } // NOVO
-updateCombatInitiative(combatId, value) { this.combat.updateCombatInitiative(combatId, value); }
-updateCombatCondition(combatId, condition) { this.combat.updateCombatCondition(combatId, condition); }
+  // Combat
+  adjustCombatVit(combatId, change) { this.combat.adjustCombatVit(combatId, change); }
+  adjustCombatCon(combatId, change) { this.combat.adjustCombatCon(combatId, change); }
+  updateCombatInitiative(combatId, value) { this.combat.updateCombatInitiative(combatId, value); }
+  updateCombatCondition(combatId, condition) { this.combat.updateCombatCondition(combatId, condition); }
 
   // ========== EXPORTAÇÃO/IMPORTAÇÃO ==========
   exportData() {
@@ -218,7 +215,7 @@ updateCombatCondition(combatId, condition) { this.combat.updateCombatCondition(c
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `gmnotes-backup-${new Date().toISOString().slice(0,10)}.json`;
+    a.download = `gmnotes-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
     
@@ -232,6 +229,8 @@ updateCombatCondition(combatId, condition) { this.combat.updateCombatCondition(c
     
     input.onchange = (e) => {
       const file = e.target.files[0];
+      if (!file) return;
+      
       const reader = new FileReader();
       
       reader.onload = (event) => {
@@ -239,21 +238,11 @@ updateCombatCondition(combatId, condition) { this.combat.updateCombatCondition(c
           const data = JSON.parse(event.target.result);
           
           if (confirm('Isso substituirá todos os dados atuais. Continuar?')) {
-            this.npcs.loadFromStorage(data);
-            this.players.loadFromStorage(data);
-            this.combat.loadFromStorage(data);
-            this.notes.loadFromStorage(data);
-            
-            this.npcs.renderNPCs();
-            this.players.renderPlayers();
-            this.combat.renderCombatOrder();
-            this.notes.renderSessions();
-            
-            this.saveToStorage();
+            this.loadData(data);
             this.updateStatus('Dados importados com sucesso!');
           }
         } catch (error) {
-          alert('Erro ao importar arquivo: ' + error.message);
+          alert(`Erro ao importar arquivo: ${error.message}`);
         }
       };
       
@@ -261,6 +250,20 @@ updateCombatCondition(combatId, condition) { this.combat.updateCombatCondition(c
     };
     
     input.click();
+  }
+
+  loadData(data) {
+    this.npcs.loadFromStorage(data);
+    this.players.loadFromStorage(data);
+    this.combat.loadFromStorage(data);
+    this.notes.loadFromStorage(data);
+    
+    this.npcs.renderNPCs();
+    this.players.renderPlayers();
+    this.combat.renderCombatOrder();
+    this.notes.renderSessions();
+    
+    this.saveToStorage();
   }
 
   // ========== ARMAZENAMENTO ==========
@@ -273,35 +276,35 @@ updateCombatCondition(combatId, condition) { this.combat.updateCombatCondition(c
     };
     
     localStorage.setItem('gmnotes_data', JSON.stringify(data));
-    
-    const indicator = document.querySelector('.gmnotes-save-indicator');
-    if (indicator) {
-      indicator.textContent = '💾 Salvo';
-      setTimeout(() => {
-        indicator.textContent = '💾 Salvo';
-      }, 2000);
-    }
+    this.updateSaveIndicator();
   }
 
   loadFromStorage() {
     const saved = localStorage.getItem('gmnotes_data');
+    if (!saved) return;
 
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        this.npcs.loadFromStorage(data);
-        this.players.loadFromStorage(data);
-        this.combat.loadFromStorage(data);
-        this.notes.loadFromStorage(data);
-        
-        // Garante que a ordem de combate seja renderizada após carregar
-        setTimeout(() => {
-          this.combat.renderCombatOrder();
-        }, 50);
-      } catch (error) {
-        console.error('Erro ao carregar dados salvos:', error);
-      }
+    try {
+      const data = JSON.parse(saved);
+      this.npcs.loadFromStorage(data);
+      this.players.loadFromStorage(data);
+      this.combat.loadFromStorage(data);
+      this.notes.loadFromStorage(data);
+      
+      // Pequeno delay para garantir renderização após carregamento
+      setTimeout(() => this.combat.renderCombatOrder(), 50);
+    } catch (error) {
+      console.error('Erro ao carregar dados salvos:', error);
     }
+  }
+
+  updateSaveIndicator() {
+    const indicator = document.querySelector('.gmnotes-save-indicator');
+    if (!indicator) return;
+    
+    indicator.textContent = '💾 Salvo';
+    setTimeout(() => {
+      indicator.textContent = '💾 Salvo';
+    }, 2000);
   }
 
   // ========== UTILITÁRIOS ==========
@@ -314,15 +317,15 @@ updateCombatCondition(combatId, condition) { this.combat.updateCombatCondition(c
 
   updateStatus(message) {
     const status = document.getElementById('gmnotes-status');
-    if (status) {
-      status.textContent = message;
-      setTimeout(() => {
-        status.textContent = 'Pronto';
-      }, 3000);
-    }
+    if (!status) return;
+    
+    status.textContent = message;
+    setTimeout(() => {
+      status.textContent = 'Pronto';
+    }, 3000);
   }
 }
 
-// Inicializa o GM Notes e expõe globalmente
+// Inicializa e expõe globalmente
 const gmNotes = new GMNotesModal();
 window.gmNotes = gmNotes;

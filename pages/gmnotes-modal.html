@@ -19,7 +19,7 @@
     <!-- BODY -->
     <div class="gmnotes-modal-body">
       
-      <!-- TAB NPCs - ATUALIZADA -->
+      <!-- TAB NPCs -->
       <div class="gmnotes-tab-pane active" id="tab-npcs">
         
         <!-- Formulário de criação de NPC -->
@@ -33,7 +33,6 @@
               </div>
             </div>
 
-            <!-- Vit e Con lado a lado -->
             <div class="gmnotes-stats-row">
               <div class="gmnotes-stat-field">
                 <label for="npc-vit">Vit</label>
@@ -45,9 +44,7 @@
               </div>
             </div>
 
-            <!-- Atributos em grid 3x2 fixo -->
             <div class="gmnotes-attributes-grid">
-              <!-- Primeira fileira -->
               <div class="gmnotes-attr-cell">
                 <label for="npc-f">Físico</label>
                 <input type="number" id="npc-f" class="gmnotes-input gmnotes-input-attr" value="2" min="1" max="99">
@@ -60,8 +57,6 @@
                 <label for="npc-d">Destreza</label>
                 <input type="number" id="npc-d" class="gmnotes-input gmnotes-input-attr" value="2" min="1" max="99">
               </div>
-              
-              <!-- Segunda fileira -->
               <div class="gmnotes-attr-cell">
                 <label for="npc-a">Assimilação</label>
                 <input type="number" id="npc-a" class="gmnotes-input gmnotes-input-attr" value="2" min="1" max="99">
@@ -78,8 +73,8 @@
 
             <div class="gmnotes-form-row">
               <div class="gmnotes-form-group gmnotes-form-group-full">
-                <label for="npc-extra">Extra (habilidades, história, etc.)</label>
-                <input type="text" id="npc-extra" class="gmnotes-input" placeholder="Ex: Resistente a fogo, líder dos goblins...">
+                <label for="npc-extra">Extra</label>
+                <input type="text" id="npc-extra" class="gmnotes-input" placeholder="Habilidades, história...">
               </div>
             </div>
 
@@ -95,13 +90,10 @@
           <h3 class="gmnotes-section-title">NPCs Ativos</h3>
           <div class="gmnotes-search-bar">
             <input type="text" class="gmnotes-search-input" placeholder="Buscar NPC...">
-            <button class="gmnotes-search-btn">🔍</button>
+            <button class="gmnotes-search-btn" aria-label="Buscar">🔍</button>
           </div>
           
-          <!-- Lista de NPCs (vazia - será populada via JavaScript) -->
-          <div class="gmnotes-npc-list" id="npc-list">
-            <!-- Os NPCs serão inseridos aqui pelo JavaScript -->
-          </div>
+          <div class="gmnotes-npc-list" id="npc-list"></div>
         </div>
       </div>
 
@@ -113,14 +105,14 @@
             <div class="gmnotes-form-row">
               <div class="gmnotes-form-group gmnotes-form-group-full">
                 <label for="player-name">Nome</label>
-                <input type="text" id="player-name" class="gmnotes-input" placeholder="Ex: João (Aric, o Guerreiro)">
+                <input type="text" id="player-name" class="gmnotes-input" placeholder="Ex: João (Aric)">
               </div>
             </div>
 
             <div class="gmnotes-form-row">
               <div class="gmnotes-form-group gmnotes-form-group-full">
-                <label for="player-info">Info (classe, nível, raça, etc.)</label>
-                <input type="text" id="player-info" class="gmnotes-input" placeholder="Ex: Guerreiro Nv.3, Karnakin">
+                <label for="player-info">Info</label>
+                <input type="text" id="player-info" class="gmnotes-input" placeholder="Classe, nível, raça...">
               </div>
             </div>
 
@@ -132,13 +124,11 @@
 
         <div class="gmnotes-section">
           <h3 class="gmnotes-section-title">Jogadores na Campanha</h3>
-          <div class="gmnotes-players-list" id="players-list">
-            <!-- Lista de jogadores será populada aqui -->
-          </div>
+          <div class="gmnotes-players-list" id="players-list"></div>
         </div>
       </div>
 
-      <!-- TAB COMBATE (ORDEM DE INICIATIVA) -->
+      <!-- TAB COMBATE -->
       <div class="gmnotes-tab-pane" id="tab-combat">
         <div class="gmnotes-section">
           <h3 class="gmnotes-section-title">Ordem de Combate</h3>
@@ -148,16 +138,13 @@
             <button class="gmnotes-combat-btn" id="combat-next">Próximo</button>
           </div>
 
-          <div class="gmnotes-combat-list" id="combat-order">
-            <!-- Ordem de combate será populada aqui -->
-          </div>
+          <div class="gmnotes-combat-list" id="combat-order"></div>
 
           <div class="gmnotes-combat-controls">
             <button class="gmnotes-combat-remove-selected" id="combat-remove-selected">🗑️ Remover</button>
             <button class="gmnotes-combat-remove-all" id="combat-remove-all">🗑️ Limpar Ordem</button>
           </div>
 
-          <!-- Container para confirmações -->
           <div class="gmnotes-confirmation-container" id="combat-confirmation"></div>
         </div>
       </div>
@@ -178,7 +165,6 @@
         <div class="gmnotes-section">
           <h3 class="gmnotes-section-title">Sessões</h3>
           <div class="gmnotes-sessions-list" id="sessions-list">
-            <!-- Lista de sessões será populada aqui -->
             <button class="gmnotes-session-item gmnotes-session-new">+ Nova Sessão</button>
           </div>
         </div>

@@ -69,12 +69,11 @@
     <button id="dice-toggle" class="floating-button floating-button--pill" aria-label="Open Dice Roller" aria-expanded="false">
       <span class="floating-label">Dados</span>
     </button>
-        <a href="../index.html" class="floating-button" id="back-to-home">
+    <a href="../index.html" class="floating-button" id="back-to-home">
       <span class="floating-icon">⌂</span>
     </a>
   </aside>
 
-  <!-- MODAIS -->
   <div id="modal-root"></div>
 
   <div id="shield-modal" class="shield-modal">
@@ -87,29 +86,12 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
   <script type="module">
     import { loadGlobalModals } from '../js/modalLoader.js';
     loadGlobalModals();
   </script>
 
-  <script type="module">
-    function initModals() {
-      if (document.getElementById('sheet-modal')) {
-        import('../js/sheet.js');
-        import('../js/spells.js');
-        import('../js/dice.js');
-      } else {
-        setTimeout(initModals, 50);
-      }
-    }
-    
-    initModals();
-    document.addEventListener('modals:loaded', initModals);
-  </script>
-
   <script type="module" src="../js/shield/shield-modal.js"></script>
   <script type="module" src="../js/shield/gmnotes-modal.js"></script>
-
 </body>
 </html>
