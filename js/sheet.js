@@ -202,6 +202,7 @@ const SheetManager = (function() {
       setFieldValue('#estudos', data.complemento.estudos);
       setFieldValue('#tecnicas', data.complemento.tecnicas);
       setFieldValue('#magias', data.complemento.magias);
+      setFieldValue('#classes', data.complemento.classes);
       
       if (data.complemento.xp) {
         setFieldValue('#xpm', data.complemento.xp.m);

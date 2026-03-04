@@ -50,6 +50,23 @@
   word-break: break-word;
 }
 
+/* css/builder/char-cards.css - adicionar */
+.chars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  min-height: 200px; /* Evita quebra de layout enquanto carrega */
+}
+
+.ready-chars:empty::before {
+  content: 'Carregando personagens...';
+  display: block;
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 /* Botão deletar */
 .char-card-delete {
   background: none;
