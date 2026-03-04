@@ -232,30 +232,34 @@
 
   <div id="modal-root"></div>
 
-  <!-- Scripts -->
+  <!-- Scripts - Versão mais organizada -->
   <script type="module">
+    // 1. Carrega modais globais primeiro
     import { loadGlobalModals } from '../js/modalLoader.js';
-    loadGlobalModals();
-
-    function initModals() {
+    
+    // 2. Inicializa após modais carregados
+    document.addEventListener('modals:loaded', () => {
       import('../js/sheet.js');
       import('../js/spells.js');
       import('../js/dice.js');
-    }
-
-    document.addEventListener('modals:loaded', initModals);
+    });
+    
+    // 3. Carrega modais
+    loadGlobalModals();
   </script>
 
-  <!-- Script do PlayerAreaManager -->
+  <!-- PlayerAreaManager separado para clareza -->
   <script type="module">
     import PlayerAreaManager from '../js/builder/builder.js';
     
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        window.playerManager = new PlayerAreaManager();
-      });
-    } else {
+    const initPlayerManager = () => {
       window.playerManager = new PlayerAreaManager();
+    };
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPlayerManager);
+    } else {
+      initPlayerManager();
     }
   </script>
 </body>

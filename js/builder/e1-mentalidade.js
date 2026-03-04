@@ -61,7 +61,7 @@ class MentalidadeManager {
       const data = await response.json();
       
       // Encontra a seção de mentalidade
-      const mentalidadeSection = data.sections.find(s => s.id === 'mentalidade');
+      const mentalidadeSection = data.sections.find(s => s.topic_id === 'mentalidade');
       const tableData = mentalidadeSection.content.find(c => c.type === 'table');
       
       this.renderTable(tableData);

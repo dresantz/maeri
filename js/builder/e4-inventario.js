@@ -98,7 +98,7 @@ class InventarioManager {
       
       data.sections.forEach(section => {
         // Pula seções introdutórias
-        if (section.id === 'introducao' || section.id.includes('introducao')) return;
+        if (section.topic_id === 'introducao' || section.topic_id.includes('introducao')) return;
         
         let currentContato = null;
         let currentItems = [];

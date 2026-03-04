@@ -25,24 +25,56 @@ class PlayerAreaManager {
     this.inventarioManager = new InventarioManager(this.builderPreview);
     this.playerCharManager = new PlayerCharManager();
 
+    // Validar elementos críticos
+    if (!this.builderPreview) {
+      console.warn('PlayerAreaManager: builderPreview não encontrado');
+    }
+    
+    if (!this.tabButtons.length) {
+      console.warn('PlayerAreaManager: Nenhum botão de aba encontrado');
+    }
+
+    this.state = {
+      currentTab: 'builder',
+      currentStep: null,
+      characterInProgress: null
+    };
+    
     this.init();
   }
 
   init() {
     this.setupTabs();
     this.setupBuilderSteps();
-    // this.setupCharCards();
-    // this.updateCharsCounter();
   }
 
   // ===== SISTEMA DE ABAS =====
   setupTabs() {
+    // Guardar referências para poder remover depois se necessário
+    this.tabClickHandlers = new Map();
+    
     this.tabButtons.forEach(button => {
-      button.addEventListener('click', () => this.switchTab(button.id));
+      const handler = () => this.switchTab(button.id);
+      this.tabClickHandlers.set(button, handler);
+      button.addEventListener('click', handler);
     });
   }
 
+  // Método para cleanup (útil se a página for SPA)
+  destroy() {
+    this.tabButtons.forEach(button => {
+      const handler = this.tabClickHandlers.get(button);
+      if (handler) {
+        button.removeEventListener('click', handler);
+      }
+    });
+    // Remover outros listeners...
+  }
+
   switchTab(selectedId) {
+    // Validar se selectedId é válido
+    if (!selectedId) return;
+    
     // Atualiza botões
     this.tabButtons.forEach(button => {
       const isSelected = button.id === selectedId;
@@ -52,14 +84,20 @@ class PlayerAreaManager {
 
     // Atualiza painéis
     this.tabPanels.forEach(panel => {
-      const isActive = panel.id === selectedId.replace('tab-', '') + '-panel';
+      const expectedPanelId = selectedId.replace('tab-', '') + '-panel';
+      const isActive = panel.id === expectedPanelId;
       panel.classList.toggle('active', isActive);
       
-      // 🔥 NOVO: Se for o painel de personagens, carregar lista
       if (isActive && panel.id === 'chars-panel') {
-        this.playerCharManager.loadCharacters();
+        // Verificar se playerCharManager existe antes de chamar
+        if (this.playerCharManager) {
+          this.playerCharManager.loadCharacters();
+        } else {
+          console.warn('playerCharManager não inicializado');
+        }
       }
     });
+    
   }
 
   // ===== CONSTRUTOR =====
@@ -71,6 +109,15 @@ class PlayerAreaManager {
 
   handleBuilderStep(step) {
     const stepNum = step.dataset.step;
+
+    // Feedback visual imediato
+    step.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      step.style.transform = '';
+    }, 100);
+
+    // Atualizar estado
+    this.state.currentStep = stepNum;
 
     // Remove active de todos os steps
     this.builderSteps.forEach(s => s.classList.remove('active'));
@@ -103,45 +150,38 @@ class PlayerAreaManager {
 
   renderPlaceholder(stepNum, title) {
     if (!this.builderPreview) return;
-
-    this.builderPreview.innerHTML = `
-      <div class="placeholder-container">
-        <p class="placeholder-text">Etapa ${stepNum} - ${title} (em desenvolvimento)</p>
-      </div>
-    `;
+    
+    // Evitar recriação desnecessária do DOM
+    const existingPlaceholder = this.builderPreview.querySelector('.placeholder-container');
+    
+    if (existingPlaceholder) {
+      const textEl = existingPlaceholder.querySelector('.placeholder-text');
+      if (textEl) {
+        textEl.textContent = `Etapa ${stepNum} - ${title} (em desenvolvimento)`;
+      }
+    } else {
+      this.builderPreview.innerHTML = `
+        <div class="placeholder-container">
+          <p class="placeholder-text">Etapa ${stepNum} - ${title} (em desenvolvimento)</p>
+        </div>
+      `;
+    }
   }
-
-  // // ===== PERSONAGENS =====
-  // setupCharCards() {
-  //   this.charCards.forEach(card => {
-  //     card.addEventListener('click', () => this.handleCharCard(card));
-  //   });
-  // }
-
-  // handleCharCard(card) {
-  //   if (card.classList.contains('char-card--empty')) {
-  //     console.log('Criar novo personagem');
-  //   } else {
-  //     card.classList.add('selected');
-  //     setTimeout(() => card.classList.remove('selected'), 200);
-  //   }
-  // }
-
-  // updateCharsCounter() {
-  //   if (!this.charsCounter) return;
-
-  //   const savedChars = document.querySelectorAll('.saved-chars .char-card:not(.char-card--empty)');
-  //   this.charsCounter.textContent = `${savedChars.length}/3`;
-  // }
 }
 
 // ===== INICIALIZAÇÃO =====
+let instance = null;
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    new PlayerAreaManager();
+    if (!instance) {
+      instance = new PlayerAreaManager();
+    }
   });
 } else {
-  new PlayerAreaManager();
+  if (!instance) {
+    instance = new PlayerAreaManager();
+  }
 }
 
 export default PlayerAreaManager;

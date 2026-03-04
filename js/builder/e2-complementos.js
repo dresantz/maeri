@@ -101,8 +101,8 @@ class ComplementosManager {
       const data = await response.json();
       
       this.seresData = data.sections.filter(section => 
-        section.id !== 'o-que-sao-seres' && 
-        section.id !== 'introducao'
+        section.topic_id !== 'o-que-sao-seres' && 
+        section.topic_id !== 'introducao'
       );
       
       this.renderSeresButtons();
@@ -122,7 +122,7 @@ class ComplementosManager {
     let buttonsHtml = '';
     this.seresData.forEach(ser => {
       buttonsHtml += `
-        <button class="ser-button" data-ser-id="${ser.id}">
+        <button class="ser-button" data-ser-id="${ser.topic_id}">
           ${ser.title}
         </button>
       `;
@@ -166,7 +166,7 @@ class ComplementosManager {
       selectedButton.classList.add('selected');
     }
     
-    this.selectedSer = this.seresData.find(ser => ser.id === serId);
+    this.selectedSer = this.seresData.find(ser => ser.topic_id === serId);
     this.renderSerDetails();
   }
 
@@ -221,7 +221,7 @@ class ComplementosManager {
       const response = await fetch('../../data/rulebook/02-personagem.json');
       const data = await response.json();
       
-      const estudosSection = data.sections.find(s => s.id === 'estudo-e-conhecimento');
+      const estudosSection = data.sections.find(s => s.topic_id === 'estudo-e-conhecimento');
       this.processarEstudos(estudosSection.content);
       
       this.renderEstudosButtons();
@@ -365,7 +365,7 @@ class ComplementosManager {
       const response = await fetch('../../data/rulebook/05-circulo-social-comercio.json');
       const data = await response.json();
       
-      const tecnicasSection = data.sections.find(s => s.id === 'tecnicas-marcais');
+      const tecnicasSection = data.sections.find(s => s.topic_id === 'tecnicas-marcais');
       const listaTecnicas = tecnicasSection.content.find(c => c.type === 'list' && c.id === 'tec_item');
       
       this.processarTecnicas(listaTecnicas.items);
@@ -482,7 +482,7 @@ class ComplementosManager {
       
       // Filtra apenas as seções que são estudos mágicos
       this.magiasData = data.sections.filter(section => 
-        estudosMagicosValidos.includes(section.id)
+        estudosMagicosValidos.includes(section.topic_id)
       );
       
       this.renderMagiasButtons();

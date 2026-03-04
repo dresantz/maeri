@@ -88,7 +88,7 @@ class NarrativaManager {
       const response = await fetch('../../data/rulebook/02-personagem.json');
       const data = await response.json();
       
-      const arquetipoSection = data.sections.find(s => s.id === 'arquetipo');
+      const arquetipoSection = data.sections.find(s => s.topic_id === 'arquetipo');
       const listaArquetipos = arquetipoSection.content.find(c => c.type === 'list');
       
       this.processarArquetipos(listaArquetipos.items);
@@ -195,7 +195,7 @@ class NarrativaManager {
       const response = await fetch('../../data/rulebook/02-personagem.json');
       const data = await response.json();
       
-      const motivacaoSection = data.sections.find(s => s.id === 'motivacao');
+      const motivacaoSection = data.sections.find(s => s.topic_id === 'motivacao');
       const listaMotivacoes = motivacaoSection.content.find(c => c.type === 'list');
       
       this.processarMotivacoes(listaMotivacoes.items);
@@ -302,7 +302,7 @@ class NarrativaManager {
       const response = await fetch('../../data/rulebook/02-personagem.json');
       const data = await response.json();
       
-      const disposicaoSection = data.sections.find(s => s.id === 'disposicao');
+      const disposicaoSection = data.sections.find(s => s.topic_id === 'disposicao');
       const disposicaoText = disposicaoSection.content.find(c => c.type === 'paragraph');
       
       this.renderDisposicaoText(disposicaoText.text);
@@ -340,7 +340,7 @@ async loadContatosData() {
     
     data.sections.forEach(section => {
       // Pula seções introdutórias
-      if (section.id === 'introducao' || section.id.includes('introducao')) return;
+      if (section.topic_id === 'introducao' || section.topic_id.includes('introducao')) return;
       
       let currentContato = null;
       let currentItems = [];
