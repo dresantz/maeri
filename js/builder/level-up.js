@@ -7,10 +7,9 @@ class LevelUpManager {
   constructor(container) {
     this.container = container;
     this.rulebookData = null;
-    this.currentView = 'levelup'; // 'levelup' ou 'class'
+    this.currentView = 'levelup';
     this.selectedClass = null;
     
-    // Bind dos métodos
     this.render = this.render.bind(this);
     this.loadRulebookData = this.loadRulebookData.bind(this);
     this.renderLevelUpInfo = this.renderLevelUpInfo.bind(this);
@@ -26,17 +25,14 @@ class LevelUpManager {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
+      this.rulebookData = await response.json();
       
-      // Buscar também o arquivo de classes
       const classesResponse = await fetch('../data/rulebook/07-classes.json');
       if (classesResponse.ok) {
-        const classesData = await classesResponse.json();
-        this.classesData = classesData;
+        this.classesData = await classesResponse.json();
       }
       
-      this.rulebookData = data;
-      return data;
+      return this.rulebookData;
     } catch (error) {
       console.error('Erro ao carregar dados do rulebook:', error);
       this.renderError('Não foi possível carregar as informações de Level Up.');
@@ -47,7 +43,6 @@ class LevelUpManager {
   async render() {
     if (!this.container) return;
     
-    // Mostra loading
     this.container.innerHTML = `
       <div class="levelup-loading">
         <p>Carregando informações de evolução...</p>
@@ -67,122 +62,110 @@ class LevelUpManager {
   renderLevelUpInfo() {
     if (!this.container || !this.rulebookData) return;
     
-    // Encontrar a seção de Nível e Experiência
     const fundamentalsSection = this.rulebookData.sections?.find(
       section => section.topic_id === 'nivel-e-experiencia'
     );
     
     if (!fundamentalsSection) {
-      this.container.innerHTML = `
-        <div class="levelup-error">
-          <p>Informações de Level Up não encontradas.</p>
-          <button class="levelup-back-button">Voltar</button>
-        </div>
-      `;
+      this.showError('Informações de Level Up não encontradas.');
       return;
     }
     
-    // Encontrar o item com id "lvlup_item"
     const lvlupContent = fundamentalsSection.content?.find(
       item => item.id === 'lvlup_item'
     );
     
-    // Construir HTML
     let html = `
       <div class="levelup-container">
-        <h2 class="levelup-title"> Level Up </h2>
+        <h2 class="levelup-title">⚡ Level Up ⚡</h2>
         <h3 class="levelup-subtitle">${fundamentalsSection.title}</h3>
     `;
     
-    // Renderizar lista de regras de level up
-    if (lvlupContent && lvlupContent.type === 'list') {
+    if (lvlupContent?.type === 'list') {
       html += `
-        <div class="levelup-rules">
-          <ul class="levelup-list">
-            ${lvlupContent.items.map(item => `<li>${item}</li>`).join('')}
-          </ul>
+        <div class="levelup-rules-container">
+          <div class="levelup-rules">
+            <ul class="levelup-list">
+              ${lvlupContent.items.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </div>
         </div>
       `;
     }
     
-    // Adicionar texto explicativo sobre classes
     html += `
       <div class="levelup-classes-intro">
         <p class="classes-intro-text">As opções de Classe e suas características são:</p>
       </div>
-      
-      <div class="levelup-classes-grid" id="classes-grid">
-        <!-- Grid será preenchido via JavaScript -->
-      </div>
+      <div class="levelup-classes-grid" id="classes-grid"></div>
     `;
     
     this.container.innerHTML = html;
-    
-    // Agora carregar e renderizar as classes
     this.renderClassList();
   }
 
   renderClassList() {
+    const loadClasses = () => {
+      if (this.classesData) {
+        this.populateClassesGrid();
+      } else {
+        const grid = document.getElementById('classes-grid');
+        if (grid) {
+          grid.innerHTML = '<p class="error-message">Nenhuma classe encontrada.</p>';
+        }
+      }
+    };
+
     if (!this.classesData) {
-      // Tentar carregar classes novamente
       fetch('../data/rulebook/07-classes.json')
         .then(response => response.json())
         .then(data => {
           this.classesData = data;
-          this.populateClassesGrid();
+          loadClasses();
         })
-        .catch(error => {
-          console.error('Erro ao carregar classes:', error);
+        .catch(() => {
           const grid = document.getElementById('classes-grid');
           if (grid) {
             grid.innerHTML = '<p class="error-message">Não foi possível carregar as classes.</p>';
           }
         });
     } else {
-      this.populateClassesGrid();
+      loadClasses();
     }
   }
 
   populateClassesGrid() {
     const grid = document.getElementById('classes-grid');
-    if (!grid || !this.classesData) return;
+    if (!grid || !this.classesData?.sections) return;
     
-    // Filtrar apenas as seções que são classes (excluir "O que são Classes")
-    const classes = this.classesData.sections?.filter(section => 
+    const classes = this.classesData.sections.filter(section => 
       section.topic_id && section.topic_id !== 'o-que-sao-classes'
-    ) || [];
+    );
     
-    let buttonsHtml = '';
-    classes.forEach(classSection => {
-      // Encontrar o item com classes_item para pegar o nome formatado
-      const classTitleItem = classSection.content?.find(
-        item => item.classes_item
-      );
-      
+    const buttonsHtml = classes.map(classSection => {
+      const classTitleItem = classSection.content?.find(item => item.classes_item);
       const displayName = classTitleItem ? classTitleItem.classes_item : classSection.title;
       
-      buttonsHtml += `
+      return `
         <button class="class-card" data-class-id="${classSection.topic_id}">
           <span class="class-name">${displayName}</span>
         </button>
       `;
-    });
+    }).join('');
     
     grid.innerHTML = buttonsHtml;
     
-    // Adicionar event listeners aos botões
     grid.querySelectorAll('.class-card').forEach(button => {
       button.addEventListener('click', () => {
-        const classId = button.dataset.classId;
-        this.handleClassClick(classId);
+        this.handleClassClick(button.dataset.classId);
       });
     });
   }
 
   handleClassClick(classId) {
-    if (!this.classesData) return;
+    if (!this.classesData?.sections) return;
     
-    const selectedClass = this.classesData.sections?.find(
+    const selectedClass = this.classesData.sections.find(
       section => section.topic_id === classId
     );
     
@@ -196,47 +179,37 @@ class LevelUpManager {
   renderClassDetails(classData) {
     if (!this.container) return;
     
-    // Encontrar o título da classe (item com classes_item)
-    const classTitleItem = classData.content?.find(
-      item => item.classes_item
-    );
-    
+    const classTitleItem = classData.content?.find(item => item.classes_item);
     const className = classTitleItem ? classTitleItem.classes_item : classData.title;
     
-    // Filtrar apenas os itens com id "classes_item" que são as características
     const classFeatures = classData.content?.filter(
-      item => item.id === 'classes_item' && !item.classes_item // Excluir o título
+      item => item.id === 'classes_item' && !item.classes_item
     ) || [];
     
-    let html = `
+    const featuresHtml = classFeatures.map(feature => `
+      <div class="class-feature">
+        <p class="feature-text">${feature.text}</p>
+      </div>
+    `).join('');
+    
+    const html = `
       <div class="class-details-container">
         <button class="class-back-button" id="class-back-button">
           ← Voltar para Level Up
         </button>
-        
         <div class="class-header">
           <h2 class="class-title">${className}</h2>
         </div>
-        
-        <div class="class-features">
-    `;
-    
-    classFeatures.forEach(feature => {
-      html += `
-        <div class="class-feature">
-          <p class="feature-text">${feature.text}</p>
-        </div>
-      `;
-    });
-    
-    html += `
+        <div class="class-features-container">
+          <div class="class-features">
+            ${featuresHtml || '<p class="error-message">Nenhuma característica encontrada.</p>'}
+          </div>
         </div>
       </div>
     `;
     
     this.container.innerHTML = html;
     
-    // Adicionar event listener para o botão voltar
     const backButton = document.getElementById('class-back-button');
     if (backButton) {
       backButton.addEventListener('click', this.handleBackClick);
@@ -263,6 +236,17 @@ class LevelUpManager {
     if (retryButton) {
       retryButton.addEventListener('click', () => this.render());
     }
+  }
+
+  showError(message) {
+    if (!this.container) return;
+    
+    this.container.innerHTML = `
+      <div class="levelup-error">
+        <p>${message}</p>
+        <button class="levelup-back-button" onclick="window.playerManager?.renderLevelUpInfo()">Voltar</button>
+      </div>
+    `;
   }
 }
 

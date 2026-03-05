@@ -369,7 +369,7 @@
             },
             {
               "type": "list",
-              "id": "LvlUp_item",
+              "id": "lvlup_item",
               "style": "unordered",
               "items": [
                 "A cada 200 xpp o personagem sobe de nível.",
