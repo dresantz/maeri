@@ -77,7 +77,7 @@ class LevelUpManager {
     
     let html = `
       <div class="levelup-container">
-        <h2 class="levelup-title">⚡ Level Up ⚡</h2>
+        <h2 class="levelup-title"> Level Up </h2>
         <h3 class="levelup-subtitle">${fundamentalsSection.title}</h3>
     `;
     
