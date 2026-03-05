@@ -7,6 +7,7 @@ import MentalidadeManager from './e1-mentalidade.js';
 import ComplementosManager from './e2-complementos.js';
 import NarrativaManager from './e3-narrativa.js';
 import InventarioManager from './e4-inventario.js';
+import LevelUpManager from './level-up.js';
 import PlayerCharManager from './player-char.js';
 
 class PlayerAreaManager {
@@ -17,12 +18,14 @@ class PlayerAreaManager {
     this.builderPreview = document.querySelector('.builder-preview');
     this.charCards = document.querySelectorAll('.char-card');
     this.charsCounter = document.querySelector('.chars-counter');
+    
 
     // Managers das etapas
     this.mentalidadeManager = new MentalidadeManager(this.builderPreview);
     this.complementosManager = new ComplementosManager(this.builderPreview);
     this.narrativaManager = new NarrativaManager(this.builderPreview);
     this.inventarioManager = new InventarioManager(this.builderPreview);
+    this.levelUpManager = new LevelUpManager(this.builderPreview);
     this.playerCharManager = new PlayerCharManager();
 
     // Validar elementos críticos
@@ -142,6 +145,9 @@ class PlayerAreaManager {
         break;
       case '4':
         this.inventarioManager.render();
+        break;
+      case 'levelup':
+        this.levelUpManager.render();
         break;
       default:
         this.renderPlaceholder(stepNum, 'Em desenvolvimento');

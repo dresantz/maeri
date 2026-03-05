@@ -5,7 +5,7 @@
   "description": "O caminho da evolução de cada um é diferente.",
   "sections": [
     {
-      "id": "o-que-sao-classes",
+      "topic_id": "o-que-sao-classes",
       "title": "O que são Classes",
       "content": [
         {

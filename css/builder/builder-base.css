@@ -103,6 +103,61 @@
   color: var(--text-muted);
 }
 
+/* Estilo especial para o botão Level Up */
+.builder-step--levelup {
+  grid-column: 1 / -1;
+  max-width: 280px;
+  margin: 0 auto;
+  width: 100%;
+  background: linear-gradient(145deg, #2a1a3a 0%, #3a2a4a 100%);
+  border-color: rgba(255, 215, 0, 0.4);
+  position: relative;
+  animation: glowPulse 3s infinite;
+}
+
+.builder-step--levelup .step-number {
+  font-size: 2rem;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+}
+
+.builder-step--levelup .step-title {
+  color: #ffd966;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.builder-step--levelup .step-desc {
+  color: #c0a0e0;
+}
+
+.builder-step--levelup:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: #ffd700;
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.3);
+}
+
+.builder-step--levelup::after {
+  content: '✦';
+  position: absolute;
+  color: var(--gold);
+  top: -15px;
+  right: 0px;
+  font-size: 3rem;
+  filter: drop-shadow(0 0 6px gold);
+  animation: sparkle 2s infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.8; transform: rotate(0deg) scale(1); }
+  50% { opacity: 1; transform: rotate(10deg) scale(1.2); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4); }
+}
+
 /* Área de preview do construtor */
 .builder-preview {
   background: var(--surface);
@@ -149,6 +204,18 @@
   color: #ffd966;
 }
 
+/* Estado ativo especial para Level Up */
+.builder-step--levelup.active {
+  background: linear-gradient(145deg, #3a2a4a 0%, #4a3a5a 100%);
+  border-color: #ffd700;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+}
+
+.builder-step--levelup.active .step-number {
+  color: #fff0b0;
+  animation: none;
+}
+
 /* Responsivo */
 @media (min-width: 480px) {
   .builder-steps {
@@ -166,10 +233,20 @@
   .step-title {
     font-size: 1rem;
   }
+  
+  /* Ajuste para o botão Level Up em telas maiores */
+  .builder-step--levelup {
+    max-width: 320px;
+    margin-top: 0.5rem;
+  }
 }
 
 @media (min-width: 768px) {
   .builder-preview {
     min-height: 300px;
+  }
+  
+  .builder-step--levelup {
+    max-width: 350px;
   }
 }
