@@ -14,12 +14,12 @@
         },
         {
           "type": "paragraph",
-          "id": "combate_item",
-          "text": "Um turno de combate envolve um embate entre dois personagens durante uma rodada de uma luta. Ambos jogarão 2d6 e somarão a uma característica escolhida por eles, o vencedor será recompensado com uma ação associada com a característica escolhida."
+          "combate_item":"Um turno de combate envolve um embate entre dois personagens durante uma rodada de uma luta. Ambos jogarão 2d6 e somarão o resultado a uma característica escolhida por eles, o vencedor será recompensado com uma ação associada à característica escolhida.",
+          "text": "[Um turno de combate envolve um embate entre dois personagens durante uma rodada de uma luta]. Ambos jogarão 2d6 e somarão o resultado a uma característica escolhida por eles, o vencedor será recompensado com uma ação associada à característica escolhida."
         },
         {
           "type": "paragraph",
-          "text": "Ter sucesso em um embate após escolher F, por exemplo, permite realizar a ação Ataque, que é a forma mais básica de causar dano. Em caso de empate, quem possuir a maior característica testada vence, se ambas forem iguais, os dois personagens perdem a oportunidade de realizar ações em seus turnos. Mas não se preocupe; eles ainda poderão realizar reações, gestos e movimentos, como veremos mais adiante."
+          "text": "Ter sucesso em um embate após escolher F, por exemplo, permite realizar a ação Ataque, que é a forma mais básica de causar dano. Em caso de empate, quem possuir a maior característica testada vence. Se ambas forem iguais, os dois personagens perdem a oportunidade de realizar ações em seus turnos. Mas não se preocupe; eles ainda poderão realizar reações, gestos e movimentos, como veremos mais adiante."
         }
       ]
     },
@@ -29,7 +29,7 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Escolher uma característica para um embate significa escolher um posicionamento mental e físico, uma intenção e uma sequência de gestos focados em transformar a intenção em ação, ou seja, escolher a característica é a intensão, mas a intenção só se torna ação se ela encontrar a oportunidade, que por sua vez é representada pela vitória no embate."
+          "text": "Escolher uma característica para um embate significa escolher um posicionamento mental e físico, uma intenção e uma sequência de gestos focados em transformar a intenção em ação, ou seja, escolher a característica é a intenção, mas a intenção só se torna ação se ela encontrar a oportunidade, que por sua vez é representada pela vitória no embate."
         },
         {
           "type": "paragraph",
@@ -42,22 +42,22 @@
         {
           "type": "paragraph",
           "combate_item": "Ataque (F). Sucesso em embate usando F permite causar dano corpo-a-corpo. O dano é determinado pela arma escolhida e, desarmado, o dano será 1d2. Sucesso crítico concede +1d6 de dano do tipo principal.",
-          "text": "Ataque (F). Sucesso em embate usando F permite causar dano corpo-a-corpo. O dano é determinado pela arma escolhida e, desarmado, o dano será 1d2. Se o jogador que estiver usando um Ataque conseguir um sucesso crítico (dois resultados seis nos dados) e vencer o embate, ele recebe +1d6 do tipo de dano principal do que estiver usando para atacar. Se o personagem tem a opção de atacar de forma a não causar dano, ou causar dano mínimo (1 do dado + quaisquer bônus). Além do dano, ter sucesso num embate usando F permite que o vencedor se desloque para o Esp que o derrotado estava mesmo que já tenha gasto todo seu movimento naquele turno (veremos mais no tópico Gesto e Movimento), o que permite empurrar o derrotado para um Esp adjacente qualquer, inclusive o que o vencedor estava antes, se o Esp para o qual o derrotado estiver ocupado por algum objeto ou parede (não funciona se o Esp estiver ocupado por inimigo, aliado ou terceiro), o vencedor pode optar por causar 1 de dano, ou receber +1F no próximo embate contra aquele alvo (nesse caso o alvo não é movido), ambos simulam o alvo colidindo com objetos do cenário durante o combate."
+          "text": "**Ataque (F)**. Sucesso em embate usando F permite causar dano corpo a corpo. O dano é determinado pela arma escolhida e, desarmado, o dano será 1d2. Se o jogador que estiver usando um Ataque conseguir um sucesso crítico (dois resultados seis nos dados) e vencer o embate, ele recebe +1d6 do tipo de dano principal do que estiver usando para atacar. O personagem tem a opção de atacar de forma a não causar dano, ou causar dano mínimo (1 do dado + quaisquer bônus). Além do dano, ter sucesso num embate usando F permite que o vencedor se desloque para o Esp que o derrotado estava mesmo que já tenha gasto todo seu movimento naquele turno (veremos mais no tópico Gesto e Movimento), o que permite empurrar o derrotado para um Esp adjacente qualquer, inclusive o que o vencedor estava antes, se o Esp para o qual o derrotado estiver ocupado por algum objeto ou parede (não funciona se o Esp estiver ocupado por inimigo, aliado ou terceiro), o vencedor pode optar por causar 1 de dano, ou receber +1F no próximo embate contra aquele alvo (nesse caso o alvo não é movido), ambos simulam o alvo colidindo com objetos do cenário durante o combate."
         },
         {
           "type": "paragraph",
           "combate_item": "Defesa (V). Sucesso em embate usando V concede +1 em qualquer característica com +1 de dano para o embate seguinte caso seja uma ação que cause dano (incluindo magia), e +1V para resistir a ferimentos em caso de falha, tudo isso cumulativo com outros sucessos seguidos de V até o limite de +3, apenas quando o jogador decidir usar o bônus que ele será zerado novamente.",
-          "text": "Defesa (V). Sucesso em embate usando V concede +1 em qualquer característica com +1 de dano para o embate seguinte caso seja uma ação que cause dano (incluindo magia), e +1V para resistir a ferimentos em caso de falha, tudo isso cumulativo com outros sucessos seguidos de V até o limite de +3, apenas quando o jogador decidir usar o bônus que ele será zerado novamente."
+          "text": "**Defesa (V)**. Sucesso em embate usando V concede +1 em qualquer característica, com +1 de dano para o embate seguinte caso seja uma ação que cause dano (incluindo magia), e +1V para resistir a ferimentos em caso de falha. Tudo isso cumulativo com outros sucessos seguidos de V até o limite de +3, apenas quando o jogador decidir usar o bônus que ele será zerado novamente."
         },
         {
           "type": "paragraph",
-          "id": "combate_item",
-          "text": "Esquiva (D). Sucesso em embate usando D permite aplicar uma Técnica da lista de mesmo nome ainda nesse capítulo."
+          "combate_item":"Esquiva (D). Sucesso em embate usando D permite aplicar uma Técnica da lista de mesmo nome ainda nesse capítulo.",
+          "text": "**Esquiva (D)**. Sucesso em embate usando D permite aplicar uma Técnica da lista de mesmo nome ainda nesse capítulo."
         },
         {
           "type": "paragraph",
-          "id": "combate_item",
-          "text": "Disparo (A). Sucesso em embate usando A permite causar dano arremessando algo contra um inimigo ou com uma arma de combate a distância. Não é possível usar Disparo enquanto engajado (tópico Posições de Combate). O dano, no caso de armas arremessadas, será o normal da arma, e no caso de objetos, fica a cargo do mestre comparar o objeto às armas para se ter uma ideia do dano."
+          "combate_item": "Disparo (A). Sucesso em embate usando A permite causar dano arremessando algo contra um inimigo ou com uma arma de combate a distância. Não é possível usar Disparo enquanto engajado (tópico Posições de Combate). O dano, no caso de armas arremessadas, será o normal da arma, e no caso de objetos, fica a cargo do mestre comparar o objeto às armas para se ter uma ideia do dano.",
+          "text": "**Disparo (A)**. Sucesso em embate usando A permite causar dano arremessando algo contra um inimigo ou com uma arma de combate a distância. Não é possível usar Disparo enquanto engajado (tópico Posições de Combate). O dano, no caso de armas arremessadas, será o normal da arma, e no caso de objetos, fica a cargo do mestre comparar o objeto às armas para se ter uma ideia do dano. Ainda sobre Disparo:"
         },
         {
           "type": "list",
@@ -67,13 +67,13 @@
             "O alcance de objetos ou armas arremessadas é delimitada pela F em Esp.",
             "Armas de disparo possuem seu próprio dano e alcance.",
             "Sucesso crítico concede +1d6 de dano caso o embate seja bem-sucedido.",
-            "Quando o disparado é contra um inimigo que está engajado com um aliado, uma falha crítica no embate pode resultar no ataque acertando o aliado."
+            "Quando o disparo é contra um inimigo que está engajado com um aliado, uma falha crítica no embate pode resultar no ataque acertando o aliado."
           ]
         },
         {
           "type": "paragraph",
-          "id": "combate_item",
-          "text": "Magia (S). Sucesso em embate usando S geralmente permite o uso de alguma magia que o personagem conheça (capítulo Magia)."
+          "combate_item": "Magia (S). Sucesso em embate usando S geralmente permite o uso de alguma magia que o personagem conheça (capítulo Magia).",
+          "text": "**Magia (S)**. Sucesso em embate usando S geralmente permite o uso de alguma magia que o personagem conheça (capítulo Magia)."
         }
       ]
     },
@@ -83,28 +83,24 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Um embate nulo acontece quando um personagem só pode responder a um embate usando V ou D e sem ter direito a uma ação. Existem várias situações que exigem embates nulos de um personagem."
-        },
-        {
-          "type": "paragraph",
-          "text": "Situações de embate nulo:"
+          "text": "[Um embate nulo acontece quando um personagem só pode responder a um embate usando V ou D e sem ter direito a uma ação]. Existem várias situações que exigem embates nulos de um personagem."
         },
         {
           "type": "list",
           "style": "unordered",
           "items": [
             "Quando o personagem já teve a oportunidade de realizar sua ação na rodada, ele poderá continuar se defendendo com embates nulos.",
-            "Quando um alvo não tem como responder a um embate a distância, ele só poderá se defender com um embate nulo.",
-            "Quando um oponente é capaz de realizar mais de uma ação no mesmo turno o personagem só poderá se defender da segunda ação com um embate nulo."
+            "Quando um alvo não tem como responder a um embate à distância, ele só poderá se defender com um embate nulo.",
+            "Quando um oponente é capaz de realizar mais de uma ação no mesmo turno, o personagem só poderá se defender da segunda ação com um embate nulo."
           ]
         },
         {
           "type": "paragraph",
-          "text": "O embate bônus, por sua vez, é justamente o que o personagem recebe ao fazer um embate contra alguém com um embate nulo. Um personagem sempre deve anunciar que está usando um embate normal."
+          "text": "[O embate bônus, por sua vez, é justamente fazer um embate contra alguém com um embate nulo], ou seja, se um personagem é obrigado a um embate nulo, o oponente terá um embate bônus. Um personagem sempre deve anunciar que está usando um embate normal."
         },
         {
           "type": "paragraph",
-          "text": "Por exemplo, um personagem de um jogador está cercado por dois oponentes, um guerreiro e um mago. O turno agora é do guerreiro e, em seguida, será a vez do mago. O guerreiro decide usar F para um Ataque. O jogador tem a opção de fazer um embate nulo, guardando sua ação para usar contra o mago, talvez para tentar evitar uma magia perigosa."
+          "text": "Por exemplo, um personagem de um jogador está cercado por dois oponentes: um guerreiro e um mago. O turno agora é do guerreiro e, em seguida, será a vez do mago. O guerreiro decide usar F para um Ataque. O jogador tem a opção de fazer um embate nulo, guardando sua ação para usar contra o mago, talvez para tentar evitar uma magia perigosa. O guerreiro agora tem um embate bônus contra o personagem do jogador."
         }
       ]
     },
@@ -114,15 +110,11 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "A reação é o nome dado para a ação que um personagem pode optar por usar quando se tornar alvo de uma ação, ou seja, o personagem irá gastar sua ação em uma reação."
+          "text": "A reação é o nome dado à ação que um personagem pode optar por usar quando se tornar alvo de uma ação; ou seja, o personagem irá gastar sua ação em uma reação."
         },
         {
           "type": "paragraph",
-          "text": "Uma interrupção, por sua vez, pode ser usada nos mais diversos momentos, geralmente detalhado na interrupção específica, cancelando a ação de um alvo, antes do seu turno ou depois. Uma interrupção simula uma técnica, habilidade ou magia que esteja preparada para partir em auxílio de um aliado, atrapalhar um inimigo ou interromper um acontecimento."
-        },
-        {
-          "type": "paragraph",
-          "text": "Regras de interrupção:"
+          "text": "Uma interrupção, por sua vez, pode ser usada nos mais diversos momentos, geralmente detalhados na interrupção específica, cancelando a ação de um alvo antes do seu turno ou depois. Uma interrupção simula uma técnica, habilidade ou magia que esteja preparada para partir em auxílio de um aliado, atrapalhar um inimigo ou interromper um acontecimento."
         },
         {
           "type": "list",
@@ -139,23 +131,23 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "São quatro as posições de combate, Engajado, Flanqueado, Afastado e Distante."
+          "text": "São quatro as posições de combate: Engajado, Flanqueado, Afastado e Distante."
         },
         {
           "type": "paragraph",
-          "text": "Engajado. Dois personagens rivais em distância de combate corpo-a-corpo estão considerados engajados."
+          "text": "**Engajado**. Dois personagens rivais em distância de combate corpo a corpo estão considerados engajados."
         },
         {
           "type": "paragraph",
-          "text": "Flanqueado. Se um personagem está engajado contra dois ou mais oponentes, ele está flanqueado, assim como os dois oponentes estarão flanqueando. Em termos de regras, flanqueando também é considerado engajado. Apenas quatro personagens podem flanquear um de tamanho normal, se um estiver lutando contra cinco ou mais, os demais terão que atacar a distância ou esperar sua oportunidade."
+          "text": "**Flanqueado**. Se um personagem está engajado contra dois ou mais oponentes, ele está flanqueado, assim como os dois oponentes estarão flanqueando. [Em termos de regras, flanqueando também é considerado engajado]. Apenas quatro personagens podem flanquear um de tamanho normal, se um estiver lutando contra cinco ou mais, os demais terão que atacar a distância ou esperar sua oportunidade."
         },
         {
           "type": "paragraph",
-          "text": "Afastado. Personagens que estão próximos, mas que não estão próximos o suficiente para se atacarem com armas comuns, estão afastados. Para todos os demais efeitos estes personagens estão engajados. Um personagem com uma arma longa pode tentar se afastado para atacar sem permitir que o oponente possa se aproximar. Para conseguir se aproximar, o oponente será obrigado a ter sucesso em uma Esquiva, com embate de D, que concede a ação Afastamento (veja em Técnicas Simples)."
+          "text": "**Afastado**. Personagens que estão próximos, mas que não estão próximos o suficiente para se atacarem com armas comuns, estão afastados. Para todos os demais efeitos estes personagens estão engajados. Um personagem com uma arma longa pode tentar se afastado para atacar sem permitir que o oponente possa se aproximar. Para conseguir se aproximar, o oponente será obrigado a ter sucesso em uma Esquiva, com embate de D, que concede a ação Afastamento (veja em Técnicas Simples)."
         },
         {
           "type": "paragraph",
-          "text": "Distante. Quando um personagem não está engajado ou afastado, ele automaticamente estará distante, e, como já foi dito, se o oponente não tiver como revidar ataques a distância seus embates serão nulos."
+          "text": "**Distante**. Quando um personagem não está engajado ou afastado, ele automaticamente estará distante, e, como já foi dito, se o oponente não tiver como revidar ataques a distância seus embates serão nulos."
         }
       ]
     },
@@ -165,19 +157,15 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "Com sucesso em um embate, o vencedor pode fazer uma Ação, um Gesto e um Movimento, o perdedor sempre fará o seu turno após o vencedor, mas só poderá fazer Gesto e Movimento caso tenha optado por tentar uma Ação nesse embate."
+        "text": "Com sucesso em um embate, o vencedor pode fazer uma Ação, um Gesto e um Movimento. [O perdedor sempre fará o seu turno após o vencedor, mas só poderá fazer Gesto e Movimento caso tenha optado por tentar uma Ação nesse embate]."
       },
       {
         "type": "paragraph",
-        "text": "Movimento é desloucar-se, e o limite de deslocamento de um personagem é sua D em Esp, qualquer ato que leve o jogador de um ponto a outro, desconsiderando magia, é, portanto, movimento, incluindo escalar e saltar. Ação é algo que ocupa o foco do personagem, como preparar-se para um ataque, uma defesa, uma esquiva ou uma magia. Um gesto, por sua vez, é um ato simples, que não ocupa a concentração do personagem."
+        "text": "Movimento é deslocar-se, e o limite de deslocamento de um personagem é sua Dx2 em Esp. Qualquer ato que leve o personagem de um ponto a outro, desconsiderando magia, é, portanto, Movimento, incluindo escalar e saltar. Ação é algo que ocupa o foco do personagem, como preparar-se para um ataque, uma defesa, uma esquiva ou uma magia. Gesto, por sua vez, é um ato simples que não ocupa a concentração do personagem."
       },
       {
         "type": "paragraph",
         "text": "O mestre deve sempre julgar os casos com atenção, mas algumas regras:"
-      },
-      {
-        "type": "paragraph",
-        "text": "Regras de Gesto, Movimento e Ação:"
       },
       {
         "type": "list",
@@ -193,23 +181,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Exemplos de Gestos:"
-      },
-      {
-        "type": "list",
-        "style": "unordered",
-        "items": [
-          "jogar algo para um aliado pegar",
-          "pegar algo jogado",
-          "abrir uma porta",
-          "falar algo curto",
-          "dar um comando",
-          "pegar algo do chão",
-          "trocar de armas",
-          "recarregar uma arma",
-          "mergulhar ou revestir arma em alguma substância para causar dano extra",
-          "montar e desmontar de uma montaria"
-        ]
+        "text": "Exemplos de Gestos: jogar algo para um aliado pegar, pegar algo jogado, abrir uma porta, falar algo curto, dar um comando, pegar algo do chão, trocar de armas, recarregar uma arma, mergulhar ou revestir arma em alguma substância para causar dano extra, montar e desmontar de uma montaria"
       }
     ]
   },
@@ -219,11 +191,11 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Sabemos que um combate se resolve com sequências de embates, isso significa que, assim como em uma rodada de pedra, papel e tesoura, não há necessidade de saber previamente quem age primeiro entre dois personagens engajados, pois ambos estão fazendo seus movimentos ao mesmo tempo. Mas como saber, em uma luta entre dois grupos, quem começa e qual o posicionamento deles no campo de combate?"
+          "text": "Sabemos que um combate se resolve com sequências de embates. Isso significa que, assim como em uma rodada de pedra, papel e tesoura, não há necessidade de saber previamente quem age primeiro entre dois personagens engajados, pois ambos estão fazendo seus movimentos ao mesmo tempo. Mas como saber, em uma luta entre dois grupos, quem começa e qual é o posicionamento deles no campo de combate?"
         },
         {
           "type": "paragraph",
-          "text": "Primeiro, o mestre deve sempre optar por seguir o fluxo da narrativa. Digamos que um jogador faz um teste e percebe a aproximação de um homem suspeito, e então vê o brilho da faca e opta por atacar. Começa o primeiro embate. O segundo jogador também percebe, mas está do outro lado de uma pequena cerca, o mestre estabelece 6 Esp de distância, e ele percorre apenas 5 Esp com sua D5. O terceiro jogador falhou no teste e não notou o outro homem se aproximando pelo seu flanco, sofrendo um embate nulo."
+          "text": "Primeiro, o mestre deve sempre optar por seguir o fluxo da narrativa. Digamos que um jogador faz um teste e percebe a aproximação de um homem suspeito, então vê o brilho da faca e opta por atacar. Começa o primeiro embate. O segundo jogador também percebe, mas está do outro lado de uma pequena cerca. O mestre estabelece 6 Esp de distância, e ele percorre apenas 5 Esp com sua D5. O terceiro jogador falhou no teste e não notou o outro homem se aproximando pelo seu flanco, sofrendo um embate nulo."
         },
         {
           "type": "paragraph",
@@ -231,15 +203,15 @@
         },
         {
           "type": "paragraph",
-          "text": "No início de um combate, os maiores valores em I de cada grupo envolvido realizarão um embate entre si usando a sua I, esse embate é chamado de Liderança. O vencedor poderá posicionar cada personagem, aliados e inimigos, a partir do centro do campo de combate, em uma distância em Esp equivalente a I do vencedor ou predeterminada pelo mestre, definindo quem estará engajado, flanqueado, distante ou afastado."
+          "text": "No início de um combate, [os maiores valores em I de cada grupo envolvido realizarão um embate entre si usando a sua I]. [Esse embate é chamado de Liderança]. O vencedor poderá posicionar cada personagem, aliados e inimigos, a partir do centro do campo de combate, em uma distância em Esp equivalente à I do vencedor ou predeterminada pelo mestre, definindo quem estará engajado, flanqueado, distante ou afastado."
         },
         {
           "type": "paragraph",
-          "text": "Após o embate de liderança, haverá um embate de S chamado Estratégia. O grupo vencedor escolher a ordem de turnos das duplas que irão engajar.."
+          "text": "[Após o embate de liderança, haverá um embate de S chamado Estratégia]. O grupo vencedor escolher a ordem de turnos das duplas que irão engajar."
         },
         {
           "type": "paragraph",
-          "text": "Resumo de embates:"
+          "text": "Repetindo:"
         },
         {
           "type": "list",
@@ -277,10 +249,6 @@
           "text": "A segunda rodada, portanto, é definida da seguinte maneira:"
         },
         {
-          "type": "paragraph",
-          "text": "Regras da segunda rodada:"
-        },
-        {
           "type": "list",
           "id": "init_item",
           "style": "unordered",
@@ -291,7 +259,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Observações extras:"
+          "text": "__Observações extras__:"
         },
         {
           "type": "list",
@@ -316,7 +284,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Digamos que, ainda nessa rodada, o arqueiro ataca o mago que sobrevive a flechada com um embate nulo, em seguida, o mago vence o embate contra o guerreiro."
+          "text": "Digamos que, ainda nessa rodada, o arqueiro ataca o mago, que sobrevive à flechada com um embate nulo, em seguida, o mago vence o embate contra o guerreiro."
         },
         {
           "type": "paragraph",
@@ -338,11 +306,11 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Um personagem encontra-se indefeso quando é pego desprevenido, quando está desmaiado, imobilizado ou em qualquer outra situação em que estiver incapaz de reagir a um ataque. O mestre decide se, ao ser pego desprevenido, o alvo se encontra indefeso ou se ele é alvo apenas de um embate nulo (desprevenido, mas atento)."
+          "text": "Um personagem encontra-se indefeso quando é pego desprevenido, quando está desmaiado, imobilizado ou em qualquer outra situação em que esteja incapaz de reagir a um ataque. O mestre decide se, ao ser pego desprevenido, o alvo se encontra indefeso ou se ele é alvo apenas de um embate nulo (desprevenido, mas atento)."
         },
         {
           "type": "paragraph",
-          "text": "O alvo indefeso sofre diretamente o dano máximo ou mínimo, a escolha do jogador, da arma utilizada contra ele sem embate (algumas armas podem multiplicar esse valor), sofre diretamente a penalidade de uma técnica, ou ainda pode ser desmaiado (tópico Condições). Lembrando que se aproximar sorrateiramente de alguém exige embate de D contra A."
+          "text": "O alvo indefeso sofre diretamente o dano máximo ou mínimo, à escolha do jogador, da arma utilizada contra ele, sem embate (algumas armas podem multiplicar esse valor). Também sofre diretamente a penalidade de uma técnica ou ainda pode ser desmaiado (tópico Condições). Lembrando que se aproximar sorrateiramente de alguém exige embate de D contra A."
         }
       ]
     },
@@ -352,44 +320,40 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Nós já vimos vários tópicos até aqui que, tecnicamente, podem ser considerados condições, como Indefeso, Fora de Ação, Ferimento, e até condições de combate, como Engajado e Afastado, porém, existem várias outras e o mestre pode até criar as suas próprias."
+          "text": "Nós já vimos vários tópicos até aqui que, tecnicamente, podem ser considerados condições, como Indefeso, Fora de Ação, Ferimento e até condições de combate, como Engajado e Afastado. Porém, existem várias outras, e o mestre pode até criar as suas próprias."
         },
         {
           "type": "paragraph",
-          "text": "Condições são situações que afetam o personagem de forma positiva ou negativa em termos de regras. Existem infinitas condições nas quais os jogadores podem se meter, por isso é impossível detalhar todos, ainda assim, aqui estão as mais comuns que podem ser usadas inclusive como base para outras. Uma dica para o mestre é mantê-las sempre por perto, visto que muitas magias, habilidades e adversidades gerais podem causá-las nos personagens."
+          "text": "[Condições são situações que afetam o personagem de forma positiva ou negativa em termos de regras]. Existem infinitas condições nas quais os jogadores podem se meter; por isso, é impossível detalhar todas. Ainda assim, aqui estão as mais comuns, que podem ser usadas inclusive como base para outras. Uma dica para o mestre é mantê-las sempre por perto, visto que muitas magias, habilidades e adversidades gerais podem causá-las nos personagens."
         },
         {
           "type": "paragraph",
           "text": "Importante: penalidades iguais em um personagem com mais de uma dessas condições não se acumulam, apenas a maior é considerada."
         },
         {
-          "type": "paragraph",
-          "text": "Lista de Condições:"
-        },
-        {
           "type": "list",
           "id": "condic_item",
           "style": "unordered",
           "items": [
-            "Atordoado. Desvantagem em qualquer embate e -3S em combate. Personagens que estão embriagados, ou que sofreram alguma concussão.",
-            "Desmaiado. Fica indefeso, acorda após teste de V por cena ou combate, ou imediatamente ao ser atacado ou ajudado (tópico Técnicas).",
+            "Atordoado. Desvantagem em qualquer embate e -3S em combate. Personagens que estão embriagados ou que sofreram alguma concussão.",
+            "Desmaiado. Fica indefeso. Acorda após teste de V por cena ou combate, ou imediatamente ao ser atacado ou ajudado (tópico Técnicas).",
             "Envenenado. Desvantagem em qualquer embate, -3V em combate, -1 Vit não cumulativo (com mais de uma aplicação de veneno) por turno até que o efeito acabe. Geralmente ocorre quando há um corpo ou substância estranha dentro do personagem.",
             "Cegado. Desvantagem em qualquer embate e -3A em combate. Pode ser usado quando um personagem não enxerga um alvo, mas tem ideia da sua direção, ou quando o alvo está atrás de alguma cobertura (moita, nuvem, muro).",
-            "Caído. Todos os embates do personagem caído são nulos, ou seja, ações contra ele só podem ser respondidas com V ou D, na próxima rodada ele poderá gastar seu gesto para se levantar.",
+            "Caído. Todos os embates do personagem caído são nulos; ou seja, ações contra ele só podem ser respondidas com V ou D. Na próxima rodada, ele poderá gastar seu Gesto para se levantar.",
             "Silenciado. O personagem não pode recitar palavras para realizar magia, assim como não pode fazer testes de Estratégia e Liderança.",
-            "Paralisado. O personagem não pode usar movimentação e estará indefeso, ou seja, ele não pode fazer embates e ações contra ele são imediatamente bem-sucedidas.",
-            "Restringido. Acontece quando o personagem tem seus movimentos limitados, é dividida em três tipos dependendo da região do corpo restringida. Inferior, se desloca a -3 Esp por turno, superior, -2 em testes e embates de D e F, criaturas voadoras perdem a capacidade de voar, total, sofre ambas as penalidades.",
-            "Amedrontado. O personagem irá fazer tudo o que estiver ao seu alcance para ficar longe da origem do seu medo, todas ações que a origem do medo fizer contra o afetado serão bônus.",
+            "Paralisado. O personagem não pode usar movimentação e estará indefeso; ou seja, ele não pode fazer embates, e ações contra ele são imediatamente bem-sucedidas.",
+            "Restringido. Acontece quando o personagem tem seus movimentos limitados. É dividida em três tipos, dependendo da região do corpo restringida. Inferior: desloca-se a -3 Esp por turno. Superior: -2 em testes e embates de D e F. Criaturas voadoras perdem a capacidade de voar. Total: sofre ambas as penalidades.",
+            "Amedrontado. O personagem irá fazer tudo o que estiver ao seu alcance para ficar longe da origem do seu medo. Todas as ações que a origem do medo fizer contra o afetado serão bônus.",
             "Aterrorizado. O personagem não pode fazer movimentações e todos os seus embates serão nulos.",
-            "Traumatizado. O personagem irá procurar formas de se prejudicar, seja isolando-se do mundo, não alimentando-se direito, ficando extremamente violento, abusando de substâncias, entre outros.",
-            "Confuso. O personagem joga 1d6, resultado 1 ou 2 ele ataca o alvo mais próximo mesmo que seja aliado, 3 ou 4 ele não pode usar gesto e movimento e seus embates são nulos, 5 ou 6 ele não sofre nenhuma condição.",
-            "Encantado. O personagem não consegue fazer nada que coloque em risco o alvo do seu encanto, os embates de combate contra ele são nulos, e ele tem desvantagem em embates de I contra o alvo.",
+            "Traumatizado. O personagem irá procurar formas de se prejudicar, seja isolando-se do mundo, não se alimentando direito, ficando extremamente violento, abusando de substâncias, entre outros.",
+            "Confuso. OO personagem joga 1d6, resultado 1 ou 2: ele ataca o alvo mais próximo, mesmo que seja aliado. Resultado 3 ou 4: ele não pode usar Gesto e Movimento, e seus embates são nulos. Resultado 5 ou 6: ele não sofre nenhuma condição.",
+            "Encantado. O personagem não consegue fazer nada que coloque em risco o alvo do seu encanto. Os embates de combate contra ele são nulos, e ele tem desvantagem em embates de I contra o alvo.",
             "Cansado. -1 em testes e embates de qualquer característica, -2 Esp para movimento. Pode acontecer quando o personagem demora muito entre Repousos.",
             "Exausto. Desvantagem em testes e embates de qualquer característica, -3 Esp para movimento. Geralmente é a etapa seguinte à condição Cansado.",
-            "Escorregadio. O personagem precisa fazer teste de D sempre que tentar um movimento, se falhar, ele não sai do lugar e ganha a condição Caído.",
-            "Queda. Ocorre quando o personagem está caindo ou é arremessado de uma distância maior que sua F em Esp de forma descontrolada. Ele sofre 1d6 de dano para cada F em Esp (com F5, ele sofre 2d6 de dano se cair 10 Esp) que ele despencar se cair em um chão liso e sólido, o mestre pode diminuir ou aumentar a quantidade de dados dependendo do tipo de local de impacto e outras situações, como conseguir diminuir a velocidade de queda se segurando em algo no caminho.",
-            "Submerso. O dano de todo ataque é reduzido para o máximo de 2, menos o de ataques perfurantes. Dependendo do tipo de líquido podem existir outras penalidades, como dano por turno, sufocamento.",
-            "Resistindo. O alvo faz um teste de V por cada período de tempo especificado pelo mestre e sofrente -1 cumulativo a cada nova tentativa. Pode ser usado para sufocamento, fome, segurar alguém pela mão pendurado de um abismo, entre outros."
+            "Escorregadio. O personagem precisa fazer teste de D sempre que tentar um movimento. Se falhar, ele não sai do lugar e ganha a condição Caído.",
+            "Queda. Ocorre quando o personagem está caindo ou é arremessado de uma distância maior que sua F em Esp de forma descontrolada. Ele sofre 1d6 de dano para cada F em Esp (com F5, ele sofre 2d6 de dano se cair 10 Esp) que ele despencar se cair em um chão liso e sólido. O mestre pode diminuir ou aumentar a quantidade de dados dependendo do tipo de local de impacto e de outras situações, como conseguir diminuir a velocidade de queda se segurando em algo no caminho.",
+            "Submerso. O dano de todo ataque é reduzido para o máximo de 2, exceto o de ataques perfurantes. Dependendo do tipo de líquido, podem existir outras penalidades, como dano por turno e sufocamento.",
+            "Resistindo. O alvo faz um teste de V por cada período de tempo especificado pelo mestre e sofre -1 cumulativo a cada nova tentativa. Pode ser usado para sufocamento, fome, segurar alguém pela mão pendurado de um abismo, entre outros."
           ]
         }
       ]
@@ -400,19 +364,15 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Técnicas são ações que qualquer um pode fazem em combate ao ser bem-sucedido em uma Esquiva (D). A necessidade de embate só existe quando o alvo da ação optar por resistir ou o personagem está engajado com um inimigo que não quer que ele realize a ação."
+          "text": "Técnicas são ações que qualquer um pode fazer em combate ao ser bem-sucedido em uma Esquiva (D). A necessidade de embate só existe quando o alvo da ação optar por resistir ou o personagem está engajado com um inimigo que não quer que ele realize a ação."
         },
         {
           "type": "paragraph",
-          "text": "O mestre deve ficar atento para situações adversas quando os jogadores quiserem aplicar essas técnicas, um personagem pode não conseguir empurrar alvos muito pesados, ou segurar inimigos escorregadios, por exemplo."
+          "text": "O mestre deve ficar atento a situações adversas quando os jogadores quiserem aplicar essas técnicas, um personagem pode não conseguir empurrar alvos muito pesados, ou segurar inimigos escorregadios, por exemplo."
         },
         {
           "type": "paragraph",
           "text": "Dadas certas situações, o mestre também pode permitir a aplicação de algumas dessas técnicas a distância usando Assimilação, mas com penalidades, como no caso de disparar uma flecha na roupa do alvo para prendê-la à parede, por exemplo."
-        },
-        {
-          "type": "paragraph",
-          "text": "Lista de Técnicas:"
         },
         {
           "type": "list",
@@ -425,10 +385,10 @@
             "Interpor. Troca de lugar com o alvo do Esp ao lado, o usuário vai para o Esp que o alvo está ocupando e vice-versa.",
             "Empurrar. Empurra um alvo até a F em distância em qualquer direção.",
             "Ajudar. É possível desatolar, desamarrar, erguer alguém caído, acordar, remover alguém de um transe, estabilizar alguém com 0 Vit ou menos (tópico Vitalidade e Fora de Ação).",
-            "Preparar. Usa a ação para criar uma interrupção que permite se preparar para fazer algo caso uma situação se torne verdade, o jogador deve, no seu turno, anunciar o seu preparo, por exemplo: “vou preparar uma interrupção para cortar as cordas da ponte quanto todos os inimigos estiverem sobre ela ao mesmo tempo”.",
+            "Preparar. Usa a ação para criar uma interrupção que permite se preparar para fazer algo caso uma situação se torne verdade, o jogador deve, no seu turno, anunciar o seu preparo, por exemplo: “vou preparar uma interrupção para cortar as cordas da ponte quando todos os inimigos estiverem sobre ela ao mesmo tempo”.",
             "Desmontar. Permite derrubar um alvo de uma montaria.",
             "Cegar. Ataca os olhos do alvo deixando-o Cego até o fim do próximo turno dele (desvantagem em qualquer embate e -3A em combate).",
-            "Desarmar. Ataca a mão do alvo causando 3 de dano e fazendo-o derrubar a arma.",
+            "Desarmar. Ataca a mão do alvo causando 3 de dano, e fazendo-o derrubar a arma.",
             "Derrubar. Permite atacar as pernas do alvo para que ele fique Caído.",
             "Roubar. Pega a arma ou um objeto do alvo, o usuário precisa ter uma mão livre.",
             "Manobrar. Representa qualquer ideia que o jogador possa ter em mente durante o combate, seja golpear o lago congelado para que ele se quebre sob os pés do inimigo, cortar a corda do candelabro para que caia no alvo, empurrar um piano contra o inimigo, derrubar uma prateleira sobre ele, abaixar as calças, arrancar os cabelos do peito."
@@ -442,11 +402,11 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Uma cena de perseguição pode acontecer de diversas formas dependendo da situação, porém, no momento que um jogador declara fuga, ele imediatamente realizará uma ação específica de Fuga que não exige sucesso em embate, a não ser que ele esteja restringido ou a situação o obrigue de alguma outra forma."
+          "text": "Uma cena de perseguição pode acontecer de diversas formas dependendo da situação, porém, [no momento em que um jogador declara fuga, ele imediatamente realizará uma ação específica de Fuga que não exige sucesso em embate], a não ser que ele esteja restringido ou que a situação o obrigue de alguma outra forma."
         },
         {
           "type": "paragraph",
-          "text": "Se o oponente optar por perseguir o alvo em fuga, inicia-se a cena de fuga, o perseguido irá sempre agir primeiro, podendo criar obstáculos para o perseguidor que terá de fazer testes para não ser atrasado, enquanto o perseguidor pode buscar atalhos, arremessar objetos ou parar para tentar um disparo. Em um local onde não haja obstáculos, a tendencia é aquele com a maior D vença a cena."
+          "text": "Se o oponente optar por perseguir o alvo em fuga, inicia-se a cena de fuga, o perseguido irá sempre agir primeiro, podendo criar obstáculos para o perseguidor, que terá de fazer testes para não ser atrasado, enquanto o perseguidor pode buscar atalhos, arremessar objetos ou parar para tentar um disparo. Em um local onde não haja obstáculos, a tendência é aquele com a maior D vença a cena."
         }
       ]
     },
@@ -456,7 +416,7 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Os tipos de danos são maneiras de como alguém pode se ferir em Maeri. Seres comuns podem ser feridos por qualquer coisa, mas há criaturas que só podem ser feridas por tipos específicos de dano, assim como existem armaduras especializadas em proteger de tipos específicos. Cada arma tem um tipo de dano principal, o qual ela foi feita para provocar, mas o mestre pode aprovar tipos diferentes de dano impondo penalidades, como no caso de o personagem querer dar uma coronhada com uma espada."
+          "text": "Os tipos de danos são maneiras pelas quais alguém pode se ferir em Maeri. Seres comuns podem ser feridos por qualquer coisa, mas há criaturas que só podem ser feridas por tipos específicos de dano, assim como existem armaduras especializadas em proteger de tipos específicos. [Cada arma tem um tipo de dano principal para a qual ela foi feita], mas o mestre pode aprovar tipos diferentes de dano impondo penalidades, como no caso de o personagem querer dar uma coronhada com uma espada."
         },
         {
           "type": "paragraph",
@@ -468,10 +428,10 @@
           "items": [
             "Contusão. Golpes de impacto, vindo de maças, martelos e marretas que causam luxações e esmagam ossos.",
             "Corte. Tipo de dano causado por espadas e machados, tem como objetivo penetrar e rasgar ao mesmo tempo.",
-            "Perfuração. Floretes e punhais são as típicas armas perfuradoras, assim como flechas e dardos, tipo de dano cujo objetivo é a precisão.",
+            "Perfuração. Floretes e punhais são as típicas armas perfuradoras, assim como flechas e dardos, é um tipo de dano cujo objetivo é a precisão. ",
             "Explosão. Pode ser desde uma súbita expansão de gases, até algo acelerado o suficiente para liberar energia ao contato (seja térmica, cinética ou até elétrica), como um disparo de canhão.",
-            "Necrótico. Causado pela morte direta das células, degeneração, energia negativa, quando parte do corpo não é irrigado por sangue, ou fica sem oxigênio, seja por algum agente químico específico, frio intenso aplicado de maneira constante por longo período, pressão ou ferimentos não tratados. Esse tipo de dano não pode ser curado com magia de cura sem antes ser tratado com Medicina, ou seja, ele causa ferimento sem precisar ser maior que a V do alvo.",
-            "Psíquico. Trata-se de dano mental, diferente do necrótico eles nunca causam ferimentos, mesmo que seja maior que a V do alvo, porém, esse dano está quase sempre associado a uma perda conjunta de algum tipo de Con.",
+            "Necrótico. Causado pela morte direta das células, degeneração, energia negativa, quando parte do corpo não é irrigado por sangue, ou fica sem oxigênio, seja por algum agente químico específico, frio intenso aplicado de maneira constante por longo período, pressão ou ferimentos não tratados. Esse tipo de dano não pode ser curado com magia de cura sem antes ser tratado com Medicina; ou seja, ele causa ferimento sem precisar ser maior que a V do alvo.",
+            "Psíquico. Trata-se de dano mental, diferente do necrótico ele nunca causa ferimentos, mesmo que seja maior que a V do alvo, porém, esse dano está quase sempre associado a uma perda conjunta de algum tipo de Con.",
             "Elemental. Os tipos elementais são Fogo (calor, chamas), Gelo (frio, congelamento), Ácido (químico, veneno), Terra (areia, desidratação, onda gravitacional, pulso sísmico), Água (hiper-hidratação, afogamento), Vento (pressão atmosférica, hiperventilação, som, vibração), Trovão (choque, raio).",
             "Radiante. Trata-se do dano causado pela irradiação, muitas vezes emitida por fontes de energia instáveis, é um tipo de dano especial pois pode ignorar até paredes se não forem densas o suficiente.",
             "Mágico. Simula os demais danos, porém acontece quebrando as leis da realidade. O corte de um machado pode remover um membro, mas um corte mágico pode permitir que o membro seja reencaixado depois como se nada tivesse acontecido."
@@ -489,11 +449,11 @@
         },
         {
           "type": "paragraph",
-          "text": "Para ser considerado dano híbrido, ele precisa ser algo naturalmente compartilhado, e não algo acrescentado a um dano principal."
+          "text": "[Para ser considerado dano híbrido, ele precisa ser algo naturalmente compartilhado, e não algo acrescentado a um dano principal]."
         },
         {
           "type": "paragraph",
-          "text": "Um dano acrescentado é chamado de bônus, como no caso de um jogador banhar sua espada em óleo e incendiar, nesse caso o mestre pode conceder um bônus de dano. Uma habilidade que reduza dano de fogo irá eliminar esse dano extra, e algo que reduza dano de forma geral sempre irá começar pelo dano principal."
+          "text": "Um dano acrescentado é chamado de bônus, como no caso de um jogador banhar sua espada em óleo e incendiá-la, nesse caso o mestre pode conceder um bônus de dano. Uma habilidade que reduza dano de fogo irá eliminar esse dano extra, e [algo que reduza dano de forma geral sempre irá começar pelo dano principal]."
         }
       ]
     },
@@ -503,28 +463,28 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Grid é um mapa gradeado usado em muitos RPGs onde os jogadores podem mover miniaturas ou tokens dos seus personagens, já teatro da mente, é uma expressão usada para quando os jogadores optam por fazer todo o combate apenas na mente e não em um mapa. Maeri é um sistema que pretende ser amigável para mapas sem grid e para teatros da mente."
+          "text": "Grid é um mapa gradeado usado em muitos RPGs, onde os jogadores podem mover miniaturas ou tokens dos seus personagens. Já teatro da mente é uma expressão usada quando os jogadores optam por fazer todo o combate apenas na imaginação, sem utilizar um mapa. Maeri é um sistema que pretende ser amigável para mapas sem grid e para teatro da mente."
         },
         {
           "type": "paragraph",
           "text": "As regras de Esp permitem que o mestre use a própria base da miniatura como uma estimativa de Esp entre criaturas e, mesmo assim, caso queira ser ainda mais exato, ele pode usar uma régua (1 Esp terá algo em torno de 2,5 cm)."
         },
         {
-          "type": "paragraph",
-          "text": "Regras de Miniaturas:"
-        },
-        {
           "type": "list",
           "style": "unordered",
           "items": [
-            "Uma miniatura só está considerada dentro de uma área de efeito de algo quando está com mais da metade inserida na área, incluindo a área de alcance de uma flecha, por exemplo. E para todos os efeitos, como medir exatamente a distância que ela se move, é considerado o centro da miniatura e não a base.",
+            "Uma miniatura só é considerada dentro de uma área de efeito de algo quando está com mais da metade inserida na área, incluindo a área de alcance de uma flecha, por exemplo. E para todos os efeitos, como medir exatamente a distância que ela se move, é considerado o centro da miniatura, e não a base.",
             "Uma miniatura não pode compartilhar o mesmo Esp de outra, mas o mestre pode permitir testes para que um personagem cruze o mesmo Esp da outra, seja passando por baixo das pernas ou saltando sobre.",
-            "A base da miniatura precisa estar colada na outra para ser considerado engajamento (incluindo afastado)."
+            "A base da miniatura precisa estar colada na outra para ser considerado Engajamento (incluindo Afastado)."
           ]
         },
         {
           "type": "paragraph",
-          "text": "O jogador vê as miniaturas paradas, mas deve imaginá-las em movimento, atacando, girando ao redor uma da outra. Por isso não é possível que mais de quatro personagens cerquem um, porque não há espaço para mais de quatro se movimentar ao redor de uma que também está se movendo. Uma miniatura não precisa se movimentar para a direita de um personagem para empurrá-lo para esquerda por exemplo, pois tecnicamente, ganhando o embate, ele já está lá, ocupando todos os espaços, girando e se movimentando."
+          "text": "O jogador vê as miniaturas paradas, mas deve imaginá-las em movimento, atacando, girando ao redor uma da outra. Por isso [não é possível que mais de quatro personagens cerquem um], porque não há espaço para mais de quatro se movimentarem ao redor de uma que também está se movendo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uma miniatura não precisa se movimentar para a direita de um personagem para empurrá-lo para a esquerda, por exemplo, pois tecnicamente, ganhando o embate, ele já está lá, ocupando todos os espaços, girando e se movimentando."
         }
       ]
     },
@@ -534,15 +494,15 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Danos em área podem acontecer de várias formas, explosões, a queda de objetos grandes, deslizamentos, diversos tipos de magias. Todos os personagens dentro da área do dano têm direito a um embate ou teste para se proteger do efeito."
+          "text": "Danos em área podem acontecer de várias formas: explosões, queda de objetos grandes, deslizamentos e diversos tipos de magias. Todos os personagens dentro da área do dano têm direito a um embate ou teste para se proteger do efeito."
         },
         {
           "type": "paragraph",
-          "text": "No caso de danos em área proporcionados por personagens, apenas um dos alvos, a escolha dos defensores, pode realizar um embate normal, usando sua reação, para impedir que a ação que causará o dano em área aconteça, caso ele falhe, os demais deverão realizar embates nulos contra o resultado do personagem que arremessou."
+          "text": "No caso de danos em área proporcionados por personagens, apenas um dos alvos, à escolha dos defensores, pode realizar um embate normal, usando sua reação, para impedir que a ação que causará o dano em área aconteça. Caso ele falhe, os demais deverão realizar embates nulos contra o resultado do personagem que arremessou."
         },
         {
           "type": "paragraph",
-          "text": "Por exemplo, se um personagem do mestre quiser jogar uma bomba explosiva cujo efeito envolverá três alvos dos jogadores, eles deverão escolher um deles, que ainda não fez seu turno, para realizar uma reação que impeça o inimigo de arremessar a bomba, se esse personagem falhar, os outros deverão fazer embates nulos contra o mesmo resultado para se proteger da explosão."
+          "text": "Por exemplo, se um personagem do mestre quiser jogar uma bomba explosiva cujo efeito envolverá três alvos dos jogadores, eles deverão escolher um deles, que ainda não fez seu turno, para realizar uma reação que impeça o inimigo de arremessar a bomba. Se esse personagem falhar, os outros deverão fazer embates nulos contra o mesmo resultado para se proteger da explosão."
         }
       ]
     },
