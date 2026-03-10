@@ -10,15 +10,15 @@
         "content": [
             {
             "type": "paragraph",
-            "text": "Maeri é um mundo de alta fantasia com diversos elementos mágicos influenciando a sociedade. A magia Invocar Servo é usada em afazeres domésticos, a magia Hesperia é a principal forma de comunicação a distância entre grandes instituições, a magia Invocar Objeto Amaldiçoado é usada por escribas em penas para criar várias cópias de manuscritos ao mesmo tempo, Invocar Golem cria boa parte da mão de obra de poderosas companhias mercantes."
+            "text": "Maeri é um mundo de alta fantasia, com diversos elementos mágicos influenciando a sociedade. A magia Invocar Servo é usada em afazeres domésticos; a magia Hesperia é a principal forma de comunicação a distância entre grandes instituições; a magia Invocar Objeto Amaldiçoado é usada por escribas em penas para criar várias cópias de manuscritos ao mesmo tempo; Invocar Golem cria boa parte da mão de obra de poderosas companhias mercantes."
             },
             {
             "type": "paragraph",
-            "text": "Nos locais mais distantes das grandes cidades, nada disso é comum e a magia é vista com desconfiança. A população, dividida entre as mais diversas espécies humanoides, é formada em sua maioria por camponeses, ainda que aldeões e marinheiros também sejam grupos muito comuns."
+            "text": "Nos locais mais distantes das grandes cidades, nada disso é comum, e a magia é vista com desconfiança. A população, dividida entre as mais diversas espécies humanoides, é formada em sua maioria por camponeses, ainda que aldeões e marinheiros também sejam grupos muito comuns."
             },
             {
             "type": "paragraph",
-            "text": "Alguns estabelecimentos e localidades típicas em uma cidade de Maeri são: templo, taverna, bar, feira, banco, loja especializada (apotecário, antiquário, armoraria, herbalista), castelo, quartel de milícia, universidade, sede de guilda (das mais diversas profissões incluindo aventureiros e ladrões), casa de leilões, padaria, casa de banho, bazar, açougue, carpintaria, aquedutos, esgotos, cisternas, prisão, coliseu, estábulo, cemitério, criadouro, embaixada, arena de batalha, forca, porto, refinaria, praça central."
+            "text": "Alguns estabelecimentos e localidades típicas em uma cidade de Maeri são: templo, taverna, bar, feira, loja especializada (apotecário, antiquário, armoraria, herbalista), banco, castelo, quartel de milícia, universidade, sede de guilda (das mais diversas profissões, incluindo aventureiros e ladrões), casa de leilões, padaria, casa de banho, bazar, açougue, carpintaria, aquedutos, esgotos, cisternas, prisão, coliseu, estábulo, cemitério, criadouro, embaixada, arena de batalha, forca, porto, refinaria, praça central."
             }
         ]
         },
@@ -36,15 +36,15 @@
             },
             {
             "type": "paragraph",
-            "text": "Em tempos recentes, dois outros eventos que causaram revoluções na história se sucederam. Primeiro, a Guerra das Sombras, que devastou principalmente Urdramor e só foi ter fim com o surgimento do segundo evento: o Flagelo."
+            "text": "Em tempos recentes, dois outros eventos que causaram revoluções na história se sucederam. Primeiro, a Guerra das Sombras, que devastou principalmente Urdramor e só teve fim com o surgimento do segundo evento: o Flagelo."
             },
             {
             "type": "paragraph",
-            "text": "Alguns chamam o Flagelo de epidemia, outros de maldição rogada pelos deuses e espíritos vingadores em punição pela Guerra das Sombras. Seja o que for, o Flagelo matou centenas de milhares, quase acabando com a vida em Maeri. Os sintomas são terríveis: olhares vazios que brilham no escuro, desconexão, momentos de estupor, e então total perda de controle, com violência extrema, fome descontrolada, e então, dentro de poucos dias, a morte."
+            "text": "Alguns chamam o Flagelo de epidemia; outros, de maldição rogada pelos deuses e espíritos vingadores em punição pela Guerra das Sombras. Seja o que for, o Flagelo matou centenas de milhares, quase acabando com a vida em Maeri. Os sintomas são terríveis: olhares vazios que brilham no escuro, desconexão, momentos de estupor e então total perda de controle, com violência extrema, fome descontrolada e, dentro de poucos dias, a morte."
             },
             {
             "type": "paragraph",
-            "text": "Atualmente, Maeri inteira ainda se recupera da Guerra das Sombras e do Flagelo, praticamente não existem comunidades que não tenham ao menos metade de suas casas abandonadas, se Maeri será arrastada para o caos, ou se essa situação irá marcar o nascimento de uma nova era, tal história ainda está por ser contada."
+            "text": "Atualmente, Maeri inteira ainda se recupera da Guerra das Sombras e do Flagelo. Praticamente não existem comunidades que não tenham ao menos metade de suas casas abandonadas. Se Maeri será arrastada para o caos ou se essa situação irá marcar o nascimento de uma nova era, tal história ainda está por ser contada."
             }
         ]
         },
@@ -54,7 +54,7 @@
         "content": [
             {
             "type": "paragraph",
-            "text": "O Império de Sisma não se manteve forte por toda a sua existência. A grande expansão inicial fez com que dominassem toda Avehos, mas com o tempo, o Império começou a se dividir, transformando-se em diversos reinados que até hoje existem no continente desértico. Depois do Flagelo, tantas pessoas morreram em Sisma que ela recebeu o apelido de Cidade Morta. Cem mil pessoas cercadas por um mar de casas e estruturas vazias, onde antes moraram mais de um milhão."
+            "text": "O Império de Sisma não se manteve forte por toda a sua existência. A grande expansão inicial fez com que dominassem toda Avehos, mas, com o tempo, o Império começou a se dividir, transformando-se em diversos reinados que até hoje existem no continente desértico. Depois do Flagelo, tantas pessoas morreram em Sisma que ela recebeu o apelido de Cidade Morta. Cem mil pessoas cercadas por um mar de casas e estruturas vazias, onde antes moraram mais de um milhão."
             },
             {
             "type": "paragraph",
@@ -62,13 +62,17 @@
             },
             {
             "type": "paragraph",
-            "text": "Urdramor é um continente muito maior, o norte é dividido em Prados de Sangue, Planalto de Fogo e Ilha do Naufrágio, a região central é formada pelo Istmo dos Vales e pelo Estreito Norte. O Sul é formado pelas Terras do Flagelo, as Colinas Geladas e o Martelo de Guerra. Há também o longínquo leste, onde fica o Arquipélago Minguante e o Estreito Sul. As cidades de Urdramor são Azores, Porto dos Ventos, Baía de Fogo, Druskirf e Escudo Leste no norte, onde ficam os Prados de Sangue e o Planalto de Fogo. No centro estão o Penhasco Salingar e Vargos, no chamado Istmo dos Vales e no Estreito Norte respectivamente. Na fria região sul, estão Porto Sul, Mombram, Alce, Calista e Boros. No leste encontra-se a isolada cidade de Iakan."
+            "text": "Urdramor é um continente muito maior. O norte é dividido em Prados de Sangue, Planalto de Fogo e Ilha do Naufrágio. A região central é formada pelo Istmo dos Vales e pelo Estreito Norte. O sul é formado pelas Terras do Flagelo, as Colinas Geladas e o Martelo de Guerra. Há também o longínquo leste, onde ficam o Arquipélago Minguante e o Estreito Sul."
             },
             {
             "type": "paragraph",
-            "text": "Além das pessoas que vivem nessas cidades, há milhares de outros povos, há nômades como Hardas do Estreito Norte e do Istmo dos Vales, e os Tumal, xamãs do deserto. Há também os nativos de Urdramor, centenas de tribos, dos mais variados tamanhos e culturas. Os Ludaras, por exemplo, são representantes de uma das maiores de Urdramor, mascarados que vivem nas Terras do Flagelo, ocupando as florestas que foram devastadas pelo evento. Os Pagas são pescadores da Cordilheira Serpe no Istmo dos Vales, os Temoios são místicos de Ázamos, e os Nagates, grandes caçadores da Floresta das Trevas."
+            "text": "As cidades de Urdramor são Azores, Porto dos Ventos, Baía de Fogo, Druskirf e Escudo Leste, no norte, onde ficam os Prados de Sangue e o Planalto de Fogo. No centro estão o Penhasco Salingar e Vargos, no chamado Istmo dos Vales e no Estreito Norte, respectivamente. Na fria região sul estão Porto Sul, Mombram, Alce, Calista e Boros. No leste encontra-se a isolada cidade de Iakan."
+            },
+            {
+            "type": "paragraph",
+            "text": "Além das pessoas que vivem nessas cidades, há milhares de outros povos. Há nômades, como Hardas do Estreito Norte e do Istmo dos Vales, e os Tumal, xamãs do deserto. Há também os nativos de Urdramor: centenas de tribos dos mais variados tamanhos e culturas. Os Ludaras, por exemplo, são representantes de uma das maiores de Urdramor, mascarados que vivem nas Terras do Flagelo, ocupando as florestas que foram devastadas pelo evento. Os Pagas são pescadores da Cordilheira Serpe no Istmo dos Vales; os Temoios são místicos de Ázamos; e os Nagates, grandes caçadores da Floresta das Trevas."
             }
-        ]
+          ]
         },
         {
         "topic_id": "religioes",
@@ -76,23 +80,23 @@
         "content": [
             {
             "type": "paragraph",
-            "text": "Em Maeri, deuses não são presentes como em outros cenários fantásticos. Isso significa que as religiões se desenvolveram de forma muito natural entre os seres, se subdividindo em diversos credos muito diferentes. Aqui estão descritas brevemente quatro das principais fés de Maeri."
+            "text": "Em Maeri, deuses não são presentes como em outros cenários fantásticos. Isso significa que as religiões se desenvolveram de forma muito natural entre os seres, subdividindo-se em diversos credos muito diferentes. Aqui estão descritas brevemente quatro das principais fés de Maeri."
             },
             {
             "type": "paragraph",
-            "text": "A Fé de Midra é a maior religião de Maeri. Os acólitos acreditam no bondoso deus Midra, quem eles não enxergam como um criador, mas sim como um guia. Essa característica faz com que os fiéis gostem de viajar e desbravar novos caminhos. Os ritos da Fé de Midra regem muito do dia a dia dos cidadãos de Maeri; as preces, as roupas, o comportamento. Seus principais símbolos são a estrela de quatro pontas e a vela, e seu livro guia é chamado Compendium."
+            "text": "**A Fé de Midra** é a maior religião de Maeri. Os acólitos acreditam no bondoso deus Midra, que eles não enxergam como um criador, mas sim como um guia. Essa característica faz com que os fiéis gostem de viajar e desbravar novos caminhos. Os ritos da Fé de Midra regem muito do dia a dia dos cidadãos de Maeri: as preces, as roupas, o comportamento. Seus principais símbolos são a estrela de quatro pontas e a vela, e seu livro guia é chamado Compendium.."
             },
             {
             "type": "paragraph",
-            "text": "A Fé Yaria, a segunda maior, chamada pelas pessoas do norte de Fé do Sul. Yaria não é um deus, ele foi um profeta que escreveu os Três Livros de Yaria guiado pelos espíritos ancestrais da humanidade, os Anciões. A religião, portanto, não acredita em deuses, mas sim nos chamados Antepassados, que são honrados em rituais diários como os cantos e as purificações com cristais e banhos. Os principais símbolos dos Yaria são os cristais."
+            "text": "**A Fé Yaria**, a segunda maior, é chamada pelas pessoas do norte de Fé do Sul. Yaria não é um deus; ele foi um profeta que escreveu os Três Livros de Yaria, guiado pelos espíritos ancestrais da humanidade, os Anciões. A religião, portanto, não acredita em deuses, mas sim nos chamados Antepassados, que são honrados em rituais diários, como os cantos e as purificações com cristais e banhos. Os principais símbolos dos Yaria são os cristais."
             },
             {
             "type": "paragraph",
-            "text": "A Fé Oromandes é a terceira maior, eles acreditam em uma mente universal que chamam de Oromandes, e veem a criação como um grande pensamento. Em sua visão, Sorush é seu deus, uma hipóstase de Oromandes, um juiz do mundo dos mortos e dos vivos. Diferente da fé de Midra, não é a bondade que os guia, mas sim a justiça, e enxergam na mentira o pior dos pecados. Seus principais símbolos são a balança e o golem segurando uma espada, seu livro sagrado, chamado Códice Constitucional, é gigantesco, os menores podem ocupar uma gaveta inteira."
+            "text": "**A Fé Oromandes** é a terceira maior. Seus seguidores acreditam em uma mente universal que chamam de Oromandes e veem a criação como um grande pensamento. Em sua visão, Sorush é seu deus, uma hipóstase de Oromandes, um juiz do mundo dos mortos e dos vivos. Diferente da Fé de Midra, não é a bondade que os guia, mas sim a justiça, e enxergam na mentira o pior dos pecados. Seus principais símbolos são a balança e o golem segurando uma espada. Seu livro sagrado, chamado Códice Constitucional, é gigantesco; os menores podem ocupar uma gaveta inteira."
             },
             {
             "type": "paragraph",
-            "text": "A Ordem Junfan, a quarta maior, foi criada pelo guerreiro profeta Junfan Amadara, que escreveu as chamadas Tabuletas da Natureza, uma série de tabuletas com uma lista de doutrinas de vida, o que acabou por se tornar um tratado militar, estratégico, filosófico e religioso. A Ordem Junfan é uma mistura de religião e ordem de cavalaria calcada na busca pela paz interior e exterior e no caminho da harmonia, sua arma de escolha, e símbolo máximo de sua congregação, é chamado toteboken, uma espada de madeira do tamanho de um cetro ou cajado com diversos símbolos mágicos entalhados."
+            "text": "**A Ordem Junfan**, a quarta maior, foi criada pelo guerreiro profeta Junfan Amadara, que escreveu as chamadas Tabuletas da Natureza, uma série de tabuletas com uma lista de doutrinas de vida. Isso acabou por se tornar um tratado militar, estratégico, filosófico e religioso. A Ordem Junfan é uma mistura de religião e ordem de cavalaria calcada na busca pela paz interior e exterior e no caminho da harmonia. Sua arma de escolha, e símbolo máximo de sua congregação, é chamada toteboken, uma espada de madeira do tamanho de um cetro ou cajado com diversos símbolos mágicos entalhados."
             }
         ]
         }
