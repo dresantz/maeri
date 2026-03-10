@@ -10,7 +10,7 @@
         "content": [
             {
             "type": "paragraph",
-            "text": "RPG é um jogo de intepretação, e não de rolagem de dados. Isso significa que os jogadores devem pensar na ação que mais acham legal ou condizente e apenas depois pensar em como isso se adapta às regras, mesmo que isso signifique algo ruim."
+            "text": "RPG é um jogo de interpretação, e não de rolagem de dados. Isso significa que os jogadores devem pensar na ação que mais acham legal ou condizente e apenas depois pensar em como isso se adapta às regras, mesmo que isso signifique algo ruim."
             },
             {
             "type": "paragraph",
@@ -18,38 +18,38 @@
             },
             {
             "type": "paragraph",
-            "text": "O sistema é denso em regras justamente para abraçar a maior quantidade possível de possibilidades, porém, regras como as de limite de carga, resistência de armas, ferimento, contatos, todas foram feitas especificamente para serem ignoradas se necessário."
+            "text": "O sistema é denso em regras justamente para abraçar a maior quantidade possível de possibilidades. Porém, regras como as de limite de carga, resistência de armas, ferimento e contatos foram feitas especificamente para serem ignoradas, se necessário."
             },
             {
             "type": "paragraph",
-            "text": "O mestre deve sempre ser suscetível a adaptar as regras às ideias mais mirabolantes e criativas, pois é isso que faz com que o RPG de mesa seja diferente de um videogame e se destaque das interações limitadas da sua versão digital."
+            "text": "O mestre deve sempre estar suscetível a adaptar as regras às ideias mais mirabolantes e criativas, pois é isso que faz com que o RPG de mesa seja diferente de um videogame e se destaque das interações limitadas de sua versão digital."
             },
             {
             "type": "paragraph",
-            "text": "O mestre deve pedir rolagens de dados sempre que tiver oportunidade, a aleatoriedade do RPG também é algo único desse tipo de jogo e não pode ser reproduzida em outro lugar, pois não se trata apenas de sucesso e fracasso, mas sim das possibilidades de consequências de cada um."
+            "text": "O mestre deve pedir rolagens de dados sempre que tiver oportunidade. A aleatoriedade do RPG também é algo único desse tipo de jogo e não pode ser reproduzida em outro lugar, pois não se trata apenas de sucesso e fracasso, mas sim das possibilidades de consequências de cada um."
             },
             {
             "type": "paragraph",
-            "text": "Quanto aos jogadores, cabe a eles compreenderem que o jogo acontece em grupo, então é melhor que conversem entre si antes de fazer algo que influencie outro, pois suas decisões podem prejudicar a diversão de alguém. O mestre não é o único responsável pela diversão, as decisões, interações e interpretações são tão importantes quanto a história."
+            "text": "Quanto aos jogadores, cabe a eles compreenderem que o jogo acontece em grupo, então é melhor que conversem entre si antes de fazer algo que influencie outro, pois suas decisões podem prejudicar a diversão de alguém. O mestre não é o único responsável pela diversão; as decisões, interações e interpretações são tão importantes quanto a história."
             },
             {
             "type": "paragraph",
-            "text": "Algumas condutas indesejadas no RPG:"
+            "text": "__Algumas condutas indesejadas no RPG:__"
             },
             {
             "type": "list",
             "style": "unordered",
             "items": [
-                "Metajogo acontece quando um jogador tenta tirar proveito de um conhecimento ou informação que seu personagem não possui. O jogador deve sempre perguntar se é de conhecimento comum a informação, ou se o seu personagem porventura tem a informação, e jamais deve fazer seu personagem agir baseado em uma informação que não possui.",
+                "Metajogo acontece quando um jogador tenta tirar proveito de um conhecimento ou informação que seu personagem não possui. O jogador deve sempre perguntar se a informação é de conhecimento comum ou se seu personagem porventura a possui, e jamais deve fazer seu personagem agir baseado em uma informação que não possui.",
                 "Presumir que um jogador ou o mestre vai ser condizente com algo que influencie o jogo ou seu personagem sem conversar com ele antes.",
                 "Seja mestre ou jogador, forçar sua vontade na ação do personagem de outro jogador.",
-                "Voltar atrás em ações já declaradas. Esse caso é diferente de decisão retroativa, onde o jogador pergunta se pode acrescentar uma informação a um momento que já se passou. Nesses casos, fica a cargo do mestre decidir.",
+                "Voltar atrás em ações já declaradas. Esse caso é diferente de decisão retroativa, em que o jogador pergunta se pode acrescentar uma informação a um momento que já se passou. Nesses casos, fica a cargo do mestre decidir.",
                 "Prolongar demais seu turno.",
-                "Tentar ativamente tomar decisões que dividam os personagens ou criem conflitos não planejados.",
+                "Tentar ativamente tomar decisões que dividam os personagens ou crie conflitos não planejados.",
                 "Não escutar a opinião dos outros jogadores.",
-                "Demorar-se demais debatendo ou procurando regras. É sempre mais apropriado fazer julgamentos momentâneos e procurar a regra oficial depois.",
+                "Demorar-se demais debatendo ou procurando regras. Geralmente, o mais apropriado é fazer julgamentos momentâneos e procurar a regra oficial depois.",
                 "Forçar jogador ou mestre a interpretar personagens ou decorar regras.",
-                "Se distrair demais do jogo, de modo que faça jogadores ou mestre ter que se repetir."
+                "Distrair-se demais do jogo, de modo que faça jogadores ou o mestre terem que se repetir."
             ]
             }
         ]
@@ -60,19 +60,19 @@
         "content": [
             {
             "type": "paragraph",
-            "text": "Se o jogador iniciante leu o livro até aqui, isso significa que está pronto para começar uma aventura de RPG. Um jogador terá tudo o que precisa para interpretar seu personagem e o mestre terá as ferramentas para preparar a aventura."
+            "text": "Se o jogador iniciante leu o livro até aqui, isso significa que está pronto para começar uma aventura de RPG. Um jogador terá tudo o que precisa para interpretar seu personagem, e o mestre terá as ferramentas para preparar a aventura."
             },
             {
             "type": "paragraph",
-            "text": "No caso de um mestre iniciante, a dica é preparar uma história de forma bastante aberta, mas estabelecendo um objetivo claro, como derrotar um vilão, destruir um artefato perigoso, resgatar um personagem, capturar um animal raro. Ao construir uma aventura, o mestre deve se concentrar no “o que” os jogadores devem fazer, o “como” deve ficar a cargo deles."
+            "text": "No caso de um mestre iniciante, a dica é preparar uma história de forma bastante aberta, mas estabelecendo um objetivo claro, como derrotar um vilão, destruir um artefato perigoso, resgatar um personagem ou capturar um animal raro. Ao construir uma aventura, o mestre deve se concentrar no “o que” os jogadores devem fazer; o “como” deve ficar a cargo deles."
             },
             {
             "type": "paragraph",
-            "text": "O mestre deve introduzir os jogadores ao ambiente, onde eles estão, em qual situação se encontram, se estão juntos ou se ainda não se conhecem. Os jogadores, por sua vez, terão seus primeiros turnos, onde eles poderão dar as primeiras informações a respeito dos seus personagens, inclusive de Contatos, ainda que seja sempre interessante guardar detalhes ou revelações para depois."
+            "text": "O mestre deve introduzir os jogadores ao ambiente: onde eles estão, em qual situação se encontram, se estão juntos ou se ainda não se conhecem. Os jogadores, por sua vez, terão seus primeiros turnos, nos quais poderão dar as primeiras informações a respeito de seus personagens, inclusive de Contatos, ainda que seja sempre interessante guardar detalhes ou revelações para depois."
             },
             {
             "type": "paragraph",
-            "text": "O mestre precisa ponderar a quantidade de informações que irá passar aos jogadores e guiar o mínimo possível, deixe que o grupo decida o que é útil para eles, deixe que eles perguntem e peçam detalhes e eles decidam o próprio caminho, o objetivo é fazer com que eles participem do jogo tanto quanto o mestre."
+            "text": "O mestre precisa ponderar a quantidade de informações que irá passar aos jogadores e guiar o mínimo possível. Deixe que o grupo decida o que é útil para eles, deixe que perguntem e peçam detalhes e que decidam o próprio caminho. O objetivo é fazer com que eles participem do jogo tanto quanto o mestre."
             },
             {
             "type": "paragraph",
@@ -90,7 +90,7 @@
         "content": [
             {
             "type": "paragraph",
-            "text": "A regra mais interessante de se ter em mente para uma viagem é a de que cada jogador consome 1 xpl por temporada ou dia. Revelando ou não aos jogadores quanto tempo eles terão de viagem, ida e volta, eles podem interagir com personagens para adquirir provisões, talvez tenham que procurar em mais de um lugar pelos preparos necessários caso não tenham Contatos. Eles podem pensar em coisas como cordas, animais de carga, carroças."
+            "text": "A regra mais interessante de se ter em mente para uma viagem é a de que cada jogador consome 1 xpl por temporada ou dia. Revelando ou não aos jogadores quanto tempo eles terão de viagem, ida e volta, eles podem interagir com personagens para adquirir provisões. Talvez tenham que procurar em mais de um lugar pelos preparos necessários caso não tenham Contatos. Eles podem pensar em coisas como cordas, animais de carga e carroças."
             },
             {
             "type": "paragraph",
@@ -98,11 +98,11 @@
             },
             {
             "type": "paragraph",
-            "text": "É interessante também lembrar-se das regras de Acampamento. Os Contatos viajarão mais devagar ou os jogadores estarão os acompanhando. Quando eles pararem para descansar, quais tarefas de acampamento eles vão realizar."
+            "text": "É interessante também lembrar-se das regras de Acampamento. Os Contatos viajarão mais devagar ou os jogadores estarão os acompanhando. Quando eles pararem para descansar, quais tarefas de acampamento irão realizar?"
             },
             {
             "type": "paragraph",
-            "text": "O mestre pode pensar quais tipos de encontro acontecerão pelo caminho, que tipo de desafios podem acabar aparecendo. Um encontro não precisa ser de combate, às vezes é interessante ver como os personagens reagem a certos tipos de situação, saber se eles perderiam uma temporada de viagem para ajudar alguém no caminho, se eles arriscariam passar por um terreno complicado ou iriam preferir dar a volta, se eles estão perdidos ou encontraram uma rota melhor."
+            "text": "O mestre pode pensar em quais tipos de encontro acontecerão pelo caminho e que tipo de desafios podem acabar aparecendo. Um encontro não precisa ser de combate; às vezes é interessante ver como os personagens reagem a certos tipos de situação: saber se perderiam uma temporada de viagem para ajudar alguém no caminho, se arriscariam passar por um terreno complicado ou se prefeririam dar a volta, se estão perdidos ou se encontraram uma rota melhor."
             }
         ]
         },
@@ -112,11 +112,11 @@
         "content": [
             {
             "type": "paragraph",
-            "text": "Atualmente muitos jogadores se acostumaram com uma ideia errada do chamado “encontro aleatório”, mas em um RPG, um encontro nunca deve ser totalmente aleatório. Combates devem ser, pelo menos em sua maioria, relevantes para a história ou com um significado para os personagens."
+            "text": "Atualmente, muitos jogadores se acostumaram com uma ideia errada do chamado “encontro aleatório”, mas em um RPG um encontro nunca deve ser totalmente aleatório. Combates devem ser, pelo menos em sua maioria, relevantes para a história ou ter um significado para os personagens."
             },
             {
             "type": "paragraph",
-            "text": "É divertido ver a reação dos jogadores quando um inimigo que já foi derrotado por eles volta para se vingar como um morto-vivo. Se os jogadores pararam para caçar, eles podem ser atacados por um grupo de druidas procurando justiça pelos animais derrubados, ou quem sabe aconteça um primeiro encontro com capangas do vilão que eles estão indo atrás."
+            "text": "É divertido ver a reação dos jogadores quando um inimigo que já foi derrotado por eles volta para se vingar como um morto-vivo. Se os jogadores pararem para caçar, eles podem ser atacados por um grupo de druidas procurando justiça pelos animais derrubados, ou quem sabe aconteça um primeiro encontro com capangas do vilão que eles estão indo atrás."
             },
             {
             "type": "paragraph",
@@ -124,19 +124,19 @@
             },
             {
             "type": "paragraph",
-            "text": "Se alguém pudesse dar outro nome para Role-Playing Game, esse nome deveria ser Jogo de Consequências. Em um videogame é possível derrotar centenas de inimigos e nada irá acontecer, mas em um RPG não. Corpos deixados para trás serão encontrados por outros personagens, famílias de capangas estarão abandonadas ou buscarão vingança, matar uma pessoa na taverna resultará em personagens sendo investigados, julgados e até presos, e matar um monstro poderoso pode desequilibrar um ecossistema inteiro."
+            "text": "Se alguém pudesse dar outro nome para Roleplaying Game, esse nome deveria ser Jogo de Consequências. Em um videogame é possível derrotar centenas de inimigos e nada irá acontecer, mas em um RPG não. Corpos deixados para trás serão encontrados por outros personagens, famílias de capangas estarão abandonadas ou buscarão vingança, matar uma pessoa na taverna resultará em personagens sendo investigados, julgados e até presos, e matar um monstro poderoso pode desequilibrar um ecossistema inteiro."
             },
             {
             "type": "paragraph",
-            "text": "As consequências não acontecem apenas externamente em Maeri. Caso personagens sejam violentos e matem inimigos sapientes durante um combate, sejam feridos gravemente ou passem por experiências de quase morte, o mestre pode abrir uma linha de Con de Trauma e retirar 1 ponto. Se os jogadores encontrarem monstros muito terríveis, ele pode retirar 1 de uma linha de Con Medo."
+            "text": "As consequências não acontecem apenas externamente em Maeri. Caso personagens sejam violentos e matem inimigos sapientes durante um combate, sejam feridos gravemente ou passem por experiências de quase morte, o mestre pode abrir uma linha de Con Trauma e retirar 1 ponto. Se os jogadores encontrarem monstros muito terríveis, ele pode retirar 1 de uma linha de Con Medo."
             },
             {
             "type": "paragraph",
-            "text": "Quando pararem para descansar, permita que recuperem essas linhas de Con apenas se decidirem abusar um pouco das provisões gastando xpl extra, se decidirem descansar por mais tempo que o previsto, ou caso eles conversem entre si sobre o que os fez matar. Existe uma palavra que define personagens não apenas em jogos, mas em qualquer mídia: evolução. E essa evolução não precisa acontecer apenas mecanicamente, com níveis, mas também com uma compreensão de si mesmo."
+            "text": "Quando pararem para descansar, permita que recuperem essas linhas de Con apenas se decidirem abusar um pouco das provisões, gastando xpl extra, se decidirem descansar por mais tempo que o previsto ou caso conversem entre si sobre o que os fez matar. Existe uma palavra que define personagens não apenas em jogos, mas em qualquer mídia: evolução. E essa evolução não precisa acontecer apenas mecanicamente, com níveis, mas também com uma compreensão de si mesmo."
             },
             {
             "type": "paragraph",
-            "text": "Lembrando, se o combate for acontecer, as regras para se ter em mente aqui são liderança e estratégia, ordem de combate, movimentação, tipos de dano e ações de combate."
+            "text": "Lembrando: se o combate for acontecer, as regras para se ter em mente aqui são liderança e estratégia, ordem de combate, movimentação, tipos de dano e ações de combate."
             }
         ]
         },
@@ -146,46 +146,46 @@
         "content": [
             {
             "type": "paragraph",
-            "text": "Masmorra é um termo genérico no RPG para definir o lugar onde o vilão se encontra. Uma masmorra pode ser um castelo, um palácio, uma ruína antiga, uma aldeia abandonada, uma floresta, a toca de uma criatura, um ninho gigante. As possibilidades são infinitas."
+            "text": "Masmorra é um termo genérico no RPG para definir o lugar onde o vilão se encontra. Uma masmorra pode ser um castelo, um palácio, uma ruína antiga, uma aldeia abandonada, uma floresta, a toca de uma criatura ou um ninho gigante. As possibilidades são infinitas."
             },
             {
             "type": "paragraph",
-            "text": "Uma masmorra e seus objetos contam uma história. É como construir uma cena de crime. Muitos objetos empilhados podem significar uma guilda de salteadores; velas, papéis e livros podem pertencer a cultistas; ossos e carcaças podem significar alguma criatura devoradora de pessoas; e se o local tiver intocado, pode ser algo que não pertença a esse plano de existência."
+            "text": "Uma masmorra e seus objetos contam uma história. É como construir uma cena de crime. Muitos objetos empilhados podem significar uma guilda de salteadores; velas, papéis e livros podem pertencer a cultistas; ossos e carcaças podem indicar alguma criatura devoradora de pessoas; e, se o local estiver intocado, pode ser algo que não pertença a esse plano de existência."
             },
             {
             "type": "paragraph",
-            "text": "Uma masmorra não é muito diferente de um Acampamento dos jogadores, haverá inimigos patrulhando ou realizando outras atividades, eles terão plantado armadilhas, alguns dos moradores podem sair para fazer algo e voltar depois."
+            "text": "Uma masmorra não é muito diferente de um Acampamento dos jogadores: haverá inimigos patrulhando ou realizando outras atividades, eles terão plantado armadilhas, e alguns dos moradores podem sair para fazer algo e voltar depois."
             },
             {
             "type": "paragraph",
-            "text": "Algo importante de se ter em mente é que há uma razão para a existência da masmorra, desde ser uma locação estratégica, até guardar algo importante. O mestre deve decidir quais tipos de tesouros e desafios podem ser encontrados dentro do lugar."
+            "text": "Algo importante de se ter em mente é que há uma razão para a existência da masmorra, desde ser uma locação estratégica até guardar algo importante. O mestre deve decidir quais tipos de tesouros e desafios podem ser encontrados dentro do lugar."
             }
         ]
         },
         {
-    "topic_id": "o-fim-da-aventura",
-    "title": "O Fim da Aventura",
+        "topic_id": "o-fim-da-aventura",
+        "title": "O Fim da Aventura",
         "content": [
-                {
-                "type": "paragraph",
-                "text": "Os jogadores estão de volta onde tudo começou. Ou não. Os jogadores foram bem-sucedidos, não foram, o sucesso foi parcial. O que aconteceu, o que mudou. Como os personagens que negociaram com eles no início os veem agora, ainda são os mesmos, o que aconteceu com os anteriores. Enquanto os jogadores viajam, as coisas mudam."
-                },
-                {
-                "type": "paragraph",
-                "text": "Nesse sistema o xpp representa a experiência do personagem, porém, a verdadeira recompensa para os jogadores são o reconhecimento dos seus colegas de mesa, por isso, incentive, parabenize o companheiro quando ele fizer algo legal. Consequência parece uma palavra a se temer, porém, recompensa também é consequência."
-                },
-                {
-                "type": "paragraph",
-                "text": "Ajudar alguém, salvar uma vida, devolver algo precioso para alguém, fazer um vilão reconhecer seus erros, esse tipo de atitude também deve ter consequências. O xpp pode ser distribuído quando os personagens passarem por experiências pessoais e em grupo, mas os jogadores e o mestre não irão lembrar dos pontos que os personagens ganharam na ficha; eles vão lembrar do que os personagens viveram."
-                },
-                {
-                "type": "paragraph",
-                "text": "Dito isso, o mestre deve sempre evitar usar o xpp ou qualquer outro recurso narrativo das regras do jogo como uma forma de forçar os jogadores a jogarem do jeito que ele acha mais correto, explique para eles as consequências e deixe que eles próprios percebam se é justo ou não, e se não acharem justo, debatam os motivos."
-                },
-                {
-                "type": "paragraph",
-                "text": "O fim de uma aventura é o momento de entender tudo o que aconteceu e tirar uma conclusão disso. O mestre deve ter em mente que os jogadores são os protagonistas dessa história, e os jogadores precisam ter em mente que seus personagens acabaram de enfrentar diversos riscos de vida com seus companheiros, e é interessante que debatam a respeito disso mesmo que internamente."
-                }
+            {
+            "type": "paragraph",
+            "text": "Os jogadores estão de volta onde tudo começou. Ou não. Os jogadores foram bem-sucedidos, não foram ou o sucesso foi parcial. O que aconteceu? O que mudou? Como os personagens que negociaram com eles no início os veem agora? Ainda são os mesmos? O que aconteceu com os anteriores? Enquanto os jogadores viajam, as coisas mudam."
+            },
+            {
+            "type": "paragraph",
+            "text": "Nesse sistema, o xpp representa a experiência do personagem; porém, a verdadeira recompensa para os jogadores é o reconhecimento dos seus colegas de mesa. Por isso, incentive e parabenize o companheiro quando ele fizer algo legal. Consequência parece uma palavra a se temer, porém recompensa também é consequência."
+            },
+            {
+            "type": "paragraph",
+            "text": "Ajudar alguém, salvar uma vida, devolver algo precioso para alguém, fazer um vilão reconhecer seus erros: esse tipo de atitude também deve ter consequências. O xpp pode ser distribuído quando os personagens passarem por experiências pessoais e em grupo, mas os jogadores e o mestre não irão lembrar dos pontos que os personagens ganharam na ficha; eles vão lembrar do que os personagens viveram."
+            },
+            {
+            "type": "paragraph",
+            "text": "Dito isso, o mestre deve sempre evitar usar o xpp ou qualquer outro recurso narrativo das regras do jogo como uma forma de forçar os jogadores a jogarem do jeito que ele acha mais correto. Explique para eles as consequências e deixe que eles próprios percebam se é justo ou não; e, se não acharem justo, debatam os motivos."
+            },
+            {
+            "type": "paragraph",
+            "text": "O fim de uma aventura é o momento de entender tudo o que aconteceu e tirar uma conclusão disso. O mestre deve ter em mente que os jogadores são os protagonistas dessa história, e os jogadores precisam ter em mente que seus personagens acabaram de enfrentar diversos riscos de vida com seus companheiros, sendo interessante que debatam a respeito disso, mesmo que internamente."
+            }
             ]
         },
         {
@@ -198,15 +198,15 @@
             },
             {
             "type": "paragraph",
-            "text": "RPG é interpretar e improvisar. Não existem humanos de cor verde em Maeri, mas o tópico Peculiaridades permite que o jogador interprete um, desde que em acordo com o mestre e o grupo. O próprio mestre pode mudar o cenário e decidir que humanos verdes são comuns. Porém, o poder de improvisar no RPG vai muito além disso. O jogador pode mudar o efeito visual de uma magia desde que a mecânica permaneça a mesma, criando algo absolutamente novo, e o mesmo vale para estudos."
+            "text": "RPG é interpretar e improvisar. Não existem humanos de cor verde em Maeri, mas o tópico Peculiaridades permite que o jogador interprete um, desde que esteja em acordo com o mestre e o grupo. O próprio mestre pode mudar o cenário e decidir que humanos verdes são comuns. Porém, o poder de improvisar no RPG vai muito além disso. O jogador pode mudar o efeito visual de uma magia, desde que a mecânica permaneça a mesma, criando algo absolutamente novo, e o mesmo vale para estudos."
             },
             {
             "type": "paragraph",
-            "text": "RPG é não precisar decorar as regras, pois elas são secundárias. Em combate, por exemplo, puxar os cabelos de um alvo não é algo contemplado pelas regras. Nesse caso, o mestre deve tentar fazer uma aproximação, ele pode perguntar ao jogador se o objetivo com o puxão é ferir ou segurar o alvo. No primeiro caso, basta um embate usando F normal considerado ataque desarmado, para o segundo, existe a ação Segurar com embate usando D. Mas o objetivo do jogador também pode ser puxar um fio para usar como componente de uma maldição, qual entendimento do mestre nesse caso? RPG é ter infinitas possibilidades."
+            "text": "RPG é não precisar decorar as regras, pois elas são secundárias. Em combate, por exemplo, puxar os cabelos de um alvo não é algo contemplado pelas regras. Nesse caso, o mestre deve tentar fazer uma aproximação: ele pode perguntar ao jogador se o objetivo com o puxão é ferir ou segurar o alvo. No primeiro caso, basta um embate usando F normal, considerado ataque desarmado; para o segundo, existe a ação Segurar, com embate usando D. Mas o objetivo do jogador também pode ser puxar um fio para usar como componente de uma maldição. Qual o entendimento do mestre nesse caso? RPG é ter infinitas possibilidades."
             },
             {
             "type": "paragraph",
-            "text": "RPG é sobre construir. Regras como Círculo, Contatos, Acampamento e Linhas de Con permitem que o jogador possa interagir e reagir das mais diversas formas aos mais diversos personagens, com isso, ele terá uma grande quantidade de formas de expor sua personalidade e seu caráter, assim como poderá ver, em primeira mão, todas as consequências de cada um dos seus gestos."
+            "text": "RPG é sobre construir. Regras como Círculo, Contatos, Acampamento e Linhas de Con permitem que o jogador possa interagir e reagir das mais diversas formas aos mais diversos personagens. Com isso, ele terá uma grande quantidade de maneiras de expor sua personalidade e seu caráter, assim como poderá ver, em primeira mão, todas as consequências de cada um dos seus gestos."
             },
             {
             "type": "paragraph",
