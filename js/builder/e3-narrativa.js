@@ -211,7 +211,7 @@ class NarrativaManager {
 
   processarArquetipos(items) {
     this.arquetiposData = items.map(item => {
-      const firstColonIndex = item.indexOf(':');
+      const firstColonIndex = item.indexOf('.');
       const titulo = item.substring(0, firstColonIndex).trim();
       const descricao = item.substring(firstColonIndex + 1).trim();
       
@@ -329,18 +329,31 @@ class NarrativaManager {
     }
   }
 
-  processarMotivacoes(items) {
-    this.motivacoesData = items.map(item => {
+processarMotivacoes(items) {
+  this.motivacoesData = items.map(item => {
+    const match = item.match(/^__(.+?)__\.\s*(.+)$/);
+    
+    if (match) {
+      return {
+        titulo: match[1],
+        descricao: match[2].trim()
+      };
+    } else {
       const firstColonIndex = item.indexOf(':');
-      const titulo = item.substring(0, firstColonIndex).trim();
-      const descricao = item.substring(firstColonIndex + 1).trim();
+      if (firstColonIndex > -1) {
+        return {
+          titulo: item.substring(0, firstColonIndex).trim(),
+          descricao: item.substring(firstColonIndex + 1).trim()
+        };
+      }
       
       return {
-        titulo: titulo,
-        descricao: descricao
+        titulo: item.trim(),
+        descricao: ''
       };
-    });
-  }
+    }
+  });
+}
 
   renderMotivacoesButtons() {
     const container = document.getElementById('motivacoes-buttons-container');
