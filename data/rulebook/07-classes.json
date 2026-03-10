@@ -10,7 +10,7 @@
       "content": [
         {
           "type": "paragraph",
-          "text": "Classes são caminhos que o jogador pode escolher conforme seu personagem evolui ao longo das aventuras, não podendo ser adquiridas durante a construção inicial do personagem. Cada classe possui um número específico de características, e o jogador pode adquirir uma característica de classe sempre que subir de Nível, além de somar aos valores totais de Vit e Con os atributos fornecidos pela classe escolhida. É permitido escolher características de outras classes, possibilitando a criação de personagens únicos e personalizados."
+          "text": "Classes são caminhos que o jogador pode escolher conforme seu personagem evolui ao longo das aventuras. Elas não podem ser adquiridas durante a construção do personagem. Cada classe possui um número específico de características. [O jogador pode adquirir uma característica de classe sempre que subir de Nível, assim como somar à sua Vit e Con totais os valores da classe escolhida]. Lembrando que é permitido escolher características de outras classes para a criação de um personagem único."
         }
       ]
     },
@@ -32,12 +32,12 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Especialização. Recebe +1 de dano principal para todas as armas de F de um tipo e tamanho específico, como corte longo ou contusão média."
+          "text": "Especialização. Recebe +1 de dano principal para todas as armas de F de um tipo e tamanho específicos, como corte longo ou contusão média."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Saque Rápido. Concede +2F e +1 de dano da arma apenas durante a primeira rodada, podendo ser usado apenas no primeiro ataque de um combate."
+          "text": "Saque Rápido. Concede +2F e +1 de dano da arma apenas durante a primeira rodada, pode ser usado apenas no primeiro ataque de um combate."
         },
         {
           "type": "paragraph",
@@ -47,22 +47,22 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Espírito de Luta. Recebe +2Vit para o seu total e +2V para testes de resistência física. Além disso, no início do seu turno, permite um teste de V para conseguir curar 1Vit imediatamente quando colocado Fora de Ação, voltando à luta."
+          "text": "Espírito de Luta. Recebe +2Vit para o seu total e +2V para testes de resistência física, além disso, no início do seu turno, permite um teste de V para conseguir curar 1Vit imediatamente quando colocado Fora de Ação, voltando à luta."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Ataque Fantasma. Uma vez por turno, ao perder um embate de F em combate em que tenha usado um Ataque, o usuário pode realizar um Ataque bônus no mesmo alvo com -2F."
+          "text": "Ataque Fantasma. Uma vez por turno, ao perder um embate de F em combate em que tenha usado um Ataque, o usuário pode fazer um Ataque bônus no mesmo alvo com -2F."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Mãozona. Permite usar F para embates de Imobilizar, Empurrar e Desmontar."
+          "text": "Mãozona. Permite usar F para embate de Imobilizar, Empurrar e Desmontar."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Arremessar. Um sucesso em embate de F permite arremessar objetos e pessoas com o equivalente à F do personagem em Pes."
+          "text": "Arremessar. Sucesso em embate de F permite arremessar objetos e pessoas com o equivalente a F do personagem em Pes."
         }
       ]
     },
@@ -104,7 +104,7 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Parede. Concede +1V em combate, não cumulativo com aliados que também possuam essa habilidade, para aliados em distância de engajamento com o personagem."
+          "text": "Parede. +1V em combate, não cumulativo com aliados que também tenham essa habilidade, para aliados em distância de engajamento com o personagem."
         },
         {
           "type": "paragraph",
@@ -126,32 +126,32 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Queima-Roupa. Permite usar disparos afastado ou engajado; o disparo passa a funcionar exatamente como um ataque comum."
+          "text": "Queima-Roupa. Permite usar disparos afastado ou engajado, o disparo passa a funcionar exatamente como um ataque comum."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Disparo Focado. Se o batedor não se mover em seu turno, ele recebe +1A para disparos."
+          "text": "Disparo Focado. Se o batedor não se mover no seu turno, ele recebe +1A para disparos."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Cavaleiro. Recebe +1F para embates de combate e +1A para testes de manobrar quando em uma montaria."
+          "text": "Cavaleiro. Recebe um bônus de +1F para embates de combate e +1A para testes de manobrar quando em uma montaria."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Viajante. Gasta 1xpl a cada duas temporadas em vez de uma, é capaz de organizar sua carga de forma a carregar +4 Pes em ambos os limites e pode se mover +2 Esp em viagens."
+          "text": "Viajante. Gastam 1xpl a cada duas temporadas em vez de uma, é capaz de organizar sua carga de forma a carregar +4 Pes em ambos os limites, podem se mover +2 Esp em viagens."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Ocultação. Recebe +1 de bônus para ocultar, não recebe penalidades de movimento quando abaixado ou restrito e permite enxergar no escuro."
+          "text": "Ocultação. Recebe +1 de bônus para ocultar, não recebe penalidades de movimento quando abaixado ou restrito, permite enxergar no escuro."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Caçador. Concede +1 de dano ao usar F ou A contra alvos genéricos sobre os quais o personagem tenha Conhecimento (seres, criaturas, espécies), ou +2 contra um alvo único específico caso o caçador encontre Fontes a respeito."
+          "text": "Caçador. Concede +1 de dano ao usar F ou A contra alvos genéricos que o personagem tenha Conhecimento (seres, criaturas, espécies), ou +2 contra um alvo único específico que o caçador encontre Fontes a respeito."
         }
       ]
     },
@@ -168,37 +168,37 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Empunhadura. Usar uma arma em cada mão continua concedendo +1F para ataque, mas reduz a penalidade de -2V e -2D para -1V e -1D em defesa e esquiva."
+          "text": "Empunhadura. Usar uma arma em cada mão continua concedendo +1F para ataque, mas diminui a penalidade de -2V e -2D para -1V e -1D para defesa e esquiva."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Técnica de Arremesso. Concede +1 de dano para objetos ou armas arremessadas. O alcance máximo passa a ser equivalente à A do personagem em Esp, em vez da F."
+          "text": "Técnica de Arremesso. Concede +1 de dano para objetos ou armas arremessadas, o alcance máximo é equivalente a A do personagem em Esp em vez da F."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Ataque Assassino. Os ataques (F) do personagem causam +1 de dano quando ele está flanqueando um alvo."
+          "text": "Ataque Assassino. Os Ataques (F) do personagem causam +1 de dano quando ele está flanqueando um alvo."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Contra-ataque. O usuário pode gastar sua interrupção para realizar um embate bônus de Ataque (F) logo após sofrer dano; o alvo deve ser o oponente que causou o dano."
+          "text": "Contra-ataque. O usuário pode gastar sua interrupção para fazer um embate bônus de Ataque (F) logo após sofrer dano, o alvo deve ser o oponente que causou dano."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Brecha. Sempre que um alvo sair voluntariamente da distância de engajamento, o personagem pode gastar sua interrupção para realizar um Ataque com F como um embate bônus."
+          "text": "Brecha. Sempre que um alvo sair de distância de engajamento (voluntariamente), o personagem pode gastar sua interrupção para fazer um Ataque com F como um embate bônus."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Crítico Explosivo. Se o personagem conseguir um crítico com F, ele recebe +1d6 de dano. Caso role um 6 nesse dado extra, recebe +1d6 adicional; a cada novo resultado 6, outro dado de dano é adicionado, sucessivamente."
+          "text": "Crítico Explosivo. Se o personagem conseguir um crítico com F, ele recebe +1d6 de dano, se ele rolar um 6 nesse dado extra, ele recebe +1d6 de dano, outro resultado 6, outro dado de dano, e assim consecutivamente."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Ambidestria. Usar uma arma em cada mão concede um engajamento extra, um com cada arma, permitindo uma ação extra com a outra arma que só pode ser feita contra um alvo diferente. Armas pesadas não podem ser usadas."
+          "text": "Ambidestria. Usar uma arma em cada mão concede um engajamento extra, um com cada arma, permitindo uma ação extra com a outra arma e que só pode ser feito contra um alvo diferente, não pode ser usado armas pesadas."
         }
       ]
     },
@@ -215,52 +215,52 @@
         {
           "id": "classes_item",
           "type": "paragraph",
-          "text": "Energia Ki. Um sucesso em embate de F, além do dano normal, permite atacar de mãos vazias em posição afastado a partir do turno seguinte."
+          "text": "Energia Ki. Sucesso em embate de F, além do dano normal, permite atacar de mãos vazias em posição afastado a partir do turno seguinte."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Finta. Uma vez por combate, o jogador pode renunciar a um movimento e um gesto para receber Vantagem em um embate de D."
+          "text": "Finta. Uma vez por combate, o jogador pode renunciar a um movimento e gesto para receber Vantagem em um embate de D."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Dobra. Permite escolher um tipo de dano elemental para ser capaz de causar dano com ataques desarmados; o jogador pode escolher quando o dano será elemental."
+          "text": "Dobra. Permite escolher um tipo de dano elemental para ser capaz de causar dano com ataques desarmados. O jogador pode escolher quando o dano será elemental."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Ponto Fraco. Concede +1 em qualquer característica caso o oponente repita, no turno atual, a mesma característica do embate do turno anterior contra o usuário; o bônus permanece enquanto o alvo repetir a característica."
+          "text": "Ponto Fraco. Concede +1 em qualquer característica caso o oponente repita, no turno atual, a mesma característica do embate do turno anterior contra o usuário. O bônus permanece enquanto o alvo repetir a característica."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Templo do Corpo. Concede +2 Vit extras sempre que for curado, permite um teste de V por dia ou temporada para expulsar qualquer tipo de veneno ou doença do corpo e concede +1 para testes de D fora de combate."
+          "text": "Templo do Corpo. Concede +2 Vit extras sempre que for curado. Permite um teste de V por dia ou temporada para expulsar qualquer tipo de veneno ou doença do corpo. Concede +1 para testes de D fora de combate."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Canalizar. Permite canalizar através das mãos e do corpo os bônus e efeitos mágicos de armas, desde que as armas estejam em sua posse e próximas do corpo."
+          "text": "Canalizar. Permite canalizar, através das mãos e do corpo, os bônus e efeitos mágicos de armas, desde que as armas estejam em sua posse, próximas do corpo."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Chão. Permite realizar ações normais quando Caído e levantar-se sem consumir gesto."
+          "text": "Chão. Permite realizar ações normais quando Caído e pode se levantar sem consumir gesto."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Sequência. Causa o dano da arma ou desarmado com -2F de penalidade, em seguida o personagem ganha um embate bônus com a mesma penalidade."
+          "text": "Sequência. Causa o dano da arma ou desarmado com -2F de penalidade. Em seguida, o personagem ganha um embate bônus com a mesma penalidade."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Projeção. Derruba o alvo no chão causando 1d6-2 de dano de contusão e deixando-o Caído (todos os embates do personagem caído são nulos até que ele seja bem-sucedido em teste de D para se levantar no início do seu turno)."
+          "text": "Projeção. Derruba o alvo no chão, causando 1d6-2 de dano de contusão e deixando-o Caído (todos os embates do personagem caído são nulos até que ele seja bem-sucedido em teste de D para se levantar no início do seu turno)."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Fustigar. Sucesso em embate de D causa 1 de dano e -1F para Ataques e -1V para Defesa cumulativos até -3F e -3V, dura até o fim do combate ou cena."
+          "text": "Fustigar. Sucesso em embate de D causa 1 de dano e -1F para Ataques e -1V para Defesa, cumulativos até -3F e -3V. Dura até o fim do combate ou cena."
         },
         {
           "type": "paragraph",
@@ -297,7 +297,7 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Contingência. Uma vez por Repouso Total, o mago pode conjurar fora de combate uma magia de combate que cause dano e cujo custo seja apenas Con, preparando-a para ser usada como uma Interrupção em combate, entre os turnos de dois personagens quaisquer. A Con gasta com magias de Contingência só pode ser recuperada após a magia ser usada."
+          "text": "Contingência. Uma vez por Repouso Total, o mago pode conjurar uma magia de combate que cause dano e cujo custo seja apenas Con fora de combate, para ser usada como uma Interrupção em combate (entre os turnos de dois personagens quaisquer). A Con gasta com magias de Contingência só pode ser recuperada após a magia ser usada."
         },
         {
           "type": "paragraph",
@@ -312,7 +312,7 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Memorizador. Concede +1 espaço de Conhecimento, exclusivo para magias."
+          "text": "Memorizador. Concede +1 espaço de Conhecimento, mas apenas para magias."
         }
       ]
     },
@@ -334,32 +334,32 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Aconselhar. Concede +1 em qualquer teste fora de combate para qualquer pessoa, exceto o próprio conjurador; o alvo precisa ser capaz de ouvir o usuário."
+          "text": "Aconselhar. Concede +1 em qualquer teste fora de combate para qualquer pessoa menos o próprio conjurador. O alvo precisa poder ouvir o usuário."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Fervor. Pelo custo de +1Con, aumenta a cura em +2Vit de magias de cura que custem apenas Con."
+          "text": "Fervor. Pelo custo de +1Con, aumenta a cura em +2 Vit de magias de cura que custem apenas Con."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Conversão. Permite gastar +1Con por turno para receber +1 de dano radiante em qualquer magia que cause dano e consuma apenas Con."
+          "text": "Conversão. Permite gastar +1 Con por turno para receber +1 de dano radiante em qualquer magia que cause dano e consuma apenas Con."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Benção. Magias de cura que consumam apenas Con concedem ao alvo curado +1V, não cumulativo, para embates e resistência a ferimentos até o fim do combate ou da cena."
+          "text": "Benção. Magia de cura que consuma apenas Con concede ao alvo curado +1V, não cumulativo, para embate e resistência a ferimento até o fim do combate ou cena."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Magia Bruta. Ao custo de +2Con, permite que uma magia cause dano em uma área com +2Esp de raio. A magia deve ter custo apenas em Con, causar dano em combate, e quaisquer efeitos extras funcionam apenas no alvo do impacto central."
+          "text": "Magia Bruta. Ao custo de +2 Con, permite fazer com que uma magia cause dano em uma área de +2 Esp de raio. A magia precisa ter custo apenas em Con, causar dano em combate, e quaisquer efeitos extras funcionam apenas no alvo do impacto central."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Invocar Besta. Invoca um animal terrestre médio (como lobo, cachorro, javali, jaguatirica ou bode) que funciona como um contato, ocupando I. A criatura possui os pontos base F2, D2, V3, A2, I1 e S3, além de receber +1 ponto adicional por nível acima do 1, distribuído à escolha do jogador. Ela causa dano com Mordida, Batida ou Patada (1d6 de dano de contusão), possui Corredor (sua D é multiplicada por dois para corrida fora de combate) e é Treinada."
+          "text": "Invocar Besta. Um animal terrestre médio (lobo, cachorro, javali, jaguatirica, bode) que funciona como um contato (ocupando I). Além dos seus pontos normais (F2 D2 V3 A2 I1 S3), ele recebe +1 ponto que o jogador escolhe onde colocar para cada nível acima do 1. Ele causa dano com Mordida, Batida ou Patada (1d6 de dano de contusão), Corredor (sua D é multiplicada por dois para corrida fora de combate) e é Treinado."
         }
       ]
     },
@@ -376,12 +376,12 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Mentalização. Concede bônus de +2D em testes para fazer magia sem ser visto; o alvo sofre -1 para sobrepujar penalidades mágicas causadas por magia usada por conjuradores ocultos."
+          "text": "Mentalização. Concede bônus de +2D em testes para fazer magia sem ser visto. O alvo sofre -1 para sobrepujar penalidades mágicas causadas por magia usada por conjuradores ocultos."
         },
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Injuria. Um sucesso em embate de I obriga o alvo a usar apenas F com penalidade de -1 nas próximas rodadas, até que seja bem-sucedido em um teste de V no início do seu turno."
+          "text": "Injuria. Sucesso em embate de I obriga o alvo a usar apenas F, com uma penalidade de -1 nas próximas rodadas, até que seja bem-sucedido em teste de V no início do seu turno."
         },
         {
           "type": "paragraph",
@@ -391,7 +391,7 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Plano. Uma vez por rodada, como uma interrupção e apenas em combate, concede +1 em qualquer característica de um aliado que possa ouvi-lo."
+          "text": "Plano. Uma vez por rodada, como uma interrupção, apenas em combate, concede +1 em qualquer característica de um aliado que possa ouvi-lo."
         },
         {
           "type": "paragraph",
