@@ -3,7 +3,7 @@
     "id": "orvel",
     "name": "Orvel, O Inexorável",
     "level": "1",
-    "class": "Guerreiro",
+    "class": "Paladino",
     "description": "O cão do inferno",
     "attributes":
     { "f": "4", "v": "3", "d": "2", "s": "2", "i": "1", "a": "2" },

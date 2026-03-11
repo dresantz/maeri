@@ -3,58 +3,52 @@
     "id": "bairos",
     "name": "Bairos",
     "level": "1",
-    "class": "mage",
+    "class": "Mago",
     "description": "O modelador de sonhos",
     "attributes":
-    { "f": "0", "v": "0", "d": "0", "s": "0", "i": "0", "a": "0" },
-    "vit": { "current": "00", "total": "00" },
-    "con": { "current": "00", "total": "00" },
+    { "f": "2", "v": "3", "d": "2", "s": "5", "i": "3", "a": "2" },
+    "vit": { "current": "6", "total": "6" },
+    "con": { "current": "11", "total": "11" },
 
     "complemento": {
       "ser": {
-        "id": "humano",
-        "nome": "Humano",
-        "anato": "+1 em característica que não tenha recebido pontos."
+        "id": "karnakin",
+        "nome": "Karnakin",
+        "anato": "Projetar visão a 1Esp. Levitar objetos F1. 1 Segredo / dia para +1 em um teste."
       },
       "estudos": [
-        { "nome": "Comércio", "conhecimentos": "negociação, carta de comércio." },
-        { "nome": "Política", "conhecimentos": "educação básica, sinete." }
       ],
       "tecnicas": [
-        { "nome": "Golpe Poderoso", "descricao": "Ataque que causa +2 de dano" },
-        { "nome": "Postura Defensiva", "descricao": "Aumenta defesa em +2 por rodada" }
       ],
       "estudos mágicos": [
-        {"nome": "Neófitas", "magias": "Punho Invisivel, Dregrau, Revelador."}
+        {"nome": "Neófitas", "magias": "Reparar, Manto Arcano."},
+        {"nome": "Feitiçaria", "magias": "Pulso, Mensagem Mágica, Troca Mística."}
       ],
       "classes": [
-        {"nome": "Guerreiro", "característica":"golpe voador"}
       ],
       "xp": { "m": "0", "l": "0", "p": "0" }
     },
 
     "narrativa": {
       "arquetipo": {
-        "nome": "Herói"
+        "nome": "Anti-Herói"
       },
       "motivacao": {
-        "nome": "Amor"
+        "nome": "Medo"
       },
-      "disposicao": "-",
-      "historia": "Teste",
+      "disposicao": "+",
+      "historia": "Você decide...",
       "contatos": [
-        { "nome": "Amigo do Regimento", "tipo": "Armeiro" },
+        { "nome": "Colega", "tipo": "Escriba" },
         { "nome": "Menino Feio", "tipo": "Armadureiro" }
       ]
     },
 
     "inventario": {
-      "moedas": { "fo": "2", "dp": "2", "tc": "3" },
-      "peso": { "medio": "8", "maximo": "16", "atual": "12" },
+      "moedas": { "fo": "1", "dp": "7", "tc": "6" },
+      "peso": { "medio": "4", "maximo": "8", "atual": "0" },
       "itens": [
-        { "nome": "Espada longa", "peso": "3Pes", "quantidade": "1", "nota": "1d6+1 de dano"},
-        { "nome": "Armadura de couro", "peso": "8Pes", "quantidade": "1", "nota": "-1 de dano de corte"},
-        { "nome": "Escudo", "peso": "2", "quantidade": "1", "nota": "+1V em combate"}
+        { "nome": "Grimório", "peso": "1Pes", "quantidade": "1", "nota": "4 Conhecimentos, 1Res"}
       ]
     }
   }

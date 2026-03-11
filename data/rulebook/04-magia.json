@@ -298,7 +298,7 @@
               "level": 1,
               "combat": true,
               "cost": "2 Con/uso",
-              "tags": ["buff", "combate"],
+              "tags": ["buff"],
               "description": "Usado em combate com sucesso em embate de S. Concede, apenas ao conjurador, +1 de dano mágico para ataques feitos com F até o fim da cena ou combate."
             }
           ]
