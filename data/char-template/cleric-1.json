@@ -21,8 +21,8 @@
       "tecnicas": [
       ],
       "estudos mágicos": [
-        {"nome": "Neófitas", "magias": "Corda Mágica, Manto Arcano."},
-        {"nome": "Divinação", "magias": "Cura, Cintilar, Proteção Mística."}
+        {"nome": "Neófitas", "magias": "Corda Mágica, Manto Arcano"},
+        {"nome": "Divinação", "magias": "Cura, Cintilar, Proteção Mística"}
       ],
       "classes": [
       ],

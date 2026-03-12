@@ -21,8 +21,8 @@
       "tecnicas": [
       ],
       "estudos mágicos": [
-        {"nome": "Neófitas", "magias": "Reparar, Manto Arcano."},
-        {"nome": "Feitiçaria", "magias": "Pulso, Mensagem Mágica, Troca Mística."}
+        {"nome": "Neófitas", "magias": "Reparar, Manto Arcano"},
+        {"nome": "Feitiçaria", "magias": "Pulso, Mensagem Mágica, Troca Mística"}
       ],
       "classes": [
       ],
