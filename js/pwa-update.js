@@ -44,10 +44,10 @@
     // Conteúdo da notificação
     notification.innerHTML = `
       <div style="margin-bottom: 12px;">
-        <span style="color: var(--gold, #d4af37); font-size: 1.2rem;">✨ NOVA VERSÃO</span>
+        <span style="color: var(--gold, #d4af37); font-size: 1.2rem;">NOVA VERSÃO!</span>
       </div>
       <p style="font-family: 'Crimson Text', serif; margin: 0 0 16px 0; color: var(--text-muted, #b0b0c0);">
-        Uma atualização do grimório está disponível!
+        Uma atualização está disponível!
       </p>
       <div style="display: flex; gap: 12px; justify-content: center;">
         <button id="maeri-update-now" class="maeri-update-btn maeri-update-btn-primary">
@@ -56,9 +56,6 @@
         <button id="maeri-update-later" class="maeri-update-btn maeri-update-btn-secondary">
           Depois
         </button>
-      </div>
-      <div style="margin-top: 8px;">
-        <span style="font-size: 0.7rem; opacity: 0.5;">⚔️ Pequenos ajustes para sua jornada</span>
       </div>
     `;
 
@@ -134,6 +131,17 @@
       if (navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage('SKIP_WAITING');
       }
+
+      // IMPORTANTE: Aguarda a ativação e FORÇA recarregar com cache novo
+      navigator.serviceWorker.ready.then(registration => {
+        if (registration.waiting) {
+          // Força o waiting a se tornar ativo
+          registration.waiting.postMessage('SKIP_WAITING');
+        }
+      });
+      
+      // Recarrega a página MAS garantindo que pega do servidor
+      window.location.reload(true); // true = forçar reload do servidor
     });
 
     // Botão "Depois"
