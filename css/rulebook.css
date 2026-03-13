@@ -142,6 +142,7 @@ th {
 
 #search-input {
   width: 100%;
+  max-width: 600px;
   padding: 0.6rem;
   font-size: 1rem;
   background: var(--surface-light, #2a2a42);
@@ -149,6 +150,9 @@ th {
   border-radius: var(--radius, 12px);
   color: var(--text, #f0f0f0);
   font-family: 'Crimson Text', serif;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #search-input:focus {
@@ -162,9 +166,13 @@ th {
   border: 2px solid rgba(212, 175, 55, 0.3);
   border-radius: var(--radius, 12px);
   max-height: 300px;
+  max-width: 600px;
   overflow-y: auto;
   margin-top: 0.5rem;
   box-shadow: var(--shadow, 0 8px 24px rgba(0,0,0,0.4));
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .search-results.hidden {
@@ -276,6 +284,7 @@ mark {
   .search-container {
     padding: 1rem 2rem;
   }
+
 }
 
 /* Utility class para acessibilidade */

@@ -79,7 +79,8 @@ html, body {
 
 /* MAIN */
 main {
-  max-width: 500px; margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 1.5rem 1rem;
   padding-bottom: calc(0.5rem + var(--floating-bar-height));
 }
@@ -162,6 +163,8 @@ main {
     font-size: 0.7rem;
   }
 }
+
+
 
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 8px; }

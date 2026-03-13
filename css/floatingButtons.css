@@ -89,3 +89,47 @@
     font-size: 1.6rem;
   }
 }
+
+/* =========================
+   Floating Buttons - Adaptação para Desktop
+   Adicione ao final do seu floatingButtons.css
+========================= */
+
+@media (min-width: 1024px) {
+  .floating-button {
+    /* Botões maiores e mais quadrados */
+    min-width: 250px;
+    height: 60px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px; /* Menos arredondado, mais quadrado */
+    font-size: 1rem;
+  }
+
+  /* Botões especiais (Início e Topo) acompanham */
+  #back-to-home,
+  #back-to-top {
+    min-width: 80px;
+    width: 80px;
+    height: 60px;
+    border-radius: 12px;
+  }
+
+  #back-to-home .floating-icon,
+  #back-to-top .floating-icon {
+    font-size: 1.8rem;
+  }
+
+  /* Ajuste no espaçamento da barra para comportar botões maiores */
+  .floating-actions {
+    padding: 1rem 2rem;
+  }
+}
+
+/* Ajuste intermediário para tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .floating-button {
+    min-width: 90px;
+    height: 52px;
+    border-radius: 10px;
+  }
+}

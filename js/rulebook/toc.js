@@ -271,9 +271,7 @@ export function initTOCToggle() {
   initialized = true;
 }
 
-/**
- * Limpa os listeners (útil para hot-reload ou destruição)
- */
+/* Limpa os listeners (útil para hot-reload ou destruição) */
 export function destroyTOC() {
   if (keydownHandler) {
     document.removeEventListener('keydown', keydownHandler);

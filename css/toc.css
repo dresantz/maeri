@@ -34,6 +34,7 @@
   background: rgba(0,0,0,0.5);
   z-index: 990;
 }
+
 #toc-overlay.active { display: block; }
 
 /* Painel TOC */
@@ -69,6 +70,7 @@
 /* Select de capítulos */
 #chapter-select {
   width: 100%;
+  max-width: 800px;
   padding: 0.8rem;
   background: white;
   border: 2px solid var(--bronze);
@@ -78,6 +80,9 @@
   color: var(--bg-dark);
   margin-bottom: 1rem;
   cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Navegação entre capítulos */
@@ -126,4 +131,76 @@
   color: var(--gold);
   padding-left: 0.8rem;
   transition: padding 0.2s;
+}
+
+/* =========================
+   TOC - Adaptação para Desktop
+   Adicione ao final do seu toc.css
+========================= */
+
+@media (min-width: 1024px) {
+  /* Botão TOC maior e mais quadrado */
+  #toc-toggle {
+    top: 1rem;
+    left: 1rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px; /* Mais quadrado, igual aos floating buttons */
+    font-size: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+
+  /* Painel TOC com largura controlada */
+  #toc-panel {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 900px; /* Um pouco maior que 800px para comportar os botões */
+    border-radius: var(--radius);
+    border: 3px solid var(--gold);
+    box-shadow: var(--shadow);
+  }
+
+  /* Container do select e navegação com largura máxima */
+  #chapter-select {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+  /* Navegação entre capítulos */
+  .chapter-nav {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    gap: 1rem;
+  }
+
+  /* Botões de navegação maiores e mais quadrados */
+  .chapter-nav button {
+    width: 300px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border-width: 2px;
+  }
+
+  /* Título do capítulo com mesma largura */
+  .toc-chapter-title {
+    max-width: 800px;
+    margin: 0.5rem auto 1.5rem;
+    font-size: 1.5rem;
+  }
+
+}
+
+/* Ajuste intermediário para tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #toc-toggle {
+    width: 55px;
+    height: 55px;
+    border-radius: 10px;
+    font-size: 1.3rem;
+  }
 }
