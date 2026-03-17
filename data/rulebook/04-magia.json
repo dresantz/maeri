@@ -268,7 +268,7 @@
               "level": 1,
               "combat": false,
               "cost": "1 Con/alvo",
-              "spellbrief_item": "Evapora líguidos.",
+              "spellbrief_item": "Evapora líquidos.",
               "tags": ["utilidade"],
               "description": "Evapora líquidos com ponto de ebulição menor ou igual ao da água sem usar calor. Pode ser usado até mesmo como guarda-chuva. Não funciona em alvos submersos."
             },
@@ -280,7 +280,7 @@
               "level": 1,
               "combat": false,
               "cost": "1 Con/alvo",
-              "spellbrief_item": "Alterar aparencia do alvo.",
+              "spellbrief_item": "Alterar aparência do alvo.",
               "tags": ["ilusao", "social"],
               "description": "Ilusão que permite mudar levemente detalhes da aparência do alvo, como maquiagem, linhas do rosto, cheiro, cor das unhas e penteado. Permite alinhar, secar, alisar e limpar roupas do corpo. Ações contra o alvo cancelam a magia. 1 Con/alvo."
             },
@@ -404,7 +404,7 @@
               "level": 1,
               "combat": true,
               "cost": "3 Con/uso",
-              "spellbrief_item": "Causa 1d6 da dano e marca o alvo.",
+              "spellbrief_item": "Causa 1d6 de dano e marca o alvo.",
               "tags": ["maldição", "fogo", "marca"],
               "description": "Um alvo é marcado, sofrendo 1d6 de dano de fogo, e todas as pessoas que conhecerem a marca escolhida e souberem seu significado poderão saber que o alvo possui aquela marca, pois, ao bater os olhos nele, a marca irá emergir à sua visão mesmo através de roupas e armaduras, em posição bem visível. Ninguém pode ter mais de cinco marcas. Em combate, é possível marcar e apenas repetir o dano em alvos que já foram marcados com embates de S."
             },
@@ -952,15 +952,15 @@
             },
             {
               "type": "spell",
-              "id": "prostar",
-              "name": "Prostar",
+              "id": "prostrar",
+              "name": "Prostrar",
               "school": "divinacao",
               "level": 5,
               "combat": true,
               "cost": "2 Con/alvo",
               "spellbrief_item": "1d6 de dano em cada alvo e pode deixar Caído.",
               "tags": ["dano", "controle", "vento"],
-              "description": "Sucesso em embate de S faz com que uma súbita pressão esmague os alvos, causando 1d6 de dano de vento em cada um. Se falharem em testes de D, ficam Caídos."
+              "description": "Sucesso em embate de S faz com que uma súbita pressão de cima para baixo esmague os alvos, causando 1d6 de dano de vento em cada um. Se falharem em testes de D, ficam Caídos."
             }
           ]
         }
@@ -1188,7 +1188,7 @@
               "level": 3,
               "combat": false,
               "cost": "1 xpm/mariposa",
-              "spellbrief_item": "Invoca uma mariposa muito veloza usada para comunicação.",
+              "spellbrief_item": "Invoca uma mariposa muito veloz usada para comunicação.",
               "tags": ["invocacao", "comunicacao", "utilidade"],
               "description": "F0 V0 D10 A0 I0 S0. Uma pequena mariposa feita de material dos sonhos. Essa mariposa se desloca com grande velocidade e pode se teletransportar distâncias de 10 Esp para lugares que possa enxergar com sucesso em embate de D. O conjurador pode usá-la para reproduzir mensagens visuais (formadas por um pó que ela libera) e auditivas previamente gravadas, ou pode invocar mais de uma e usá-las como comunicadores colocando-as em algum lugar da cabeça. O alcance máximo, quando usadas como comunicadores, é de 1 km, aproximadamente a área de um bairro."
             },

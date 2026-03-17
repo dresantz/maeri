@@ -141,7 +141,7 @@
       });
       
       // Recarrega a página MAS garantindo que pega do servidor
-      window.location.reload(true); // true = forçar reload do servidor
+      window.location.reload();
     });
 
     // Botão "Depois"
@@ -154,7 +154,7 @@
   window.addEventListener('load', () => {
     console.log('📜 PWA Update: Página carregada, registrando...');
     
-    navigator.serviceWorker.register('./service-worker.js')
+    navigator.serviceWorker.register(BASE_PATH + 'service-worker.js')
       .then(registration => {
         console.log('📜 Maeri RPG: ServiceWorker registrado', registration.scope);
 
@@ -163,6 +163,8 @@
           console.log('📜 PWA Update: Atualização encontrada!');
           const newWorker = registration.installing;
           
+          if (!newWorker) return;
+
           newWorker.addEventListener('statechange', () => {
             console.log('📜 PWA Update: Novo worker estado:', newWorker.state);
             
