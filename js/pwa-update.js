@@ -4,6 +4,9 @@
 (function() {
   console.log('📜 PWA Update: Inicializando...');
   
+  // Garantir que BASE_PATH está definido
+  const BASE_PATH = window.BASE_PATH || (window.location.hostname.includes('github.io') ? '/maeri/' : '/');
+  
   // Primeiro vamos LOGAR se suporta ou não, DEPOIS decidir
   if ('serviceWorker' in navigator) {
     console.log('📜 PWA Update: Service Worker é SUPORTADO!');

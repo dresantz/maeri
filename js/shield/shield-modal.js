@@ -33,7 +33,7 @@ async function loadAllChapters() {
   
   const fetchPromises = RULEBOOK_CHAPTERS.map(async (chapter) => {
     try {
-      const response = await fetch(`../../data/rulebook/${chapter.file}`);
+      const response = await fetch(`../../data/rulebook/${chapter.file}`)
       const data = await response.json();
       allData.sections.push(...(data.sections || []));
     } catch (e) {
