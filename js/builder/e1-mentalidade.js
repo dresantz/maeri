@@ -20,7 +20,7 @@ class MentalidadeManager {
         <div class="mentalidade-table-container">
           <table class="mentalidade-table">
             <thead>
-              <tr>
+              65e
                 <th>Mentalidade</th>
                 <th>CF</th>
                 <th>CM</th>
@@ -64,7 +64,12 @@ class MentalidadeManager {
     }
 
     try {
-      const response = await fetch('/data/rulebook/01-fundamentos.json');
+      // ✅ CORRIGIDO: Detecta se está em subpasta /pages/
+      const isInPages = window.location.pathname.includes('/pages/');
+      const basePath = isInPages ? '../' : './';
+      const url = `${basePath}data/rulebook/01-fundamentos.json`;
+      
+      const response = await fetch(url);
       const data = await response.json();
       
       // Encontra a seção de mentalidade

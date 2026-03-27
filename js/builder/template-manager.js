@@ -6,11 +6,13 @@
 class TemplateManager {
   constructor() {
     this.templates = new Map();
-    this.basePath = '../../data/char-template/';
   }
 
   getTemplatePath(templateId) {
-    return `${this.basePath}${templateId}.json`;
+    // ✅ CORRIGIDO: Mesma lógica do spells.js
+    const isInPages = window.location.pathname.includes('/pages/');
+    const basePath = isInPages ? '../' : './';
+    return `${basePath}data/char-template/${templateId}.json`;
   }
 
   async loadTemplate(templateId) {
@@ -19,7 +21,8 @@ class TemplateManager {
     }
 
     try {
-      const response = await fetch(this.getTemplatePath(templateId));
+      const url = this.getTemplatePath(templateId);
+      const response = await fetch(url);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       
       const data = await response.json();
