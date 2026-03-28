@@ -6,8 +6,8 @@
   "background_color": "#0a0a12",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": ".",
-  "start_url": ".",
+  "scope": "/maeri/",
+  "start_url": "/maeri/",
   "icons": [
     {
       "src": "icons/icon-72.png",

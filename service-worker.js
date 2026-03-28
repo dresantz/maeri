@@ -8,6 +8,7 @@ const BASE_PATH = self.location.pathname.includes('/maeri/')
 const urlsToCache = [
   `${BASE_PATH}/`,
   `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/manifest.json`,
 
   `${BASE_PATH}/pages/lore.html`,
   `${BASE_PATH}/pages/player.html`,
