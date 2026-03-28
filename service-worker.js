@@ -1,4 +1,4 @@
-const CACHE_NAME = 'maeri-rpg-v1';
+const CACHE_NAME = 'maeri-rpg-v3';
 
 // Detecta automaticamente se está no GitHub Pages
 const BASE_PATH = self.location.pathname.includes('/maeri/') 
@@ -100,8 +100,6 @@ const urlsToCache = [
   `${BASE_PATH}/data/rulebook/07-classes.json`,
   `${BASE_PATH}/data/rulebook/08-maeri.json`,
   `${BASE_PATH}/data/rulebook/09-campanha.json`,
-
-  `${BASE_PATH}/data/Maeri - Livro I.pdf`,
 
   `${BASE_PATH}/data/char-template/cleric-1.json`,
   `${BASE_PATH}/data/char-template/druid-1.json`,
