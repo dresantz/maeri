@@ -4,8 +4,20 @@
 (function() {
   console.log('📜 PWA Update: Inicializando...');
   
-  // Garantir que BASE_PATH está definido
-  const BASE_PATH = window.BASE_PATH || (window.location.hostname.includes('github.io') ? '/maeri/' : '/');
+  // Detecta o BASE_PATH automaticamente (mesma lógica do service worker)
+  const getBasePath = () => {
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const pathname = window.location.pathname;
+    
+    if (isGitHubPages && pathname.includes('/maeri/')) {
+      return '/maeri/';
+    }
+    
+    return '/';
+  };
+  
+  const BASE_PATH = getBasePath();
+  console.log('📜 PWA Update: BASE_PATH =', BASE_PATH);
   
   // Primeiro vamos LOGAR se suporta ou não, DEPOIS decidir
   if ('serviceWorker' in navigator) {
