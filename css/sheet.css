@@ -1,8 +1,9 @@
 /* =========================
    Sheet Modal
+   Ficha de Personagem
 ========================= */
 
-/* Garantir que tudo respeite as bordas */
+/* Reset de box-sizing para o modal */
 .sheet-modal,
 .sheet-modal * {
   box-sizing: border-box;
@@ -32,19 +33,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
-  /* Largura fluida: 85% da tela, entre 320px e 620px */
   width: clamp(320px, 85%, 620px);
-  
-  /* Altura máxima */
   max-height: 90vh;
-  
-  background: var(--surface, #1a1a2e);
-  border: 2px solid var(--gold, #d4af37);
+  background: var(--surface);
+  border: 2px solid var(--gold);
   border-radius: 24px;
   z-index: 2001;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
@@ -52,18 +48,18 @@
   display: flex;
 }
 
-/* Cabeçalho do Modal */
+/* Cabeçalho */
 .sheet-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.2rem;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-  background: var(--surface, #1a1a2e);
+  border-bottom: 1px solid var(--gold-border);
+  background: var(--surface);
 }
 
 .sheet-header h2 {
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-family: 'Cinzel', serif;
   font-size: 1.3rem;
   margin: 0;
@@ -72,7 +68,7 @@
 .sheet-close {
   background: none;
   border: none;
-  color: var(--text-muted, #b0b0c0);
+  color: var(--text-muted);
   font-size: 1.8rem;
   cursor: pointer;
   padding: 0 0.5rem;
@@ -81,32 +77,79 @@
 }
 
 .sheet-close:hover {
-  color: var(--gold, #d4af37);
+  color: var(--gold);
 }
 
 /* Conteúdo Scrollável */
 .sheet-content {
-  padding: 0.8rem;
+  padding: 0.4rem;
   overflow-y: auto;
   overflow-x: hidden;
   max-height: calc(90vh - 70px);
   flex: 1;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
   font-family: 'Crimson Text', serif;
   width: 100%;
 }
 
-/* =========================
-   HEADER FIXO DA FICHA
-========================= */
+/* Cabeçalho fixo com mais contraste */
 .sheet-header-fixed {
-  background: rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.12), rgba(0, 0, 0, 0.1));
   border-radius: 16px;
   padding: 0.6rem;
   margin-bottom: 0.5rem;
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--gold-border);
   width: 100%;
 }
+
+/* =========================
+   NOTAS COLAPSÁVEL
+========================= */
+
+.sheet-notes-section {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.sheet-notes-toggle {
+  display: block;
+  width: 100%;
+  padding: 0.4rem 1rem;
+  background: transparent;
+  border: 1px solid var(--gold-border);
+  border-radius: 20px;
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sheet-notes-toggle:hover {
+  background: var(--surface-hover);
+  border-color: var(--gold);
+}
+
+.sheet-notes-toggle[aria-expanded="true"] {
+  background: var(--surface-hover);
+  border-color: var(--gold);
+}
+
+.sheet-notes-content {
+  margin-top: 0.5rem;
+}
+
+.sheet-notes-content .sheet-textarea--notas {
+  min-height: 80px;
+  width: 100%;
+  resize: vertical;
+}
+
+/* =========================
+   LINHAS E CAMPOS
+========================= */
 
 .sheet-row {
   display: flex;
@@ -119,7 +162,6 @@
   margin-bottom: 0;
 }
 
-/* Campo Nome e Nível */
 .sheet-field--name {
   flex: 3;
 }
@@ -133,7 +175,7 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   margin-bottom: 0.2rem;
   font-family: 'Cinzel', serif;
   white-space: nowrap;
@@ -145,9 +187,9 @@
   width: 100%;
   padding: 0.5rem 0.7rem;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: 10px;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
   font-family: 'Crimson Text', serif;
   font-size: 0.95rem;
   transition: all 0.2s ease;
@@ -155,16 +197,17 @@
 
 .sheet-input:focus {
   outline: none;
-  border-color: var(--gold, #d4af37);
+  border-color: var(--gold);
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
-.sheet-input::placeholder {
-  color: var(--text-muted, #b0b0c0);
+.sheet-input::placeholder,
+.sheet-textarea::placeholder {
+  color: var(--text-muted);
   font-style: italic;
 }
 
-/* Grid de Atributos */
+/* Atributos */
 .attributes-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -182,7 +225,7 @@
 
 .attribute-label {
   display: block;
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-weight: bold;
   font-size: 0.9rem;
   margin-bottom: 0.2rem;
@@ -194,22 +237,20 @@
   padding: 0.3rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: 6px;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
   font-size: 0.95rem;
   font-weight: bold;
 }
 
 .attribute-input:focus {
   outline: none;
-  border-color: var(--gold, #d4af37);
+  border-color: var(--gold);
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
-/* =========================
-   Status Vitais
-========================= */
+/* Status Vitais */
 .sheet-row--vitals {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -230,7 +271,7 @@
 }
 
 .vitals-label {
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-weight: bold;
   font-family: 'Cinzel', serif;
   font-size: 0.9rem;
@@ -254,14 +295,14 @@
   padding: 0.3rem 0.2rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: 5px;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
   font-size: 0.9rem;
 }
 
 .vitals-separator {
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-weight: bold;
   font-size: 1rem;
   flex-shrink: 0;
@@ -269,26 +310,13 @@
   padding: 0 0.1rem;
 }
 
-/* Notas */
-.sheet-field--notas {
-  width: 100%;
-}
-
-.sheet-textarea--notas {
-  min-height: 80px;
-  width: 100%;
-  resize: vertical;
-}
-
-/* =========================
-   ABAS
-========================= */
+/* Abas */
 .sheet-tabs {
   display: flex;
   gap: 0.4rem;
   position: sticky;
   top: 0;
-  background: var(--surface, #1a1a2e);
+  background: var(--surface);
   padding: 0.2rem 0;
   z-index: 5;
   -webkit-tap-highlight-color: transparent;
@@ -298,9 +326,9 @@
   flex: 1;
   padding: 0.6rem 0.3rem;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: 20px;
-  color: var(--text-muted, #b0b0c0);
+  color: var(--text-muted);
   font-weight: bold;
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -313,23 +341,21 @@
 
 .sheet-tab:hover {
   background: rgba(212, 175, 55, 0.1);
-  color: var(--gold, #d4af37);
+  color: var(--gold);
 }
 
 .sheet-tab[aria-expanded="true"] {
-  background: var(--gold, #d4af37);
-  color: #1a1a1a;
-  border-color: var(--gold, #d4af37);
+  background: var(--gold);
+  color: var(--bg-dark);
+  border-color: var(--gold);
 }
 
-/* =========================
-   PAINÉIS
-========================= */
+/* Painéis */
 .sheet-panel {
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 16px;
-  padding: 1rem;
-  margin-bottom: 1.2rem;
+  border-radius: 12px;
+  padding: 0.8rem;
+  margin-bottom: 0.6rem;
   border: 1px solid rgba(212, 175, 55, 0.15);
   width: 100%;
 }
@@ -339,12 +365,12 @@
 }
 
 .panel-title {
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-family: 'Cinzel', serif;
   font-size: 1rem;
   margin: 0 0 0.8rem 0;
   padding-bottom: 0.4rem;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  border-bottom: 1px solid var(--gold-border);
 }
 
 .panel-row {
@@ -358,19 +384,10 @@
   margin-bottom: 0;
 }
 
-/* Linha com 4 campos */
 .panel-row--quad {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.8rem;
-}
-
-.sheet-field--half {
-  flex: 1;
-}
-
-.sheet-field--full {
-  width: 100%;
 }
 
 .panel-row--triple {
@@ -379,11 +396,40 @@
   gap: 0.8rem;
 }
 
-.sheet-field--third {
-  min-width: 0;
-  width: 100%;
+/* Complemento – Ser + Estudos / Conhecimentos */
+.panel-row--complemento {
+  display: flex;
+  align-items: stretch;
 }
 
+.sheet-field--ser-estudos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.sheet-field-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-field--conhecimentos {
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-textarea--conhecimentos {
+  flex: 1;
+  min-height: 100%;
+  resize: vertical;
+}
+
+.sheet-field--half {
+  flex: 1;
+}
+
+.sheet-field--third,
 .sheet-field--quarter {
   min-width: 0;
   width: 100%;
@@ -398,9 +444,9 @@
   width: 100%;
   padding: 0.6rem;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: 10px;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
   font-family: 'Crimson Text', serif;
   font-size: 0.9rem;
   resize: vertical;
@@ -410,34 +456,29 @@
 
 .sheet-textarea:focus {
   outline: none;
-  border-color: var(--gold, #d4af37);
+  border-color: var(--gold);
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
-.sheet-textarea::placeholder {
-  color: var(--text-muted, #b0b0c0);
-  font-style: italic;
-}
-
-/* Campos de XP */
+/* XP */
 .panel-row--xp {
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  padding: 0.6rem;
+  border-radius: 4px;
+  padding: 0.3rem;
   display: flex;
   justify-content: space-around;
 }
 
 .xp-field {
   text-align: center;
+  font-weight: bold;
   flex: 1;
 }
 
 .xp-label {
   display: block;
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-size: 0.75rem;
-  font-weight: bold;
   margin-bottom: 0.2rem;
   font-family: 'Cinzel', serif;
 }
@@ -447,9 +488,9 @@
   padding: 0.3rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: 6px;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
   font-size: 0.9rem;
 }
 
@@ -465,7 +506,7 @@
 }
 
 .limit-title {
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-family: 'Cinzel', serif;
   font-size: 0.8rem;
   font-weight: bold;
@@ -483,12 +524,11 @@
   text-align: center;
   flex: 1;
   min-width: 60px;
-  color: var(--gold, #d4af37);
 }
 
 .limit-label {
   display: block;
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-size: 0.75rem;
   font-weight: bold;
   margin-bottom: 0.2rem;
@@ -501,64 +541,61 @@
   padding: 0.3rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: 6px;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
   font-size: 0.9rem;
 }
 
 /* =========================
-   Botões Exportar/Importar
+   AÇÕES UNIFICADAS
 ========================= */
 
-.sheet-export-import-section {
-  margin: 1rem 0;
-}
-
-.sheet-export-import-buttons {
-  display: flex;
+.sheet-actions-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.8rem;
-  margin-bottom: 0.5rem;
+  margin: 0.6rem 0;
 }
 
-.sheet-export-button,
-.sheet-import-button {
-  flex: 1;
-  padding: 0.8rem;
-  background: var(--surface-light);
-  border: 2px solid rgba(212, 175, 55, 0.3);
-  border-radius: 30px;
-  color: var(--text);
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: 'Cinzel', serif;
-  display: flex;
+.sheet-action-button {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.80rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
+  border: 1px solid var(--gold-border);
+  background: var(--surface-light);
+  color: var(--text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.sheet-export-button:hover,
-.sheet-import-button:hover {
-  background: rgba(212, 175, 55, 0.1);
+.sheet-action-button:hover {
+  background: var(--gold);
   border-color: var(--gold);
+  color: var(--bg-dark);
   transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.sheet-export-button:active,
-.sheet-import-button:active {
+.sheet-action-button:active {
   transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.export-icon,
-.import-icon {
-  font-size: 1.1rem;
-}
+/* =========================
+   Feedback
+========================= */
 
-.import-feedback {
+.import-feedback,
+.save-feedback {
   margin-top: 0.5rem;
   padding: 0.5rem;
   border-radius: 20px;
@@ -568,114 +605,23 @@
   animation: fadeInOut 2s ease forwards;
 }
 
-.import-feedback.success {
+.import-feedback.success,
+.save-feedback.success {
   background: rgba(46, 125, 50, 0.2);
   border: 1px solid #2e7d32;
   color: #81c784;
 }
 
-.import-feedback.error {
+.import-feedback.error,
+.save-feedback.error {
   background: rgba(192, 57, 43, 0.2);
   border: 1px solid #c0392b;
   color: #e74c3c;
 }
 
 /* =========================
-   Botão Salvar na Área do Jogador
+   Confirmação de Limpeza
 ========================= */
-
-.sheet-save-section {
-  margin: 1rem 0;
-  position: relative;
-}
-
-.sheet-save-button {
-  width: 100%;
-  padding: 0.9rem;
-  background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
-  border: none;
-  border-radius: 30px;
-  color: #1a1a1a;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: 'Cinzel', serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.sheet-save-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
-}
-
-.sheet-save-button:active {
-  transform: translateY(0);
-}
-
-.save-icon {
-  font-size: 1.2rem;
-}
-
-.save-feedback {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  background: rgba(46, 125, 50, 0.2);
-  border: 1px solid #2e7d32;
-  border-radius: 20px;
-  color: #81c784;
-  text-align: center;
-  font-family: 'Crimson Text', serif;
-  font-weight: 600;
-  animation: fadeInOut 2s ease forwards;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translateY(-10px); }
-  10% { opacity: 1; transform: translateY(0); }
-  90% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-10px); }
-}
-
-/* Feedback de erro */
-.save-feedback.error {
-  background: rgba(192, 57, 43, 0.2);
-  border-color: #c0392b;
-  color: #e74c3c;
-}
-
-/* =========================
-   BOTÃO LIMPAR
-========================= */
-.sheet-clear-button {
-  width: 100%;
-  padding: 0.7rem;
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 20px;
-  color: var(--text, #f0f0f0);
-  font-weight: bold;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: 'Cinzel', serif;
-  margin-top: 0.5rem;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.sheet-clear-button:hover {
-  background: rgba(212, 175, 55, 0.1);
-  border-color: var(--gold, #d4af37);
-}
-
-.sheet-clear-button:active {
-  transform: scale(0.98);
-}
 
 .clear-confirmation {
   margin-top: 1rem;
@@ -686,7 +632,7 @@
 }
 
 .clear-confirmation p {
-  color: var(--gold, #d4af37);
+  color: var(--gold);
   font-family: 'Cinzel', serif;
   text-align: center;
   margin-bottom: 0.8rem;
@@ -702,9 +648,9 @@
   flex: 1;
   padding: 0.5rem;
   background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: 20px;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -713,7 +659,7 @@
 }
 
 .clear-actions button:hover {
-  background: rgba(212, 175, 55, 0.1);
+  background: var(--surface-hover);
 }
 
 .clear-actions .danger {
@@ -727,8 +673,77 @@
 }
 
 /* =========================
-   SCROLLBAR
+   Diálogo de Importação
 ========================= */
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.dialog-box {
+  background: var(--surface);
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  color: var(--text);
+  font-family: 'Crimson Text', serif;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.dialog-title {
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  margin: 0 0 0.8rem;
+}
+
+.dialog-message {
+  margin-bottom: 1.2rem;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.dialog-button {
+  padding: 0.6rem 1.5rem;
+  border: 1px solid var(--gold-border);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text);
+  font-family: 'Cinzel', serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dialog-button--save {
+  background: var(--gold);
+  color: var(--bg-dark);
+  border-color: var(--gold);
+}
+
+.dialog-button:hover {
+  background: var(--surface-hover);
+  border-color: var(--gold);
+}
+
+/* =========================
+   Scrollbar
+========================= */
+
 .sheet-content::-webkit-scrollbar {
   width: 6px;
 }
@@ -739,115 +754,135 @@
 }
 
 .sheet-content::-webkit-scrollbar-thumb {
-  background: var(--gold, #d4af37);
+  background: var(--gold);
   border-radius: 10px;
 }
 
+/* Animações */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
 /* =========================
-   RESPONSIVIDADE - ÚNICO BREAKPOINT
+   Responsividade
 ========================= */
+
 @media (max-width: 768px) {
-  /* Cabeçalho */
+  .sheet-modal {
+    width: 95%;
+    max-height: 95vh;
+    height: 90vh;
+  }
+
   .sheet-header h2 {
     font-size: 1.1rem;
   }
-  
-  /* Grid de Atributos: 3 colunas */
+
   .attributes-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.3rem;
   }
-  
-  /* Status Vitais: empilhar */
+
   .sheet-row--vitals {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
-  
-  /* Notas */
+
   .sheet-textarea--notas {
     min-height: 70px;
   }
-  
-  /* Abas mais compactas */
+
   .sheet-tabs {
     gap: 0.2rem;
   }
-  
+
   .sheet-tab {
     font-size: 0.65rem;
     padding: 0.5rem 0.2rem;
     letter-spacing: 0.3px;
   }
-  
-  /* Painéis */
+
   .sheet-panel {
     padding: 0.8rem;
   }
-  
-  /* Linhas de painel empilham */
+
   .panel-row {
     flex-direction: column;
     gap: 0.6rem;
   }
-  
-  /* Grid de 4 campos vira 2 colunas */
+
   .panel-row--quad {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.6rem;
   }
-  
-  /* Grid de 3 campos mantém 3 colunas */
+
   .panel-row--triple {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.6rem;
   }
-  
-  /* XP e Limites */
+
   .panel-row--xp,
   .panel-row--limits {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-  
-  /* Limites de Peso */
+
+  .panel-row--complemento {
+    flex-direction: column;
+  }
+
+  .sheet-field--conhecimentos {
+    order: -1;
+  }
+
+  .sheet-field--ser-estudos,
+  .sheet-field--conhecimentos {
+    width: 100%;
+  }
+
+  .sheet-field--conhecimentos .sheet-textarea--conhecimentos {
+    min-height: 120px;
+    flex: none;
+  }
+
   .limit-title {
     flex: 0 0 50px;
     font-size: 0.75rem;
   }
-  
+
   .limit-field {
     min-width: 50px;
   }
-  
+
   .limit-input {
     max-width: 70px;
     font-size: 0.85rem;
   }
-  
-  /* Inputs vitais */
+
   .vitals-input {
     font-size: 0.85rem;
   }
-  
+
   .vitals-label {
     width: 2.2rem;
     font-size: 0.85rem;
   }
-  
-  /* Botões de ação */
-  .sheet-export-import-buttons {
-    gap: 0.5rem;
+
+  .sheet-actions-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
   }
-  
-  .sheet-export-button,
-  .sheet-import-button {
-    padding: 0.7rem 0.5rem;
+
+  .sheet-action-button {
     font-size: 0.85rem;
+    padding: 0.7rem 0.5rem;
+    border-radius: 10px;
   }
-  
-  /* Limpar ações */
+
   .clear-actions {
     flex-direction: column;
   }

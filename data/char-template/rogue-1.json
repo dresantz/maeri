@@ -5,8 +5,14 @@
     "level": "1",
     "class": "Ladino",
     "description": "Ele o receberá com toda a alegria",
-    "attributes":
-    { "f": "2", "v": "3", "d": "4", "s": "2", "i": "4", "a": "3" },
+    "attributes": {
+      "f": "2",
+      "v": "3",
+      "d": "4",
+      "s": "2",
+      "i": "4",
+      "a": "3"
+    },
     "vit": { "current": "8", "total": "8" },
     "con": { "current": "8", "total": "8" },
 
@@ -17,25 +23,18 @@
         "anato": "Gesto extra. -1 de dano de fogo."
       },
       "estudos": [
-        { "nome": "Crime", "conhecimentos": "8xpm + 1 xpm para falsificar ou destrancar" }
+        { "nome": "Crime" }
       ],
-      "tecnicas": [
-      ],
-      "estudos mágicos": [
-      ],
-      "classes": [
-      ],
+      "conhecimentos": "8xpm + 1 xpm para falsificar ou destrancar",
+      "classes": [],
       "xp": { "m": "8", "l": "0", "p": "0" }
     },
 
     "narrativa": {
-      "arquetipo": {
-        "nome": "Vilão"
-      },
-      "motivacao": {
-        "nome": "Ódio"
-      },
+      "arquetipo": { "nome": "Vilão" },
+      "motivacao": { "nome": "Ódio" },
       "disposicao": "-",
+      "segredos": "",
       "historia": "Você decide...",
       "contatos": [
         { "nome": "Mercador Estranho", "tipo": "Armeiro" },
@@ -47,8 +46,18 @@
       "moedas": { "fo": "5", "dp": "3", "tc": "3" },
       "peso": { "medio": "4", "maximo": "8", "atual": "0" },
       "itens": [
-        { "nome": "Adaga", "peso": "1Pes", "quantidade": "1", "nota": "1d3+1(x3) 4Res" },
-        { "nome": "Nota de Sangue", "peso": "0Pes", "quantidade": "2", "nota": "tontura em 4 temporadas, morte em 5 temporadas" }
+        {
+          "nome": "Adaga",
+          "peso": "1Pes",
+          "quantidade": "1",
+          "nota": "1d3+1(x3) 4Res"
+        },
+        {
+          "nome": "Nota de Sangue",
+          "peso": "0Pes",
+          "quantidade": "2",
+          "nota": "tontura em 4 temporadas, morte em 5 temporadas"
+        }
       ]
     }
   }

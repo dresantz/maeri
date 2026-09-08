@@ -5,8 +5,14 @@
     "level": "1",
     "class": "Guerreiro",
     "description": "O soldado raso treinado",
-    "attributes":
-    { "f": "5", "v": "4", "d": "3", "s": "2", "i": "2", "a": "3" },
+    "attributes": {
+      "f": "5",
+      "v": "4",
+      "d": "3",
+      "s": "2",
+      "i": "2",
+      "a": "3"
+    },
     "vit": { "current": "13", "total": "13" },
     "con": { "current": "6", "total": "6" },
 
@@ -16,26 +22,17 @@
         "nome": "Humano",
         "anato": "+1 em característica que não tenha recebido pontos."
       },
-      "estudos": [
-      ],
-      "tecnicas": [
-      { "nome": "Postura de Combate", "descricao": "Realocar 1 ponto de F, V ou D por um gesto" }
-      ],
-      "estudos mágicos": [
-      ],
-      "classes": [
-      ],
+      "estudos": [{ "nome": "Técnica Marcial" }],
+      "conhecimentos": "Postura de Combate: Realocar 1 ponto de F, V ou D por um gesto",
+      "classes": [],
       "xp": { "m": "0", "l": "0", "p": "0" }
     },
 
     "narrativa": {
-      "arquetipo": {
-        "nome": "Herói"
-      },
-      "motivacao": {
-        "nome": "Amor"
-      },
+      "arquetipo": { "nome": "Herói" },
+      "motivacao": { "nome": "Amor" },
       "disposicao": "-",
+      "segredos": "",
       "historia": "Você decide...",
       "contatos": [
         { "nome": "Mestre de Armas", "tipo": "Mestre" },
@@ -47,7 +44,12 @@
       "moedas": { "fo": "1", "dp": "6", "tc": "6" },
       "peso": { "medio": "10", "maximo": "20", "atual": "2" },
       "itens": [
-        { "nome": "Espada média", "peso": "2Pes", "quantidade": "1", "nota": "1d6 de dano, 4 Res"}
+        {
+          "nome": "Espada média",
+          "peso": "2Pes",
+          "quantidade": "1",
+          "nota": "1d6 de dano, 4 Res"
+        }
       ]
     }
   }

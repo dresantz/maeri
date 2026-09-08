@@ -13,65 +13,43 @@ const SheetManager = (function() {
   };
   
   const PANELS = ['complemento', 'narrativa', 'itens'];
-  const AUTO_SAVE_DELAY = 500; // ms
-  const FEEDBACK_DURATION = 3000; // ms
+  const AUTO_SAVE_DELAY = 500;
+  const FEEDBACK_DURATION = 3000;
   
-  // ===== ESTADO PRIVADO =====
+  // ===== ESTADO =====
   let isSheetOpen = false;
   let currentPanel = 'complemento';
   let saveTimeout = null;
   
-  // ===== UTILITÁRIOS =====
+  // ===== HELPERS =====
   
-  /**
-   * Retorna o elemento modal da ficha
-   */
   function getModal() {
     return document.getElementById('sheet-modal');
   }
   
-  /**
-   * Retorna o overlay da ficha
-   */
   function getOverlay() {
     return document.getElementById('sheet-overlay');
   }
   
-  /**
-   * Define valor de um campo com segurança
-   */
-  function setFieldValue(selector, value) {
-    const modal = getModal();
-    if (!modal) return;
-    
-    const field = modal.querySelector(selector);
-    if (field && value !== undefined && value !== null) {
-      field.value = value;
+  function getValue(id, defaultValue = '') {
+    const el = document.getElementById(id);
+    return el ? el.value : defaultValue;
+  }
+  
+  function setValue(id, value) {
+    const el = document.getElementById(id);
+    if (el && value !== undefined && value !== null) {
+      el.value = value;
     }
   }
   
-  /**
-   * Escapa HTML para prevenir XSS
-   */
-  function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-  
-  /* Mostra feedback temporário ao usuário */
-  function showFeedback(message, type = 'success') {
-    // Tenta encontrar qualquer feedback disponível
-    const feedback = document.getElementById('import-feedback') || 
-                     document.getElementById('save-feedback');
+  function showFeedback(message, type = 'success', elementId = 'import-feedback') {
+    const feedback = document.getElementById(elementId);
+    if (!feedback) return;
     
-    if (!feedback) {
-      return;
-    }
-    
+    const baseClass = elementId === 'import-feedback' ? 'import-feedback' : 'save-feedback';
     feedback.textContent = message;
-    feedback.className = `feedback ${type}`;
+    feedback.className = `${baseClass} ${type}`;
     feedback.hidden = false;
     
     setTimeout(() => {
@@ -79,194 +57,132 @@ const SheetManager = (function() {
     }, FEEDBACK_DURATION);
   }
   
-  /**
-   * Remove overlay de diálogo existente
-   */
   function removeExistingDialog() {
-    const existingOverlay = document.querySelector('.dialog-overlay');
-    if (existingOverlay) {
-      document.body.removeChild(existingOverlay);
-    }
+    document.querySelector('.dialog-overlay')?.remove();
   }
   
-  // ===== COLETA DE DADOS =====
+  // ===== COLETA E PREENCHIMENTO =====
   
-  /**
-   * Coleta todos os dados atuais da ficha
-   */
   function getCurrentSheetData() {
-    const modal = getModal();
-    if (!modal) return {};
-    
     return {
-      // Cabeçalho
-      name: modal.querySelector('#char-name')?.value || '',
-      level: modal.querySelector('#char-level')?.value || '1',
+      name: getValue('char-name'),
+      level: getValue('char-level', '1'),
       
-      // Atributos
       attributes: {
-        f: modal.querySelector('#attr-f')?.value || '',
-        v: modal.querySelector('#attr-v')?.value || '',
-        d: modal.querySelector('#attr-d')?.value || '',
-        s: modal.querySelector('#attr-s')?.value || '',
-        i: modal.querySelector('#attr-i')?.value || '',
-        a: modal.querySelector('#attr-a')?.value || ''
+        f: getValue('attr-f'),
+        v: getValue('attr-v'),
+        d: getValue('attr-d'),
+        s: getValue('attr-s'),
+        i: getValue('attr-i'),
+        a: getValue('attr-a')
       },
       
-      // Status Vitais
       vit: {
-        current: modal.querySelector('#vit-current')?.value || '0',
-        total: modal.querySelector('#vit-total')?.value || '0'
+        current: getValue('vit-current', '0'),
+        total: getValue('vit-total', '0')
       },
       con: {
-        current: modal.querySelector('#con-current')?.value || '0',
-        total: modal.querySelector('#con-total')?.value || '0'
+        current: getValue('con-current', '0'),
+        total: getValue('con-total', '0')
       },
       
-      // Notas
-      notas: modal.querySelector('#notas')?.value || '',
+      notas: getValue('notas'),
       
-      // Painel Complemento
       complemento: {
-        ser: modal.querySelector('#ser')?.value || '',
-        estudos: modal.querySelector('#estudos')?.value || '',
-        tecnicas: modal.querySelector('#tecnicas')?.value || '',
-        magias: modal.querySelector('#magias')?.value || '',
+        ser: getValue('ser'),
+        estudos: getValue('estudos'),
+        conhecimentos: getValue('conhecimentos'),
+        classes: getValue('classes'),
         xp: {
-          m: modal.querySelector('#xpm')?.value || '0',
-          l: modal.querySelector('#xpl')?.value || '0',
-          p: modal.querySelector('#xpp')?.value || '0'
+          m: getValue('xpm', '0'),
+          l: getValue('xpl', '0'),
+          p: getValue('xpp', '0')
         }
       },
       
-      // Painel Narrativa
       narrativa: {
-        arquetipo: modal.querySelector('#arquetipo')?.value || '',
-        motivacao: modal.querySelector('#motivacao')?.value || '',
-        disposicao: modal.querySelector('#disposicao')?.value || '',
-        segredos: modal.querySelector('#segredo')?.value || '',
-        historia: modal.querySelector('#historia')?.value || '',
-        contatos: modal.querySelector('#contatos')?.value || ''
+        arquetipo: getValue('arquetipo'),
+        motivacao: getValue('motivacao'),
+        disposicao: getValue('disposicao'),
+        segredos: getValue('segredo'),
+        historia: getValue('historia'),
+        contatos: getValue('contatos')
       },
       
-      // Painel Itens
       itens: {
-        fo: modal.querySelector('#fo')?.value || '0',
-        dp: modal.querySelector('#dp')?.value || '0',
-        tc: modal.querySelector('#tc')?.value || '0',
-        pesoFx2: modal.querySelector('#peso-fx2')?.value || '0',
-        pesoFx4: modal.querySelector('#peso-fx4')?.value || '0',
-        pesoTotal: modal.querySelector('#peso-total')?.value || '0',
-        lista: modal.querySelector('#itens-lista')?.value || ''
+        fo: getValue('fo', '0'),
+        dp: getValue('dp', '0'),
+        tc: getValue('tc', '0'),
+        pesoFx2: getValue('peso-fx2', '0'),
+        pesoFx4: getValue('peso-fx4', '0'),
+        pesoTotal: getValue('peso-total', '0'),
+        lista: getValue('itens-lista')
       }
     };
   }
   
-  // ===== POPULATE FIELDS =====
-  
-  /**
-   * Preenche os campos da ficha com os dados fornecidos
-   */
   function populateSheetFields(data) {
     if (!data) return;
     
-    // Cabeçalho
-    setFieldValue('#char-name', data.name);
-    setFieldValue('#char-level', data.level);
+    const mappings = [
+      ['char-name', data.name],
+      ['char-level', data.level],
+      ['attr-f', data.attributes?.f],
+      ['attr-v', data.attributes?.v],
+      ['attr-d', data.attributes?.d],
+      ['attr-s', data.attributes?.s],
+      ['attr-i', data.attributes?.i],
+      ['attr-a', data.attributes?.a],
+      ['vit-current', data.vit?.current],
+      ['vit-total', data.vit?.total],
+      ['con-current', data.con?.current],
+      ['con-total', data.con?.total],
+      ['notas', data.notas],
+      ['ser', data.complemento?.ser],
+      ['estudos', data.complemento?.estudos],
+      ['conhecimentos', data.complemento?.conhecimentos],
+      ['classes', data.complemento?.classes],
+      ['xpm', data.complemento?.xp?.m],
+      ['xpl', data.complemento?.xp?.l],
+      ['xpp', data.complemento?.xp?.p],
+      ['arquetipo', data.narrativa?.arquetipo],
+      ['motivacao', data.narrativa?.motivacao],
+      ['disposicao', data.narrativa?.disposicao],
+      ['segredo', data.narrativa?.segredos],
+      ['historia', data.narrativa?.historia],
+      ['contatos', data.narrativa?.contatos],
+      ['fo', data.itens?.fo],
+      ['dp', data.itens?.dp],
+      ['tc', data.itens?.tc],
+      ['peso-fx2', data.itens?.pesoFx2],
+      ['peso-fx4', data.itens?.pesoFx4],
+      ['peso-total', data.itens?.pesoTotal],
+      ['itens-lista', data.itens?.lista]
+    ];
     
-    // Atributos
-    if (data.attributes) {
-      setFieldValue('#attr-f', data.attributes.f);
-      setFieldValue('#attr-v', data.attributes.v);
-      setFieldValue('#attr-d', data.attributes.d);
-      setFieldValue('#attr-s', data.attributes.s);
-      setFieldValue('#attr-i', data.attributes.i);
-      setFieldValue('#attr-a', data.attributes.a);
-    }
-    
-    // Status Vitais
-    if (data.vit) {
-      setFieldValue('#vit-current', data.vit.current);
-      setFieldValue('#vit-total', data.vit.total);
-    }
-    if (data.con) {
-      setFieldValue('#con-current', data.con.current);
-      setFieldValue('#con-total', data.con.total);
-    }
-    
-    // Notas
-    setFieldValue('#notas', data.notas);
-    
-    // Painel Complemento
-    if (data.complemento) {
-      setFieldValue('#ser', data.complemento.ser);
-      setFieldValue('#estudos', data.complemento.estudos);
-      setFieldValue('#tecnicas', data.complemento.tecnicas);
-      setFieldValue('#magias', data.complemento.magias);
-      setFieldValue('#classes', data.complemento.classes);
-      
-      if (data.complemento.xp) {
-        setFieldValue('#xpm', data.complemento.xp.m);
-        setFieldValue('#xpl', data.complemento.xp.l);
-        setFieldValue('#xpp', data.complemento.xp.p);
-      }
-    }
-    
-    // Painel Narrativa
-    if (data.narrativa) {
-      setFieldValue('#arquetipo', data.narrativa.arquetipo);
-      setFieldValue('#motivacao', data.narrativa.motivacao);
-      setFieldValue('#disposicao', data.narrativa.disposicao);
-      setFieldValue('#segredo', data.narrativa.segredos);
-      setFieldValue('#historia', data.narrativa.historia);
-      setFieldValue('#contatos', data.narrativa.contatos);
-    }
-    
-    // Painel Itens
-    if (data.itens) {
-      setFieldValue('#fo', data.itens.fo);
-      setFieldValue('#dp', data.itens.dp);
-      setFieldValue('#tc', data.itens.tc);
-      setFieldValue('#peso-fx2', data.itens.pesoFx2);
-      setFieldValue('#peso-fx4', data.itens.pesoFx4);
-      setFieldValue('#peso-total', data.itens.pesoTotal);
-      setFieldValue('#itens-lista', data.itens.lista);
-    }
+    mappings.forEach(([id, value]) => setValue(id, value));
   }
   
   // ===== PERSISTÊNCIA =====
   
-  /**
-   * Salva os dados atuais no localStorage
-   */
   function saveSheetData() {
     const data = getCurrentSheetData();
     localStorage.setItem(STORAGE_KEYS.SHEET, JSON.stringify(data));
-    
-    // Disparar evento para outros componentes
     window.dispatchEvent(new CustomEvent('sheet:saved', { detail: data }));
+    return data;
   }
   
-  /**
-   * Carrega os dados salvos do localStorage
-   */
   function loadSheetData() {
     const saved = localStorage.getItem(STORAGE_KEYS.SHEET);
     if (!saved) return;
     
     try {
-      const data = JSON.parse(saved);
-      populateSheetFields(data);
+      populateSheetFields(JSON.parse(saved));
     } catch (e) {
       console.error('Erro ao carregar dados:', e);
     }
   }
   
-  // ===== AUTO-SAVE =====
-  
-  /**
-   * Handler para auto-save com debounce
-   */
   function handleSheetInput() {
     clearTimeout(saveTimeout);
     saveTimeout = setTimeout(saveSheetData, AUTO_SAVE_DELAY);
@@ -274,27 +190,18 @@ const SheetManager = (function() {
   
   // ===== CONTROLE DO MODAL =====
   
-  /**
-   * Alterna entre os painéis da ficha
-   */
   function switchPanel(panelId) {
-    const modal = getModal();
-    if (!modal) return;
-    
     currentPanel = panelId;
     
     PANELS.forEach(id => {
-      const panel = modal.querySelector(`#panel-${id}`);
-      const tab = modal.querySelector(`#tab-${id}`);
+      const panel = document.getElementById(`panel-${id}`);
+      const tab = document.getElementById(`tab-${id}`);
       
-      if (panel) panel.hidden = (id !== panelId);
-      if (tab) tab.setAttribute('aria-expanded', (id === panelId) ? 'true' : 'false');
+      if (panel) panel.hidden = id !== panelId;
+      if (tab) tab.setAttribute('aria-expanded', id === panelId ? 'true' : 'false');
     });
   }
   
-  /**
-   * Abre o modal da ficha
-   */
   function openSheet() {
     const modal = getModal();
     const overlay = getOverlay();
@@ -308,24 +215,17 @@ const SheetManager = (function() {
     
     loadSheetData();
     switchPanel(currentPanel);
-    
-    // Adicionar listener de input com debounce
     modal.addEventListener('input', handleSheetInput);
     
-    // Disparar evento
     window.dispatchEvent(new CustomEvent('sheet:opened'));
   }
   
-  /**
-   * Fecha o modal da ficha
-   */
   function closeSheet() {
     const modal = getModal();
     const overlay = getOverlay();
     
     if (!isSheetOpen || !modal || !overlay) return;
     
-    // Salvar antes de fechar
     saveSheetData();
     
     isSheetOpen = false;
@@ -333,38 +233,41 @@ const SheetManager = (function() {
     overlay.classList.remove('active');
     document.body.classList.remove('no-scroll');
     
-    // Remover listener
     modal.removeEventListener('input', handleSheetInput);
     clearTimeout(saveTimeout);
     
-    // Disparar evento
     window.dispatchEvent(new CustomEvent('sheet:closed'));
   }
   
   // ===== LIMPAR FICHA =====
   
-  /**
-   * Limpa todos os campos da ficha
-   */
+  function resetNumericField(id, defaultValue) {
+    setValue(id, defaultValue);
+  }
+  
   function clearSheet() {
     const modal = getModal();
     if (!modal) return;
     
-    const allInputs = modal.querySelectorAll('input, textarea');
-    allInputs.forEach(input => {
-      if (input.type === 'number') {
-        if (input.id.startsWith('attr-')) {
-          input.value = '2';
-        } else if (input.id === 'char-level') {
-          input.value = '1';
-        } else if (input.id === 'vit-total' || input.id === 'con-total') {
-          input.value = '0';
-        } else {
-          input.value = '0';
-        }
-      } else {
-        input.value = '';
-      }
+    modal.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+    
+    resetNumericField('char-level', '1');
+    resetNumericField('vit-current', '0');
+    resetNumericField('vit-total', '0');
+    resetNumericField('con-current', '0');
+    resetNumericField('con-total', '0');
+    resetNumericField('xpm', '0');
+    resetNumericField('xpl', '0');
+    resetNumericField('xpp', '0');
+    resetNumericField('fo', '0');
+    resetNumericField('dp', '0');
+    resetNumericField('tc', '0');
+    resetNumericField('peso-fx2', '0');
+    resetNumericField('peso-fx4', '0');
+    resetNumericField('peso-total', '0');
+    
+    ['f', 'v', 'd', 's', 'i', 'a'].forEach(attr => {
+      resetNumericField(`attr-${attr}`, '2');
     });
     
     localStorage.removeItem(STORAGE_KEYS.SHEET);
@@ -372,17 +275,12 @@ const SheetManager = (function() {
     const confirmBox = document.getElementById('clear-confirmation');
     if (confirmBox) confirmBox.hidden = true;
     
-    showFeedback('Ficha limpa com sucesso');
-    
-    // Disparar evento
+    showFeedback('Ficha limpa com sucesso', 'success', 'import-feedback');
     window.dispatchEvent(new CustomEvent('sheet:cleared'));
   }
   
-  // ===== EXPORTAR/IMPORTAR =====
+  // ===== EXPORTAÇÃO/IMPORTAÇÃO =====
   
-  /**
-   * Exporta a ficha como arquivo JSON
-   */
   function exportCharacterSheet() {
     try {
       const currentData = getCurrentSheetData();
@@ -407,45 +305,32 @@ const SheetManager = (function() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
       
-      showFeedback('Ficha exportada com sucesso!', 'success');
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      showFeedback('Ficha exportada com sucesso!', 'success', 'import-feedback');
     } catch (error) {
       console.error('Erro ao exportar:', error);
-      showFeedback('Erro ao exportar ficha', 'error');
+      showFeedback('Erro ao exportar ficha', 'error', 'import-feedback');
     }
   }
   
-  /**
-   * Valida dados importados
-   */
   function validateImportedData(data) {
     if (!data || typeof data !== 'object') return false;
-    
-    // Se tiver metadados, verificar se tem data
-    if (data.data) {
-      return data.data && typeof data.data === 'object';
-    }
-    
-    // Validação básica dos campos essenciais
+    const sheetData = data.data || data;
     return (
-      data.name !== undefined ||
-      data.level !== undefined ||
-      data.attributes !== undefined ||
-      data.vit !== undefined ||
-      data.con !== undefined
+      sheetData.name !== undefined ||
+      sheetData.level !== undefined ||
+      sheetData.attributes !== undefined ||
+      sheetData.vit !== undefined ||
+      sheetData.con !== undefined
     );
   }
   
-  /**
-   * Aplica dados importados à ficha
-   */
   function applyImportedData(importedData) {
     const sheetData = importedData.data || importedData;
     populateSheetFields(sheetData);
     saveSheetData();
     
-    // Atualizar na área do jogador se houver personagem ativo
     const activeCharId = localStorage.getItem(STORAGE_KEYS.ACTIVE_CHARACTER);
     if (activeCharId) {
       const characters = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHARACTERS) || '{}');
@@ -457,12 +342,9 @@ const SheetManager = (function() {
       }
     }
     
-    showFeedback('Ficha importada com sucesso!', 'success');
+    showFeedback('Ficha importada com sucesso!', 'success', 'import-feedback');
   }
   
-  /**
-   * Cria diálogo de confirmação para importação
-   */
   function confirmImport(importedData) {
     removeExistingDialog();
     
@@ -486,28 +368,22 @@ const SheetManager = (function() {
     overlay.appendChild(dialog);
     document.body.appendChild(overlay);
     
-    const importBtn = dialog.querySelector('.dialog-button--save');
-    const cancelBtn = dialog.querySelector('.dialog-button--cancel');
-    
-    importBtn.addEventListener('click', () => {
+    dialog.querySelector('.dialog-button--save').addEventListener('click', () => {
       applyImportedData(importedData);
-      document.body.removeChild(overlay);
+      overlay.remove();
     });
     
-    cancelBtn.addEventListener('click', () => {
-      document.body.removeChild(overlay);
+    dialog.querySelector('.dialog-button--cancel').addEventListener('click', () => {
+      overlay.remove();
     });
   }
   
-  /**
-   * Handler para seleção de arquivo de importação
-   */
   function handleFileSelect(event) {
     const file = event.target.files[0];
     if (!file) return;
     
     if (!file.name.toLowerCase().endsWith('.json')) {
-      showFeedback('Arquivo deve ser .json', 'error');
+      showFeedback('Arquivo deve ser .json', 'error', 'import-feedback');
       return;
     }
     
@@ -515,21 +391,19 @@ const SheetManager = (function() {
     
     reader.onload = (e) => {
       try {
-        const content = e.target.result;
-        const importedData = JSON.parse(content);
+        const importedData = JSON.parse(e.target.result);
         
         if (!validateImportedData(importedData)) {
-          showFeedback('Arquivo inválido ou corrompido', 'error');
+          showFeedback('Arquivo inválido ou corrompido', 'error', 'import-feedback');
           return;
         }
         
         confirmImport(importedData);
       } catch (error) {
         console.error('Erro ao importar:', error);
-        showFeedback('Erro ao ler arquivo', 'error');
+        showFeedback('Erro ao ler arquivo', 'error', 'import-feedback');
       }
       
-      // Limpar input para permitir importar o mesmo arquivo novamente
       event.target.value = '';
     };
     
@@ -538,33 +412,20 @@ const SheetManager = (function() {
   
   // ===== ÁREA DO JOGADOR =====
   
-  /**
-   * Salva a ficha atual na área do jogador
-   */
   function saveToPlayerArea() {
     const modal = getModal();
     if (!modal) return;
     
-    // Primeiro, salva o auto-save normal
     saveSheetData();
     
-    // Carregar personagens existentes
     const characters = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHARACTERS) || '{}');
-    const characterCount = Object.keys(characters).length;
-    
-    // Verificar se já tem 3 personagens
-    if (characterCount >= 3) {
-      showFeedback('Área do Jogador cheia! Remova um personagem.', 'error');
+    if (Object.keys(characters).length >= 3) {
+      showFeedback('Área do Jogador cheia! Remova um personagem.', 'error', 'save-feedback');
       return;
     }
     
-    // Coletar dados atuais da ficha
     const currentData = getCurrentSheetData();
-    
-    // Gerar ID único para o personagem
     const characterId = 'char_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-    
-    // Criar objeto do personagem
     const character = {
       id: characterId,
       name: currentData.name || 'Personagem sem nome',
@@ -572,50 +433,49 @@ const SheetManager = (function() {
       data: currentData
     };
     
-    // Salvar no localStorage
     characters[characterId] = character;
     localStorage.setItem(STORAGE_KEYS.CHARACTERS, JSON.stringify(characters));
     
-    showFeedback('✅ Ficha Salva na Área do Jogador');
-    
-    // Notificar outros componentes
+    showFeedback('✅ Ficha Salva na Área do Jogador', 'success', 'save-feedback');
     window.dispatchEvent(new CustomEvent('characters-updated'));
   }
   
   // ===== INICIALIZAÇÃO =====
   
-  /**
-   * Configura todos os event listeners
-   */
   function init() {
     const modal = getModal();
     const sheetBtn = document.getElementById('sheet-button');
-    const sheetClose = document.getElementById('sheet-close');
-    const sheetOverlay = getOverlay();
     
     if (!modal || !sheetBtn) return;
     
-    // Botões de abrir/fechar
     sheetBtn.addEventListener('click', openSheet);
-    if (sheetClose) sheetClose.addEventListener('click', closeSheet);
-    if (sheetOverlay) sheetOverlay.addEventListener('click', closeSheet);
+    document.getElementById('sheet-close')?.addEventListener('click', closeSheet);
+    getOverlay()?.addEventListener('click', closeSheet);
     
-    // Botões das abas
-    const tabComplemento = modal.querySelector('#tab-complemento');
-    const tabNarrativa = modal.querySelector('#tab-narrativa');
-    const tabItens = modal.querySelector('#tab-itens');
+    // Abas
+    const tabs = {
+      'tab-complemento': 'complemento',
+      'tab-narrativa': 'narrativa',
+      'tab-itens': 'itens'
+    };
     
-    if (tabComplemento) {
-      tabComplemento.addEventListener('click', () => switchPanel('complemento'));
-    }
-    if (tabNarrativa) {
-      tabNarrativa.addEventListener('click', () => switchPanel('narrativa'));
-    }
-    if (tabItens) {
-      tabItens.addEventListener('click', () => switchPanel('itens'));
+    Object.entries(tabs).forEach(([tabId, panelId]) => {
+      document.getElementById(tabId)?.addEventListener('click', () => switchPanel(panelId));
+    });
+    
+    // Toggle das Notas
+    const notesToggle = document.getElementById('sheet-notes-toggle');
+    const notesContent = document.getElementById('sheet-notes-content');
+    if (notesToggle && notesContent) {
+      notesToggle.addEventListener('click', () => {
+        const isExpanded = notesToggle.getAttribute('aria-expanded') === 'true';
+        notesContent.hidden = isExpanded;
+        notesToggle.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+        notesToggle.textContent = isExpanded ? '+ Notas' : '− Notas';
+      });
     }
     
-    // Sistema de limpar ficha
+    // Limpar ficha
     const clearBtn = document.getElementById('clear-sheet-button');
     const confirmBtn = document.getElementById('confirm-clear-sheet');
     const cancelBtn = document.getElementById('cancel-clear-sheet');
@@ -627,39 +487,28 @@ const SheetManager = (function() {
       confirmBtn.addEventListener('click', clearSheet);
     }
     
-    // Botões Exportar/Importar
-    const exportBtn = document.getElementById('export-sheet');
+    // Exportar/Importar
+    document.getElementById('export-sheet')?.addEventListener('click', exportCharacterSheet);
+    
     const importBtn = document.getElementById('import-sheet');
     const importFile = document.getElementById('import-file');
-    const saveToAreaBtn = document.getElementById('save-to-player-area');
-    
-    if (exportBtn) {
-      exportBtn.addEventListener('click', exportCharacterSheet);
-    }
     
     if (importBtn && importFile) {
       importBtn.addEventListener('click', () => importFile.click());
-    }
-    
-    if (importFile) {
       importFile.addEventListener('change', handleFileSelect);
     }
     
-    if (saveToAreaBtn) {
-      saveToAreaBtn.addEventListener('click', saveToPlayerArea);
-    }
+    document.getElementById('save-to-player-area')?.addEventListener('click', saveToPlayerArea);
     
     // Fechar com ESC
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isSheetOpen) {
-        closeSheet();
-      }
+      if (e.key === 'Escape' && isSheetOpen) closeSheet();
     });
   }
   
   // ===== API PÚBLICA =====
   return {
-    init: init,
+    init,
     open: openSheet,
     close: closeSheet,
     save: saveSheetData,
@@ -672,9 +521,6 @@ const SheetManager = (function() {
 
 // ===== INICIALIZAÇÃO AUTOMÁTICA =====
 
-/**
- * Inicializa o SheetManager quando os modais estiverem carregados
- */
 function initializeSheet() {
   if (document.getElementById('sheet-modal')) {
     SheetManager.init();
@@ -683,14 +529,12 @@ function initializeSheet() {
   }
 }
 
-// Inicializar quando o DOM estiver pronto
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeSheet);
 } else {
   initializeSheet();
 }
 
-// Exportar para uso em outros módulos (se estiver usando módulos ES)
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = SheetManager;
 }

@@ -4,9 +4,15 @@
     "name": "Turu",
     "level": "1",
     "class": "Druida",
-    "description": "O que escura o pulsar da terra",
-    "attributes":
-    { "f": "3", "v": "2", "d": "2", "s": "5", "i": "2", "a": "3" },
+    "description": "O que escuta o pulsar da terra",
+    "attributes": {
+      "f": "3",
+      "v": "2",
+      "d": "2",
+      "s": "5",
+      "i": "2",
+      "a": "3"
+    },
     "vit": { "current": "6", "total": "6" },
     "con": { "current": "10", "total": "10" },
 
@@ -17,26 +23,19 @@
         "anato": "Voar com D por V turnos, carregando F-2."
       },
       "estudos": [
+        { "nome": "Neófitas" },
+        { "nome": "Bruxaria" }
       ],
-      "tecnicas": [
-      ],
-      "estudos mágicos": [
-        {"nome": "Neófitas", "magias": "Flecha"},
-        {"nome": "Bruxaria", "magias": "Invocar Familiar, Aura Vampirica, Maldição da Presença Fantasma, Maldição da Marca Negra"}
-      ],
-      "classes": [
-      ],
+      "conhecimentos": "Flecha; Invocar Familiar, Aura Vampírica, Maldição da Presença Fantasma, Maldição da Marca Negra",
+      "classes": [],
       "xp": { "m": "0", "l": "0", "p": "0" }
     },
 
     "narrativa": {
-      "arquetipo": {
-        "nome": "Anti-Herói"
-      },
-      "motivacao": {
-        "nome": "Harmonia"
-      },
+      "arquetipo": { "nome": "Anti-Herói" },
+      "motivacao": { "nome": "Harmonia" },
       "disposicao": "+",
+      "segredos": "",
       "historia": "Você decide...",
       "contatos": [
         { "nome": "Macaco Falante", "tipo": "Armeiro" },
@@ -48,7 +47,12 @@
       "moedas": { "fo": "0", "dp": "8", "tc": "6" },
       "peso": { "medio": "6", "maximo": "12", "atual": "0" },
       "itens": [
-        { "nome": "Lança", "peso": "5Pes", "quantidade": "1", "nota": "1d6+1 (a/e) 3Res"}
+        {
+          "nome": "Lança",
+          "peso": "5Pes",
+          "quantidade": "1",
+          "nota": "1d6+1 (a/e) 3Res"
+        }
       ]
     }
   }

@@ -5,8 +5,14 @@
     "level": "1",
     "class": "Paladino",
     "description": "O poderoso guardião da verdade",
-    "attributes":
-    { "f": "4", "v": "5", "d": "2", "s": "2", "i": "3", "a": "2" },
+    "attributes": {
+      "f": "4",
+      "v": "5",
+      "d": "2",
+      "s": "2",
+      "i": "3",
+      "a": "2"
+    },
     "vit": { "current": "13", "total": "13" },
     "con": { "current": "7", "total": "7" },
 
@@ -17,25 +23,18 @@
         "anato": "Imune a ferimento. Enxerga rastro da morte. Imune a doenças naturais."
       },
       "estudos": [
-        { "nome": "Religião", "conhecimentos": "30xpl. 1 xpm para ficar imune a medo. Pode usar pergaminhos. Estudo formal." }
+        { "nome": "Religião" }
       ],
-      "tecnicas": [
-      ],
-      "estudos mágicos": [
-      ],
-      "classes": [
-      ],
+      "conhecimentos": "30xpl. 1 xpm para ficar imune a medo. Pode usar pergaminhos. Estudo formal.",
+      "classes": [],
       "xp": { "m": "0", "l": "30", "p": "0" }
     },
 
     "narrativa": {
-      "arquetipo": {
-        "nome": "Herói"
-      },
-      "motivacao": {
-        "nome": "Medo"
-      },
+      "arquetipo": { "nome": "Herói" },
+      "motivacao": { "nome": "Medo" },
       "disposicao": "-",
+      "segredos": "",
       "historia": "Você decide...",
       "contatos": [
         { "nome": "Amiga Leal", "tipo": "Armeiro" },
@@ -47,9 +46,24 @@
       "moedas": { "fo": "1", "dp": "2", "tc": "6" },
       "peso": { "medio": "8", "maximo": "16", "atual": "6" },
       "itens": [
-        { "nome": "Porrete", "peso": "1Pes", "quantidade": "1", "nota": "1d3+1 6Res"},
-        { "nome": "Armadura de Tecido/Couro Completa", "peso": "3Pes", "quantidade": "1", "nota": "sem tirar pra dormir, -1 de dano de corte, +2V resistir ferimento, protege frio, 5Res"},
-        { "nome": "Escudo Torre", "peso": "2Pes", "quantidade": "1", "nota": "+2V embate contra F ou A, -1D teste e embate, usar Empurrar com F, 3Res"}
+        {
+          "nome": "Porrete",
+          "peso": "1Pes",
+          "quantidade": "1",
+          "nota": "1d3+1 6Res"
+        },
+        {
+          "nome": "Armadura de Tecido/Couro Completa",
+          "peso": "3Pes",
+          "quantidade": "1",
+          "nota": "sem tirar pra dormir, -1 de dano de corte, +2V resistir ferimento, protege frio, 5Res"
+        },
+        {
+          "nome": "Escudo Torre",
+          "peso": "2Pes",
+          "quantidade": "1",
+          "nota": "+2V embate contra F ou A, -1D teste e embate, usar Empurrar com F, 3Res"
+        }
       ]
     }
   }

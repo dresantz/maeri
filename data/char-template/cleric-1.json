@@ -4,9 +4,15 @@
     "name": "Maramu",
     "level": "1",
     "class": "Clérigo",
-    "description": "Aquele que trás a palavra",
-    "attributes":
-    { "f": "3", "v": "2", "d": "2", "s": "5", "i": "3", "a": "2" },
+    "description": "Aquele que traz a palavra",
+    "attributes": {
+      "f": "3",
+      "v": "2",
+      "d": "2",
+      "s": "5",
+      "i": "3",
+      "a": "2"
+    },
     "vit": { "current": "7", "total": "7" },
     "con": { "current": "11", "total": "11" },
 
@@ -17,26 +23,19 @@
         "anato": "Flanqueado por 3. Não fica indefeso dormindo. +1 Vit. +2F limites de peso."
       },
       "estudos": [
+        { "nome": "Neófitas" },
+        { "nome": "Divinação" }
       ],
-      "tecnicas": [
-      ],
-      "estudos mágicos": [
-        {"nome": "Neófitas", "magias": "Corda Mágica, Manto Arcano"},
-        {"nome": "Divinação", "magias": "Cura, Cintilar, Proteção Mística"}
-      ],
-      "classes": [
-      ],
+      "conhecimentos": "Corda Mágica, Manto Arcano; Cura, Cintilar, Proteção Mística",
+      "classes": [],
       "xp": { "m": "0", "l": "0", "p": "0" }
     },
 
     "narrativa": {
-      "arquetipo": {
-        "nome": "Herói"
-      },
-      "motivacao": {
-        "nome": "Paz"
-      },
+      "arquetipo": { "nome": "Herói" },
+      "motivacao": { "nome": "Paz" },
       "disposicao": "-",
+      "segredos": "",
       "historia": "Você decide...",
       "contatos": [
         { "nome": "Ferreiro da Congregação", "tipo": "Armeiro" },
@@ -48,9 +47,24 @@
       "moedas": { "fo": "2", "dp": "3", "tc": "10" },
       "peso": { "medio": "10", "maximo": "20", "atual": "9" },
       "itens": [
-        { "nome": "Maça", "peso": "4Pes", "quantidade": "1", "nota": "1d6+1, -1Res 5-6, -2 Res 6-6, 5Res"},
-        { "nome": "Armadura Tecido/Malha", "peso": "3Pes", "quantidade": "1", "nota": "-1 de dano perfuração  +1V resistir Ferimentos 3Res"},
-        { "nome": "Targe (Escudo Médio)", "peso": "2Pes", "quantidade": "1", "nota": "+1V embate contra F ou A, Empurrar com F, 2 Res"}
+        {
+          "nome": "Maça",
+          "peso": "4Pes",
+          "quantidade": "1",
+          "nota": "1d6+1, -1Res 5-6, -2 Res 6-6, 5Res"
+        },
+        {
+          "nome": "Armadura Tecido/Malha",
+          "peso": "3Pes",
+          "quantidade": "1",
+          "nota": "-1 de dano perfuração  +1V resistir Ferimentos 3Res"
+        },
+        {
+          "nome": "Targe (Escudo Médio)",
+          "peso": "2Pes",
+          "quantidade": "1",
+          "nota": "+1V embate contra F ou A, Empurrar com F, 2 Res"
+        }
       ]
     }
   }

@@ -5,8 +5,14 @@
     "level": "1",
     "class": "Mago",
     "description": "O modelador de sonhos",
-    "attributes":
-    { "f": "2", "v": "3", "d": "2", "s": "5", "i": "3", "a": "2" },
+    "attributes": {
+      "f": "2",
+      "v": "3",
+      "d": "2",
+      "s": "5",
+      "i": "3",
+      "a": "2"
+    },
     "vit": { "current": "6", "total": "6" },
     "con": { "current": "11", "total": "11" },
 
@@ -17,26 +23,19 @@
         "anato": "Projetar visão a 1Esp. Levitar objetos F1. 1 Segredo / dia para +1 em um teste."
       },
       "estudos": [
+        { "nome": "Neófitas" },
+        { "nome": "Feitiçaria" }
       ],
-      "tecnicas": [
-      ],
-      "estudos mágicos": [
-        {"nome": "Neófitas", "magias": "Reparar, Manto Arcano"},
-        {"nome": "Feitiçaria", "magias": "Pulso, Mensagem Mágica, Troca Mística"}
-      ],
-      "classes": [
-      ],
+      "conhecimentos": "Reparar, Manto Arcano; Pulso, Mensagem Mágica, Troca Mística",
+      "classes": [],
       "xp": { "m": "0", "l": "0", "p": "0" }
     },
 
     "narrativa": {
-      "arquetipo": {
-        "nome": "Anti-Herói"
-      },
-      "motivacao": {
-        "nome": "Medo"
-      },
+      "arquetipo": { "nome": "Anti-Herói" },
+      "motivacao": { "nome": "Medo" },
       "disposicao": "+",
+      "segredos": "",
       "historia": "Você decide...",
       "contatos": [
         { "nome": "Colega", "tipo": "Escriba" },
@@ -48,7 +47,12 @@
       "moedas": { "fo": "1", "dp": "7", "tc": "6" },
       "peso": { "medio": "4", "maximo": "8", "atual": "0" },
       "itens": [
-        { "nome": "Grimório", "peso": "1Pes", "quantidade": "1", "nota": "4 Conhecimentos, 1Res"}
+        {
+          "nome": "Grimório",
+          "peso": "1Pes",
+          "quantidade": "1",
+          "nota": "4 Conhecimentos, 1Res"
+        }
       ]
     }
   }

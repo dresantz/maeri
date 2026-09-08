@@ -12,24 +12,16 @@
 
     "complemento": {
       "ser": {
-        "id": "humano",
-        "nome": "Humano",
-        "anato": "+1 em característica que não tenha recebido pontos."
+        "id": "karnakin",
+        "nome": "Karnakin",
+        "anato": "Projetar visão a 1Esp. Levitar objetos F1. 1 Segredo / dia para +1 em um teste."
       },
       "estudos": [
-        { "nome": "Comércio", "conhecimentos": "negociação, carta de comércio." },
-        { "nome": "Política", "conhecimentos": "educação básica, sinete." }
+        { "nome": "Neófitas" },
+        { "nome": "Feitiçaria" }
       ],
-      "tecnicas": [
-        { "nome": "Golpe Poderoso", "descricao": "Ataque que causa +2 de dano" },
-        { "nome": "Postura Defensiva", "descricao": "Aumenta defesa em +2 por rodada" }
-      ],
-      "estudos mágicos": [
-        {"nome": "Neófitas", "magias": "Punho Invisivel, Dregrau, Revelador."}
-      ],
-      "classes": [
-        {"nome": "Guerreiro", "característica":"golpe voador"}
-      ],
+      "conhecimentos": "Reparar, Manto Arcano; Pulso, Mensagem Mágica, Troca Mística",
+      "classes": [],
       "xp": { "m": "0", "l": "0", "p": "0" }
     },
 
@@ -41,6 +33,7 @@
         "nome": "Amor"
       },
       "disposicao": "-",
+      "segredos": "",
       "historia": "Teste",
       "contatos": [
         { "nome": "Amigo do Regimento", "tipo": "Armeiro" },

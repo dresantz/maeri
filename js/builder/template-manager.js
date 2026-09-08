@@ -9,7 +9,6 @@ class TemplateManager {
   }
 
   getTemplatePath(templateId) {
-    // ✅ CORRIGIDO: Mesma lógica do spells.js
     const isInPages = window.location.pathname.includes('/pages/');
     const basePath = isInPages ? '../' : './';
     return `${basePath}data/char-template/${templateId}.json`;
@@ -71,7 +70,7 @@ class TemplateManager {
       if (!items || !Array.isArray(items)) return '';
       return items.map(item => {
         let str = item[nameKey] || '';
-        if (item[descKey]) str += str ? `: ${item[descKey]}` : item[descKey];
+        if (descKey && item[descKey]) str += str ? `: ${item[descKey]}` : item[descKey];
         return str;
       }).filter(Boolean).join(separator);
     };
@@ -79,13 +78,13 @@ class TemplateManager {
     const serString = template.complemento?.ser ? 
       (template.complemento.ser.nome + (template.complemento.ser.anato ? `: ${template.complemento.ser.anato}` : '')) : '';
 
-    const estudosString = processArray(template.complemento?.estudos, 'nome', 'conhecimentos');
-    const tecnicasString = processArray(template.complemento?.tecnicas, 'nome', 'descricao');
+    // Novo formato: estudos é array de objetos com "nome"
+    const estudosString = processArray(template.complemento?.estudos, 'nome');
+
+    // Novo formato: conhecimentos é uma string direta
+    const conhecimentosString = template.complemento?.conhecimentos || '';
+
     const classesString = processArray(template.complemento?.classes, 'nome', 'característica');
-    
-    const magiasString = template.complemento?.['estudos mágicos']?.map(m => 
-      m.nome && m.magias ? `${m.nome}: ${m.magias}` : m.nome || ''
-    ).filter(Boolean).join('; ') || '';
 
     const contatosString = template.narrativa?.contatos?.map(c => 
       c.nome && c.tipo ? `${c.nome} (${c.tipo})` : c.nome || ''
@@ -124,8 +123,7 @@ class TemplateManager {
       complemento: {
         ser: serString,
         estudos: estudosString,
-        tecnicas: tecnicasString,
-        magias: magiasString,
+        conhecimentos: conhecimentosString,
         classes: classesString,
         xp: {
           m: template.complemento?.xp?.m || '0',
@@ -138,6 +136,7 @@ class TemplateManager {
         arquetipo: template.narrativa?.arquetipo?.nome || '',
         motivacao: template.narrativa?.motivacao?.nome || '',
         disposicao: template.narrativa?.disposicao || '',
+        segredos: template.narrativa?.segredos || '',
         historia: template.narrativa?.historia || '',
         contatos: contatosString
       },

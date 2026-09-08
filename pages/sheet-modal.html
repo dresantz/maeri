@@ -4,7 +4,7 @@
 <div id="sheet-modal" class="sheet-modal">
   
   <div class="sheet-header">
-    <h2>Ficha do Personagem</h2>
+    <h2>Ficha</h2>
     <button id="sheet-close" class="sheet-close">✕</button>
   </div>
 
@@ -58,7 +58,7 @@
       
       <!-- Linha 3: Status Vitais -->
       <div class="sheet-row sheet-row--vitals">
-              <!--VIT-->
+        <!-- VIT -->
         <div class="vitals-group">
           <span class="vitals-label">Vit:</span>
           <div class="vitals-fields">
@@ -67,7 +67,7 @@
             <input type="number" id="vit-total" class="vitals-input" min="1" value="0">
           </div>
         </div>
-              <!--CON-->
+        <!-- CON -->
         <div class="vitals-group">
           <span class="vitals-label">Con:</span>
           <div class="vitals-fields">
@@ -78,11 +78,16 @@
         </div>
       </div>
       
-      <!-- Linha 4: Notas (substitui Ferimentos e Linhas) -->
+      <!-- Linha 4: Notas (colapsável) -->
       <div class="sheet-row">
-        <div class="sheet-field sheet-field--notas">
-          <label for="notas" class="sheet-label">Notas</label>
-          <textarea id="notas" class="sheet-textarea sheet-textarea--notas" rows="3" placeholder="Ferimentos, linhas de Con, condições..."></textarea>
+        <!-- Notas colapsável -->
+        <div class="sheet-notes-section">
+          <button id="sheet-notes-toggle" class="sheet-notes-toggle" aria-expanded="false">
+            + Notas
+          </button>
+          <div id="sheet-notes-content" class="sheet-notes-content" hidden>
+            <textarea id="notas" class="sheet-textarea sheet-textarea--notas" rows="3" placeholder="Ferimentos, linhas de Con, condições..."></textarea>
+          </div>
         </div>
       </div>
     </div>
@@ -98,29 +103,22 @@
     <div id="panel-complemento" class="sheet-panel" hidden>
       <h3 class="panel-title">Complementos</h3>
       
-      <!-- Ser e Estudos -->
-      <div class="panel-row">
-        <div class="sheet-field sheet-field--half">
-          <label for="ser" class="sheet-label">Ser</label>
-          <textarea id="ser" class="sheet-textarea" rows="3" placeholder="Características anatômicas..."></textarea>
+      <!-- Ser + Estudos (esquerda) e Conhecimentos (direita, altura combinada) -->
+      <div class="panel-row panel-row--complemento">
+        <div class="sheet-field sheet-field--half sheet-field--ser-estudos">
+          <div class="sheet-field-group">
+            <label for="ser" class="sheet-label">Ser</label>
+            <textarea id="ser" class="sheet-textarea" rows="3" placeholder="Características anatômicas..."></textarea>
+          </div>
+          <div class="sheet-field-group">
+            <label for="estudos" class="sheet-label">Estudos</label>
+            <textarea id="estudos" class="sheet-textarea" rows="3" placeholder="Lista de estudos..."></textarea>
+          </div>
         </div>
         
-        <div class="sheet-field sheet-field--half">
-          <label for="estudos" class="sheet-label">Estudos</label>
-          <textarea id="estudos" class="sheet-textarea" rows="3" placeholder="Lista de conhecimentos..."></textarea>
-        </div>
-      </div>
-      
-      <!-- Técnicas e Magias -->
-      <div class="panel-row">
-        <div class="sheet-field sheet-field--half">
-          <label for="tecnicas" class="sheet-label">Técnicas Marciais</label>
-          <textarea id="tecnicas" class="sheet-textarea" rows="3" placeholder="Lista de técnicas..."></textarea>
-        </div>
-        
-        <div class="sheet-field sheet-field--half">
-          <label for="magias" class="sheet-label">Estudos Mágicos</label>
-          <textarea id="magias" class="sheet-textarea" rows="3" placeholder="Lista de magias..."></textarea>
+        <div class="sheet-field sheet-field--half sheet-field--conhecimentos">
+          <label for="conhecimentos" class="sheet-label">Conhecimentos</label>
+          <textarea id="conhecimentos" class="sheet-textarea sheet-textarea--conhecimentos" rows="8" placeholder="Lista de técnicas, magias..."></textarea>
         </div>
       </div>
 
@@ -131,6 +129,11 @@
           <textarea id="classes" class="sheet-textarea" rows="3" placeholder="Características de classe..."></textarea>
         </div>
       </div>
+    </div>
+    
+    <!-- PAINEL NARRATIVA -->
+    <div id="panel-narrativa" class="sheet-panel" hidden>
+      <h3 class="panel-title">Narrativa</h3>
       
       <!-- XP -->
       <div class="panel-row panel-row--xp">
@@ -147,11 +150,6 @@
           <input type="number" id="xpp" class="xp-input" min="0" value="0">
         </div>
       </div>
-    </div>
-    
-    <!-- PAINEL NARRATIVA -->
-    <div id="panel-narrativa" class="sheet-panel" hidden>
-      <h3 class="panel-title">Narrativa</h3>
       
       <!-- Linha 1: Arquétipo, Motivação, Disposição, Segredos -->
       <div class="panel-row panel-row--quad">
@@ -194,7 +192,15 @@
     <div id="panel-itens" class="sheet-panel" hidden>
       <h3 class="panel-title">Itens e Equipamentos</h3>
       
-      <!-- Linha 1: Fo, Dp, Tc -->
+      <!-- Lista de Itens (movida para cima) -->
+      <div class="panel-row">
+        <div class="sheet-field sheet-field--full">
+          <label for="itens-lista" class="sheet-label">Itens</label>
+          <textarea id="itens-lista" class="sheet-textarea" rows="5" placeholder="Lista de itens carregados..."></textarea>
+        </div>
+      </div>
+      
+      <!-- Fo, Dp, Tc -->
       <div class="panel-row panel-row--triple">
         <div class="sheet-field sheet-field--third">
           <label for="fo" class="sheet-label">Fo</label>
@@ -212,7 +218,7 @@
         </div>
       </div>
       
-      <!-- Linha 2: Limites de Peso -->
+      <!-- Limites de Peso -->
       <div class="panel-row panel-row--limits">
         <span class="limit-title">Limites de Peso</span>
         <div class="limit-field">
@@ -228,19 +234,20 @@
           <input type="number" id="peso-total" class="limit-input" min="0" value="0">
         </div>
       </div>
-      
-      <!-- Linha 3: Lista de Itens -->
-      <div class="panel-row">
-        <div class="sheet-field sheet-field--full">
-          <label for="itens-lista" class="sheet-label">Itens</label>
-          <textarea id="itens-lista" class="sheet-textarea" rows="5" placeholder="Lista de itens carregados..."></textarea>
-        </div>
-      </div>
     </div>
 
-    <!-- BOTÃO LIMPAR -->
-    <button id="clear-sheet-button" class="sheet-clear-button">Limpar Ficha</button>
+    <!-- =========================
+         AÇÕES UNIFICADAS
+    ========================= -->
+    <div class="sheet-actions-section">
+      <button id="clear-sheet-button" class="sheet-action-button">Limpar Ficha</button>
+      <button id="save-to-player-area" class="sheet-action-button">Salvar na Área do Jogador</button>
+      <button id="export-sheet" class="sheet-action-button">📤 Exportar</button>
+      <button id="import-sheet" class="sheet-action-button">📥 Importar</button>
+      <input type="file" id="import-file" accept=".json,application/json" style="display: none;">
+    </div>
 
+    <!-- Confirmação de limpeza -->
     <div id="clear-confirmation" class="clear-confirmation" hidden>
       <p>Tem certeza?</p>
       <div class="clear-actions">
@@ -249,30 +256,9 @@
       </div>
     </div>
 
-    <!-- pages/sheet-modal.html -->
-    <div class="sheet-export-import-section">
-      <div class="sheet-export-import-buttons">
-        <button id="export-sheet" class="sheet-export-button">
-          <span class="export-icon">📤</span>
-          Exportar
-        </button>
-        <button id="import-sheet" class="sheet-import-button">
-          <span class="import-icon">📥</span>
-          Importar
-        </button>
-      </div>
-      <input type="file" id="import-file" accept=".json,application/json" style="display: none;">
-      <div id="import-feedback" class="import-feedback" hidden></div>
-    </div>
+    <!-- Feedbacks -->
+    <div id="import-feedback" class="import-feedback" hidden></div>
+    <div id="save-feedback" class="save-feedback" hidden>✅ Ficha Salva na Área do Jogador</div>
 
-    <!-- Botão Salvar na Área do Jogador -->
-    <div class="sheet-save-section">
-      <button id="save-to-player-area" class="sheet-save-button">
-        <span class="save-icon">📋</span>
-        Salvar na Área do Jogador
-      </button>
-      <div id="save-feedback" class="save-feedback" hidden>✅ Ficha Salva na Área do Jogador</div>
-    </div>
-
-  </div> <!-- sheet-content -->
-</div> <!-- sheet-modal -->
+  </div>
+</div>
