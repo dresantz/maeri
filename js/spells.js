@@ -415,6 +415,24 @@ const SpellsManager = (function() {
       }
     });
     
+    // Botões rápidos: Ficha e Dados
+    const toSheetBtn = document.getElementById('spells-to-sheet');
+    const toDiceBtn = document.getElementById('spells-to-dice');
+
+    if (toSheetBtn) {
+      toSheetBtn.addEventListener('click', () => {
+        closeSpells();
+        document.getElementById('sheet-button')?.click();
+      });
+    }
+
+    if (toDiceBtn) {
+      toDiceBtn.addEventListener('click', () => {
+        closeSpells();
+        document.getElementById('dice-toggle')?.click();
+      });
+    }
+
     const searchInput = document.getElementById('spells-search');
     if (searchInput) {
       searchInput.addEventListener('input', () => {

@@ -89,6 +89,24 @@ const DiceManager = (function() {
       }
     });
     
+    // Botões rápidos: Ficha e Magias
+    const toSheetBtn = document.getElementById('dice-to-sheet');
+    const toSpellsBtn = document.getElementById('dice-to-spells');
+
+    if (toSheetBtn) {
+      toSheetBtn.addEventListener('click', () => {
+        closeDice();
+        document.getElementById('sheet-button')?.click();
+      });
+    }
+
+    if (toSpellsBtn) {
+      toSpellsBtn.addEventListener('click', () => {
+        closeDice();
+        document.getElementById('spells-button')?.click();
+      });
+    }
+
   }
   
   // ===== API PÚBLICA =====

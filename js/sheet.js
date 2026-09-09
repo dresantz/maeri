@@ -43,6 +43,21 @@ const SheetManager = (function() {
     }
   }
   
+  function scrollModalToBottom() {
+    const modal = getModal();
+    if (!modal) return;
+    
+    const scrollable = modal.querySelector('.sheet-content');
+    if (scrollable) {
+      requestAnimationFrame(() => {
+        scrollable.scrollTo({
+          top: scrollable.scrollHeight,
+          behavior: 'smooth'
+        });
+      });
+    }
+  }
+  
   function showFeedback(message, type = 'success', elementId = 'import-feedback') {
     const feedback = document.getElementById(elementId);
     if (!feedback) return;
@@ -51,6 +66,9 @@ const SheetManager = (function() {
     feedback.textContent = message;
     feedback.className = `${baseClass} ${type}`;
     feedback.hidden = false;
+    
+    // ✨ Rola o modal até a parte inferior
+    scrollModalToBottom();
     
     setTimeout(() => {
       feedback.hidden = true;
@@ -482,7 +500,11 @@ const SheetManager = (function() {
     const confirmBox = document.getElementById('clear-confirmation');
     
     if (clearBtn && confirmBtn && cancelBtn && confirmBox) {
-      clearBtn.addEventListener('click', () => confirmBox.hidden = false);
+      clearBtn.addEventListener('click', () => {
+        confirmBox.hidden = false;
+        scrollModalToBottom(); // 🆕 rola até a confirmação
+      });
+      
       cancelBtn.addEventListener('click', () => confirmBox.hidden = true);
       confirmBtn.addEventListener('click', clearSheet);
     }
@@ -499,6 +521,24 @@ const SheetManager = (function() {
     }
     
     document.getElementById('save-to-player-area')?.addEventListener('click', saveToPlayerArea);
+    
+    // Botões rápidos: Magias e Dados
+    const toSpellsBtn = document.getElementById('sheet-to-spells');
+    const toDiceBtn = document.getElementById('sheet-to-dice');
+    
+    if (toSpellsBtn) {
+      toSpellsBtn.addEventListener('click', () => {
+        closeSheet();
+        document.getElementById('spells-button')?.click();
+      });
+    }
+    
+    if (toDiceBtn) {
+      toDiceBtn.addEventListener('click', () => {
+        closeSheet();
+        document.getElementById('dice-toggle')?.click();
+      });
+    }
     
     // Fechar com ESC
     document.addEventListener('keydown', (e) => {
