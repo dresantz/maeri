@@ -5,18 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0a0a12">
   
-
-    <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GZK5KHBGQZ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-GZK5KHBGQZ');
-  </script>
-
-
   <title>Construtor - Maeri RPG</title>
 
   <!-- Manifest do PWA -->
@@ -43,6 +31,7 @@
   <link rel="stylesheet" href="../css/sheet.css" />
   <link rel="stylesheet" href="../css/spells.css" />
   <link rel="stylesheet" href="../css/3d-dice.css" />
+  <link rel="stylesheet" href="../css/settings-modal.css" />
   
   <!-- Estilos da Área do Jogador -->
   <link rel="stylesheet" href="../css/builder/player-tabs.css" />
@@ -59,6 +48,12 @@
 
 <body>
   <header class="app-header">
+    <button id="settings-button" class="settings-button" aria-label="Configurações">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+    </button>
     <h1>Área do Jogador</h1>
     <p class="subtitle">Forjando Heróis</p>
   </header>
@@ -77,40 +72,34 @@
     <!-- Painel Construtor -->
     <section id="builder-panel" class="tab-panel active" role="tabpanel" aria-labelledby="tab-builder">
       <div class="builder-grid">
-        <h2 class="builder-title">Construção de Personagem</h2>
         <p class="builder-subtitle">Siga as etapas para criar seu herói</p>
         
+        <!-- Barra horizontal de etapas compactas -->
         <div class="builder-steps">
           <button class="builder-step" data-step="1">
             <span class="step-number">1</span>
             <span class="step-title">Mentalidade</span>
-            <span class="step-desc">Escolha sua essência</span>
           </button>
           
           <button class="builder-step" data-step="2">
             <span class="step-number">2</span>
             <span class="step-title">Complementos</span>
-            <span class="step-desc">Aprimore suas habilidades</span>
           </button>
           
           <button class="builder-step" data-step="3">
             <span class="step-number">3</span>
             <span class="step-title">Narrativa</span>
-            <span class="step-desc">Forje sua história</span>
           </button>
           
           <button class="builder-step" data-step="4">
             <span class="step-number">4</span>
             <span class="step-title">Inventário</span>
-            <span class="step-desc">Equipe seu herói</span>
           </button>
 
-          <button class="builder-step builder-step--levelup" data-step="levelup">
+          <button class="builder-step" data-step="levelup">
             <span class="step-number">⬆</span>
             <span class="step-title">Level Up</span>
-            <span class="step-desc">Evolua seu herói</span>
           </button>
-
         </div>
 
         <!-- Área de preview do construtor -->
@@ -132,7 +121,6 @@
           </h3>
           
           <div class="chars-grid saved-chars">
-            <!-- Cards de personagens salvos (vazios inicialmente) -->
             <div class="char-card char-card--empty">
               <div class="char-card-content">
                 <span class="char-plus">+</span>
@@ -156,19 +144,14 @@
           </div>
         </div>
 
-        <!-- Área de Personagens Prontos - Apenas o container -->
+        <!-- Área de Personagens Prontos -->
         <div class="chars-ready-section">
           <h3 class="chars-section-title">
             <span class="title-icon">📜</span>
             Personagens Prontos
           </h3>
-          
-          <!-- O grid vazio será preenchido pelo JavaScript -->
-          <div class="chars-grid ready-chars">
-            <!-- Cards serão inseridos aqui dinamicamente -->
-          </div>
+          <div class="chars-grid ready-chars"></div>
         </div>
-
       </div>
     </section>
   </main>
@@ -192,21 +175,17 @@
   <div id="modal-root"></div>
   
   <script type="module">
-    // 1. Carrega modais globais primeiro
     import { loadGlobalModals } from '../js/modalLoader.js';
     
-    // 2. Inicializa após modais carregados
     document.addEventListener('modals:loaded', () => {
       import('../js/sheet.js');
       import('../js/spells.js');
       import('../js/dice.js');
     });
     
-    // 3. Carrega modais
     loadGlobalModals();
   </script>
 
-  <!-- PlayerAreaManager separado para clareza -->
   <script type="module">
     import PlayerAreaManager from '../js/builder/builder.js';
     
@@ -221,8 +200,6 @@
     }
   </script>
 
-  <!-- Registrar Service Worker para PWA -->
   <script src="../js/pwa-update.js"></script>
-
 </body>
 </html>

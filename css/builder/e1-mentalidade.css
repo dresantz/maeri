@@ -12,18 +12,18 @@
   font-size: 1.2rem;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+  border-bottom: 2px solid var(--gold-border);
 }
 
 /* Tabela de Mentalidades */
 .mentalidade-table-container {
   overflow-x: auto;
-  margin-bottom: 2rem;
+  margin: 2rem;
   background: var(--surface-light);
   border-radius: var(--radius);
-  border: 2px solid rgba(212, 175, 55, 0.2);
+  border: 2px solid var(--gold-border);
 }
 
 .mentalidade-table {
@@ -53,7 +53,7 @@
 }
 
 .mentalidade-table tbody tr:hover {
-  background: rgba(212, 175, 55, 0.1);
+  background: var(--surface-hover);
 }
 
 .mentalidade-table .loading-row,
@@ -70,11 +70,11 @@
 
 /* Informações e fórmulas */
 .mentalidade-info {
-  background: rgba(26, 26, 46, 0.8);
-  border: 2px solid rgba(212, 175, 55, 0.2);
+  background: var(--surface);
+  border: 2px solid var(--gold-border);
   border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-top: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.1rem;
 }
 
 .mentalidade-info p {
@@ -110,39 +110,26 @@
   color: var(--gold);
 }
 
-/* Responsivo */
-@media (min-width: 768px) {
-  .mentalidade-table th,
-  .mentalidade-table td {
-    padding: 1.2rem 1rem;
-  }
-}
+/* =========================
+   Mobile (até 768px)
+========================= */
 
-/* Mobile */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .mentalidade-table-container {
+    margin: 1rem 0;
+  }
+
   .mentalidade-table th,
   .mentalidade-table td {
     padding: 0.8rem 0.5rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
-  
+
   .mentalidade-info {
     padding: 1rem;
   }
-  
+
   .mentalidade-info p {
     font-size: 1rem;
-  }
-}
-
-/* Reutiliza a animação do builder-base */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }

@@ -1,23 +1,14 @@
 /* =========================
    Maeri RPG - Builder Base
    Estilos base para o Construtor de Personagem
+   (desktop first)
 ========================= */
 
 /* Grid principal do builder */
 .builder-grid {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   animation: fadeIn 0.3s ease;
-}
-
-.builder-title {
-  color: var(--gold);
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 0.3rem;
-  text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
 }
 
 .builder-subtitle {
@@ -26,146 +17,77 @@
   font-style: italic;
   text-align: center;
   font-size: 1rem;
-  margin-top: -0.5rem;
 }
 
-/* Grid de etapas */
+/* =========================
+   Etapas
+========================= */
+
 .builder-steps {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
-/* Cards de etapa */
-.builder-step {
-  background: linear-gradient(145deg, var(--surface) 0%, var(--surface-light) 100%);
-  border: 2px solid rgba(212, 175, 55, 0.2);
-  border-radius: var(--radius);
-  padding: 1.5rem 0.8rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  -webkit-tap-highlight-color: transparent;
-  position: relative;
-  overflow: hidden;
+  gap: 0.1rem;
+  margin-top: 0.5rem;
+  width: 100%;
 }
 
-.builder-step::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
+/* Botões de etapa (todos com o mesmo estilo) */
+.builder-step {
+  flex: 1 1 0;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--gold-border);
+  border-radius: 10px;
+  padding: 0.8rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .builder-step:hover {
-  transform: translateY(-4px);
+  background: var(--surface-hover);
   border-color: var(--gold);
-  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
 }
 
-.builder-step:hover::before {
-  transform: translateX(100%);
-}
-
-.builder-step:active {
-  transform: translateY(-2px);
+.builder-step.active {
+  background: var(--surface-hover);
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
 .step-number {
-  font-size: 2.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--gold);
   line-height: 1;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
 
 .step-title {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text);
-  margin: 0.3rem 0;
+  margin: 0;
+  white-space: nowrap;
 }
 
-.step-desc {
-  font-family: 'Crimson Text', serif;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
+/* =========================
+   Área de preview
+========================= */
 
-/* Estilo especial para o botão Level Up */
-.builder-step--levelup {
-  grid-column: 1 / -1;
-  max-width: 280px;
-  margin: 0 auto;
-  width: 100%;
-  background: linear-gradient(145deg, #2a1a3a 0%, #3a2a4a 100%);
-  border-color: rgba(255, 215, 0, 0.4);
-  position: relative;
-  animation: glowPulse 3s infinite;
-}
-
-.builder-step--levelup .step-number {
-  font-size: 2rem;
-  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
-}
-
-.builder-step--levelup .step-title {
-  color: #ffd966;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.builder-step--levelup .step-desc {
-  color: #c0a0e0;
-}
-
-.builder-step--levelup:hover {
-  transform: translateY(-4px) scale(1.02);
-  border-color: #ffd700;
-  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.3);
-}
-
-.builder-step--levelup::after {
-  content: '✦';
-  position: absolute;
-  color: var(--gold);
-  top: -15px;
-  right: 0px;
-  font-size: 3rem;
-  filter: drop-shadow(0 0 6px gold);
-  animation: sparkle 2s infinite;
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0.8; transform: rotate(0deg) scale(1); }
-  50% { opacity: 1; transform: rotate(10deg) scale(1.2); }
-}
-
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2); }
-  50% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4); }
-}
-
-/* Área de preview do construtor */
 .builder-preview {
+  flex: 1;
   background: var(--surface);
-  border: 2px dashed rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--gold-border);
   border-radius: var(--radius);
-  padding: 2rem 1rem;
-  margin-top: 1rem;
-  min-height: 200px;
+  padding: 1.5rem;
+  min-height: 50vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
 }
 
@@ -193,60 +115,37 @@
   }
 }
 
-/* Estados ativos para etapas */
-.builder-step.active {
-  border-color: var(--gold);
-  background: linear-gradient(145deg, var(--surface) 0%, #2a2a4a 100%);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-}
+/* =========================
+   Mobile (até 768px)
+========================= */
 
-.builder-step.active .step-number {
-  color: #ffd966;
-}
-
-/* Estado ativo especial para Level Up */
-.builder-step--levelup.active {
-  background: linear-gradient(145deg, #3a2a4a 0%, #4a3a5a 100%);
-  border-color: #ffd700;
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-}
-
-.builder-step--levelup.active .step-number {
-  color: #fff0b0;
-  animation: none;
-}
-
-/* Responsivo */
-@media (min-width: 480px) {
+@media (max-width: 768px) {
   .builder-steps {
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.3rem;
   }
-  
+
   .builder-step {
-    padding: 1.8rem 0.5rem;
+    flex: 0 0 auto;
+    min-width: 110px;
+    scroll-snap-align: center;
+    border-radius: 8px;
+    padding: 0.5rem 0.4rem;
   }
-  
+
   .step-number {
-    font-size: 2.2rem;
-  }
-  
-  .step-title {
     font-size: 1rem;
   }
-  
-  /* Ajuste para o botão Level Up em telas maiores */
-  .builder-step--levelup {
-    max-width: 320px;
-    margin-top: 0.5rem;
-  }
-}
 
-@media (min-width: 768px) {
-  .builder-preview {
-    min-height: 300px;
+  .step-title {
+    font-size: 0.8rem;
   }
-  
-  .builder-step--levelup {
-    max-width: 350px;
+
+  /* Oculta a barra de rolagem no WebKit */
+  .builder-steps::-webkit-scrollbar {
+    display: none;
   }
 }

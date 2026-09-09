@@ -13,94 +13,202 @@ class NarrativaManager {
     this.selectedArquetipo = null;
     this.selectedMotivacao = null;
     this.selectedContato = null;
-    
+
+    // Referências para os containers (preenchidos no buildStructure)
+    this.containers = {
+      arquetiposButtons: null,
+      arquetipoDetails: null,
+      motivacoesButtons: null,
+      motivacaoDetails: null,
+      disposicaoText: null,
+      contatosButtons: null,
+      contatoDetails: null,
+    };
+
     // Caminhos dos dados padronizados
     this.DATA_PATHS = {
       PERSONAGEM: '../data/rulebook/02-personagem.json',
       SOCIAL: '../data/rulebook/05-circulo-social-comercio.json'
     };
+
+    // Configura a delegação de eventos (uma única vez, pois o previewElement não é recriado)
+    this.setupEventDelegation();
   }
 
+  // ===== MÉTODO PRINCIPAL =====
   render() {
     if (!this.previewElement) return;
-    
-    this.previewElement.innerHTML = `
-      <div class="narrativa-container">
-        <!-- Seção de Arquétipos -->
-        <p class="narrativa-intro">Escolha o arquétipo do seu personagem:</p>
-        
-        <div class="arquetipos-buttons" id="arquetipos-buttons-container">
-          <div class="loading-state">
-            <span class="spinner"></span>
-            <span>Carregando arquétipos...</span>
-          </div>
-        </div>
-        
-        <div class="arquetipo-details" id="arquetipo-details-container" style="display: none;">
-          <h3 class="arquetipo-title"></h3>
-          <div class="arquetipo-descricao"></div>
-        </div>
 
-        <!-- Seção de Motivações -->
-        <div class="motivacoes-section">
-          <p class="motivacoes-intro">Escolha a motivação do seu personagem:</p>
-          
-          <div class="motivacoes-buttons" id="motivacoes-buttons-container">
-            <div class="loading-state">
-              <span class="spinner"></span>
-              <span>Carregando motivações...</span>
-            </div>
-          </div>
-          
-          <div class="motivacao-details" id="motivacao-details-container" style="display: none;">
-            <h3 class="motivacao-title"></h3>
-            <div class="motivacao-descricao"></div>
-          </div>
-        </div>
+    // Limpa o previewElement antes de construir o novo conteúdo
+    this.previewElement.innerHTML = '';
 
-        <!-- Seção de Disposição -->
-        <div class="disposicao-section">
-          <p class="disposicao-intro">A Disposição é:</p>
-          <div class="disposicao-text" id="disposicao-text-container">
-            <div class="loading-state">
-              <span class="spinner"></span>
-              <span>Carregando...</span>
-            </div>
-          </div>
-        </div>
+    // Constrói a estrutura do zero
+    this.buildStructure();
 
-        <!-- Seção de Contatos -->
-        <div class="contatos-section">
-          <p class="contatos-intro">Escolha os Contatos</p>
-          <p class="contatos-descricao">O jogador pode escolher sua I em contatos, ou deixar para depois, não precisa estar na lista, porém, para adquirir itens em uma loja, é necessário ter o Contato específico.</p>
-          
-          <div class="contatos-buttons" id="contatos-buttons-container">
-            <div class="loading-state">
-              <span class="spinner"></span>
-              <span>Carregando contatos...</span>
-            </div>
-          </div>
-          
-          <div class="contato-details" id="contato-details-container" style="display: none;">
-            <h3 class="contato-title"></h3>
-            <div class="contato-descricao"></div>
-            <div class="contato-itens">
-              <h4>Itens Disponíveis</h4>
-              <div class="itens-list"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    
-    // Configura delegação de eventos
-    this.setupEventDelegation();
-    
-    // Carrega os dados
+    // Carrega os dados e preenche os botões
     this.loadArquetiposData();
     this.loadMotivacoesData();
     this.loadDisposicaoData();
     this.loadContatosData();
+
+    // Restaura seleções (se houver) após carregar os dados
+    this.restoreSelections();
+  }
+
+  // ===== CONSTRUÇÃO DA ESTRUTURA DOM =====
+  buildStructure() {
+    const fragment = document.createDocumentFragment();
+    const container = document.createElement('div');
+    container.className = 'narrativa-container';
+
+    // --- Arquétipos ---
+    const introArq = document.createElement('p');
+    introArq.className = 'narrativa-intro';
+    introArq.textContent = 'Escolha o arquétipo do seu personagem:';
+    container.appendChild(introArq);
+
+    const arquetiposButtonsContainer = document.createElement('div');
+    arquetiposButtonsContainer.id = 'arquetipos-buttons-container';
+    arquetiposButtonsContainer.className = 'arquetipos-buttons';
+    arquetiposButtonsContainer.innerHTML = `
+      <div class="loading-state">
+        <span class="spinner"></span>
+        <span>Carregando arquétipos...</span>
+      </div>
+    `;
+    container.appendChild(arquetiposButtonsContainer);
+    this.containers.arquetiposButtons = arquetiposButtonsContainer;
+
+    const arquetipoDetailsContainer = document.createElement('div');
+    arquetipoDetailsContainer.id = 'arquetipo-details-container';
+    arquetipoDetailsContainer.className = 'arquetipo-details';
+    arquetipoDetailsContainer.style.display = 'none';
+    arquetipoDetailsContainer.innerHTML = `
+      <h3 class="arquetipo-title"></h3>
+      <div class="arquetipo-descricao"></div>
+    `;
+    container.appendChild(arquetipoDetailsContainer);
+    this.containers.arquetipoDetails = arquetipoDetailsContainer;
+
+    // --- Motivações ---
+    const motivacoesSection = document.createElement('div');
+    motivacoesSection.className = 'motivacoes-section';
+    container.appendChild(motivacoesSection);
+
+    const introMot = document.createElement('p');
+    introMot.className = 'motivacoes-intro';
+    introMot.textContent = 'Escolha a motivação do seu personagem:';
+    motivacoesSection.appendChild(introMot);
+
+    const motivacoesButtonsContainer = document.createElement('div');
+    motivacoesButtonsContainer.id = 'motivacoes-buttons-container';
+    motivacoesButtonsContainer.className = 'motivacoes-buttons';
+    motivacoesButtonsContainer.innerHTML = `
+      <div class="loading-state">
+        <span class="spinner"></span>
+        <span>Carregando motivações...</span>
+      </div>
+    `;
+    motivacoesSection.appendChild(motivacoesButtonsContainer);
+    this.containers.motivacoesButtons = motivacoesButtonsContainer;
+
+    const motivacaoDetailsContainer = document.createElement('div');
+    motivacaoDetailsContainer.id = 'motivacao-details-container';
+    motivacaoDetailsContainer.className = 'motivacao-details';
+    motivacaoDetailsContainer.style.display = 'none';
+    motivacaoDetailsContainer.innerHTML = `
+      <h3 class="motivacao-title"></h3>
+      <div class="motivacao-descricao"></div>
+    `;
+    motivacoesSection.appendChild(motivacaoDetailsContainer);
+    this.containers.motivacaoDetails = motivacaoDetailsContainer;
+
+    // --- Disposição ---
+    const disposicaoSection = document.createElement('div');
+    disposicaoSection.className = 'disposicao-section';
+    container.appendChild(disposicaoSection);
+
+    const introDisp = document.createElement('p');
+    introDisp.className = 'disposicao-intro';
+    introDisp.textContent = 'A Disposição é:';
+    disposicaoSection.appendChild(introDisp);
+
+    const disposicaoTextContainer = document.createElement('div');
+    disposicaoTextContainer.id = 'disposicao-text-container';
+    disposicaoTextContainer.className = 'disposicao-text';
+    disposicaoTextContainer.innerHTML = `
+      <div class="loading-state">
+        <span class="spinner"></span>
+        <span>Carregando...</span>
+      </div>
+    `;
+    disposicaoSection.appendChild(disposicaoTextContainer);
+    this.containers.disposicaoText = disposicaoTextContainer;
+
+    // --- Contatos ---
+    const contatosSection = document.createElement('div');
+    contatosSection.className = 'contatos-section';
+    container.appendChild(contatosSection);
+
+    const introCont = document.createElement('p');
+    introCont.className = 'contatos-intro';
+    introCont.textContent = 'Escolha os Contatos';
+    contatosSection.appendChild(introCont);
+
+    const descCont = document.createElement('p');
+    descCont.className = 'contatos-descricao';
+    descCont.textContent = 'O jogador pode escolher sua I em contatos, ou deixar para depois, não precisa estar na lista, porém, para adquirir itens em uma loja, é necessário ter o Contato específico.';
+    contatosSection.appendChild(descCont);
+
+    const contatosButtonsContainer = document.createElement('div');
+    contatosButtonsContainer.id = 'contatos-buttons-container';
+    contatosButtonsContainer.className = 'contatos-buttons';
+    contatosButtonsContainer.innerHTML = `
+      <div class="loading-state">
+        <span class="spinner"></span>
+        <span>Carregando contatos...</span>
+      </div>
+    `;
+    contatosSection.appendChild(contatosButtonsContainer);
+    this.containers.contatosButtons = contatosButtonsContainer;
+
+    const contatoDetailsContainer = document.createElement('div');
+    contatoDetailsContainer.id = 'contato-details-container';
+    contatoDetailsContainer.className = 'contato-details';
+    contatoDetailsContainer.style.display = 'none';
+    contatoDetailsContainer.innerHTML = `
+      <h3 class="contato-title"></h3>
+      <div class="contato-descricao"></div>
+      <div class="contato-itens">
+        <h4>Itens Disponíveis</h4>
+        <div class="itens-list"></div>
+      </div>
+    `;
+    contatosSection.appendChild(contatoDetailsContainer);
+    this.containers.contatoDetails = contatoDetailsContainer;
+
+    // Adiciona o container completo ao preview
+    this.previewElement.appendChild(container);
+  }
+
+  // ===== DELEGAÇÃO DE EVENTOS =====
+  setupEventDelegation() {
+    this.previewElement.addEventListener('click', (event) => {
+      // VERIFICAÇÃO ADICIONADA: só processa cliques dentro do container do NarrativaManager
+      const container = event.target.closest('.narrativa-container');
+      if (!container) return;
+
+      const button = event.target.closest('.arquetipo-button, .motivacao-button, .contato-button');
+      if (!button) return;
+
+      if (button.classList.contains('arquetipo-button')) {
+        this.selectArquetipo(parseInt(button.dataset.arquetipoIndex, 10));
+      } else if (button.classList.contains('motivacao-button')) {
+        this.selectMotivacao(parseInt(button.dataset.motivacaoIndex, 10));
+      } else if (button.classList.contains('contato-button')) {
+        this.selectContato(parseInt(button.dataset.contatoIndex, 10));
+      }
+    });
   }
 
   // ===== UTILITÁRIOS =====
@@ -125,14 +233,32 @@ class NarrativaManager {
 
   closeWithAnimation(container, callback) {
     if (!container) return;
-    
+    if (container.style.display === 'none') {
+      if (callback) callback();
+      return;
+    }
     container.classList.add('closing');
-    
     setTimeout(() => {
       container.style.display = 'none';
       container.classList.remove('closing');
       if (callback) callback();
     }, 300);
+  }
+
+  // Fecha todos os detalhes, exceto o container especificado
+  closeAllDetails(excludeContainer = null) {
+    const allDetails = [
+      this.containers.arquetipoDetails,
+      this.containers.motivacaoDetails,
+      this.containers.contatoDetails
+    ];
+
+    allDetails.forEach(container => {
+      if (container && container !== excludeContainer) {
+        container.style.display = 'none';
+        container.classList.remove('closing');
+      }
+    });
   }
 
   validateSelections() {
@@ -141,68 +267,59 @@ class NarrativaManager {
       motivacao: this.selectedMotivacao,
       contato: this.selectedContato
     };
-    
+
     const event = new CustomEvent('narrativa:updated', {
       detail: selections,
       bubbles: true
     });
-    
     this.previewElement?.dispatchEvent(event);
-    
     return selections;
   }
 
-  setupEventDelegation() {
-    if (!this.previewElement) return;
-    
-    this.previewElement.addEventListener('click', (event) => {
-      const button = event.target.closest('.arquetipo-button, .motivacao-button, .contato-button');
-      if (!button) return;
-      
-      if (button.classList.contains('arquetipo-button')) {
-        this.selectArquetipo(button.dataset.arquetipoIndex);
-      } else if (button.classList.contains('motivacao-button')) {
-        this.selectMotivacao(button.dataset.motivacaoIndex);
-      } else if (button.classList.contains('contato-button')) {
-        this.selectContato(button.dataset.contatoIndex);
-      }
-    });
+  // ===== RESTAURAÇÃO DE SELEÇÕES =====
+  restoreSelections() {
+    if (this.selectedArquetipo) {
+      this.selectArquetipo(this.selectedArquetipo.index, true);
+    }
+    if (this.selectedMotivacao) {
+      this.selectMotivacao(this.selectedMotivacao.index, true);
+    }
+    if (this.selectedContato) {
+      this.selectContato(this.selectedContato.index, true);
+    }
   }
 
-  // ===== ARQUÉTIPOS =====
+  // ==========================================================
+  // ARQUÉTIPOS
+  // ==========================================================
   async loadArquetiposData() {
     try {
       const response = await fetch(this.DATA_PATHS.PERSONAGEM);
-      
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
       const data = await response.json();
-      
       if (!data.sections || !Array.isArray(data.sections)) {
         throw new Error('Formato de dados inválido: sections não encontrada');
       }
-      
+
       const arquetipoSection = data.sections.find(s => s.topic_id === 'arquetipo');
-      
       if (!arquetipoSection) {
         throw new Error('Seção de arquétipos não encontrada');
       }
-      
+
       const listaArquetipos = arquetipoSection.content.find(c => c.type === 'list');
-      
       if (!listaArquetipos || !listaArquetipos.items) {
         throw new Error('Lista de arquétipos não encontrada');
       }
-      
+
       this.processarArquetipos(listaArquetipos.items);
-      
       if (!this.arquetiposData || this.arquetiposData.length === 0) {
         throw new Error('Nenhum arquétipo encontrado');
       }
-      
+
       this.renderArquetiposButtons();
+      this.restoreSelections();
     } catch (error) {
       console.error('Erro ao carregar dados dos arquétipos:', error);
       this.showSectionError('arquetipos-buttons-container', 'Erro ao carregar arquétipos');
@@ -214,241 +331,186 @@ class NarrativaManager {
       const firstColonIndex = item.indexOf('.');
       const titulo = item.substring(0, firstColonIndex).trim();
       const descricao = item.substring(firstColonIndex + 1).trim();
-      
-      return {
-        titulo: titulo,
-        descricao: descricao
-      };
+      return { titulo, descricao };
     });
   }
 
   renderArquetiposButtons() {
-    const container = document.getElementById('arquetipos-buttons-container');
+    const container = this.containers.arquetiposButtons;
     if (!container || !this.arquetiposData) return;
-    
-    let buttonsHtml = '';
+
+    const fragment = document.createDocumentFragment();
     this.arquetiposData.forEach((arquetipo, index) => {
-      buttonsHtml += `
-        <button class="arquetipo-button" data-arquetipo-index="${index}">
-          ${arquetipo.titulo}
-        </button>
-      `;
+      const btn = document.createElement('button');
+      btn.className = 'arquetipo-button';
+      btn.dataset.arquetipoIndex = index;
+      btn.textContent = arquetipo.titulo;
+      fragment.appendChild(btn);
     });
-    
-    container.innerHTML = buttonsHtml;
+
+    container.replaceChildren(fragment);
   }
 
-  selectArquetipo(index) {
-    const detailsContainer = document.getElementById('arquetipo-details-container');
-    const selectedButton = document.querySelector(`[data-arquetipo-index="${index}"]`);
-    
-    const isSameArquetipo = this.selectedArquetipo && this.selectedArquetipo.index === index;
-    
-    if (isSameArquetipo) {
-      this.closeWithAnimation(detailsContainer, () => {
-        this.selectedArquetipo = null;
-        this.validateSelections();
-      });
-      
-      document.querySelectorAll('.arquetipo-button').forEach(btn => {
-        btn.classList.remove('selected');
-      });
-      
+  selectArquetipo(index, skipToggle = false) {
+    const detailsContainer = this.containers.arquetipoDetails;
+    const selectedButton = this.containers.arquetiposButtons.querySelector(`[data-arquetipo-index="${index}"]`);
+
+    // Se for restauração e já está selecionado, não faz nada
+    if (skipToggle && this.selectedArquetipo && this.selectedArquetipo.index === index) {
       return;
     }
-    
-    document.querySelectorAll('.arquetipo-button').forEach(btn => {
-      btn.classList.remove('selected');
-    });
-    
-    if (selectedButton) {
-      selectedButton.classList.add('selected');
-    }
-    
-    this.selectedArquetipo = {
-      index: index,
-      data: this.arquetiposData[index]
-    };
-    
+
+    // Remove seleção de todos os botões
+    this.containers.arquetiposButtons.querySelectorAll('.arquetipo-button').forEach(btn => btn.classList.remove('selected'));
+    if (selectedButton) selectedButton.classList.add('selected');
+
+    // Fecha todos os outros detalhes
+    this.closeAllDetails(detailsContainer);
+
+    this.selectedArquetipo = { index, data: this.arquetiposData[index] };
     this.renderArquetipoDetails();
     this.validateSelections();
   }
 
   renderArquetipoDetails() {
     if (!this.selectedArquetipo) return;
-    
-    const detailsContainer = document.getElementById('arquetipo-details-container');
+
+    const detailsContainer = this.containers.arquetipoDetails;
     const titleElement = detailsContainer.querySelector('.arquetipo-title');
     const descricaoElement = detailsContainer.querySelector('.arquetipo-descricao');
-    
+
     const arquetipo = this.selectedArquetipo.data;
-    
     titleElement.textContent = arquetipo.titulo;
     descricaoElement.innerHTML = `<p>${arquetipo.descricao}</p>`;
-    
     detailsContainer.style.display = 'block';
   }
 
-  // ===== MOTIVAÇÕES =====
+  // ==========================================================
+  // MOTIVAÇÕES
+  // ==========================================================
   async loadMotivacoesData() {
     try {
       const response = await fetch(this.DATA_PATHS.PERSONAGEM);
-      
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
       const data = await response.json();
-      
       if (!data.sections || !Array.isArray(data.sections)) {
         throw new Error('Formato de dados inválido: sections não encontrada');
       }
-      
+
       const motivacaoSection = data.sections.find(s => s.topic_id === 'motivacao');
-      
       if (!motivacaoSection) {
         throw new Error('Seção de motivações não encontrada');
       }
-      
+
       const listaMotivacoes = motivacaoSection.content.find(c => c.type === 'list');
-      
       if (!listaMotivacoes || !listaMotivacoes.items) {
         throw new Error('Lista de motivações não encontrada');
       }
-      
+
       this.processarMotivacoes(listaMotivacoes.items);
-      
       if (!this.motivacoesData || this.motivacoesData.length === 0) {
         throw new Error('Nenhuma motivação encontrada');
       }
-      
+
       this.renderMotivacoesButtons();
+      this.restoreSelections();
     } catch (error) {
       console.error('Erro ao carregar dados das motivações:', error);
       this.showSectionError('motivacoes-buttons-container', 'Erro ao carregar motivações');
     }
   }
 
-processarMotivacoes(items) {
-  this.motivacoesData = items.map(item => {
-    const match = item.match(/^__(.+?)__\.\s*(.+)$/);
-    
-    if (match) {
-      return {
-        titulo: match[1],
-        descricao: match[2].trim()
-      };
-    } else {
-      const firstColonIndex = item.indexOf(':');
-      if (firstColonIndex > -1) {
-        return {
-          titulo: item.substring(0, firstColonIndex).trim(),
-          descricao: item.substring(firstColonIndex + 1).trim()
-        };
+  processarMotivacoes(items) {
+    this.motivacoesData = items.map(item => {
+      const match = item.match(/^__(.+?)__\.\s*(.+)$/);
+      if (match) {
+        return { titulo: match[1], descricao: match[2].trim() };
+      } else {
+        const firstColonIndex = item.indexOf(':');
+        if (firstColonIndex > -1) {
+          return {
+            titulo: item.substring(0, firstColonIndex).trim(),
+            descricao: item.substring(firstColonIndex + 1).trim()
+          };
+        }
+        return { titulo: item.trim(), descricao: '' };
       }
-      
-      return {
-        titulo: item.trim(),
-        descricao: ''
-      };
-    }
-  });
-}
-
-  renderMotivacoesButtons() {
-    const container = document.getElementById('motivacoes-buttons-container');
-    if (!container || !this.motivacoesData) return;
-    
-    let buttonsHtml = '';
-    this.motivacoesData.forEach((motivacao, index) => {
-      buttonsHtml += `
-        <button class="motivacao-button" data-motivacao-index="${index}">
-          ${motivacao.titulo}
-        </button>
-      `;
     });
-    
-    container.innerHTML = buttonsHtml;
   }
 
-  selectMotivacao(index) {
-    const detailsContainer = document.getElementById('motivacao-details-container');
-    const selectedButton = document.querySelector(`[data-motivacao-index="${index}"]`);
-    
-    const isSameMotivacao = this.selectedMotivacao && this.selectedMotivacao.index === index;
-    
-    if (isSameMotivacao) {
-      this.closeWithAnimation(detailsContainer, () => {
-        this.selectedMotivacao = null;
-        this.validateSelections();
-      });
-      
-      document.querySelectorAll('.motivacao-button').forEach(btn => {
-        btn.classList.remove('selected');
-      });
-      
+  renderMotivacoesButtons() {
+    const container = this.containers.motivacoesButtons;
+    if (!container || !this.motivacoesData) return;
+
+    const fragment = document.createDocumentFragment();
+    this.motivacoesData.forEach((motivacao, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'motivacao-button';
+      btn.dataset.motivacaoIndex = index;
+      btn.textContent = motivacao.titulo;
+      fragment.appendChild(btn);
+    });
+
+    container.replaceChildren(fragment);
+  }
+
+  selectMotivacao(index, skipToggle = false) {
+    const detailsContainer = this.containers.motivacaoDetails;
+    const selectedButton = this.containers.motivacoesButtons.querySelector(`[data-motivacao-index="${index}"]`);
+
+    if (skipToggle && this.selectedMotivacao && this.selectedMotivacao.index === index) {
       return;
     }
-    
-    document.querySelectorAll('.motivacao-button').forEach(btn => {
-      btn.classList.remove('selected');
-    });
-    
-    if (selectedButton) {
-      selectedButton.classList.add('selected');
-    }
-    
-    this.selectedMotivacao = {
-      index: index,
-      data: this.motivacoesData[index]
-    };
-    
+
+    this.containers.motivacoesButtons.querySelectorAll('.motivacao-button').forEach(btn => btn.classList.remove('selected'));
+    if (selectedButton) selectedButton.classList.add('selected');
+
+    this.closeAllDetails(detailsContainer);
+
+    this.selectedMotivacao = { index, data: this.motivacoesData[index] };
     this.renderMotivacaoDetails();
     this.validateSelections();
   }
 
   renderMotivacaoDetails() {
     if (!this.selectedMotivacao) return;
-    
-    const detailsContainer = document.getElementById('motivacao-details-container');
+
+    const detailsContainer = this.containers.motivacaoDetails;
     const titleElement = detailsContainer.querySelector('.motivacao-title');
     const descricaoElement = detailsContainer.querySelector('.motivacao-descricao');
-    
+
     const motivacao = this.selectedMotivacao.data;
-    
     titleElement.textContent = motivacao.titulo;
     descricaoElement.innerHTML = `<p>${motivacao.descricao}</p>`;
-    
     detailsContainer.style.display = 'block';
   }
 
-  // ===== DISPOSIÇÃO =====
+  // ==========================================================
+  // DISPOSIÇÃO
+  // ==========================================================
   async loadDisposicaoData() {
     try {
       const response = await fetch(this.DATA_PATHS.PERSONAGEM);
-      
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
       const data = await response.json();
-      
       if (!data.sections || !Array.isArray(data.sections)) {
         throw new Error('Formato de dados inválido: sections não encontrada');
       }
-      
+
       const disposicaoSection = data.sections.find(s => s.topic_id === 'disposicao');
-      
       if (!disposicaoSection) {
         throw new Error('Seção de disposição não encontrada');
       }
-      
+
       const disposicaoText = disposicaoSection.content.find(c => c.type === 'paragraph');
-      
       if (!disposicaoText || !disposicaoText.text) {
         throw new Error('Texto da disposição não encontrado');
       }
-      
+
       this.renderDisposicaoText(disposicaoText.text);
     } catch (error) {
       console.error('Erro ao carregar dados da disposição:', error);
@@ -457,19 +519,20 @@ processarMotivacoes(items) {
   }
 
   renderDisposicaoText(text) {
-    const container = document.getElementById('disposicao-text-container');
+    const container = this.containers.disposicaoText;
     if (!container) return;
-    
     container.innerHTML = `<p class="disposicao-text">${text}</p>`;
   }
 
-  // ===== CONTATOS =====
+  // ==========================================================
+  // CONTATOS
+  // ==========================================================
   encontrarContato(item, tiposContato) {
     for (const tipo of tiposContato) {
       if (item[tipo.campo]) {
-        return { 
-          tipo, 
-          nome: item[tipo.campo].replace('.', '').trim() 
+        return {
+          tipo,
+          nome: item[tipo.campo].replace('.', '').trim()
         };
       }
     }
@@ -477,8 +540,8 @@ processarMotivacoes(items) {
   }
 
   ehListaItens(item, currentContato) {
-    return item.type === 'list' && 
-           currentContato && 
+    return item.type === 'list' &&
+           currentContato &&
            item.id === currentContato.tipo.idLista;
   }
 
@@ -504,10 +567,10 @@ processarMotivacoes(items) {
   processarSectionContatos(section, tiposContato) {
     let currentContato = null;
     let currentItems = [];
-    
+
     section.content.forEach(item => {
       const contatoInfo = this.encontrarContato(item, tiposContato);
-      
+
       if (contatoInfo) {
         this.finalizarContato(currentContato, currentItems, section);
         currentContato = this.criarContato(contatoInfo, item);
@@ -516,42 +579,39 @@ processarMotivacoes(items) {
         currentItems = [...currentItems, ...item.items];
       }
     });
-    
+
     this.finalizarContato(currentContato, currentItems, section);
   }
 
   async loadContatosData() {
     try {
       const response = await fetch(this.DATA_PATHS.SOCIAL);
-      
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
       const data = await response.json();
-      
       if (!data.sections || !Array.isArray(data.sections)) {
         throw new Error('Formato de dados inválido: sections não encontrada');
       }
-      
+
       this.contatosData = [];
-      
-      // Mapeamento de tipos de contato e seus respectivos campos
+
       const tiposContato = [
         { campo: 'lojacomb_item', idLista: 'lojacomb_item' },
         { campo: 'lojarc_item', idLista: 'lojarc_item' },
         { campo: 'montarias_item', idLista: 'montarias_item' }
       ];
-      
+
       data.sections
         .filter(section => !section.topic_id.includes('introducao'))
         .forEach(section => this.processarSectionContatos(section, tiposContato));
-      
+
       if (this.contatosData.length === 0) {
         throw new Error('Nenhum contato encontrado');
       }
-      
+
       this.renderContatosButtons();
+      this.restoreSelections();
     } catch (error) {
       console.error('Erro ao carregar dados dos contatos:', error);
       this.showSectionError('contatos-buttons-container', 'Erro ao carregar contatos');
@@ -559,79 +619,55 @@ processarMotivacoes(items) {
   }
 
   renderContatosButtons() {
-    const container = document.getElementById('contatos-buttons-container');
+    const container = this.containers.contatosButtons;
     if (!container || !this.contatosData || this.contatosData.length === 0) return;
-    
-    let buttonsHtml = '';
+
+    const fragment = document.createDocumentFragment();
     this.contatosData.forEach((contato, index) => {
-      buttonsHtml += `
-        <button class="contato-button" data-contato-index="${index}">
-          ${contato.nome}
-        </button>
-      `;
+      const btn = document.createElement('button');
+      btn.className = 'contato-button';
+      btn.dataset.contatoIndex = index;
+      btn.textContent = contato.nome;
+      fragment.appendChild(btn);
     });
-    
-    container.innerHTML = buttonsHtml;
+
+    container.replaceChildren(fragment);
   }
 
-  selectContato(index) {
-    const detailsContainer = document.getElementById('contato-details-container');
-    const selectedButton = document.querySelector(`[data-contato-index="${index}"]`);
-    
-    const isSameContato = this.selectedContato && this.selectedContato.index === index;
-    
-    if (isSameContato) {
-      this.closeWithAnimation(detailsContainer, () => {
-        this.selectedContato = null;
-        this.validateSelections();
-      });
-      
-      document.querySelectorAll('.contato-button').forEach(btn => {
-        btn.classList.remove('selected');
-      });
-      
+  selectContato(index, skipToggle = false) {
+    const detailsContainer = this.containers.contatoDetails;
+    const selectedButton = this.containers.contatosButtons.querySelector(`[data-contato-index="${index}"]`);
+
+    if (skipToggle && this.selectedContato && this.selectedContato.index === index) {
       return;
     }
-    
-    document.querySelectorAll('.contato-button').forEach(btn => {
-      btn.classList.remove('selected');
-    });
-    
-    if (selectedButton) {
-      selectedButton.classList.add('selected');
-    }
-    
-    this.selectedContato = {
-      index: index,
-      data: this.contatosData[index]
-    };
-    
+
+    this.containers.contatosButtons.querySelectorAll('.contato-button').forEach(btn => btn.classList.remove('selected'));
+    if (selectedButton) selectedButton.classList.add('selected');
+
+    this.closeAllDetails(detailsContainer);
+
+    this.selectedContato = { index, data: this.contatosData[index] };
     this.renderContatoDetails();
     this.validateSelections();
   }
 
   renderContatoDetails() {
     if (!this.selectedContato) return;
-    
-    const detailsContainer = document.getElementById('contato-details-container');
+
+    const detailsContainer = this.containers.contatoDetails;
     const titleElement = detailsContainer.querySelector('.contato-title');
     const descricaoElement = detailsContainer.querySelector('.contato-descricao');
     const itensList = detailsContainer.querySelector('.itens-list');
-    
+
     const contato = this.selectedContato.data;
-    
     titleElement.textContent = contato.nome;
     descricaoElement.innerHTML = `<p>${contato.descricao}</p>`;
-    
+
     let itensHtml = '';
     contato.itens.forEach(item => {
-      itensHtml += `
-        <div class="item-lista">
-          ${item}
-        </div>
-      `;
+      itensHtml += `<div class="item-lista">${item}</div>`;
     });
-    
     itensList.innerHTML = itensHtml;
     detailsContainer.style.display = 'block';
   }
