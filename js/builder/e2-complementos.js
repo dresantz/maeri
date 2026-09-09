@@ -64,6 +64,11 @@ class ComplementosManager {
     intro.textContent = 'Escolha o tipo de ser do personagem:';
     container.appendChild(intro);
 
+    const serSubtitle = document.createElement('p');
+    serSubtitle.className = 'ser-subtitle'; // classe para estilização
+    serSubtitle.textContent = ' Aqui você pode escolher seu ser, sua raça, o tipo de criatura que quer interpretar, elas não possuem custo, basta anotar o escolhido e suas características na área Ser da aba Complemento da ficha.';
+    container.appendChild(serSubtitle);
+
     // --- SERES ---
     const seresButtonsContainer = document.createElement('div');
     seresButtonsContainer.id = 'seres-buttons-container';
@@ -95,8 +100,8 @@ class ComplementosManager {
     estudosSection.className = 'estudos-section';
     estudosSection.innerHTML = `
       <p class="estudos-intro">Escolha onde gastar Aspectos:</p>
-      <p class="estudos-subtitle">Estudos</p>
-      <p class="estudos-subtitle">Um personagem pode ter sua S em Conhecimentos, que são cumulativos com magia, pois também contam como conhecimentos</p>
+      <p class="estudos-subtitle">ESTUDOS</p>
+      <p class="estudos-subtitle">Aspectos podem ser gastos em Estudos, Técnica Marcial ou Estudos Mágicos. Se escolher gastar em um Estudo, você pode obter uma quantidade TOTAL de Conhecimentos equivalente a sua S. Anote o(s) Estudo(s) na área Estudos e os Conhecimentos na área Conhecimentos.</p>
     `;
     container.appendChild(estudosSection);
 
@@ -132,8 +137,8 @@ class ComplementosManager {
     tecnicasSection.id = 'tecnicas-section';
     tecnicasSection.className = 'tecnicas-section';
     tecnicasSection.innerHTML = `
-      <p class="tecnicas-subtitle">Técnicas Marciais</p>
-      <p class="magias-subtitle">Exige que um dos seus Contatos seja um Mestre.</p>
+      <p class="tecnicas-subtitle">TÉCNICAS MARCIAIS</p>
+      <p class="magias-subtitle">Técnica Marcial funciona como um Estudo, gastar um Aspecto nela permite adquirir técnicas marciais em quantidade equivalente a S, lembrando que Conhecimentos e Ténicas Marciais são cumulativos entre si. Aprender Técnica Marcial também exige que um dos Contatos do jogador seja um Mestre. Anote Técnica Marcial na área Estudos, e as técnicas escolhidas na área Conhecimentos, assim como Mestre na área Contatos da aba Narrativa.</p>
     `;
     container.appendChild(tecnicasSection);
 
@@ -165,8 +170,8 @@ class ComplementosManager {
     magiasSection.id = 'magias-section';
     magiasSection.className = 'magias-section';
     magiasSection.innerHTML = `
-      <p class="magias-subtitle">Estudos Mágicos</p>
-      <p class="magias-subtitle">Antes de poder adquirir Bruxaria, Divinação ou Feitiçaria, é obrigatório adquirir Neófita antes. Um personagem pode conhecer sua S em magias.</p>
+      <p class="magias-subtitle">ESTUDOS MÁGICOS</p>
+      <p class="magias-subtitle">Funcionam igual aos Estudos normais, um Aspecto compra um Estudo Mágico, porém, é obrigatório adquirir o Estudo Mágico Neófita antes de poder adquirir Bruxaria, Divinação ou Feitiçaria. Cada magia equivale a um Conhecimento, ou seja, é possível adquirir magias em quantidade equivalente a S cumulativo com outros Conhecimentos. Anote o(s) Estudo(s) Mágico(s) na área Estudos e as magias na área Conhecimentos da aba Complemento.</p>
     `;
     container.appendChild(magiasSection);
 

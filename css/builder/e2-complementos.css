@@ -11,10 +11,10 @@
 .complementos-intro,
 .estudos-intro {
   color: var(--gold);
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid var(--gold-border);
 }
@@ -23,6 +23,7 @@
   margin-bottom: 0.5rem;
 }
 
+.ser-subtitle,
 .estudos-subtitle,
 .tecnicas-subtitle,
 .magias-subtitle {
@@ -41,7 +42,7 @@
 .magias-buttons {
   display: grid;
   gap: 0.4rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .seres-buttons { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
@@ -61,7 +62,7 @@
   cursor: pointer;
   transition: all 0.25s ease;
   font-family: 'Cinzel', serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text);
   text-align: center;
@@ -164,7 +165,7 @@
 .tecnica-title,
 .magia-title {
   color: var(--gold);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-align: center;
   margin-bottom: 1rem;
@@ -260,6 +261,7 @@
   margin-bottom: 1.5rem;
 }
 
+.ser-descricao p,
 .estudo-descricao p,
 .tecnica-descricao p,
 .magia-descricao p {
@@ -280,7 +282,7 @@
 .estudos-section,
 .tecnicas-section,
 .magias-section {
-  margin-top: 3rem;
+  margin-top: 2rem;
   padding-top: 2rem;
   border-top: 2px solid var(--gold-border);
   animation: fadeIn 0.3s ease;
