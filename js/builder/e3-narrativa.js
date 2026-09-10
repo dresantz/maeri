@@ -67,6 +67,11 @@ class NarrativaManager {
     introArq.textContent = 'Escolha o arquétipo do seu personagem:';
     container.appendChild(introArq);
 
+    const arqSubtitle = document.createElement('p');
+    arqSubtitle.className = 'arquetipo-subtitle';
+    arqSubtitle.textContent = 'Características Narrativas (Arquétipo, Motivação, Disposição) tem como objetivo ajudar o jogador na interpretação do personagem. Anote o Arquétipo no campo de mesmo nome da aba Narrativa.';
+    container.appendChild(arqSubtitle);
+
     const arquetiposButtonsContainer = document.createElement('div');
     arquetiposButtonsContainer.id = 'arquetipos-buttons-container';
     arquetiposButtonsContainer.className = 'arquetipos-buttons';
@@ -95,10 +100,16 @@ class NarrativaManager {
     motivacoesSection.className = 'motivacoes-section';
     container.appendChild(motivacoesSection);
 
+
     const introMot = document.createElement('p');
     introMot.className = 'motivacoes-intro';
     introMot.textContent = 'Escolha a motivação do seu personagem:';
     motivacoesSection.appendChild(introMot);
+
+    const motvSubtitle = document.createElement('p');
+    motvSubtitle.className = 'motivacao-subtitle';
+    motvSubtitle.textContent = 'Anote a motivação escolhida no campo Motivação da aba Narrativa.';
+    motivacoesSection.appendChild(motvSubtitle);
 
     const motivacoesButtonsContainer = document.createElement('div');
     motivacoesButtonsContainer.id = 'motivacoes-buttons-container';
@@ -155,10 +166,10 @@ class NarrativaManager {
     introCont.textContent = 'Escolha os Contatos';
     contatosSection.appendChild(introCont);
 
-    const descCont = document.createElement('p');
-    descCont.className = 'contatos-descricao';
-    descCont.textContent = 'O jogador pode escolher sua I em contatos, ou deixar para depois, não precisa estar na lista, porém, para adquirir itens em uma loja, é necessário ter o Contato específico.';
-    contatosSection.appendChild(descCont);
+    const descSubtitle = document.createElement('p');
+    descSubtitle.className = 'contatos-subtitle';
+    descSubtitle.textContent = 'O jogador pode ter uma quantidade de Contatos equivalente a sua I. Para adquirir itens em uma loja, é necessário ter o Contato específico da loja. O livro (tópico Contatos de Acampamento) dá detalhes de diversos outros contatos práticos como espiões, banqueiros, curandeiros, guias.';
+    contatosSection.appendChild(descSubtitle);
 
     const contatosButtonsContainer = document.createElement('div');
     contatosButtonsContainer.id = 'contatos-buttons-container';

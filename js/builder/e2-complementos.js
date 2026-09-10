@@ -65,7 +65,7 @@ class ComplementosManager {
     container.appendChild(intro);
 
     const serSubtitle = document.createElement('p');
-    serSubtitle.className = 'ser-subtitle'; // classe para estilização
+    serSubtitle.className = 'ser-subtitle';
     serSubtitle.textContent = ' Aqui você pode escolher seu ser, sua raça, o tipo de criatura que quer interpretar, elas não possuem custo, basta anotar o escolhido e suas características na área Ser da aba Complemento da ficha.';
     container.appendChild(serSubtitle);
 
