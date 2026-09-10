@@ -203,11 +203,6 @@ class LevelUpManager {
     title.textContent = 'Level Up';
     container.appendChild(title);
 
-    const subtitle = document.createElement('h3');
-    subtitle.className = 'levelup-subtitle';
-    subtitle.textContent = fundamentalsSection.title;
-    container.appendChild(subtitle);
-
     // Regras (lista)
     if (lvlupContent?.type === 'list') {
       const rulesContainer = document.createElement('div');
@@ -321,6 +316,7 @@ class LevelUpManager {
 
     const classTitleItem = classData.content?.find(item => item.classes_item);
     const className = classTitleItem ? classTitleItem.classes_item : classData.title;
+    const bonusText = classTitleItem?.text || '';
 
     const classFeatures = classData.content?.filter(
       item => item.id === 'classes_item' && !item.classes_item
@@ -344,6 +340,12 @@ class LevelUpManager {
     title.className = 'class-title';
     title.textContent = className;
     header.appendChild(title);
+      if (bonusText) {
+    const bonus = document.createElement('p');
+    bonus.className = 'class-bonus';
+    bonus.textContent = bonusText;
+    header.appendChild(bonus);
+  }
     container.appendChild(header);
 
     // Características

@@ -63,7 +63,7 @@ class InventarioManager {
 
     const moedasText = document.createElement('p');
     moedasText.className = 'moedas-text';
-    moedasText.textContent = 'As moedas são definidas da seguinte maneira:';
+    moedasText.textContent = 'As moedas devem ser preenchidas na aba Inventário e são definidas da seguinte maneira:';
     moedasSection.appendChild(moedasText);
 
     const moedasGrid = document.createElement('div');
@@ -72,17 +72,14 @@ class InventarioManager {
     // Florins
     const florinsItem = this.createMoedaItem('Fo', 'Florins de Ouro', 'I + 1d6', 'moeda-florins');
     moedasGrid.appendChild(florinsItem);
-    this.containers.moedaFlorins = florinsItem.querySelector('.moeda-valor');
 
     // Denares
     const denaresItem = this.createMoedaItem('Dp', 'Denares de Prata', 'V + 1d6', 'moeda-denares');
     moedasGrid.appendChild(denaresItem);
-    this.containers.moedaDenares = denaresItem.querySelector('.moeda-valor');
 
     // Tostões
     const tostoesItem = this.createMoedaItem('Tc', 'Tostões de Cobre', 'S + 1d6', 'moeda-tostoes');
     moedasGrid.appendChild(tostoesItem);
-    this.containers.moedaTostoes = tostoesItem.querySelector('.moeda-valor');
 
     moedasSection.appendChild(moedasGrid);
     container.appendChild(moedasSection);
@@ -98,7 +95,7 @@ class InventarioManager {
 
     const pesoText = document.createElement('p');
     pesoText.className = 'peso-text';
-    pesoText.textContent = 'Os limites de peso médio e máximo são definidos assim:';
+    pesoText.textContent = 'Se o personagem carregar mais que o peso Médio, ele sofrerá Desvantagem em testes de Características Físicas (F, V, D). O personagem não é capaz de carregar mais que o limite Máximo. Os limites de peso médio e máximo devem ser preenchidos na aba Inventário e são definidos assim:';
     pesoSection.appendChild(pesoText);
 
     const pesoGrid = document.createElement('div');
@@ -107,12 +104,10 @@ class InventarioManager {
     // Médio
     const medioItem = this.createPesoItem('Médio', 'F x 2', 'peso-medio');
     pesoGrid.appendChild(medioItem);
-    this.containers.pesoMedio = medioItem.querySelector('.peso-valor');
 
     // Máximo
     const maximoItem = this.createPesoItem('Máximo', 'F x 4', 'peso-maximo');
     pesoGrid.appendChild(maximoItem);
-    this.containers.pesoMaximo = maximoItem.querySelector('.peso-valor');
 
     pesoSection.appendChild(pesoGrid);
     container.appendChild(pesoSection);
@@ -184,12 +179,6 @@ class InventarioManager {
     calcEl.textContent = calculo;
     item.appendChild(calcEl);
 
-    const valorEl = document.createElement('span');
-    valorEl.className = 'moeda-valor';
-    valorEl.id = id;
-    valorEl.textContent = '—';
-    item.appendChild(valorEl);
-
     return item;
   }
 
@@ -206,12 +195,6 @@ class InventarioManager {
     calcEl.className = 'peso-calculo';
     calcEl.textContent = calculo;
     item.appendChild(calcEl);
-
-    const valorEl = document.createElement('span');
-    valorEl.className = 'peso-valor';
-    valorEl.id = id;
-    valorEl.textContent = '—';
-    item.appendChild(valorEl);
 
     return item;
   }
@@ -436,11 +419,6 @@ class InventarioManager {
       });
       return;
     }
-
-    // Fecha o detalhe anterior (se houver) - como só temos um, não precisamos de closeAllDetails
-    // Mas garantimos que o container atual seja fechado antes de abrir outro
-    // Como é um único container, podemos simplesmente escondê-lo se já estiver aberto
-    // Porém, como há apenas um, não há outro para fechar. Então não fazemos nada.
 
     this.containers.contatosButtons.querySelectorAll('[data-inventario-contato-index]').forEach(btn => btn.classList.remove('selected'));
     if (selectedButton) selectedButton.classList.add('selected');
