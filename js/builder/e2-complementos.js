@@ -278,19 +278,59 @@ class ComplementosManager {
 
   // ===== RESTAURAÇÃO DE SELEÇÕES =====
   restoreSelections() {
-    if (this.selectedSer) {
+    if (this.selectedSer && this.seresData) {
       this.selectSer(this.selectedSer.topic_id, true);
     }
-    if (this.selectedEstudo) {
+    if (this.selectedEstudo && this.estudosData) {
       this.selectEstudo(this.selectedEstudo.index, true);
     }
-    if (this.selectedTecnica) {
+    if (this.selectedTecnica && this.tecnicasData) {
       this.selectTecnica(this.selectedTecnica.index, true);
     }
-    if (this.selectedMagia) {
+    if (this.selectedMagia && this.magiasData) {
       this.selectMagia(this.selectedMagia.index, true);
     }
   }
+
+
+  // Limpa a seleção de todas as categorias, exceto a informada
+  clearOtherSelections(exceptCategory) {
+    const map = {
+      ser: {
+        key: 'selectedSer',
+        buttons: this.containers.seresButtons,
+        selector: '.ser-button'
+      },
+      estudo: {
+        key: 'selectedEstudo',
+        buttons: this.containers.estudosButtons,
+        selector: '.estudo-button'
+      },
+      tecnica: {
+        key: 'selectedTecnica',
+        buttons: this.containers.tecnicasButtons,
+        selector: '.tecnica-button'
+      },
+      magia: {
+        key: 'selectedMagia',
+        buttons: this.containers.magiasButtons,
+        selector: '.magia-button'
+      }
+    };
+
+    Object.entries(map).forEach(([category, cfg]) => {
+      if (category === exceptCategory) return;
+
+      this[cfg.key] = null;
+
+      if (cfg.buttons) {
+        cfg.buttons.querySelectorAll(cfg.selector).forEach(btn => {
+          btn.classList.remove('selected');
+        });
+      }
+    });
+  }
+
 
   // ==========================================================
   // SERES
@@ -343,11 +383,24 @@ class ComplementosManager {
     const detailsContainer = this.containers.serDetails;
     const selectedButton = this.containers.seresButtons.querySelector(`[data-ser-id="${serId}"]`);
 
-    if (skipToggle && this.selectedSer && this.selectedSer.topic_id === serId) {
+    const isSameSelection = this.selectedSer && this.selectedSer.topic_id === serId;
+
+    if (isSameSelection && !skipToggle) {
+      this.selectedSer = null;
+      this.containers.seresButtons
+        .querySelectorAll('.ser-button')
+        .forEach(btn => btn.classList.remove('selected'));
+      this.closeAllDetails();
+      this.validateSelections();
       return;
     }
 
-    this.containers.seresButtons.querySelectorAll('.ser-button').forEach(btn => btn.classList.remove('selected'));
+    // ✅ NOVO: limpa seleção das outras categorias
+    this.clearOtherSelections('ser');
+
+    this.containers.seresButtons
+      .querySelectorAll('.ser-button')
+      .forEach(btn => btn.classList.remove('selected'));
     if (selectedButton) selectedButton.classList.add('selected');
 
     this.closeAllDetails(detailsContainer);
@@ -486,11 +539,24 @@ class ComplementosManager {
     const detailsContainer = this.containers.estudoDetails;
     const selectedButton = this.containers.estudosButtons.querySelector(`[data-estudo-index="${index}"]`);
 
-    if (skipToggle && this.selectedEstudo && this.selectedEstudo.index === index) {
+    const isSameSelection = this.selectedEstudo && this.selectedEstudo.index === index;
+
+    if (isSameSelection && !skipToggle) {
+      this.selectedEstudo = null;
+      this.containers.estudosButtons
+        .querySelectorAll('.estudo-button')
+        .forEach(btn => btn.classList.remove('selected'));
+      this.closeAllDetails();
+      this.validateSelections();
       return;
     }
 
-    this.containers.estudosButtons.querySelectorAll('.estudo-button').forEach(btn => btn.classList.remove('selected'));
+    // ✅ NOVO
+    this.clearOtherSelections('estudo');
+
+    this.containers.estudosButtons
+      .querySelectorAll('.estudo-button')
+      .forEach(btn => btn.classList.remove('selected'));
     if (selectedButton) selectedButton.classList.add('selected');
 
     this.closeAllDetails(detailsContainer);
@@ -590,14 +656,27 @@ class ComplementosManager {
   }
 
   selectTecnica(index, skipToggle = false) {
-    const detailsContainer = this.containers.tecnicaDetails; // <- SINGULAR
+    const detailsContainer = this.containers.tecnicaDetails;
     const selectedButton = this.containers.tecnicasButtons.querySelector(`[data-tecnica-index="${index}"]`);
 
-    if (skipToggle && this.selectedTecnica && this.selectedTecnica.index === index) {
+    const isSameSelection = this.selectedTecnica && this.selectedTecnica.index === index;
+
+    if (isSameSelection && !skipToggle) {
+      this.selectedTecnica = null;
+      this.containers.tecnicasButtons
+        .querySelectorAll('.tecnica-button')
+        .forEach(btn => btn.classList.remove('selected'));
+      this.closeAllDetails();
+      this.validateSelections();
       return;
     }
 
-    this.containers.tecnicasButtons.querySelectorAll('.tecnica-button').forEach(btn => btn.classList.remove('selected'));
+    // ✅ NOVO
+    this.clearOtherSelections('tecnica');
+
+    this.containers.tecnicasButtons
+      .querySelectorAll('.tecnica-button')
+      .forEach(btn => btn.classList.remove('selected'));
     if (selectedButton) selectedButton.classList.add('selected');
 
     this.closeAllDetails(detailsContainer);
@@ -671,11 +750,24 @@ class ComplementosManager {
     const detailsContainer = this.containers.magiaDetails;
     const selectedButton = this.containers.magiasButtons.querySelector(`[data-magia-index="${index}"]`);
 
-    if (skipToggle && this.selectedMagia && this.selectedMagia.index === index) {
+    const isSameSelection = this.selectedMagia && this.selectedMagia.index === index;
+
+    if (isSameSelection && !skipToggle) {
+      this.selectedMagia = null;
+      this.containers.magiasButtons
+        .querySelectorAll('.magia-button')
+        .forEach(btn => btn.classList.remove('selected'));
+      this.closeAllDetails();
+      this.validateSelections();
       return;
     }
 
-    this.containers.magiasButtons.querySelectorAll('.magia-button').forEach(btn => btn.classList.remove('selected'));
+    // ✅ NOVO
+    this.clearOtherSelections('magia');
+
+    this.containers.magiasButtons
+      .querySelectorAll('.magia-button')
+      .forEach(btn => btn.classList.remove('selected'));
     if (selectedButton) selectedButton.classList.add('selected');
 
     this.closeAllDetails(detailsContainer);

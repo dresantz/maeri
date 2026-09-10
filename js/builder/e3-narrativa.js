@@ -278,15 +278,48 @@ class NarrativaManager {
 
   // ===== RESTAURAÇÃO DE SELEÇÕES =====
   restoreSelections() {
-    if (this.selectedArquetipo) {
+    if (this.selectedArquetipo && this.arquetiposData) {
       this.selectArquetipo(this.selectedArquetipo.index, true);
     }
-    if (this.selectedMotivacao) {
+    if (this.selectedMotivacao && this.motivacoesData) {
       this.selectMotivacao(this.selectedMotivacao.index, true);
     }
-    if (this.selectedContato) {
+    if (this.selectedContato && this.contatosData) {
       this.selectContato(this.selectedContato.index, true);
     }
+  }
+
+  // Limpa a seleção de todas as categorias, exceto a informada
+  clearOtherSelections(exceptCategory) {
+    const map = {
+      arquetipo: {
+        key: 'selectedArquetipo',
+        buttons: this.containers.arquetiposButtons,
+        selector: '.arquetipo-button'
+      },
+      motivacao: {
+        key: 'selectedMotivacao',
+        buttons: this.containers.motivacoesButtons,
+        selector: '.motivacao-button'
+      },
+      contato: {
+        key: 'selectedContato',
+        buttons: this.containers.contatosButtons,
+        selector: '.contato-button'
+      }
+    };
+
+    Object.entries(map).forEach(([category, cfg]) => {
+      if (category === exceptCategory) return;
+
+      this[cfg.key] = null;
+
+      if (cfg.buttons) {
+        cfg.buttons.querySelectorAll(cfg.selector).forEach(btn => {
+          btn.classList.remove('selected');
+        });
+      }
+    });
   }
 
   // ==========================================================
@@ -355,16 +388,26 @@ class NarrativaManager {
     const detailsContainer = this.containers.arquetipoDetails;
     const selectedButton = this.containers.arquetiposButtons.querySelector(`[data-arquetipo-index="${index}"]`);
 
-    // Se for restauração e já está selecionado, não faz nada
-    if (skipToggle && this.selectedArquetipo && this.selectedArquetipo.index === index) {
+    const isSameSelection = this.selectedArquetipo && this.selectedArquetipo.index === index;
+
+    // Clique do usuário em botão já selecionado → toggle (fecha / desmarca)
+    if (isSameSelection && !skipToggle) {
+      this.selectedArquetipo = null;
+      this.containers.arquetiposButtons
+        .querySelectorAll('.arquetipo-button')
+        .forEach(btn => btn.classList.remove('selected'));
+      this.closeAllDetails();
+      this.validateSelections();
       return;
     }
 
-    // Remove seleção de todos os botões
-    this.containers.arquetiposButtons.querySelectorAll('.arquetipo-button').forEach(btn => btn.classList.remove('selected'));
+    this.clearOtherSelections('arquetipo');
+
+    this.containers.arquetiposButtons
+      .querySelectorAll('.arquetipo-button')
+      .forEach(btn => btn.classList.remove('selected'));
     if (selectedButton) selectedButton.classList.add('selected');
 
-    // Fecha todos os outros detalhes
     this.closeAllDetails(detailsContainer);
 
     this.selectedArquetipo = { index, data: this.arquetiposData[index] };
@@ -460,11 +503,23 @@ class NarrativaManager {
     const detailsContainer = this.containers.motivacaoDetails;
     const selectedButton = this.containers.motivacoesButtons.querySelector(`[data-motivacao-index="${index}"]`);
 
-    if (skipToggle && this.selectedMotivacao && this.selectedMotivacao.index === index) {
+    const isSameSelection = this.selectedMotivacao && this.selectedMotivacao.index === index;
+
+    if (isSameSelection && !skipToggle) {
+      this.selectedMotivacao = null;
+      this.containers.motivacoesButtons
+        .querySelectorAll('.motivacao-button')
+        .forEach(btn => btn.classList.remove('selected'));
+      this.closeAllDetails();
+      this.validateSelections();
       return;
     }
 
-    this.containers.motivacoesButtons.querySelectorAll('.motivacao-button').forEach(btn => btn.classList.remove('selected'));
+    this.clearOtherSelections('motivacao');
+
+    this.containers.motivacoesButtons
+      .querySelectorAll('.motivacao-button')
+      .forEach(btn => btn.classList.remove('selected'));
     if (selectedButton) selectedButton.classList.add('selected');
 
     this.closeAllDetails(detailsContainer);
@@ -638,11 +693,23 @@ class NarrativaManager {
     const detailsContainer = this.containers.contatoDetails;
     const selectedButton = this.containers.contatosButtons.querySelector(`[data-contato-index="${index}"]`);
 
-    if (skipToggle && this.selectedContato && this.selectedContato.index === index) {
+    const isSameSelection = this.selectedContato && this.selectedContato.index === index;
+
+    if (isSameSelection && !skipToggle) {
+      this.selectedContato = null;
+      this.containers.contatosButtons
+        .querySelectorAll('.contato-button')
+        .forEach(btn => btn.classList.remove('selected'));
+      this.closeAllDetails();
+      this.validateSelections();
       return;
     }
 
-    this.containers.contatosButtons.querySelectorAll('.contato-button').forEach(btn => btn.classList.remove('selected'));
+    this.clearOtherSelections('contato');
+
+    this.containers.contatosButtons
+      .querySelectorAll('.contato-button')
+      .forEach(btn => btn.classList.remove('selected'));
     if (selectedButton) selectedButton.classList.add('selected');
 
     this.closeAllDetails(detailsContainer);
