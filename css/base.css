@@ -24,7 +24,6 @@
    Temas Alternativos
 ========================= */
 
-/* Tema Sépia */
 [data-theme="sepia"] {
   --bg-dark: #1a140e;
   --surface: #2e2318;
@@ -32,19 +31,16 @@
   --gold: #e0b878;
   --text: #f7ecd6;
   --text-muted: #b8a488;
-  --text-invert: #291603;
+
   --parchment: #f5e6ca;
   --bronze: #8b7355;
-  --gold-rgb: 224, 184, 120;
+  --text-invert: #291603;
+
   --surface-gradient: linear-gradient(145deg, #4e3f31, #241b12);
-  --primary-gradient: linear-gradient(145deg, #6d5b49, #3a2c1e);
   --surface-hover: rgba(224, 184, 120, 0.12);
   --gold-border: rgba(224, 184, 120, 0.35);
-  --gold-glow: rgba(224, 184, 120, 0.25);
-  --white-transparent: rgba(255, 240, 210, 0.06);
 }
 
-/* Tema Escuro */
 [data-theme="dark"] {
   --bg-dark: #000000;
   --surface: #111111;
@@ -52,19 +48,16 @@
   --gold: #d4af37;
   --text: #e0e0e0;
   --text-muted: #888888;
-  --text-invert: #858585;
+
   --parchment: #1a1a1a;
   --bronze: #666666;
-  --gold-rgb: 212, 175, 55;
+  --text-invert: #858585;
+
   --surface-gradient: linear-gradient(145deg, #111111, #0a0a0a);
-  --primary-gradient: linear-gradient(145deg, #1a1a1a, #0a0a0a);
   --surface-hover: rgba(212, 175, 55, 0.1);
   --gold-border: rgba(212, 175, 55, 0.3);
-  --gold-glow: rgba(212, 175, 55, 0.2);
-  --white-transparent: rgba(255, 255, 255, 0.03);
 }
 
-/* Tema Contraste */
 [data-theme="contrast"] {
   --bg-dark: #000000;
   --surface: #0a0a0a;
@@ -72,41 +65,33 @@
   --gold: #ffd700;
   --text: #ffffff;
   --text-muted: #cccccc;
-  --text-invert: #000000;
+
   --parchment: #ffffff;
   --bronze: #999999;
-  --gold-rgb: 255, 215, 0;
+  --text-invert: #000000;
+
   --surface-gradient: linear-gradient(145deg, #0a0a0a, #000000);
-  --primary-gradient: linear-gradient(145deg, #1a1a1a, #0a0a0a);
   --surface-hover: rgba(255, 215, 0, 0.15);
   --gold-border: rgba(255, 215, 0, 0.5);
-  --gold-glow: rgba(255, 215, 0, 0.3);
-  --white-transparent: rgba(255, 255, 255, 0.05);
 }
 
-
-/* Tema Dia */
 [data-theme="day"] {
   --bg-dark: #aac4cb;
   --surface: #c9ded7;
   --surface-light: #e6eee2;
+  --gold: #8a6a15;
   --text: #16282a;
   --text-muted: #4a615f;
-  --text-invert: #3a190a;
-  --gold: #8a6a15;
+
   --parchment: #f3deab;
   --bronze: #8b7355;
-  --gold-rgb: 138, 106, 21;
+  --text-invert: #3a190a;
+
   --surface-gradient: linear-gradient(145deg, #d1dfd9, #b6c8c2);
-  --primary-gradient: linear-gradient(145deg, #c8dccf, #9dbcaf);
   --surface-hover: rgba(138, 106, 21, 0.14);
   --gold-border: rgba(138, 106, 21, 0.4);
-  --gold-glow: rgba(138, 106, 21, 0.25);
-  --white-transparent: rgba(22, 40, 42, 0.05);
-  --shadow: 0 8px 24px rgba(22, 40, 42, 0.15);
 }
 
-/* Tema Aconchego */
 [data-theme="cozy"] {
   --bg-dark: #fdf2f0;
   --surface: #fff8f5;
@@ -114,17 +99,14 @@
   --gold: #d97a9e;
   --text: #4a2c3a;
   --text-muted: #8a6b78;
-  --text-invert: #fff5f0;
+
   --parchment: #fff0e8;
   --bronze: #b8896b;
-  --gold-rgb: 217, 122, 158;
+  --text-invert: #fff5f0;
+  
   --surface-gradient: linear-gradient(145deg, #fff8f5, #fceee8);
-  --primary-gradient: linear-gradient(145deg, #f5c8d4, #e8a3b8);
   --surface-hover: rgba(217, 122, 158, 0.15);
   --gold-border: rgba(217, 122, 158, 0.4);
-  --gold-glow: rgba(217, 122, 158, 0.3);
-  --white-transparent: rgba(90, 40, 60, 0.04);
-  --shadow: 0 8px 24px rgba(90, 40, 60, 0.1);
 }
 
 /* Reset básico */
