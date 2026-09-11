@@ -13,7 +13,7 @@ const SettingsManager = (function() {
   let isOpen = false;
   
   // ===== CONSTANTES =====
-  const THEMES = ['classic', 'sepia', 'dark', 'contrast'];
+  const THEMES = ['classic', 'sepia', 'dark', 'contrast', 'day', 'cozy'];
   const DEFAULT_THEME = 'classic';
   const STORAGE_KEY = 'maeri-theme';
   
