@@ -86,14 +86,7 @@
 
 /* Hover no botão */
 .notpat-button:hover {
-  /* background: #9b8261; */
-  border-color: var(--gold);
-  /* box-shadow: 0 4px 12px rgba(139,115,85,0.4); */
-}
-
-.notpat-button[aria-pressed="true"] {
-  background: #9b8261;
-  border-color: var(--gold);
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Responsivo */

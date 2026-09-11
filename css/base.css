@@ -4,27 +4,20 @@
 
 :root {
   /* Cores base */
-  --bg-dark: #0a0a12;
+  --bg-dark: #020213;
   --surface: #1a1a2e;
   --surface-light: #2a2a42;
   --gold: #d4af37;
   --text: #f0f0f0;
   --text-muted: #b0b0c0;
-  --text-invert: #3a190a;
-  --parchment: #f5e6ca;
+  
+  --parchment: #eeddbe;
   --bronze: #8b7355;
+  --text-invert: #3a190a;
 
-  --gold-rgb: 212, 175, 55;
-  --surface-gradient: linear-gradient(145deg, #1a1a2e, #161625);
-  --primary-gradient: linear-gradient(145deg, #2a1a3a, #1a0a2a);
+  --surface-gradient: linear-gradient(145deg, #232338, #0c0c16);
   --surface-hover: rgba(212, 175, 55, 0.1);
   --gold-border: rgba(212, 175, 55, 0.3);
-  --gold-glow: rgba(212, 175, 55, 0.2);
-  --white-transparent: rgba(255, 255, 255, 0.05);
-
-  --radius: 12px;
-  --shadow: 0 8px 24px rgba(0,0,0,0.4);
-  --floating-bar-height: 70px;
 }
 
 /* =========================
@@ -153,7 +146,6 @@ html, body {
   padding: 1.8rem 1rem;
   background: var(--surface);
   border-bottom: 3px solid var(--gold);
-  box-shadow: var(--shadow);
   overflow: hidden;
 }
 
@@ -175,7 +167,6 @@ html, body {
   color: var(--gold);
   font-size: 2.6rem;
   margin-bottom: 0.4rem;
-  text-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3);
 }
 
 .app-header .subtitle {
@@ -209,8 +200,8 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--white-transparent);
-  border: 1px solid var(--gold-border);
+  background: var(--surface);
+  border: 2px solid var(--gold-border);
   border-radius: 50%;
   cursor: pointer;
   font-size: 1.2rem;
@@ -232,7 +223,6 @@ html, body {
   background: var(--surface-hover);
   border-color: var(--gold);
   transform: translateY(-50%) rotate(45deg);
-  box-shadow: 0 2px 6px var(--gold-glow);
 }
 
 .settings-button:active {
@@ -244,7 +234,7 @@ main {
   max-width: 800px;
   margin: 0 auto;
   padding: 1.5rem 1rem;
-  padding-bottom: calc(0.5rem + var(--floating-bar-height));
+  padding-bottom: calc(0.5rem + 70px);
 }
 
 /* MENU */
@@ -263,7 +253,7 @@ main {
   padding: 1.5rem 1rem; 
   background: var(--surface-gradient);
   border: 2px solid var(--gold-border);
-  border-radius: var(--radius); 
+  border-radius: 12px; 
   color: var(--gold);
   text-decoration: none; 
   text-align: center;
@@ -271,7 +261,6 @@ main {
   font-size: 1.1rem;
   transition: all 0.25s ease; 
   min-height: 100px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   will-change: transform, border-color;
   -webkit-tap-highlight-color: transparent;
   position: relative;
@@ -296,7 +285,6 @@ main {
 .menu-button:hover {
   transform: translateY(-4px);
   border-color: var(--gold);
-  box-shadow: 0 8px 20px var(--gold-glow);
 }
 
 .menu-button span {
@@ -313,16 +301,14 @@ main {
   height: 210px;
   margin-bottom: 0.8rem;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
 }
 
 .menu-button--primary {
   grid-column: 1 / -1;
   min-height: 120px;
-  background: var(--primary-gradient);
+  background: var(--surface-gradient);
   border-color: var(--gold);
   border-width: 1px;
-  box-shadow: 0 2px 8px var(--gold-glow);
 }
 
 /* SUBTÍTULO DO BOTÃO PRIMÁRIO */
@@ -356,19 +342,17 @@ main {
 
 .menu-button--primary:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px var(--gold-glow);
 }
 
 /* SEÇÃO NOTPAT (apenas container) */
 .notpat-section {
   background: var(--parchment);
   border: 2px solid var(--bronze);
-  border-radius: var(--radius);
+  border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   -webkit-tap-highlight-color: transparent;
-  
   height: 620px;
   display: flex;
   flex-direction: column;
@@ -380,8 +364,8 @@ main {
 
 /* RESPONSIVO */
 @media (max-width: 768px) {
-  :root { 
-    --floating-bar-height: 60px; 
+  main {
+    padding-bottom: calc(0.5rem + 60px);
   }
   
   .notpat-section {
