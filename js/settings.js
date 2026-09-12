@@ -78,8 +78,18 @@ const SettingsManager = (function() {
     });
   }
   
-  function resetTheme() {
+  function resetAll() {
     setTheme(DEFAULT_THEME);
+
+    document.documentElement.setAttribute('data-font', 'original');
+    localStorage.setItem('maeri-font', 'original');
+    document.querySelectorAll('[data-setting="font"] .setting-option')
+      .forEach(o => o.classList.toggle('active', o.getAttribute('data-value') === 'original'));
+
+    document.documentElement.setAttribute('data-font-size', 'normal');
+    localStorage.setItem('maeri-font-size', 'normal');
+    document.querySelectorAll('[data-setting="font-size"] .setting-option')
+      .forEach(o => o.classList.toggle('active', o.getAttribute('data-value') === 'normal'));
   }
   
   // ===== CONTROLE DO MODAL =====
@@ -186,7 +196,7 @@ const SettingsManager = (function() {
     const resetButton = document.querySelector('[data-reset-settings]');
     if (resetButton) {
       resetButton.addEventListener('click', () => {
-        resetTheme();
+        resetAll();
       });
     }
 
@@ -251,7 +261,7 @@ const SettingsManager = (function() {
     close: closeSettings,
     setTheme: setTheme,
     getCurrentTheme: getCurrentTheme,
-    resetTheme: resetTheme,
+    resetAll: resetAll,
     isOpen: () => isOpen
   };
 })();
