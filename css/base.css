@@ -4,8 +4,8 @@
 
 :root {
   /* Cores base */
-  --bg-dark: #020213;
-  --surface: #1a1a2e;
+  --bg-dark: #171724;
+  --surface: #1b1b31;
   --surface-light: #2a2a42;
   --gold: #d4af37;
   --text: #f0f0f0;
@@ -15,7 +15,7 @@
   --bronze: #8b7355;
   --text-invert: #3a190a;
 
-  --surface-gradient: linear-gradient(145deg, #232338, #0c0c16);
+  --surface-gradient: linear-gradient(145deg, #232338, #111127);
   --surface-hover: rgba(212, 175, 55, 0.1);
   --gold-border: rgba(212, 175, 55, 0.3);
 }
