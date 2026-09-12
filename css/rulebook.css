@@ -12,20 +12,20 @@
 .rulebook h1 {
   font-size: 1.8rem;
   margin: 0 0 0.6rem;
-  color: var(--gold, #d4af37);
+  color: var(--accent, #d4af37);
 }
 
 .rulebook h2 {
   font-size: 1.35rem;
   margin: 1.4rem 0 0.6rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--surface-light, #2a2a42);
+  border-bottom: 1px solid var(--surface-raised, #2a2a42);
 }
 
 .rulebook h3 {
   font-size: 1.1rem;
   margin: 1rem 0 0.4rem;
-  color: var(--gold, #d4af37);
+  color: var(--accent, #d4af37);
 }
 
 .rulebook p {
@@ -41,7 +41,7 @@
 }
 
 .rulebook a {
-  color: var(--gold, #d4af37);
+  color: var(--accent, #d4af37);
   text-decoration: none;
   font-weight: 600;
 }
@@ -63,7 +63,7 @@
 .table-wrapper {
   overflow-x: auto;
   margin: 0.75rem 0 1rem;
-  border: 1px solid var(--surface-light, #2a2a42);
+  border: 1px solid var(--surface-raised, #2a2a42);
   border-radius: var(--radius, 12px);
 }
 
@@ -76,21 +76,21 @@ table {
 th,
 td {
   padding: 0.6rem;
-  border-bottom: 1px solid var(--surface-light, #2a2a42);
+  border-bottom: 1px solid var(--surface-raised, #2a2a42);
   text-align: left;
   font-size: 0.95rem;
 }
 
 th {
   background: rgba(255, 255, 255, 0.03);
-  color: var(--gold, #d4af37);
+  color: var(--accent, #d4af37);
   font-weight: 600;
 }
 
 .subsection {
   margin-top: 1rem;
   padding-top: 0.5rem;
-  border-top: 1px dashed var(--surface-light, #2a2a42);
+  border-top: 1px dashed var(--surface-raised, #2a2a42);
 }
 
 .warning {
@@ -118,7 +118,7 @@ th {
 .nested-list strong {
   display: block;
   margin-bottom: 0.25rem;
-  color: var(--gold, #d4af37);
+  color: var(--accent, #d4af37);
 }
 
 .nested-list ul {
@@ -137,7 +137,7 @@ th {
   background: var(--surface, #1a1a2e);
   padding: 0.75rem;
   z-index: 10;
-  border-bottom: 2px solid var(--gold, #d4af37);
+  border-bottom: 2px solid var(--accent, #d4af37);
 }
 
 #search-input {
@@ -145,7 +145,7 @@ th {
   max-width: 600px;
   padding: 0.6rem;
   font-size: 1rem;
-  background: var(--surface-light, #2a2a42);
+  background: var(--surface-raised, #2a2a42);
   border: 2px solid rgba(212, 175, 55, 0.3);
   border-radius: var(--radius, 12px);
   color: var(--text, #f0f0f0);
@@ -157,7 +157,7 @@ th {
 
 #search-input:focus {
   outline: none;
-  border-color: var(--gold, #d4af37);
+  border-color: var(--accent, #d4af37);
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
 }
 
@@ -182,16 +182,16 @@ th {
 .search-result {
   padding: 0.75rem;
   cursor: pointer;
-  border-bottom: 1px solid var(--surface-light, #2a2a42);
+  border-bottom: 1px solid var(--surface-raised, #2a2a42);
   transition: background-color 0.2s ease;
 }
 
 .search-result:hover {
-  background: var(--surface-light, #2a2a42);
+  background: var(--surface-raised, #2a2a42);
 }
 
 .search-result:focus {
-  outline: 2px solid var(--gold, #d4af37);
+  outline: 2px solid var(--accent, #d4af37);
   outline-offset: -2px;
 }
 
@@ -201,7 +201,7 @@ th {
 
 .search-result-title {
   font-weight: bold;
-  color: var(--gold, #d4af37);
+  color: var(--accent, #d4af37);
   display: block;
   margin-bottom: 0.25rem;
 }
@@ -237,8 +237,8 @@ th {
 }
 
 .reload-button {
-  background: var(--gold, #d4af37);
-  color: var(--bg-dark, #0a0a12);
+  background: var(--accent, #d4af37);
+  color: var(--bg-base, #0a0a12);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
@@ -257,8 +257,8 @@ th {
 ========================= */
 
 mark {
-  background: var(--gold, #d4af37);
-  color: var(--bg-dark, #0a0a12);
+  background: var(--accent, #d4af37);
+  color: var(--bg-base, #0a0a12);
   padding: 0 2px;
   border-radius: 3px;
   font-weight: 600;
@@ -266,7 +266,7 @@ mark {
 
 .mark {
   background-color: rgba(212, 175, 55, 0.3);
-  color: var(--gold, #d4af37);
+  color: var(--accent, #d4af37);
   padding: 0 2px;
   border-radius: 2px;
   font-weight: 600;

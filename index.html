@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="classic" data-font="original" data-font-size="normal">
 <head>
   <meta charset="UTF-8" />
   <meta name="theme-color" content="#0a0a12">
@@ -17,6 +17,17 @@
     gtag('config', 'G-GZK5KHBGQZ');
   </script>
 
+<!-- Aplica o tema/fonte/tamanho salvos ANTES da página desenhar (evita flash) -->
+  <script>
+    (function() {
+      try {
+        var html = document.documentElement;
+        html.setAttribute('data-theme',     localStorage.getItem('maeri-theme')     || 'classic');
+        html.setAttribute('data-font',      localStorage.getItem('maeri-font')      || 'original');
+        html.setAttribute('data-font-size', localStorage.getItem('maeri-font-size') || 'normal');
+      } catch (e) {}
+    })();
+  </script>
 
   <title>Maeri RPG</title>
 
@@ -35,7 +46,7 @@
   <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600&family=Quicksand:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/base.css" />

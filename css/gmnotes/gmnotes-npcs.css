@@ -11,7 +11,7 @@
 
 .gmnotes-npc-item {
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 12px;
   padding: 1rem;
 }
@@ -25,7 +25,7 @@
 }
 
 .gmnotes-npc-name {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 1.1rem;
   font-weight: 600;
@@ -52,13 +52,13 @@
 }
 
 .gmnotes-npc-btn:hover {
-  color: var(--gold);
+  color: var(--accent);
   transform: scale(1.1);
 }
 
 /* Destaque para o botão de combate */
 .gmnotes-npc-btn[title="Adicionar ao Combate"] {
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .gmnotes-npc-btn[title="Adicionar ao Combate"]:hover {
@@ -81,7 +81,7 @@
   background: rgba(0, 0, 0, 0.3);
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
 }
 
 .gmnotes-stat-label {
@@ -98,7 +98,7 @@
 
 .gmnotes-stat-btn {
   background: transparent;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   color: var(--text);
   width: 24px;
   height: 24px;
@@ -113,9 +113,9 @@
 }
 
 .gmnotes-stat-btn:hover {
-  background: var(--gold);
-  color: var(--bg-dark);
-  border-color: var(--gold);
+  background: var(--accent);
+  color: var(--bg-base);
+  border-color: var(--accent);
 }
 
 .gmnotes-stat-value {
@@ -132,12 +132,12 @@
   gap: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 0.5rem 0;
-  border-top: 1px dashed var(--gold-border);
-  border-bottom: 1px dashed var(--gold-border);
+  border-top: 1px dashed var(--accent-border);
+  border-bottom: 1px dashed var(--accent-border);
 }
 
 .gmnotes-attr {
-  background: var(--surface-hover);
+  background: var(--state-hover);
   color: var(--text-muted);
   font-size: 0.85rem;
   padding: 0.2rem 0.5rem;

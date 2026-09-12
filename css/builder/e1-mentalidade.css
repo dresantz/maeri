@@ -8,22 +8,22 @@
 }
 
 .mentalidade-intro {
-  color: var(--gold);
+  color: var(--accent);
   font-size: 1.2rem;
   font-weight: 600;
   text-align: center;
   margin-bottom: 1.2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid var(--gold-border);
+  border-bottom: 2px solid var(--accent-border);
 }
 
 /* Tabela de Mentalidades */
 .mentalidade-table-container {
   overflow-x: auto;
   margin: 2rem;
-  background: var(--surface-light);
+  background: var(--surface-raised);
   border-radius: var(--radius);
-  border: 2px solid var(--gold-border);
+  border: 2px solid var(--accent-border);
 }
 
 .mentalidade-table {
@@ -34,12 +34,12 @@
 
 .mentalidade-table th {
   background: var(--surface);
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 600;
   padding: 1rem 0.8rem;
   text-align: left;
   font-size: 0.9rem;
-  border-bottom: 2px solid var(--gold);
+  border-bottom: 2px solid var(--accent);
 }
 
 .mentalidade-table td {
@@ -53,7 +53,7 @@
 }
 
 .mentalidade-table tbody tr:hover {
-  background: var(--surface-hover);
+  background: var(--state-hover);
 }
 
 .mentalidade-table .loading-row,
@@ -71,7 +71,7 @@
 /* Informações e fórmulas */
 .mentalidade-info {
   background: var(--surface);
-  border: 2px solid var(--gold-border);
+  border: 2px solid var(--accent-border);
   border-radius: var(--radius);
   padding: 0.5rem;
   margin-top: 0.1rem;
@@ -94,7 +94,7 @@
   border-radius: 8px;
   padding: 1rem;
   margin: 1rem 0;
-  border-left: 4px solid var(--gold);
+  border-left: 4px solid var(--accent);
 }
 
 .formulas p {
@@ -107,7 +107,7 @@
 }
 
 .formulas strong {
-  color: var(--gold);
+  color: var(--accent);
 }
 
 /* =========================

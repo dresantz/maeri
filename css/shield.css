@@ -13,7 +13,7 @@
 
 .shield-back-button {
   background: transparent;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 20px;
   padding: 0.4rem 1rem;
   color: var(--text);
@@ -24,8 +24,8 @@
 }
 
 .shield-back-button:hover {
-  background: var(--surface-hover);
-  border-color: var(--gold);
+  background: var(--state-hover);
+  border-color: var(--accent);
 }
 
 /* Botão Regras Rápidas */
@@ -34,13 +34,13 @@
   width: fit-content;
   margin: 1rem auto;
   padding: 0.7rem 1rem;
-  background: var(--gold);
-  color: var(--bg-dark);
+  background: var(--accent);
+  color: var(--bg-base);
   font-family: 'Cinzel', serif;
   font-weight: 700;
   font-size: 1rem;
   letter-spacing: 1px;
-  border: 2px solid var(--gold);
+  border: 2px solid var(--accent);
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -49,7 +49,7 @@
 
 .rules-button:hover {
   background: transparent;
-  color: var(--gold);
+  color: var(--accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(212,175,55,0.3);
 }

@@ -42,7 +42,7 @@
   transform: translateX(-50%);
   width: 0;
   height: 3px;
-  background: var(--gold);
+  background: var(--accent);
   transition: width 0.25s ease;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .tab-button.active {
-  color: var(--gold);
+  color: var(--accent);
   background: rgba(212, 175, 55, 0.1);
 }
 
@@ -92,7 +92,7 @@
 
 /* Acessibilidade */
 .tab-button:focus-visible {
-  outline: 3px solid var(--gold);
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 

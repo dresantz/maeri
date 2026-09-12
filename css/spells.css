@@ -25,7 +25,7 @@
   width: 95%; max-width: 600px;
   height: 80vh;
   background: var(--surface);
-  border: 2px solid var(--gold);
+  border: 2px solid var(--accent);
   border-radius: 24px;
   z-index: 2001;
   flex-direction: column;
@@ -47,7 +47,7 @@
 }
 
 .spells-header h2 {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 1.5rem;
   margin: 0;
@@ -71,7 +71,7 @@
 }
 
 .spells-quick-btn:hover {
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .spells-close {
@@ -85,7 +85,7 @@
   transition: color 0.2s;
 }
 
-.spells-close:hover { color: var(--gold); }
+.spells-close:hover { color: var(--accent); }
 
 /* Toolbar fixa */
 .spells-toolbar {
@@ -100,7 +100,7 @@
   padding: 0.8rem 1rem;
   font-size: 1rem;
   font-family: 'Crimson Text', serif;
-  background: var(--surface-light);
+  background: var(--surface-raised);
   border: 1px solid rgba(212,175,55,0.3);
   border-radius: 12px;
   color: var(--text);
@@ -110,7 +110,7 @@
 
 #spells-search:focus {
   outline: none;
-  border-color: var(--gold);
+  border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(212,175,55,0.2);
 }
 
@@ -155,7 +155,7 @@
 }
 
 .filter-toggle:hover {
-  border-color: var(--gold);
+  border-color: var(--accent);
   background: rgba(212,175,55,0.1);
 }
 
@@ -163,7 +163,7 @@
   position: absolute;
   top: 100%; left: 0; right: 0;
   background: var(--surface);
-  border: 1px solid var(--gold);
+  border: 1px solid var(--accent);
   border-radius: 8px;
   padding: 0.5rem;
   margin-top: 0.25rem;
@@ -189,7 +189,7 @@
 
 .filter-options input[type="checkbox"] {
   margin-right: 0.5rem;
-  accent-color: var(--gold);
+  accent-color: var(--accent);
 }
 
 /* Área de conteúdo rolável */
@@ -226,7 +226,7 @@
 }
 
 .spell-item:hover {
-  border-color: var(--gold);
+  border-color: var(--accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(212,175,55,0.2);
 }
@@ -236,7 +236,7 @@
 .spell-name {
   font-weight: bold;
   font-size: 1.1rem;
-  color: var(--gold);
+  color: var(--accent);
   margin-bottom: 0.5rem;
   font-family: 'Cinzel', serif;
 }
@@ -294,7 +294,7 @@
 
 .spells-loading {
   text-align: center;
-  color: var(--gold);
+  color: var(--accent);
   padding: 2rem;
   grid-column: 1 / -1;
 }
@@ -317,7 +317,7 @@
   border-radius: 10px;
 }
 .spells-content::-webkit-scrollbar-thumb {
-  background: var(--gold);
+  background: var(--accent);
   border-radius: 10px;
 }
 
@@ -346,7 +346,7 @@
   max-width: 500px;
   max-height: 80vh;
   background: var(--surface);
-  border: 2px solid var(--gold);
+  border: 2px solid var(--accent);
   border-radius: 24px;
   z-index: 2101;
   flex-direction: column;
@@ -367,7 +367,7 @@
 }
 
 .spell-detail-header h2 {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 1.3rem;
   margin: 0;
@@ -385,7 +385,7 @@
   transition: color 0.2s;
 }
 
-.spell-detail-close:hover { color: var(--gold); }
+.spell-detail-close:hover { color: var(--accent); }
 
 .spell-detail-content {
   padding: 1.5rem;
@@ -403,7 +403,7 @@
 
 .spell-detail-label {
   flex: 0 0 80px;
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 0.9rem;
   font-weight: 600;
@@ -448,7 +448,7 @@
   padding: 1rem;
   background: rgba(0,0,0,0.2);
   border-radius: 12px;
-  border-left: 3px solid var(--gold);
+  border-left: 3px solid var(--accent);
 }
 
 .spell-detail-description p {

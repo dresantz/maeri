@@ -35,7 +35,7 @@
   flex: 1 1 0;
   min-width: 0;
   background: var(--surface);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 10px;
   padding: 0.8rem 0.5rem;
   cursor: pointer;
@@ -49,20 +49,20 @@
 }
 
 .builder-step:hover {
-  background: var(--surface-hover);
-  border-color: var(--gold);
+  background: var(--state-hover);
+  border-color: var(--accent);
 }
 
 .builder-step.active {
-  background: var(--surface-hover);
-  border-color: var(--gold);
+  background: var(--state-hover);
+  border-color: var(--accent);
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
 .step-number {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--accent);
   line-height: 1;
   text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
@@ -82,7 +82,7 @@
 .builder-preview {
   flex: 1;
   background: var(--surface);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: var(--radius);
   padding: 1.5rem;
   min-height: 50vh;

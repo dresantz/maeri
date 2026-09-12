@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="classic" data-font="original" data-font-size="normal">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -199,6 +199,18 @@
       initPlayerManager();
     }
   </script>
+
+  <!-- Aplica o tema/fonte/tamanho salvos ANTES da página desenhar (evita flash) -->
+    <script>
+      (function() {
+        try {
+          var html = document.documentElement;
+          html.setAttribute('data-theme',     localStorage.getItem('maeri-theme')     || 'classic');
+          html.setAttribute('data-font',      localStorage.getItem('maeri-font')      || 'original');
+          html.setAttribute('data-font-size', localStorage.getItem('maeri-font-size') || 'normal');
+        } catch (e) {}
+      })();
+    </script>
 
   <script src="../js/pwa-update.js"></script>
 </body>

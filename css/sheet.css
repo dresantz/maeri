@@ -36,7 +36,7 @@
   width: clamp(320px, 85%, 620px);
   max-height: 90vh;
   background: var(--surface);
-  border: 2px solid var(--gold);
+  border: 2px solid var(--accent);
   border-radius: 24px;
   z-index: 2001;
   flex-direction: column;
@@ -54,12 +54,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.2rem;
-  border-bottom: 1px solid var(--gold-border);
+  border-bottom: 1px solid var(--accent-border);
   background: var(--surface);
 }
 
 .sheet-header h2 {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 1.3rem;
   margin: 0;
@@ -95,11 +95,11 @@
 }
 
 .sheet-quick-btn:hover {
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .sheet-close:hover {
-  color: var(--gold);
+  color: var(--accent);
 }
 
 /* Conteúdo Scrollável */
@@ -120,7 +120,7 @@
   border-radius: 16px;
   padding: 0.6rem;
   margin-bottom: 0.5rem;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   width: 100%;
 }
 
@@ -138,9 +138,9 @@
   width: 100%;
   padding: 0.4rem 1rem;
   background: transparent;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 20px;
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 0.8rem;
   cursor: pointer;
@@ -150,13 +150,13 @@
 }
 
 .sheet-notes-toggle:hover {
-  background: var(--surface-hover);
-  border-color: var(--gold);
+  background: var(--state-hover);
+  border-color: var(--accent);
 }
 
 .sheet-notes-toggle[aria-expanded="true"] {
-  background: var(--surface-hover);
-  border-color: var(--gold);
+  background: var(--state-hover);
+  border-color: var(--accent);
 }
 
 .sheet-notes-content {
@@ -197,7 +197,7 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--gold);
+  color: var(--accent);
   margin-bottom: 0.2rem;
   font-family: 'Cinzel', serif;
   white-space: nowrap;
@@ -209,7 +209,7 @@
   width: 100%;
   padding: 0.5rem 0.7rem;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 10px;
   color: var(--text);
   font-family: 'Crimson Text', serif;
@@ -219,7 +219,7 @@
 
 .sheet-input:focus {
   outline: none;
-  border-color: var(--gold);
+  border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
@@ -247,7 +247,7 @@
 
 .attribute-label {
   display: block;
-  color: var(--gold);
+  color: var(--accent);
   font-weight: bold;
   font-size: 0.9rem;
   margin-bottom: 0.2rem;
@@ -259,7 +259,7 @@
   padding: 0.3rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 6px;
   color: var(--text);
   font-size: 0.95rem;
@@ -268,7 +268,7 @@
 
 .attribute-input:focus {
   outline: none;
-  border-color: var(--gold);
+  border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
@@ -293,7 +293,7 @@
 }
 
 .vitals-label {
-  color: var(--gold);
+  color: var(--accent);
   font-weight: bold;
   font-family: 'Cinzel', serif;
   font-size: 0.9rem;
@@ -317,14 +317,14 @@
   padding: 0.3rem 0.2rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 5px;
   color: var(--text);
   font-size: 0.9rem;
 }
 
 .vitals-separator {
-  color: var(--gold);
+  color: var(--accent);
   font-weight: bold;
   font-size: 1rem;
   flex-shrink: 0;
@@ -349,7 +349,7 @@
   flex: 1;
   padding: 0.6rem 0.3rem;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 10px;
   color: var(--text-muted);
   font-weight: bold;
@@ -364,13 +364,13 @@
 
 .sheet-tab:hover {
   background: rgba(212, 175, 55, 0.1);
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .sheet-tab[aria-expanded="true"] {
-  background: var(--gold);
-  color: var(--bg-dark);
-  border-color: var(--gold);
+  background: var(--accent);
+  color: var(--bg-base);
+  border-color: var(--accent);
 }
 
 /* Painéis */
@@ -458,7 +458,7 @@
   width: 100%;
   padding: 0.6rem;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 10px;
   color: var(--text);
   font-family: 'Crimson Text', serif;
@@ -470,7 +470,7 @@
 
 .sheet-textarea:focus {
   outline: none;
-  border-color: var(--gold);
+  border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
@@ -491,7 +491,7 @@
 
 .xp-label {
   display: block;
-  color: var(--gold);
+  color: var(--accent);
   font-size: 0.75rem;
   margin-bottom: 0.2rem;
   font-family: 'Cinzel', serif;
@@ -502,7 +502,7 @@
   padding: 0.3rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 6px;
   color: var(--text);
   font-size: 0.9rem;
@@ -520,7 +520,7 @@
 }
 
 .limit-title {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 0.8rem;
   font-weight: bold;
@@ -542,7 +542,7 @@
 
 .limit-label {
   display: block;
-  color: var(--gold);
+  color: var(--accent);
   font-size: 0.75rem;
   font-weight: bold;
   margin-bottom: 0.2rem;
@@ -555,7 +555,7 @@
   padding: 0.3rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 6px;
   color: var(--text);
   font-size: 0.9rem;
@@ -585,16 +585,16 @@
   cursor: pointer;
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
-  border: 1px solid var(--gold-border);
-  background: var(--surface-light);
+  border: 1px solid var(--accent-border);
+  background: var(--surface-raised);
   color: var(--text);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sheet-action-button:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--bg-dark);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-base);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
@@ -646,7 +646,7 @@
 }
 
 .clear-confirmation p {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   text-align: center;
   margin-bottom: 0.8rem;
@@ -662,7 +662,7 @@
   flex: 1;
   padding: 0.5rem;
   background: transparent;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 20px;
   color: var(--text);
   font-weight: bold;
@@ -673,7 +673,7 @@
 }
 
 .clear-actions button:hover {
-  background: var(--surface-hover);
+  background: var(--state-hover);
 }
 
 .clear-actions .danger {
@@ -705,7 +705,7 @@
 
 .dialog-box {
   background: var(--surface);
-  border: 2px solid var(--gold);
+  border: 2px solid var(--accent);
   border-radius: 16px;
   padding: 1.5rem;
   max-width: 400px;
@@ -717,7 +717,7 @@
 }
 
 .dialog-title {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   margin: 0 0 0.8rem;
 }
@@ -734,7 +734,7 @@
 
 .dialog-button {
   padding: 0.6rem 1.5rem;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 20px;
   background: transparent;
   color: var(--text);
@@ -744,14 +744,14 @@
 }
 
 .dialog-button--save {
-  background: var(--gold);
-  color: var(--bg-dark);
-  border-color: var(--gold);
+  background: var(--accent);
+  color: var(--bg-base);
+  border-color: var(--accent);
 }
 
 .dialog-button:hover {
-  background: var(--surface-hover);
-  border-color: var(--gold);
+  background: var(--state-hover);
+  border-color: var(--accent);
 }
 
 /* =========================
@@ -768,7 +768,7 @@
 }
 
 .sheet-content::-webkit-scrollbar-thumb {
-  background: var(--gold);
+  background: var(--accent);
   border-radius: 10px;
 }
 

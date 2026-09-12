@@ -4,119 +4,154 @@
 
 :root {
   /* Cores base */
-  --bg-dark: #171724;
+  --bg-base: #171724;
   --surface: #1b1b31;
-  --surface-light: #2a2a42;
-  --gold: #d4af37;
+  --surface-raised: #2a2a42;
+  --accent: #d4af37;
   --text: #f0f0f0;
   --text-muted: #b0b0c0;
-  
-  --parchment: #eeddbe;
-  --bronze: #8b7355;
-  --text-invert: #3a190a;
 
-  --surface-gradient: linear-gradient(145deg, #232338, #111127);
-  --surface-hover: rgba(212, 175, 55, 0.1);
-  --gold-border: rgba(212, 175, 55, 0.3);
+  --board-bg: #eeddbe;
+  --board-border: #8b7355;
+  --board-ink: #3a190a;
+
+  --gradient-featured: linear-gradient(145deg, #232338, #111127);
+  --state-hover: rgba(212, 175, 55, 0.1);
+  --accent-border: rgba(212, 175, 55, 0.3);
+
+  /* Fontes padrão */
+  --font-primary: 'Cinzel', serif;
+  --font-secondary: 'Crimson Text', serif;
+  --font-scale: 1;
 }
+
+/* Escala global de fonte */
+html {
+  font-size: calc(16px * var(--font-scale));
+}
+
+/* =========================
+   Fontes Alternativas
+========================= */
+
+[data-font="classic"] {
+  --font-primary: 'Cinzel', serif;
+  --font-secondary: 'Crimson Text', serif;
+}
+
+[data-font="comfort"] {
+  --font-primary: 'Quicksand', sans-serif;
+  --font-secondary: 'Nunito', sans-serif;
+}
+
+[data-font="reading"] {
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Merriweather', serif;
+}
+
+/* Tamanhos */
+[data-font-size="pequeno"] { --font-scale: 0.875; }
+[data-font-size="normal"]  { --font-scale: 1;     }
+[data-font-size="large"]   { --font-scale: 1.125; }
+[data-font-size="ultra"]   { --font-scale: 1.25;  }
 
 /* =========================
    Temas Alternativos
 ========================= */
 
 [data-theme="sepia"] {
-  --bg-dark: #1a140e;
+  --bg-base: #1a140e;
   --surface: #2e2318;
-  --surface-light: #4a3826;
-  --gold: #e0b878;
+  --surface-raised: #4a3826;
+  --accent: #e0b878;
   --text: #f7ecd6;
   --text-muted: #b8a488;
 
-  --parchment: #f5e6ca;
-  --bronze: #8b7355;
-  --text-invert: #291603;
+  --board-bg: #f5e6ca;
+  --board-border: #8b7355;
+  --board-ink: #291603;
 
-  --surface-gradient: linear-gradient(145deg, #4e3f31, #241b12);
-  --surface-hover: rgba(224, 184, 120, 0.12);
-  --gold-border: rgba(224, 184, 120, 0.35);
+  --gradient-featured: linear-gradient(145deg, #4e3f31, #241b12);
+  --state-hover: rgba(224, 184, 120, 0.12);
+  --accent-border: rgba(224, 184, 120, 0.35);
 }
 
 [data-theme="dark"] {
-  --bg-dark: #000000;
+  --bg-base: #000000;
   --surface: #111111;
-  --surface-light: #1a1a1a;
-  --gold: #d4af37;
+  --surface-raised: #1a1a1a;
+  --accent: #d4af37;
   --text: #e0e0e0;
   --text-muted: #888888;
 
-  --parchment: #1a1a1a;
-  --bronze: #666666;
-  --text-invert: #858585;
+  --board-bg: #1a1a1a;
+  --board-border: #666666;
+  --board-ink: #858585;
 
-  --surface-gradient: linear-gradient(145deg, #111111, #0a0a0a);
-  --surface-hover: rgba(212, 175, 55, 0.1);
-  --gold-border: rgba(212, 175, 55, 0.3);
+  --gradient-featured: linear-gradient(145deg, #111111, #0a0a0a);
+  --state-hover: rgba(212, 175, 55, 0.1);
+  --accent-border: rgba(212, 175, 55, 0.3);
 }
 
 [data-theme="contrast"] {
-  --bg-dark: #000000;
+  --bg-base: #000000;
   --surface: #0a0a0a;
-  --surface-light: #1a1a1a;
-  --gold: #ffd700;
+  --surface-raised: #1a1a1a;
+  --accent: #ffd700;
   --text: #ffffff;
   --text-muted: #cccccc;
 
-  --parchment: #ffffff;
-  --bronze: #999999;
-  --text-invert: #000000;
+  --board-bg: #ffffff;
+  --board-border: #999999;
+  --board-ink: #000000;
 
-  --surface-gradient: linear-gradient(145deg, #0a0a0a, #000000);
-  --surface-hover: rgba(255, 215, 0, 0.15);
-  --gold-border: rgba(255, 215, 0, 0.5);
+  --gradient-featured: linear-gradient(145deg, #0a0a0a, #000000);
+  --state-hover: rgba(255, 215, 0, 0.15);
+  --accent-border: rgba(255, 215, 0, 0.5);
 }
 
 [data-theme="day"] {
-  --bg-dark: #aac4cb;
+  --bg-base: #aac4cb;
   --surface: #c9ded7;
-  --surface-light: #e6eee2;
-  --gold: #8a6a15;
+  --surface-raised: #e6eee2;
+  --accent: #8a6a15;
   --text: #16282a;
   --text-muted: #4a615f;
 
-  --parchment: #f3deab;
-  --bronze: #8b7355;
-  --text-invert: #3a190a;
+  --board-bg: #f3deab;
+  --board-border: #8b7355;
+  --board-ink: #3a190a;
 
-  --surface-gradient: linear-gradient(145deg, #d1dfd9, #b6c8c2);
-  --surface-hover: rgba(138, 106, 21, 0.14);
-  --gold-border: rgba(138, 106, 21, 0.4);
+  --gradient-featured: linear-gradient(145deg, #d1dfd9, #b6c8c2);
+  --state-hover: rgba(138, 106, 21, 0.14);
+  --accent-border: rgba(138, 106, 21, 0.4);
 }
 
 [data-theme="cozy"] {
-  --bg-dark: #fdf2f0;
+  --bg-base: #fdf2f0;
   --surface: #fff8f5;
-  --surface-light: #fbe8e0;
-  --gold: #d97a9e;
+  --surface-raised: #fbe8e0;
+  --accent: #d97a9e;
   --text: #4a2c3a;
   --text-muted: #8a6b78;
 
-  --parchment: #fff0e8;
-  --bronze: #b8896b;
-  --text-invert: #fff5f0;
-  
-  --surface-gradient: linear-gradient(145deg, #fff8f5, #fceee8);
-  --surface-hover: rgba(217, 122, 158, 0.15);
-  --gold-border: rgba(217, 122, 158, 0.4);
+  --board-bg: #fff0e8;
+  --board-border: #b8896b;
+  --board-ink: #fff5f0;
+
+  --gradient-featured: linear-gradient(145deg, #fff8f5, #fceee8);
+  --state-hover: rgba(217, 122, 158, 0.15);
+  --accent-border: rgba(217, 122, 158, 0.4);
 }
 
 /* Reset básico */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  width: 100%; 
+  width: 100%;
   overflow-x: hidden;
-  font-family: 'Cinzel', serif;
-  background: var(--bg-dark); 
+  font-family: var(--font-primary);
+  background: var(--bg-base);
   color: var(--text);
   min-height: 100vh;
 }
@@ -127,7 +162,7 @@ html, body {
   text-align: center;
   padding: 1.8rem 1rem;
   background: var(--surface);
-  border-bottom: 3px solid var(--gold);
+  border-bottom: 3px solid var(--accent);
   overflow: hidden;
 }
 
@@ -138,21 +173,21 @@ html, body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    var(--gold), 
+  background: linear-gradient(90deg,
+    transparent,
+    var(--accent),
     transparent
   );
 }
 
 .app-header h1 {
-  color: var(--gold);
+  color: var(--accent);
   font-size: 2.6rem;
   margin-bottom: 0.4rem;
 }
 
 .app-header .subtitle {
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-style: italic;
   font-size: 0.95rem;
   letter-spacing: 2px;
@@ -168,7 +203,7 @@ html, body {
   margin: 0 8px;
   opacity: 0.6;
   font-size: 0.8rem;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 /* BOTÃO DE CONFIGURAÇÕES */
@@ -183,7 +218,7 @@ html, body {
   align-items: center;
   justify-content: center;
   background: var(--surface);
-  border: 2px solid var(--gold-border);
+  border: 2px solid var(--accent-border);
   border-radius: 50%;
   cursor: pointer;
   font-size: 1.2rem;
@@ -198,12 +233,12 @@ html, body {
 }
 
 .settings-button:hover svg {
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .settings-button:hover {
-  background: var(--surface-hover);
-  border-color: var(--gold);
+  background: var(--state-hover);
+  border-color: var(--accent);
   transform: translateY(-50%) rotate(45deg);
 }
 
@@ -228,20 +263,20 @@ main {
 }
 
 .menu-button {
-  display: flex; 
+  display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
-  padding: 1.5rem 1rem; 
-  background: var(--surface-gradient);
-  border: 2px solid var(--gold-border);
-  border-radius: 12px; 
-  color: var(--gold);
-  text-decoration: none; 
+  padding: 1.5rem 1rem;
+  background: var(--gradient-featured);
+  border: 2px solid var(--accent-border);
+  border-radius: 12px;
+  color: var(--accent);
+  text-decoration: none;
   text-align: center;
-  font-weight: 600; 
+  font-weight: 600;
   font-size: 1.1rem;
-  transition: all 0.25s ease; 
+  transition: all 0.25s ease;
   min-height: 100px;
   will-change: transform, border-color;
   -webkit-tap-highlight-color: transparent;
@@ -256,7 +291,7 @@ main {
   left: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
   transition: left 0.3s;
 }
 
@@ -266,14 +301,14 @@ main {
 
 .menu-button:hover {
   transform: translateY(-4px);
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 
 .menu-button span {
-  font-family: 'Cinzel', serif;
-  font-size: 1.05rem; 
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
   color: var(--text-muted);
-  margin-top: 0.5rem; 
+  margin-top: 0.5rem;
   font-weight: 400;
 }
 
@@ -288,23 +323,23 @@ main {
 .menu-button--primary {
   grid-column: 1 / -1;
   min-height: 120px;
-  background: var(--surface-gradient);
-  border-color: var(--gold);
+  background: var(--gradient-featured);
+  border-color: var(--accent);
   border-width: 1px;
 }
 
 /* SUBTÍTULO DO BOTÃO PRIMÁRIO */
 .menu-button .menu-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 1.4rem;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: 1px;
   font-weight: 700;
   margin-top: 0;
 }
 
 .menu-button .menu-subtitle {
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-style: italic;
   font-size: 0.94rem;
   color: var(--text-muted);
@@ -328,8 +363,8 @@ main {
 
 /* SEÇÃO NOTPAT (apenas container) */
 .notpat-section {
-  background: var(--parchment);
-  border: 2px solid var(--bronze);
+  background: var(--board-bg);
+  border: 2px solid var(--board-border);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -349,7 +384,7 @@ main {
   main {
     padding-bottom: calc(0.5rem + 60px);
   }
-  
+
   .notpat-section {
     height: 700px;
   }
@@ -361,37 +396,37 @@ main {
     font-size: 1rem;
   }
 
-  .main-menu { 
-    grid-template-columns: repeat(2, 1fr); 
+  .main-menu {
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-  
+
   .menu-button--primary {
     min-height: 100px;
   }
-  
-  .floating-actions { 
-    justify-content: center; 
-    gap: 1rem; 
+
+  .floating-actions {
+    justify-content: center;
+    gap: 1rem;
   }
-  
+
   .floating-button {
     min-width: 80px;
     padding: 0.6rem 0.5rem;
   }
-  
+
   .app-header {
     padding: 1.5rem 0.5rem;
   }
-  
+
   .app-header h1 {
     font-size: 1.8rem;
   }
-  
+
   .app-header .subtitle {
     font-size: 0.85rem;
   }
-  
+
   .app-header .subtitle::before,
   .app-header .subtitle::after {
     margin: 0 4px;
@@ -402,4 +437,4 @@ main {
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--surface); }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }

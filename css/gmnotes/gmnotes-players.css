@@ -10,7 +10,7 @@
 
 .gmnotes-player-item {
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   border-radius: 12px;
   padding: 1rem;
 }
@@ -24,7 +24,7 @@
 }
 
 .gmnotes-player-name {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 1.1rem;
   font-weight: 600;
@@ -44,7 +44,7 @@
   font-style: italic;
   margin-bottom: 0.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px dashed var(--gold-border);
+  border-bottom: 1px dashed var(--accent-border);
   word-break: break-word;
 }
 
@@ -62,7 +62,7 @@
 }
 
 .gmnotes-player-actions .gmnotes-npc-btn:hover {
-  color: var(--gold);
+  color: var(--accent);
   transform: scale(1.1);
 }
 

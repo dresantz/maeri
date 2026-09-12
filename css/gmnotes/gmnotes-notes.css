@@ -14,8 +14,8 @@
 .gmnotes-textarea {
   width: 100%;
   min-height: 200px;
-  background: var(--surface-light);
-  border: 1px solid var(--gold-border);
+  background: var(--surface-raised);
+  border: 1px solid var(--accent-border);
   border-radius: 12px;
   padding: 1rem;
   color: var(--text);
@@ -27,7 +27,7 @@
 
 .gmnotes-textarea:focus {
   outline: none;
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 
 /* Toolbar */
@@ -37,13 +37,13 @@
   padding: 0.5rem;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 12px;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   flex-wrap: wrap;
 }
 
 .gmnotes-toolbar-btn {
   background: transparent;
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   color: var(--text);
   min-width: 100px;
   height: 36px;
@@ -59,9 +59,9 @@
 }
 
 .gmnotes-toolbar-btn:hover {
-  background: var(--gold);
-  color: var(--bg-dark);
-  border-color: var(--gold);
+  background: var(--accent);
+  color: var(--bg-base);
+  border-color: var(--accent);
 }
 
 /* =========================
@@ -83,8 +83,8 @@
 }
 
 .gmnotes-session-item {
-  background: var(--surface-hover);
-  border: 1px solid var(--gold-border);
+  background: var(--state-hover);
+  border: 1px solid var(--accent-border);
   border-radius: 20px;
   padding: 0.5rem 1rem;
   color: var(--text);
@@ -96,14 +96,14 @@
 
 .gmnotes-session-item:hover,
 .gmnotes-session-item.active {
-  background: var(--gold);
-  color: var(--bg-dark);
-  border-color: var(--gold);
+  background: var(--accent);
+  color: var(--bg-base);
+  border-color: var(--accent);
 }
 
 .gmnotes-session-new {
   background: transparent;
-  border: 1px dashed var(--gold);
+  border: 1px dashed var(--accent);
 }
 
 /* Botão de deletar sessão */
@@ -148,7 +148,7 @@
 .gmnotes-confirm-content,
 .gmnotes-session-modal-content {
   background: var(--surface);
-  border: 2px solid var(--gold);
+  border: 2px solid var(--accent);
   border-radius: 16px;
   padding: 2rem;
   max-width: 400px;
@@ -201,8 +201,8 @@
 
 .gmnotes-confirm-yes,
 .gmnotes-session-modal-create {
-  background: var(--gold);
-  color: var(--bg-dark);
+  background: var(--accent);
+  color: var(--bg-base);
 }
 
 .gmnotes-confirm-yes:hover,
@@ -214,18 +214,18 @@
 .gmnotes-confirm-no,
 .gmnotes-session-modal-cancel {
   background: transparent;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--accent);
   color: var(--text);
 }
 
 .gmnotes-confirm-no:hover,
 .gmnotes-session-modal-cancel:hover {
-  background: var(--surface-hover);
+  background: var(--state-hover);
 }
 
 /* Modal de Nova Sessão */
 .gmnotes-session-modal h4 {
-  color: var(--gold);
+  color: var(--accent);
   font-family: 'Cinzel', serif;
   font-size: 1.3rem;
   margin-bottom: 1.5rem;
@@ -233,8 +233,8 @@
 
 .gmnotes-session-modal-input {
   width: 100%;
-  background: var(--surface-light);
-  border: 1px solid var(--gold-border);
+  background: var(--surface-raised);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   color: var(--text);
@@ -246,7 +246,7 @@
 
 .gmnotes-session-modal-input:focus {
   outline: none;
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 
 .gmnotes-session-modal-input::placeholder {
@@ -277,7 +277,7 @@
   color: var(--text-muted);
   font-style: italic;
   padding: 2rem;
-  border: 1px dashed var(--gold-border);
+  border: 1px dashed var(--accent-border);
   border-radius: 12px;
   width: 100%;
 }

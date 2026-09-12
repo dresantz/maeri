@@ -19,9 +19,9 @@
   overflow: visible;
   position: relative;
   font-family: 'Cinzel', serif;
-  border: 2px solid var(--bronze);
+  border: 2px solid var(--board-border);
   border-radius: 35px;
-  background: var(--bronze);
+  background: var(--board-border);
   cursor: pointer;
   transition: all 0.25s ease;
   -webkit-tap-highlight-color: transparent;
@@ -113,8 +113,8 @@
 
 /* Conteúdo */
 .notpat-content {
-  background: var(--parchment);
-  border: 2px solid var(--bronze);
+  background: var(--board-bg);
+  border: 2px solid var(--board-border);
   border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--shadow);
@@ -129,7 +129,7 @@
   
   /* Scrollbar estilizada */
   scrollbar-width: thin;
-  scrollbar-color: var(--bronze) transparent;
+  scrollbar-color: var(--board-border) transparent;
 }
 
 /* Scrollbar para WebKit (Chrome, Safari, Edge) */
@@ -142,7 +142,7 @@
 }
 
 .notpat-content::-webkit-scrollbar-thumb {
-  background: var(--bronze);
+  background: var(--board-border);
   border-radius: 3px;
 }
 
@@ -160,7 +160,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  color: var(--text-invert);
+  color: var(--board-ink);
   font-family: 'Crimson Text', serif;
   font-size: 1.05rem;
 }
@@ -168,7 +168,7 @@
 .notpat-content li {
   padding: 0.8rem 0 0.8rem 1.8rem;
   line-height: 1.5;
-  border-bottom: 1px dashed var(--bronze);
+  border-bottom: 1px dashed var(--board-border);
   position: relative;
 }
 
@@ -180,12 +180,12 @@
   content: '✦';
   position: absolute;
   left: 0;
-  color: var(--gold);
+  color: var(--accent);
   font-size: 1.1rem;
 }
 
 .notpat-content strong {
-  color: var(--text-invert);
+  color: var(--board-ink);
   font-weight: 700;
 }
 
@@ -201,18 +201,18 @@
   text-align: center;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px dashed var(--bronze);
+  border-bottom: 1px dashed var(--board-border);
 }
 
 .about-role {
-  color: var(--text-invert);
+  color: var(--board-ink);
   font-family: 'Crimson Text', serif;
   font-size: 1.05rem;
   margin-bottom: 0.8rem;
 }
 
 .about-publications {
-  color: var(--text-invert);
+  color: var(--board-ink);
   font-family: 'Crimson Text', serif;
   font-size: 1.05rem;
   display: flex;
@@ -227,7 +227,7 @@
   gap: 0.5rem;
   padding: 0.2rem;
   border-radius: 4px;
-  color: var(--text-invert);
+  color: var(--board-ink);
   text-decoration: none;
   font-family: 'Crimson Text', serif;
   font-size: 1.05rem;
@@ -237,7 +237,7 @@
 
 .about-link-item:hover {
   background: rgba(212, 175, 55, 0.2);
-  border-color: var(--gold);
+  border-color: var(--accent);
   transform: translateX(4px);
 }
 
@@ -254,16 +254,16 @@
   padding: 0.8rem;
   background: rgba(139, 115, 85, 0.1);
   border-radius: 8px;
-  color: var(--text-invert);
+  color: var(--board-ink);
   text-decoration: none;
   font-family: 'Crimson Text', serif;
   font-size: 1.05rem;
   transition: all 0.25s ease;
-  border: 1px solid var(--bronze);
+  border: 1px solid var(--board-border);
 }
 
 .about-social-link:hover {
   background: rgba(139, 115, 85, 0.2);
   transform: translateX(4px);
-  border-color: var(--gold);
+  border-color: var(--accent);
 }

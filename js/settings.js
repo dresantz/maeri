@@ -57,6 +57,13 @@ const SettingsManager = (function() {
     document.dispatchEvent(new CustomEvent('theme:changed', {
       detail: { theme: theme }
     }));
+
+    // Altera tema barra do navegador:
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg-base');
+      meta.setAttribute('content', bg.trim());
+    }
   }
   
   function updateThemeButtons(activeTheme) {
@@ -182,6 +189,53 @@ const SettingsManager = (function() {
         resetTheme();
       });
     }
+
+    // ===== FONTE =====
+    const savedFont = localStorage.getItem('maeri-font') || 'original';
+    document.documentElement.setAttribute('data-font', savedFont);
+
+    document.querySelectorAll('[data-setting="font"] .setting-option').forEach(option => {
+      // Marca o botão ativo
+      if (option.getAttribute('data-value') === savedFont) {
+        option.classList.add('active');
+      } else {
+        option.classList.remove('active');
+      }
+
+      // Quando clicar, troca a fonte
+      option.addEventListener('click', () => {
+        const font = option.getAttribute('data-value');
+        document.documentElement.setAttribute('data-font', font);
+        localStorage.setItem('maeri-font', font);
+
+        document.querySelectorAll('[data-setting="font"] .setting-option')
+          .forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+      });
+    });
+
+    // ===== TAMANHO DE FONTE =====
+    const savedSize = localStorage.getItem('maeri-font-size') || 'normal';
+    document.documentElement.setAttribute('data-font-size', savedSize);
+
+    document.querySelectorAll('[data-setting="font-size"] .setting-option').forEach(option => {
+      if (option.getAttribute('data-value') === savedSize) {
+        option.classList.add('active');
+      } else {
+        option.classList.remove('active');
+      }
+
+      option.addEventListener('click', () => {
+        const size = option.getAttribute('data-value');
+        document.documentElement.setAttribute('data-font-size', size);
+        localStorage.setItem('maeri-font-size', size);
+
+        document.querySelectorAll('[data-setting="font-size"] .setting-option')
+          .forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+      });
+    });
+
   }
   
   function init() {

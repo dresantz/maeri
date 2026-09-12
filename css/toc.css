@@ -12,9 +12,9 @@
   height: 50px;
   border-radius: 50px;
   font-size: 1.2rem;
-  background: var(--gold);
+  background: var(--accent);
   color: #1a1a1a;
-  border: 2px solid var(--gold);
+  border: 2px solid var(--accent);
   cursor: pointer;
   z-index: 1001;
   -webkit-tap-highlight-color: transparent;
@@ -44,8 +44,8 @@
   top: 0; left: 0;
   width: 100%;
   max-height: 80vh;
-  background: var(--parchment);
-  border-bottom: 3px solid var(--gold);
+  background: var(--board-bg);
+  border-bottom: 3px solid var(--accent);
   border-radius: 0 0 var(--radius) var(--radius);
   padding: 1.5rem;
   z-index: 1000;
@@ -57,14 +57,14 @@
 
 /* Título do capítulo */
 .toc-chapter-title {
-  color: var(--bronze);
+  color: var(--board-border);
   font-family: 'Cinzel', serif;
   font-size: 1.3rem;
   font-weight: 700;
   text-align: center;
   margin: 0.5rem 0 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--gold);
+  border-bottom: 2px solid var(--accent);
 }
 
 /* Select de capítulos */
@@ -73,11 +73,11 @@
   max-width: 800px;
   padding: 0.8rem;
   background: white;
-  border: 2px solid var(--bronze);
+  border: 2px solid var(--board-border);
   border-radius: 8px;
   font-size: 1rem;
   font-family: 'Cinzel', serif;
-  color: var(--bg-dark);
+  color: var(--bg-base);
   margin-bottom: 1rem;
   cursor: pointer;
   display: block;
@@ -95,14 +95,14 @@
   flex: 1;
   padding: 0.8rem;
   background: white;
-  border: 2px solid var(--bronze);
+  border: 2px solid var(--board-border);
   border-radius: 8px;
-  color: var(--bronze);
+  color: var(--board-border);
   font-weight: bold;
   cursor: pointer;
 }
 .chapter-nav button:hover {
-  background: var(--bronze);
+  background: var(--board-border);
   color: white;
 }
 .chapter-nav button:disabled {
@@ -117,18 +117,18 @@
   margin: 0;
 }
 #toc-list li {
-  border-bottom: 1px dashed var(--bronze);
+  border-bottom: 1px dashed var(--board-border);
 }
 #toc-list a {
   display: block;
   padding: 0.8rem 0.5rem;
-  color: var(--bg-dark);
+  color: var(--bg-base);
   font-family: 'Crimson Text', serif;
   font-size: 1.1rem;
   text-decoration: none;
 }
 #toc-list a:hover {
-  color: var(--gold);
+  color: var(--accent);
   padding-left: 0.8rem;
   transition: padding 0.2s;
 }
@@ -157,7 +157,7 @@
     width: 90%;
     max-width: 900px; /* Um pouco maior que 800px para comportar os botões */
     border-radius: var(--radius);
-    border: 3px solid var(--gold);
+    border: 3px solid var(--accent);
     box-shadow: var(--shadow);
   }
 

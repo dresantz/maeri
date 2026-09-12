@@ -44,7 +44,7 @@
       left: 16px;
       right: 16px;
       background: var(--surface, #1a1a2e);
-      border: 2px solid var(--gold, #d4af37);
+      border: 2px solid var(--accent, #d4af37);
       border-radius: var(--radius, 12px);
       padding: 16px;
       font-family: 'Cinzel', serif;
@@ -59,7 +59,7 @@
     // Conteúdo da notificação
     notification.innerHTML = `
       <div style="margin-bottom: 12px;">
-        <span style="color: var(--gold, #d4af37); font-size: 1.2rem;">NOVA VERSÃO!</span>
+        <span style="color: var(--accent, #d4af37); font-size: 1.2rem;">NOVA VERSÃO!</span>
       </div>
       <p style="font-family: 'Crimson Text', serif; margin: 0 0 16px 0; color: var(--text-muted, #b0b0c0);">
         Uma atualização está disponível!
@@ -103,25 +103,25 @@
       }
 
       .maeri-update-btn-primary {
-        background: var(--gold, #d4af37);
-        color: var(--bg-dark, #0a0a12);
-        border-color: var(--gold, #d4af37);
+        background: var(--accent, #d4af37);
+        color: var(--bg-base, #0a0a12);
+        border-color: var(--accent, #d4af37);
       }
 
       .maeri-update-btn-primary:hover {
         background: transparent;
-        color: var(--gold, #d4af37);
+        color: var(--accent, #d4af37);
       }
 
       .maeri-update-btn-secondary {
         background: transparent;
-        color: var(--gold, #d4af37);
-        border-color: var(--gold, #d4af37);
+        color: var(--accent, #d4af37);
+        border-color: var(--accent, #d4af37);
       }
 
       .maeri-update-btn-secondary:hover {
-        background: var(--gold, #d4af37);
-        color: var(--bg-dark, #0a0a12);
+        background: var(--accent, #d4af37);
+        color: var(--bg-base, #0a0a12);
       }
 
       @media (max-width: 480px) {
