@@ -11,13 +11,15 @@
   --text: #f0f0f0;
   --text-muted: #b0b0c0;
 
-  --board-bg: #eeddbe;
+  --board-bg: #dfcaa3;
   --board-border: #8b7355;
   --board-ink: #3a190a;
 
+  --gradient-sheet: linear-gradient(145deg, rgba(141, 140, 56, 0.12), rgba(0, 0, 0, 0.1));
   --gradient-featured: linear-gradient(145deg, #232338, #111127);
   --state-hover: rgba(212, 175, 55, 0.1);
   --accent-border: rgba(212, 175, 55, 0.3);
+  --input-bg: #131320;
 
   /* Fontes padrão */
   --font-primary: 'Cinzel', serif;
@@ -72,7 +74,7 @@ html {
   --board-ink: #291603;
 
   --gradient-featured: linear-gradient(145deg, #4e3f31, #241b12);
-  --state-hover: rgba(224, 184, 120, 0.12);
+  --state-hover: rgba(230, 222, 211, 0.12);
   --accent-border: rgba(224, 184, 120, 0.35);
 }
 
@@ -129,19 +131,22 @@ html {
 
 [data-theme="cozy"] {
   --bg-base: #fdf2f0;
-  --surface: #fff8f5;
-  --surface-raised: #fbe8e0;
-  --accent: #d97a9e;
-  --text: #4a2c3a;
+  --surface: #eee4ec;
+  --surface-raised: #dabfd7;
+  --accent: #ac7da9;
+  --text: #795c74;
   --text-muted: #8a6b78;
 
-  --board-bg: #fff0e8;
-  --board-border: #b8896b;
-  --board-ink: #fff5f0;
+  --board-bg: #fcffe8;
+  --board-border: #c5abc4;
+  --board-ink: #4a2c3a;
 
-  --gradient-featured: linear-gradient(145deg, #fff8f5, #fceee8);
+  --gradient-featured: linear-gradient(145deg, #f1e4f0, #e1c3f3);
   --state-hover: rgba(217, 122, 158, 0.15);
   --accent-border: rgba(217, 122, 158, 0.4);
+
+  --gradient-sheet: linear-gradient(145deg, rgba(174, 0, 255, 0.12), rgba(189, 0, 164, 0.1));
+  --input-bg: #c599c7;
 }
 
 /* Reset básico */

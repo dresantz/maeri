@@ -17,7 +17,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(8, 8, 8, 0.85);
   backdrop-filter: blur(8px);
   z-index: 2000;
 }
@@ -40,7 +40,6 @@
   border-radius: 24px;
   z-index: 2001;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
@@ -114,9 +113,8 @@
   width: 100%;
 }
 
-/* Cabeçalho fixo com mais contraste */
 .sheet-header-fixed {
-  background: linear-gradient(145deg, rgba(212, 175, 55, 0.12), rgba(0, 0, 0, 0.1));
+  background: var(--gradient-sheet);
   border-radius: 16px;
   padding: 0.6rem;
   margin-bottom: 0.5rem;
@@ -137,7 +135,7 @@
   display: block;
   width: 100%;
   padding: 0.4rem 1rem;
-  background: transparent;
+  background: var(--gradient-sheet);;
   border: 1px solid var(--accent-border);
   border-radius: 20px;
   color: var(--accent);
@@ -208,7 +206,7 @@
 .sheet-input {
   width: 100%;
   padding: 0.5rem 0.7rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--input-bg);
   border: 1px solid var(--accent-border);
   border-radius: 10px;
   color: var(--text);
@@ -220,7 +218,7 @@
 .sheet-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 2px var(--accent-border);
 }
 
 .sheet-input::placeholder,
@@ -238,8 +236,8 @@
 }
 
 .attribute-item {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  background: var(--input-bg);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
   padding: 0.4rem;
   text-align: center;
@@ -258,7 +256,7 @@
   width: 100%;
   padding: 0.3rem;
   text-align: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--input-bg);
   border: 1px solid var(--accent-border);
   border-radius: 6px;
   color: var(--text);
@@ -269,7 +267,7 @@
 .attribute-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 2px var(--accent-border);
 }
 
 /* Status Vitais */
@@ -282,7 +280,7 @@
 }
 
 .vitals-group {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--input-bg);
   border-radius: 10px;
   padding: 0.4rem 0.5rem;
   width: 100%;
@@ -316,11 +314,17 @@
   min-width: 0;
   padding: 0.3rem 0.2rem;
   text-align: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--input-bg);
   border: 1px solid var(--accent-border);
   border-radius: 5px;
   color: var(--text);
   font-size: 0.9rem;
+}
+
+.vitals-input:focus{
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-border);
 }
 
 .vitals-separator {
@@ -348,7 +352,7 @@
 .sheet-tab {
   flex: 1;
   padding: 0.6rem 0.3rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--bg-base);
   border: 1px solid var(--accent-border);
   border-radius: 10px;
   color: var(--text-muted);
@@ -363,7 +367,7 @@
 }
 
 .sheet-tab:hover {
-  background: rgba(212, 175, 55, 0.1);
+  background: var(--state-hover);
   color: var(--accent);
 }
 
@@ -375,11 +379,11 @@
 
 /* Painéis */
 .sheet-panel {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--surface);
   border-radius: 12px;
   padding: 0.8rem;
   margin-bottom: 0.6rem;
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--accent-border);
   width: 100%;
 }
 
@@ -457,7 +461,7 @@
 .sheet-textarea {
   width: 100%;
   padding: 0.6rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--input-bg);
   border: 1px solid var(--accent-border);
   border-radius: 10px;
   color: var(--text);
@@ -471,12 +475,11 @@
 .sheet-textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 2px var(--accent-border);
 }
 
 /* XP */
 .panel-row--xp {
-  background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 0.3rem;
   display: flex;
@@ -501,16 +504,22 @@
   width: 80%;
   padding: 0.3rem;
   text-align: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--input-bg);
   border: 1px solid var(--accent-border);
   border-radius: 6px;
   color: var(--text);
   font-size: 0.9rem;
 }
 
+.xp-input:focus{
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-border);
+}
+
 /* Limites de Peso */
 .panel-row--limits {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--input-bg);
   border-radius: 10px;
   padding: 0.6rem;
   display: flex;
@@ -554,11 +563,17 @@
   max-width: 80px;
   padding: 0.3rem;
   text-align: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--input-bg);
   border: 1px solid var(--accent-border);
   border-radius: 6px;
   color: var(--text);
   font-size: 0.9rem;
+}
+
+.limit-input:focus{
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-border);
 }
 
 /* =========================
@@ -588,20 +603,17 @@
   border: 1px solid var(--accent-border);
   background: var(--surface-raised);
   color: var(--text);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sheet-action-button:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--bg-base);
+  color: var(--input-bg);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .sheet-action-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* =========================
@@ -640,8 +652,8 @@
 .clear-confirmation {
   margin-top: 1rem;
   padding: 0.8rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  background: var(--input-bg);
+  border: 1px solid var(--accent-border);
   border-radius: 12px;
 }
 
@@ -696,7 +708,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--input-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -713,7 +725,7 @@
   text-align: center;
   color: var(--text);
   font-family: 'Crimson Text', serif;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 20px var(--bg-base);
 }
 
 .dialog-title {
@@ -763,7 +775,7 @@
 }
 
 .sheet-content::-webkit-scrollbar-track {
-  background: rgba(212, 175, 55, 0.1);
+  background: var(--accent);
   border-radius: 10px;
 }
 

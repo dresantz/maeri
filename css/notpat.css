@@ -18,7 +18,7 @@
   padding: 0;
   overflow: visible;
   position: relative;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   border: 2px solid var(--board-border);
   border-radius: 35px;
   background: var(--board-border);
@@ -52,8 +52,7 @@
 /* Palavra central (ativa) */
 .word-item--center {
   font-size: 1.3rem;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  color: var(--text);
   transform: translateX(0) scale(1);
   z-index: 3;
   opacity: 1;
@@ -62,7 +61,7 @@
 /* Palavra à esquerda */
 .word-item[data-position="left"] {
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.6);
+  color: var(--text-muted);
   transform: translateX(-180px) scale(0.7);
   z-index: 1;
   opacity: 0.5;
@@ -71,7 +70,7 @@
 /* Palavra à direita */
 .word-item[data-position="right"] {
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.6);
+  color: var(--text-muted);
   transform: translateX(180px) scale(0.7);
   z-index: 1;
   opacity: 0.5;
@@ -81,12 +80,11 @@
 .word-item[data-position="left"]:hover,
 .word-item[data-position="right"]:hover {
   opacity: 0.8;
-  color: rgba(255,255,255,0.9);
 }
 
 /* Hover no botão */
 .notpat-button:hover {
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 4px var(--bg-base);
 }
 
 /* Responsivo */
@@ -115,9 +113,8 @@
 .notpat-content {
   background: var(--board-bg);
   border: 2px solid var(--board-border);
-  border-radius: var(--radius);
+  border-radius: 20px;
   padding: 1.5rem;
-  box-shadow: var(--shadow);
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -147,7 +144,7 @@
 }
 
 .notpat-content::-webkit-scrollbar-thumb:hover {
-  background: #9b8261;
+  background: var(--board-border);
 }
 
 .notpat-content.is-switching {
@@ -161,7 +158,7 @@
   padding: 0;
   margin: 0;
   color: var(--board-ink);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1.05rem;
 }
 
@@ -206,14 +203,14 @@
 
 .about-role {
   color: var(--board-ink);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1.05rem;
   margin-bottom: 0.8rem;
 }
 
 .about-publications {
   color: var(--board-ink);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1.05rem;
   display: flex;
   flex-direction: column;
@@ -224,19 +221,25 @@
 .about-link-item {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.2rem;
-  border-radius: 4px;
+  padding: 0.8rem;
+  background: var(--board-border);
+  border-radius: 8px;
   color: var(--board-ink);
   text-decoration: none;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1.05rem;
   transition: all 0.25s ease;
-  border: 1px solid transparent;
+  border: 1px solid var(--board-border);
+}
+
+.about-link-item a{
+  text-align: center;
 }
 
 .about-link-item:hover {
-  background: rgba(212, 175, 55, 0.2);
+  background: var(--state-hover);
   border-color: var(--accent);
   transform: translateX(4px);
 }
@@ -247,23 +250,16 @@
   gap: 0.8rem;
 }
 
-.about-social-link {
+.about-social-links p {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem;
-  background: rgba(139, 115, 85, 0.1);
-  border-radius: 8px;
+  padding: 0.2rem;
+  border-radius: 4px;
   color: var(--board-ink);
   text-decoration: none;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1.05rem;
   transition: all 0.25s ease;
-  border: 1px solid var(--board-border);
-}
-
-.about-social-link:hover {
-  background: rgba(139, 115, 85, 0.2);
-  transform: translateX(4px);
-  border-color: var(--accent);
+  border: 1px solid transparent;
 }
