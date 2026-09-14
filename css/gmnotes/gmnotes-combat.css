@@ -131,7 +131,7 @@
 }
 
 .gmnotes-token-stat-current {
-  color: var(--accent);
+  color: var(--text-muted);
 }
 
 .gmnotes-token-stat-max {

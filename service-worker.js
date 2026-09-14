@@ -14,7 +14,6 @@ const urlsToCache = [
   `${BASE_PATH}/pages/rulebook.html`,
   `${BASE_PATH}/pages/shield.html`,
   `${BASE_PATH}/pages/dice-modal.html`,
-  `${BASE_PATH}/pages/gmnotes-modal.html`,
   `${BASE_PATH}/pages/sheet-modal.html`,
   `${BASE_PATH}/pages/spells-modal.html`,
   `${BASE_PATH}/pages/settings-modal.html`,
