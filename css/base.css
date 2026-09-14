@@ -133,12 +133,12 @@ html {
   --bg-base: #fdf2f0;
   --surface: #eee4ec;
   --surface-raised: #dabfd7;
-  --accent: #ac7da9;
-  --text: #795c74;
-  --text-muted: #8a6b78;
+  --accent: #59218d;
+  --text: #4a2c3a;
+  --text-muted: #4d3b41;;
 
   --board-bg: #fcffe8;
-  --board-border: #c5abc4;
+  --board-border: #d6c4d6;
   --board-ink: #4a2c3a;
 
   --gradient-featured: linear-gradient(145deg, #f1e4f0, #e1c3f3);
@@ -146,7 +146,7 @@ html {
   --accent-border: rgba(217, 122, 158, 0.4);
 
   --gradient-sheet: linear-gradient(145deg, rgba(174, 0, 255, 0.12), rgba(189, 0, 164, 0.1));
-  --input-bg: #c599c7;
+  --input-bg: #dab8db;
 }
 
 /* Reset básico */

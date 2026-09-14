@@ -9,7 +9,7 @@
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--overlay-bg);
   backdrop-filter: blur(8px);
   z-index: 2000;
 }
@@ -29,7 +29,6 @@
   border-radius: 24px;
   z-index: 2001;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   overflow: hidden;
 }
 
@@ -41,14 +40,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 1.5rem 0.75rem;
-  border-bottom: 1px solid rgba(212,175,55,0.3);
+  border-bottom: 1px solid var(--accent);
   background: var(--surface);
   flex-shrink: 0;
 }
 
 .spells-header h2 {
   color: var(--accent);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 1.5rem;
   margin: 0;
 }
@@ -91,7 +90,6 @@
 .spells-toolbar {
   padding: 1rem 1.5rem 0.5rem;
   background: var(--surface);
-  border-bottom: 1px solid rgba(212,175,55,0.2);
   flex-shrink: 0;
 }
 
@@ -99,9 +97,9 @@
   width: 100%;
   padding: 0.8rem 1rem;
   font-size: 1rem;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   background: var(--surface-raised);
-  border: 1px solid rgba(212,175,55,0.3);
+  border: 1px solid var(--accent-border);
   border-radius: 12px;
   color: var(--text);
   margin-bottom: 0.8rem;
@@ -111,7 +109,7 @@
 #spells-search:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(212,175,55,0.2);
+  box-shadow: 0 0 0 2px var(--accent-border);
 }
 
 #spells-search::placeholder {
@@ -119,10 +117,10 @@
   font-style: italic;
 }
 
-/* 🔹 FILTROS - SEMPRE EM LINHA */
+/* Filtros - sempre em linha */
 .spells-filters {
   display: flex;
-  flex-direction: row; /* Força linha */
+  flex-direction: row;
   gap: 0.5rem;
   padding: 0.25rem 0;
   width: 100%;
@@ -130,18 +128,18 @@
 
 .filter-group {
   position: relative;
-  flex: 1; /* Divide espaço igualmente */
-  min-width: 0; /* Permite compressão se necessário */
+  flex: 1;
+  min-width: 0;
 }
 
 .filter-toggle {
   width: 100%;
   padding: 0.5rem;
   background: transparent;
-  border: 1px solid rgba(212,175,55,0.3);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 0.95rem;
   cursor: pointer;
   text-align: left;
@@ -156,7 +154,7 @@
 
 .filter-toggle:hover {
   border-color: var(--accent);
-  background: rgba(212,175,55,0.1);
+  background: var(--state-hover);
 }
 
 .filter-options {
@@ -168,14 +166,13 @@
   padding: 0.5rem;
   margin-top: 0.25rem;
   z-index: 10;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .filter-options label {
   display: block;
   padding: 0.5rem;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 0.95rem;
   cursor: pointer;
   border-radius: 4px;
@@ -184,7 +181,7 @@
 }
 
 .filter-options label:hover {
-  background: rgba(212,175,55,0.1);
+  background: var(--state-hover);
 }
 
 .filter-options input[type="checkbox"] {
@@ -206,18 +203,14 @@
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.8rem;
-}
-
-@media (min-width: 600px) {
-  .spells-list { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* Item de magia */
 .spell-item {
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(212,175,55,0.15);
+  background: var(--input-bg);
+  border: 1px solid var(--accent);
   border-radius: 12px;
   padding: 1rem;
   cursor: pointer;
@@ -228,7 +221,7 @@
 .spell-item:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212,175,55,0.2);
+  box-shadow: 0 4px 12px var(--shadow-strong);
 }
 
 .spell-item:active { transform: translateY(0); }
@@ -238,28 +231,28 @@
   font-size: 1.1rem;
   color: var(--accent);
   margin-bottom: 0.5rem;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
 }
 
-/* 🔹 METADADOS - SEMPRE EM LINHA */
+/* Metadados - sempre em linha */
 .spell-meta {
   color: var(--text-muted);
   font-size: 0.9rem;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   display: flex;
-  flex-direction: row; /* Força linha */
+  flex-direction: row;
   gap: 0.5rem;
-  flex-wrap: wrap; /* Quebra se não couber, mas tenta manter em linha */
+  flex-wrap: wrap;
   align-items: center;
 }
 
 .spell-meta span {
-  background: rgba(212,175,55,0.1);
+  background: var(--surface);
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  border: 1px solid rgba(212,175,55,0.2);
+  border: 1px solid var(--accent);
   display: inline-block;
-  white-space: nowrap; /* Evita quebra dentro do span */
+  white-space: nowrap;
 }
 
 /* Estados especiais */
@@ -273,20 +266,19 @@
 
 .spell-item.empty-state:hover {
   transform: none;
-  border-color: rgba(212,175,55,0.15);
+  border-color: var(--accent);
 }
 
 .spell-brief {
   margin: 0;
-  font-size: 0.9em;
-  color: white;
+  font-size: 0.9rem;
+  color: var(--text);
   line-height: 1.4;
   font-weight: normal;
-  font-size: 0.3 rem;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   /* Limita o texto a 3 linhas com ellipsis */
   display: -webkit-box;
-  line-clamp: 3;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -312,10 +304,12 @@
 
 /* Scroll customizado */
 .spells-content::-webkit-scrollbar { width: 8px; }
+
 .spells-content::-webkit-scrollbar-track {
-  background: rgba(212,175,55,0.1);
+  background: var(--state-hover);
   border-radius: 10px;
 }
+
 .spells-content::-webkit-scrollbar-thumb {
   background: var(--accent);
   border-radius: 10px;
@@ -330,9 +324,9 @@
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--overlay-bg);
   backdrop-filter: blur(8px);
-  z-index: 2100; /* Acima do modal de magias */
+  z-index: 2100;
 }
 
 .spell-detail-overlay.active { display: block; }
@@ -350,7 +344,7 @@
   border-radius: 24px;
   z-index: 2101;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px var(--shadow-strong);
   overflow: hidden;
 }
 
@@ -361,14 +355,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 1.5rem 0.75rem;
-  border-bottom: 1px solid rgba(212,175,55,0.3);
+  border-bottom: 1px solid var(--accent-border);
   background: var(--surface);
   flex-shrink: 0;
 }
 
 .spell-detail-header h2 {
   color: var(--accent);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 1.3rem;
   margin: 0;
   padding-right: 1rem;
@@ -397,14 +391,14 @@
   display: flex;
   margin-bottom: 1rem;
   padding: 0.5rem;
-  background: rgba(0,0,0,0.2);
+  background: var(--input-bg);
   border-radius: 8px;
 }
 
 .spell-detail-label {
   flex: 0 0 80px;
   color: var(--accent);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -412,7 +406,7 @@
 .spell-detail-value {
   flex: 1;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
 }
 
@@ -422,17 +416,17 @@
   gap: 0.5rem;
   margin: 1rem 0;
   padding: 0.5rem 0;
-  border-top: 1px solid rgba(212,175,55,0.2);
-  border-bottom: 1px solid rgba(212,175,55,0.2);
+  border-top: 1px solid var(--accent-border);
+  border-bottom: 1px solid var(--accent-border);
 }
 
 .spell-detail-tag {
-  background: rgba(212,175,55,0.1);
-  border: 1px solid rgba(212,175,55,0.3);
+  background: var(--state-hover);
+  border: 1px solid var(--accent-border);
   border-radius: 16px;
   padding: 0.3rem 0.8rem;
   color: var(--text-muted);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 0.85rem;
   text-transform: capitalize;
 }
@@ -446,66 +440,42 @@
 .spell-detail-description {
   margin-top: 1rem;
   padding: 1rem;
-  background: rgba(0,0,0,0.2);
   border-radius: 12px;
   border-left: 3px solid var(--accent);
 }
 
 .spell-detail-description p {
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   line-height: 1.6;
   margin: 0;
 }
 
-/* Responsivo - apenas ajustes finos */
-@media (max-width: 480px) {
+/* =========================
+   Responsivo
+========================= */
+
+@media (max-width: 768px) {
+
   .spells-header h2 { font-size: 1.2rem; }
-  
-  /* 🔹 Garante que filtros continuem em linha mesmo em telas pequenas */
-  .spells-filters {
-    gap: 0.3rem;
-  }
-  
+
+  .spells-filters { gap: 0.3rem; }
+
   .filter-toggle {
     font-size: 0.85rem;
     padding: 0.4rem;
   }
-  
+
   .filter-options label {
     font-size: 0.85rem;
     padding: 0.4rem;
   }
-  
-  /* 🔹 Ajuste fino para metadados */
-  .spell-meta {
-    gap: 0.3rem;
-  }
-  
+
+  .spell-meta { gap: 0.3rem; }
+
   .spell-meta span {
     font-size: 0.85rem;
     padding: 0.15rem 0.4rem;
   }
-}
-
-/* Ajuste para telas muito estreitas */
-@media (max-width: 360px) {
-  .filter-toggle {
-    font-size: 0.8rem;
-    padding: 0.3rem;
-  }
-  
-  .spell-meta span {
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-height: 600px) {
-  .spells-modal { height: 90vh; }
-  .spells-header { padding: 1rem 1.5rem 0.5rem; }
-  .spells-toolbar { padding: 0.5rem 1.5rem; }
-  .spells-content { padding: 0.5rem 1.5rem; }
-  .spell-item { padding: 0.6rem; }
-  .spell-name { font-size: 1rem; }
 }
