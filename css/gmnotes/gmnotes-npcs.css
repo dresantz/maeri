@@ -10,10 +10,11 @@
 }
 
 .gmnotes-npc-item {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--bg-base);
   border: 1px solid var(--accent-border);
   border-radius: 12px;
   padding: 1rem;
+  
 }
 
 .gmnotes-npc-header {
@@ -26,7 +27,7 @@
 
 .gmnotes-npc-name {
   color: var(--accent);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 1.1rem;
   font-weight: 600;
   word-break: break-word;
@@ -81,6 +82,7 @@
   background: rgba(0, 0, 0, 0.3);
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
+  background: var(--surface);
   border: 1px solid var(--accent-border);
 }
 

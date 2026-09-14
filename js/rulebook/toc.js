@@ -211,11 +211,6 @@ function handleTocKeyDown(e) {
         items[activeIndex].click();
       }
       break;
-      
-    case 'Escape':
-      e.preventDefault();
-      closeToc();
-      break;
   }
 }
 
@@ -237,12 +232,24 @@ export function initTOCToggle() {
   toggle.addEventListener('click', toggleToc);
   tocList.addEventListener('click', handleTocLinkClick);
   
-  // Navegação por teclado
+  // Fechar ao clicar fora (no overlay)
+  overlay.addEventListener('click', closeToc);
+  
+  // Fechar com ESC (funciona de qualquer lugar da página)
+  keydownHandler = handleGlobalKeyDown;
+  document.addEventListener('keydown', keydownHandler);
+  
+  // Navegação por teclado dentro da lista
   tocList.setAttribute('role', 'listbox');
   tocList.tabIndex = -1;
-  
-  keydownHandler = handleTocKeyDown;
-  tocList.addEventListener('keydown', keydownHandler);
+  tocList.addEventListener('keydown', handleTocKeyDown);
+
+    function handleGlobalKeyDown(e) {
+    if (e.key === 'Escape' && isOpen) {
+      e.preventDefault();
+      closeToc();
+    }
+  }
   
   updateToggleIcon();
   initialized = true;
@@ -250,16 +257,21 @@ export function initTOCToggle() {
 
 export function destroyTOC() {
   if (keydownHandler) {
-    const tocList = getElement('toc-list');
-    if (tocList) tocList.removeEventListener('keydown', keydownHandler);
+    document.removeEventListener('keydown', keydownHandler);
     keydownHandler = null;
   }
   
   const toggle = getElement('toc-toggle');
   if (toggle) toggle.removeEventListener('click', toggleToc);
   
+  const overlay = getElement('toc-overlay');
+  if (overlay) overlay.removeEventListener('click', closeToc);
+  
   const tocList = getElement('toc-list');
-  if (tocList) tocList.removeEventListener('click', handleTocLinkClick);
+  if (tocList) {
+    tocList.removeEventListener('click', handleTocLinkClick);
+    tocList.removeEventListener('keydown', handleTocKeyDown);
+  }
   
   initialized = false;
   isOpen = false;

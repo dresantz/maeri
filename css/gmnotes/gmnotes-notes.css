@@ -14,12 +14,12 @@
 .gmnotes-textarea {
   width: 100%;
   min-height: 200px;
-  background: var(--surface-raised);
+  background: var(--surface);
   border: 1px solid var(--accent-border);
   border-radius: 12px;
   padding: 1rem;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   line-height: 1.6;
   resize: vertical;
@@ -35,7 +35,7 @@
   display: flex;
   gap: 0.5rem;
   padding: 0.5rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--surface);
   border-radius: 12px;
   border: 1px solid var(--accent-border);
   flex-wrap: wrap;
@@ -88,7 +88,7 @@
   border-radius: 20px;
   padding: 0.5rem 1rem;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -154,7 +154,7 @@
   max-width: 400px;
   width: 90%;
   text-align: center;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   animation: modalFadeIn 0.3s ease;
 }
@@ -191,7 +191,7 @@
   padding: 0.75rem 2rem;
   border: none;
   border-radius: 8px;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -238,7 +238,7 @@
   border-radius: 8px;
   padding: 0.75rem 1rem;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   margin-bottom: 1.5rem;
   transition: border-color 0.2s ease;

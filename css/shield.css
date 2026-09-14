@@ -18,7 +18,7 @@
   padding: 0.4rem 1rem;
   color: var(--text);
   cursor: pointer;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 0.9rem;
   transition: all 0.2s ease;
 }
@@ -36,7 +36,7 @@
   padding: 0.7rem 1rem;
   background: var(--accent);
   color: var(--bg-base);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-weight: 700;
   font-size: 1rem;
   letter-spacing: 1px;

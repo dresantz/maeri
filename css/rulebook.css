@@ -1,31 +1,31 @@
 /* =========================
-   Rulebook – Long Form Reading
-   Depende de: base.css (variáveis)
+   Rulebook
 ========================= */
 
 .rulebook {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: var(--text, #f0f0f0);
+  color: var(--text);
 }
 
 .rulebook h1 {
+  text-transform: capitalize;
   font-size: 1.8rem;
   margin: 0 0 0.6rem;
-  color: var(--accent, #d4af37);
+  color: var(--accent);
 }
 
 .rulebook h2 {
   font-size: 1.35rem;
   margin: 1.4rem 0 0.6rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--surface-raised, #2a2a42);
+  border-bottom: 1px solid var(--surface-raised);
 }
 
 .rulebook h3 {
   font-size: 1.1rem;
   margin: 1rem 0 0.4rem;
-  color: var(--accent, #d4af37);
+  color: var(--accent);
 }
 
 .rulebook p {
@@ -41,7 +41,7 @@
 }
 
 .rulebook a {
-  color: var(--accent, #d4af37);
+  color: var(--accent);
   text-decoration: none;
   font-weight: 600;
 }
@@ -55,7 +55,7 @@
 ========================= */
 
 .table-caption {
-  color: var(--text-muted, #b0b0c0);
+  color: var(--text-muted);
   font-size: 0.95rem;
   margin-bottom: 0.5rem;
 }
@@ -63,8 +63,8 @@
 .table-wrapper {
   overflow-x: auto;
   margin: 0.75rem 0 1rem;
-  border: 1px solid var(--surface-raised, #2a2a42);
-  border-radius: var(--radius, 12px);
+  border: 1px solid var(--surface-raised);
+  border-radius: var(--accent);
 }
 
 table {
@@ -76,21 +76,21 @@ table {
 th,
 td {
   padding: 0.6rem;
-  border-bottom: 1px solid var(--surface-raised, #2a2a42);
+  border-bottom: 1px solid var(--surface-raised);
   text-align: left;
   font-size: 0.95rem;
 }
 
 th {
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--accent, #d4af37);
+  background: var(--surface-raised);
+  color: var(--accent);
   font-weight: 600;
 }
 
 .subsection {
   margin-top: 1rem;
   padding-top: 0.5rem;
-  border-top: 1px dashed var(--surface-raised, #2a2a42);
+  border-top: 1px dashed var(--surface-raised);
 }
 
 .warning {
@@ -98,7 +98,7 @@ th {
   font-size: 0.95rem;
   background: rgba(255, 68, 68, 0.1);
   padding: 0.5rem;
-  border-radius: var(--radius, 12px);
+  border-radius: 12px;
   border-left: 4px solid #ff8c8c;
 }
 
@@ -118,7 +118,7 @@ th {
 .nested-list strong {
   display: block;
   margin-bottom: 0.25rem;
-  color: var(--accent, #d4af37);
+  color: var(--accent);
 }
 
 .nested-list ul {
@@ -134,10 +134,10 @@ th {
 .search-container {
   position: sticky;
   top: 0;
-  background: var(--surface, #1a1a2e);
+  background: var(--surface);
   padding: 0.75rem;
   z-index: 10;
-  border-bottom: 2px solid var(--accent, #d4af37);
+  border-bottom: 2px solid var(--accent);
 }
 
 #search-input {
@@ -145,11 +145,11 @@ th {
   max-width: 600px;
   padding: 0.6rem;
   font-size: 1rem;
-  background: var(--surface-raised, #2a2a42);
-  border: 2px solid rgba(212, 175, 55, 0.3);
-  border-radius: var(--radius, 12px);
-  color: var(--text, #f0f0f0);
-  font-family: 'Crimson Text', serif;
+  background: var(--surface-raised);
+  border: 2px solid var(--accent-border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: var(--font-secondary);
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -157,19 +157,18 @@ th {
 
 #search-input:focus {
   outline: none;
-  border-color: var(--accent, #d4af37);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-border);
 }
 
 .search-results {
-  background: var(--surface, #1a1a2e);
-  border: 2px solid rgba(212, 175, 55, 0.3);
-  border-radius: var(--radius, 12px);
+  background: var(--surface);
+  border: 2px solid var(--accent-border);
+  border-radius: 12px;
   max-height: 300px;
   max-width: 600px;
   overflow-y: auto;
   margin-top: 0.5rem;
-  box-shadow: var(--shadow, 0 8px 24px rgba(0,0,0,0.4));
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -182,16 +181,16 @@ th {
 .search-result {
   padding: 0.75rem;
   cursor: pointer;
-  border-bottom: 1px solid var(--surface-raised, #2a2a42);
+  border-bottom: 1px solid var(--surface-raised);
   transition: background-color 0.2s ease;
 }
 
 .search-result:hover {
-  background: var(--surface-raised, #2a2a42);
+  background: var(--state-hover);
 }
 
 .search-result:focus {
-  outline: 2px solid var(--accent, #d4af37);
+  outline: 2px solid var(--accent);
   outline-offset: -2px;
 }
 
@@ -201,14 +200,14 @@ th {
 
 .search-result-title {
   font-weight: bold;
-  color: var(--accent, #d4af37);
+  color: var(--accent);
   display: block;
   margin-bottom: 0.25rem;
 }
 
 .search-result-meta {
   font-size: 0.8rem;
-  color: var(--text-muted, #b0b0c0);
+  color: var(--text-muted);
 }
 
 /* =========================
@@ -218,9 +217,9 @@ th {
 .error-message {
   text-align: center;
   padding: 3rem 1rem;
-  background: var(--surface, #1a1a2e);
+  background: var(--surface);
   border: 2px solid #ff8c8c;
-  border-radius: var(--radius, 12px);
+  border-radius: 12px;
   margin: 2rem auto;
   max-width: 400px;
 }
@@ -233,12 +232,12 @@ th {
 
 .error-message p {
   margin-bottom: 1.5rem;
-  color: var(--text-muted, #b0b0c0);
+  color: var(--text-muted);
 }
 
 .reload-button {
-  background: var(--accent, #d4af37);
-  color: var(--bg-base, #0a0a12);
+  background: var(--accent);
+  color: var(--bg-base);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
@@ -249,7 +248,7 @@ th {
 
 .reload-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 12px var(--accent-border);
 }
 
 /* =========================
@@ -257,16 +256,16 @@ th {
 ========================= */
 
 mark {
-  background: var(--accent, #d4af37);
-  color: var(--bg-base, #0a0a12);
+  background: var(--accent);
+  color: var(--bg-base);
   padding: 0 2px;
   border-radius: 3px;
   font-weight: 600;
 }
 
 .mark {
-  background-color: rgba(212, 175, 55, 0.3);
-  color: var(--accent, #d4af37);
+  background-color: var(--accent-border);
+  color: var(--accent);
   padding: 0 2px;
   border-radius: 2px;
   font-weight: 600;

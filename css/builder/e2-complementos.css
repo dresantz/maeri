@@ -28,7 +28,7 @@
 .tecnicas-subtitle,
 .magias-subtitle {
   color: var(--text-muted);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -56,11 +56,11 @@
 .magia-button {
   background: linear-gradient(145deg, var(--surface) 0%, var(--surface-raised) 100%);
   border: 2px solid var(--accent-border);
-  border-radius: var(--radius);
+  border-radius: 6px;
   padding: 1rem 0.5rem;
   cursor: pointer;
   transition: all 0.25s ease;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text);
@@ -68,6 +68,7 @@
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;
+  text-transform: uppercase
 }
 
 .ser-button::before,
@@ -91,7 +92,7 @@
 .magia-button:hover:not(.loading):not(.error) {
   transform: translateY(-2px);
   border-color: var(--accent);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 4px 12px var(--accent-border);
 }
 
 .ser-button:hover::before,
@@ -106,8 +107,8 @@
 .tecnica-button.selected,
 .magia-button.selected {
   border-color: var(--accent);
-  background: linear-gradient(145deg, var(--surface) 0%, #2a2a4a 100%);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+  background: linear-gradient(145deg, var(--surface) 0%, var(--surface-raised) 100%);
+  box-shadow: 0 0 15px var(--accent-border);
 }
 
 .ser-button.loading,
@@ -140,11 +141,10 @@
 .magia-details {
   background: var(--surface);
   border: 2px solid var(--accent);
-  border-radius: var(--radius);
+  border-radius: 12px;
   padding: 1.5rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
-  box-shadow: var(--shadow);
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -208,7 +208,7 @@
   padding: 1rem;
   margin-bottom: 0.8rem;
   border-radius: 8px;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   line-height: 1.6;
   transition: all 0.2s ease;
 }
@@ -228,7 +228,7 @@
 .caracteristica-item strong,
 .conhecimento-item strong {
   color: var(--accent);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 0.95rem;
   display: inline-block;
   margin-right: 0.5rem;
@@ -265,7 +265,7 @@
 .tecnica-descricao p,
 .magia-descricao p {
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   line-height: 1.6;
   margin: 0 0 1rem;

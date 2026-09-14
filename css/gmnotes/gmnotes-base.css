@@ -23,7 +23,7 @@
   background: transparent;
   border: none;
   color: var(--text-muted);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
@@ -58,10 +58,11 @@
 
 .gmnotes-section {
   background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--accent-border);
   border-radius: 16px;
   padding: 1.25rem;
   margin-bottom: 1.5rem;
+  background: var(--bg-base);
 }
 
 .gmnotes-section:last-child {
@@ -70,11 +71,15 @@
 
 .gmnotes-section-title {
   color: var(--accent);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 1.2rem;
   margin: 0 0 1rem 0;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--accent-border);
+}
+
+.gmnotes-collapsible {
+background: var(--bg-base);
 }
 
 /* Cabeçalho de seção recolhível */
@@ -114,7 +119,7 @@
 
 .gmnotes-coment {
   color: var(--text-muted);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 0.95rem;
   font-style: italic;
   margin-bottom: 0.75rem;
@@ -161,12 +166,12 @@
 
 .gmnotes-input {
   width: 100%;
-  background: var(--surface-raised);
+  background: var(--input-bg);
   border: 1px solid var(--accent-border);
   border-radius: 8px;
   padding: 0.6rem 0.8rem;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   transition: all 0.2s ease;
 }
@@ -174,7 +179,7 @@
 .gmnotes-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 0 2px var(--accent-border);
 }
 
 .gmnotes-input-number {
@@ -228,7 +233,7 @@
   border-radius: 20px;
   padding: 0.6rem 1.5rem;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -286,7 +291,7 @@
   border-radius: 20px;
   padding: 0.6rem 1rem;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 1rem;
 }
 
@@ -359,7 +364,7 @@
   border-radius: 20px;
   padding: 0.5rem 1rem;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-secondary);
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;

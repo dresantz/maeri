@@ -57,7 +57,6 @@ const urlsToCache = [
   `${BASE_PATH}/icons/icon-512.png`,
   `${BASE_PATH}/icons/icon-512-maskable.png`,
   `${BASE_PATH}/icons/apple-touch-icon.png`,
-  `${BASE_PATH}/icons/MaeriC.png`,
 
   `${BASE_PATH}/favicon.ico`,
 

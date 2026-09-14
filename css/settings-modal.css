@@ -7,7 +7,7 @@
   right: 0;
   bottom: 0;
   z-index: 1000;
-  padding: 1rem; /* Adiciona espaço nas bordas */
+  padding: 1rem;
 }
 
 .modal.active {
@@ -22,7 +22,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
 }
 
@@ -38,7 +38,7 @@
   overflow-y: auto;
   z-index: 1;
   box-shadow: var(--shadow);
-  
+
   /* Corrige o vazamento da scrollbar */
   scrollbar-width: thin;
   scrollbar-color: var(--accent) transparent;
@@ -51,9 +51,9 @@
 }
 
 .modal-content::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-raised);
   border-radius: 4px;
-  margin: 8px 0; /* Espaço no topo e embaixo */
+  margin: 8px 0;
 }
 
 .modal-content::-webkit-scrollbar-thumb {
@@ -63,7 +63,7 @@
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-  background: #c9a959;
+  filter: brightness(1.15);
 }
 
 .modal-header {
@@ -72,7 +72,7 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  border-bottom: 1px solid var(--accent-border);
 }
 
 .modal-header h2 {
@@ -103,7 +103,7 @@
 .settings-section--footer {
   margin-bottom: 0;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  border-top: 1px solid var(--accent-border);
 }
 
 .settings-section-title {
@@ -128,26 +128,26 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 2px solid rgba(212, 175, 55, 0.2);
+  background: var(--surface-raised);
+  border: 2px solid var(--accent-border);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   color: var(--text);
   -webkit-tap-highlight-color: transparent;
 }
 
 .setting-option:hover {
-  background: rgba(212, 175, 55, 0.05);
-  border-color: rgba(212, 175, 55, 0.5);
+  background: var(--state-hover);
+  border-color: var(--accent);
   transform: translateY(-2px);
 }
 
 .setting-option.active {
-  background: rgba(212, 175, 55, 0.15);
+  background: var(--state-hover);
   border-color: var(--accent);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 4px 12px var(--accent-border);
 }
 
 .option-icon {
@@ -170,10 +170,10 @@
   width: 100%;
   padding: 0.8rem;
   background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
   color: var(--text-muted);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -181,7 +181,7 @@
 }
 
 .settings-reset:hover {
-  background: rgba(212, 175, 55, 0.1);
+  background: var(--state-hover);
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -191,49 +191,47 @@
   .settings-options {
     grid-template-columns: 1fr;
   }
-  
+
   .modal {
     padding: 0.5rem;
-    align-items: flex-start; /* Alinha no topo */
+    align-items: flex-start;
   }
-  
+
   .modal-content {
     padding: 1.25rem;
-    max-height: 85vh; /* Altura menor para dar espaço */
-    border-radius: 8px; /* Bordas menores */
-    
-    /* Scrollbar mais fina para mobile */
+    max-height: 85vh;
+    border-radius: 8px;
+
     scrollbar-width: thin;
   }
-  
-  /* Scrollbar WebKit no mobile */
+
   .modal-content::-webkit-scrollbar {
     width: 5px;
   }
-  
+
   .modal-content::-webkit-scrollbar-track {
     margin: 4px 0;
   }
-  
+
   .modal-header {
     margin-bottom: 1.5rem;
     padding-bottom: 0.8rem;
   }
-  
+
   .modal-header h2 {
     font-size: 1.2rem;
   }
-  
+
   .settings-section {
     margin-bottom: 1.5rem;
   }
-  
+
   .settings-section-title {
     font-size: 0.8rem;
     letter-spacing: 1.5px;
     margin-bottom: 0.8rem;
   }
-  
+
   .setting-option {
     padding: 0.8rem;
   }
