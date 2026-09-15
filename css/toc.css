@@ -138,13 +138,12 @@
 ========================= */
 
 @media (min-width: 1024px) {
-  /* Botão TOC maior e mais quadrado */
   #toc-toggle {
     top: 1rem;
     left: 1rem;
     width: 60px;
     height: 60px;
-    border-radius: 12px; /* Mais quadrado, igual aos floating buttons */
+    border-radius: 12px;
     font-size: 1.5rem;
     box-shadow: var(--shadow);
   }
@@ -154,13 +153,12 @@
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
-    max-width: 900px; /* Um pouco maior que 800px para comportar os botões */
+    max-width: 900px;
     border-radius: var(--radius);
     border: 3px solid var(--accent);
     box-shadow: var(--shadow);
   }
 
-  /* Container do select e navegação com largura máxima */
   #chapter-select {
     width: 100%;
     max-width: 800px;
