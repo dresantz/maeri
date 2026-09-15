@@ -8,83 +8,85 @@
         ✕
       </button>
     </div>
-    
+
     <div class="modal-body">
+
       <!-- TEMA -->
       <div class="settings-section">
         <h3 class="settings-section-title">Tema</h3>
-        <div class="settings-options" data-setting="theme">
-          <button class="setting-option active" data-value="classic">
-            <span class="option-icon">👾</span>
+        <div class="settings-options theme-grid" data-setting="theme">
+          <button class="setting-option active" data-value="classic" aria-label="Clássico">
+            <span class="swatch" data-theme="classic"></span>
             <span class="option-label">Clássico</span>
           </button>
-          <button class="setting-option" data-value="sepia">
-            <span class="option-icon">📜</span>
+          <button class="setting-option" data-value="sepia" aria-label="Sépia">
+            <span class="swatch" data-theme="sepia"></span>
             <span class="option-label">Sépia</span>
           </button>
-          <button class="setting-option" data-value="dark">
-            <span class="option-icon">🌑</span>
+          <button class="setting-option" data-value="dark" aria-label="Escuro">
+            <span class="swatch" data-theme="dark"></span>
             <span class="option-label">Escuro</span>
           </button>
-          <button class="setting-option" data-value="contrast">
-            <span class="option-icon">🏁</span>
+          <button class="setting-option" data-value="contrast" aria-label="Contraste">
+            <span class="swatch" data-theme="contrast"></span>
             <span class="option-label">Contraste</span>
           </button>
-          <button class="setting-option" data-value="day">
-            <span class="option-icon">☀️</span>
+          <button class="setting-option" data-value="day" aria-label="Dia">
+            <span class="swatch" data-theme="day"></span>
             <span class="option-label">Dia</span>
           </button>
-          <button class="setting-option" data-value="cozy">
-            <span class="option-icon">🌺</span>
+          <button class="setting-option" data-value="cozy" aria-label="Aconchego">
+            <span class="swatch" data-theme="cozy"></span>
             <span class="option-label">Aconchego</span>
           </button>
         </div>
       </div>
-      
+
       <!-- FONTE -->
       <div class="settings-section">
         <h3 class="settings-section-title">Fonte</h3>
-        <div class="settings-options" data-setting="font">
-          <button class="setting-option active" data-value="original">
-            <span class="option-label">Original</span>
-            <small class="option-preview" style="font-family: 'Cinzel', serif;">Maeri RPG</small>
+        <div class="settings-options segmented" data-setting="font">
+          <button class="setting-option active" data-value="classic" aria-label="Clássico">
+            <span class="seg-aa" style="font-family:'Cinzel',serif">Aa</span>
+            <span class="seg-name">Clássico</span>
           </button>
-          <button class="setting-option" data-value="comfort">
-            <span class="option-label">Conforto</span>
-            <small class="option-preview" style="font-family: 'Quicksand', sans-serif;">Maeri RPG</small>
+          <button class="setting-option" data-value="comfort" aria-label="Conforto">
+            <span class="seg-aa" style="font-family:'Quicksand',sans-serif">Aa</span>
+            <span class="seg-name">Conforto</span>
           </button>
-          <button class="setting-option" data-value="reading">
-            <span class="option-label">Leitura</span>
-            <small class="option-preview" style="font-family: 'Merriweather', serif;">Maeri RPG</small>
+          <button class="setting-option" data-value="reading" aria-label="Leitura">
+            <span class="seg-aa" style="font-family:'Montserrat',sans-serif">Aa</span>
+            <span class="seg-name">Leitura</span>
           </button>
         </div>
       </div>
-      
+
       <!-- TAMANHO DE FONTE -->
       <div class="settings-section">
-        <h3 class="settings-section-title">Tamanho</h3>
-        <div class="settings-options settings-options--inline" data-setting="font-size">
-          <button class="setting-option" data-value="pequeno">
-            <span class="option-label">Pequeno</span>
+        <h3 class="settings-section-title">Tamanho do texto</h3>
+        <div class="settings-options segmented segmented--size" data-setting="font-size">
+          <button class="setting-option" data-value="pequeno" aria-label="Pequeno">
+            <span class="size-a" style="font-size:.75rem">A</span>
           </button>
-          <button class="setting-option active" data-value="normal">
-            <span class="option-label">Normal</span>
+          <button class="setting-option active" data-value="normal" aria-label="Normal">
+            <span class="size-a" style="font-size:.95rem">A</span>
           </button>
-          <button class="setting-option" data-value="large">
-            <span class="option-label">Grande</span>
+          <button class="setting-option" data-value="large" aria-label="Grande">
+            <span class="size-a" style="font-size:1.15rem">A</span>
           </button>
-          <button class="setting-option" data-value="ultra">
-            <span class="option-label">Grotesco</span>
+          <button class="setting-option" data-value="ultra" aria-label="Grotesco">
+            <span class="size-a" style="font-size:1.4rem">A</span>
           </button>
         </div>
       </div>
-      
+
       <!-- RESTAURAR -->
       <div class="settings-section settings-section--footer">
         <button class="settings-reset" data-reset-settings>
           ↺ Restaurar Padrão
         </button>
       </div>
+
     </div>
   </div>
 </div>

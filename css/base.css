@@ -30,39 +30,31 @@
   --font-scale: 1;
 }
 
-/* Escala global de fonte */
-html {
-  font-size: calc(16px * var(--font-scale));
-}
-
-/* =========================
-   Fontes Alternativas
-========================= */
-
-[data-font="classic"] {
-  --font-primary: 'Cinzel', serif;
-  --font-secondary: 'Crimson Text', serif;
-}
-
-[data-font="comfort"] {
-  --font-primary: 'Quicksand', sans-serif;
-  --font-secondary: 'Nunito', sans-serif;
-}
-
-[data-font="reading"] {
-  --font-primary: 'Montserrat', sans-serif;
-  --font-secondary: 'Merriweather', serif;
-}
-
-/* Tamanhos */
-[data-font-size="pequeno"] { --font-scale: 0.875; }
-[data-font-size="normal"]  { --font-scale: 1;     }
-[data-font-size="large"]   { --font-scale: 1.125; }
-[data-font-size="ultra"]   { --font-scale: 1.25;  }
-
 /* =========================
    Temas Alternativos
 ========================= */
+
+[data-theme="classic"] {
+  --bg-base: #171724;
+  --surface: #1b1b31;
+  --surface-raised: #2a2a42;
+  --accent: #d4af37;
+  --text: #f0f0f0;
+  --text-muted: #b0b0c0;
+
+  --board-bg: #dfcaa3;
+  --board-border: #8b7355;
+  --board-ink: #3a190a;
+
+  --red:#3f2020;
+  --green: #1d412a;
+
+  --gradient-sheet: linear-gradient(145deg, rgba(141, 140, 56, 0.12), rgba(0, 0, 0, 0.1));
+  --gradient-featured: linear-gradient(145deg, #232338, #111127);
+  --state-hover: rgba(212, 175, 55, 0.1);
+  --accent-border: rgba(212, 175, 55, 0.3);
+  --input-bg: #131320;
+}
 
 [data-theme="sepia"] {
   --bg-base: #2b2118;
@@ -135,8 +127,8 @@ html {
   --surface: #f5fcf3;
   --surface-raised: #e2eedd;
   --accent: #2e8872;
-  --text: #1c5f42;
-  --text-muted: #30794d;
+  --text: #14442f;
+  --text-muted: #265e3c;
 
   --board-bg: #f1ebd7;
   --board-border: #ddd6bf;
@@ -152,15 +144,13 @@ html {
   --input-bg: #f5fcf3;
 }
 
-
-
 [data-theme="cozy"] {
   --bg-base: #fdf2f0;
   --surface: #eee4ec;
   --surface-raised: #dabfd7;
-  --accent: #9054c9;
-  --text: #a76382;
-  --text-muted: #8a6873;
+  --accent: #9778b4;
+  --text: #794a5f;
+  --text-muted: #695058;
 
   --board-bg: #fcffe8;
   --board-border: #d6c4d6;
@@ -175,6 +165,37 @@ html {
   --accent-border: rgba(221, 147, 176, 0.4);
   --input-bg: #eee4ec;
 }
+
+/* =========================
+   Fontes Alternativas
+========================= */
+
+/* Escala global de fonte */
+html {
+  font-size: calc(16px * var(--font-scale));
+}
+
+[data-font="original"] {
+  --font-primary: 'Cinzel', serif;
+  --font-secondary: 'Crimson Text', serif;
+}
+
+[data-font="comfort"] {
+  --font-primary: 'Quicksand', sans-serif;
+  --font-secondary: 'Nunito', sans-serif;
+}
+
+[data-font="reading"] {
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Merriweather', serif;
+}
+
+/* Tamanhos */
+[data-font-size="pequeno"] { --font-scale: 0.875; }
+[data-font-size="normal"]  { --font-scale: 1;     }
+[data-font-size="large"]   { --font-scale: 1.125; }
+[data-font-size="ultra"]   { --font-scale: 1.25;  }
+
 
 /* Reset básico */
 * { box-sizing: border-box; margin: 0; padding: 0; }
