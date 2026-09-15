@@ -6,6 +6,7 @@
 
 /* Grid principal do builder */
 .builder-grid {
+  font-family: var(--font-primary);
   display: flex;
   flex-direction: column;
   animation: fadeIn 0.3s ease;
@@ -13,7 +14,7 @@
 
 .builder-subtitle {
   color: var(--text-muted);
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   font-style: italic;
   text-align: center;
   font-size: 1rem;
@@ -67,6 +68,7 @@
 }
 
 .step-title {
+  font-family: var(--font-primary);
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text);
@@ -94,7 +96,7 @@
 .preview-placeholder,
 .placeholder-text {
   color: var(--text-muted);
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   font-style: italic;
   font-size: 1.1rem;
   text-align: center;

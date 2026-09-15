@@ -187,7 +187,7 @@ html {
 
 [data-font="reading"] {
   --font-primary: 'Montserrat', sans-serif;
-  --font-secondary: 'Merriweather', serif;
+  --font-secondary: 'Lora', serif;
 }
 
 /* Tamanhos */
@@ -203,7 +203,6 @@ html {
 html, body {
   width: 100%;
   overflow-x: hidden;
-  font-family: var(--font-primary);
   background: var(--bg-base);
   color: var(--text);
   min-height: 100vh;
@@ -234,6 +233,7 @@ html, body {
 }
 
 .app-header h1 {
+  font-family: var(--font-primary);
   color: var(--accent);
   font-size: 2.6rem;
   margin-bottom: 0.4rem;

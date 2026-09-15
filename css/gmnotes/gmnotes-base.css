@@ -23,7 +23,7 @@
   background: transparent;
   border: none;
   color: var(--text-muted);
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   font-size: 1rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
@@ -57,6 +57,7 @@
 ========================= */
 
 .gmnotes-section {
+  font-family: var(--font-secondary);
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid var(--accent-border);
   border-radius: 16px;
@@ -79,6 +80,7 @@
 }
 
 .gmnotes-collapsible {
+font-family: var(--font-primary);
 background: var(--bg-base);
 }
 
@@ -326,6 +328,7 @@ background: var(--bg-base);
 ========================= */
 
 .gmnotes-panel-actions {
+  font-family: var(--font-secondary);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -359,12 +362,12 @@ background: var(--bg-base);
 }
 
 .gmnotes-panel-btn {
+  font-family: var(--font-secondary);
   background: transparent;
   border: 1px solid var(--accent-border);
   border-radius: 20px;
   padding: 0.5rem 1rem;
   color: var(--text);
-  font-family: var(--font-secondary);
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;

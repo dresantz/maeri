@@ -9,6 +9,7 @@
 }
 
 .rulebook h1 {
+  font-family: var(--font-primary);
   text-transform: capitalize;
   font-size: 1.8rem;
   margin: 0 0 0.6rem;
@@ -16,6 +17,7 @@
 }
 
 .rulebook h2 {
+  font-family: var(--font-primary);
   font-size: 1.35rem;
   margin: 1.4rem 0 0.6rem;
   padding-bottom: 0.35rem;
@@ -23,24 +25,29 @@
 }
 
 .rulebook h3 {
+  font-family: var(--font-primary);
   font-size: 1.1rem;
   margin: 1rem 0 0.4rem;
   color: var(--accent);
 }
 
 .rulebook p {
+  font-family: var(--font-secondary);
   margin: 0.5rem 0 0.9rem;
 }
 
 .rulebook ul {
+  font-family: var(--font-secondary);
   margin: 0.4rem 0 1rem 1.2rem;
 }
 
 .rulebook li {
+  font-family: var(--font-secondary);
   margin: 0.35rem 0;
 }
 
 .rulebook a {
+  font-family: var(--font-secondary);
   color: var(--accent);
   text-decoration: none;
   font-weight: 600;
@@ -55,6 +62,7 @@
 ========================= */
 
 .table-caption {
+  font-family: var(--font-secondary);
   color: var(--text-muted);
   font-size: 0.95rem;
   margin-bottom: 0.5rem;
@@ -68,6 +76,7 @@
 }
 
 table {
+  font-family: var(--font-secondary);
   width: 100%;
   border-collapse: collapse;
   min-width: 520px;
@@ -94,6 +103,7 @@ th {
 }
 
 .warning {
+  font-family: var(--font-secondary);
   color: #ff8c8c;
   font-size: 0.95rem;
   background: rgba(255, 68, 68, 0.1);
@@ -132,6 +142,7 @@ th {
 ========================= */
 
 .search-container {
+  font-family: var(--font-secondary);
   position: sticky;
   top: 0;
   background: var(--surface);
@@ -215,6 +226,7 @@ th {
 ========================= */
 
 .error-message {
+  font-family: var(--font-secondary);
   text-align: center;
   padding: 3rem 1rem;
   background: var(--surface);

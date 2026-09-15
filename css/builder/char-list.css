@@ -29,7 +29,7 @@
   margin-left: auto;
   font-size: 1rem;
   color: var(--text-muted);
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   background: var(--state-hover);
   padding: 0.2rem 0.6rem;
   border-radius: 20px;
@@ -53,6 +53,7 @@
 }
 
 .char-card {
+  font-family: var(--font-secondary);
   background: var(--surface);
   border: 2px solid var(--accent-border);
   border-radius: var(--radius);
@@ -98,7 +99,7 @@
 }
 
 .char-label {
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   color: var(--text-muted);
   font-size: 0.9rem;
 }
@@ -150,7 +151,7 @@
 }
 
 .char-desc {
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   color: var(--text-muted);
   font-size: 0.8rem;
   margin-bottom: 0.5rem;

@@ -165,7 +165,7 @@
 .motivacao-subtitle,
 .arquetipo-subtitle {
   color: var(--text-muted);
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   font-size: 1rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -189,7 +189,7 @@
 .motivacao-descricao p,
 .contato-descricao p {
   color: var(--text);
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   font-size: 1rem;
   line-height: 1.6;
   margin: 0;
@@ -219,7 +219,7 @@
 
 .disposicao-text {
   color: var(--text-muted);
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   font-size: 1rem;
   text-align: center;
   margin: 0;
@@ -246,7 +246,7 @@
 
 .contatos-descricao {
   color: var(--text-muted);
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   font-style: italic;
   text-align: center;
   font-size: 1rem;
@@ -276,7 +276,7 @@
   padding: 1rem;
   border-radius: 8px;
   border: 1px solid var(--accent-border);
-  font-family: var(--font-secundary);
+  font-family: var(--font-secondary);
   line-height: 1.5;
   transition: all 0.2s ease;
   position: relative;

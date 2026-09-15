@@ -71,11 +71,11 @@
   width: 100%;
   max-width: 800px;
   padding: 0.8rem;
+  font-family: var(--font-primary);
   background: var(--gradient-sheet);
   border: 2px solid var(--board-border);
   border-radius: 8px;
   font-size: 1rem;
-  font-family: 'Cinzel', serif;
   color: var(--board-ink);
   margin-bottom: 1rem;
   cursor: pointer;
@@ -123,7 +123,7 @@
   padding: 0.8rem 0.5rem;
   color: var(--board-ink);
   font-family: var(--font-secondary);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   text-decoration: none;
 }
 #toc-list a:hover {
@@ -179,6 +179,7 @@
 
   /* Botões de navegação maiores e mais quadrados */
   .chapter-nav button {
+    font-family: var(--font-primary);
     width: 300px;
     padding: 1rem;
     font-size: 1.1rem;

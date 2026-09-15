@@ -4,6 +4,7 @@
 ========================= */
 
 .mentalidade-container {
+  font-family: var(--font-primary);
   animation: fadeIn 0.3s ease;
 }
 

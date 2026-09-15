@@ -56,7 +56,7 @@
 
 .char-card-delete:hover,
 .char-card-delete:focus {
-  color: #c0392b;
+  color: var(--red);
   background: var(--bg-base);
 }
 
@@ -71,7 +71,7 @@
   font-family: var(--font-secondary);
   font-size: 0.9rem;
   color: var(--text);
-  background: rgba(212, 175, 55, 0.1);
+  background: var(--state-hover);
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   display: inline-block;
@@ -106,7 +106,6 @@
   padding: 1.8rem 1.5rem;
   max-width: 90%;
   width: 340px;
-  box-shadow: var(--shadow);
   animation: dialogSlideUp 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -129,7 +128,7 @@
   font-weight: 600;
   margin-bottom: 0.8rem;
   text-align: center;
-  text-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+  text-shadow: 0 2px 4px var(--accent-border);
 }
 
 .dialog-message {
@@ -184,16 +183,14 @@
 }
 
 .dialog-button--danger {
-  background: #c0392b;
-  color: white;
-  border: 2px solid #c0392b;
+  background: var(--red);
+  color: var(--text);
 }
 
 .dialog-button--danger:hover {
-  background: #e74c3c;
-  border-color: #e74c3c;
+  background: var(--red);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(192, 57, 43, 0.3);
+  box-shadow: 0 6px 16px var(--state-hover);
 }
 
 .dialog-button--cancel {
@@ -238,15 +235,15 @@
 }
 
 .global-toast--success {
-  border-color: #2e7d32;
-  background: rgba(46, 125, 50, 0.2);
-  color: #81c784;
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--text-muted);
 }
 
 .global-toast--error {
-  border-color: #c0392b;
-  background: rgba(192, 57, 43, 0.2);
-  color: #e74c3c;
+  border-color: var(--red);
+  background: var(--accent-border);
+  color: var(--text-muted);
 }
 
 @keyframes dialogFadeIn {

@@ -632,16 +632,14 @@
 
 .import-feedback.success,
 .save-feedback.success {
-  background: rgba(46, 125, 50, 0.2);
-  border: 1px solid #2e7d32;
-  color: #81c784;
+  background: var(--green);
+  color: var(--text-muted);
 }
 
 .import-feedback.error,
 .save-feedback.error {
-  background: rgba(192, 57, 43, 0.2);
-  border: 1px solid #c0392b;
-  color: #e74c3c;
+  background: var(--red);
+  color: var(--text-muted);
 }
 
 /* =========================
@@ -688,13 +686,13 @@
 }
 
 .clear-actions .danger {
-  background: rgba(192, 57, 43, 0.2);
-  border-color: #c0392b;
-  color: #c0392b;
+  background: var(--red);
+  color: var(--text-muted);
 }
 
 .clear-actions .danger:hover {
-  background: rgba(192, 57, 43, 0.3);
+  background: var(--red);
+  border: 1 solid var(--red);
 }
 
 /* =========================

@@ -5,6 +5,7 @@
 
 /* Grid de tokens */
 .gmnotes-combat-grid {
+  font-family: var(--font-secondary);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
@@ -204,6 +205,7 @@
 }
 
 .gmnotes-conditions-add {
+  font-family: var(--font-secondary);
   background: transparent;
   border: 1px dashed var(--accent-border);
   border-radius: 12px;
