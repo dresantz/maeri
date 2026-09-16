@@ -270,7 +270,7 @@
               "cost": "1 Con/alvo",
               "spellbrief_item": "Evapora líquidos.",
               "tags": ["utilidade"],
-              "description": "Evapora líquidos com ponto de ebulição menor ou igual ao da água sem usar calor. Pode ser usado até mesmo como guarda-chuva. Não funciona em alvos submersos."
+              "description": "Evapora líquidos com ponto de ebulição menor ou igual ao da água sem usar calor, seca apenas superfície de fontes grandes líquidos, não seca o sangue interno de seres vivos. Pode ser usado como guarda-chuva ou para limpar supefícies. Não funciona em alvos submersos."
             },
             {
               "type": "spell",
@@ -782,7 +782,7 @@
               "cost": "1 Con/uso",
               "spellbrief_item": "Concede +2 de dano radiante para um ataque do conjurador.",
               "tags": ["dano", "radiante", "buff"],
-              "description": "Sucesso em embate de S concede à arma do conjurador +2 de dano radiante apenas para um ataque. Essa magia não exige palavras ou movimentos de mão, mas a arma é obrigatória."
+              "description": "Sucesso em embate de S concede uma ação de Ataque, a arma do conjurador recebe +2 de dano radiante apenas para esse Ataque. Essa magia não exige palavras ou movimentos de mão, mas a arma é obrigatória. 1 Con/uso."
             },
             {
               "type": "spell",

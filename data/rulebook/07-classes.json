@@ -359,7 +359,7 @@
         {
           "type": "paragraph",
           "id": "classes_item",
-          "text": "Invocar Besta. Um animal terrestre médio (lobo, cachorro, javali, jaguatirica, bode) que funciona como um contato (ocupando I). Além dos seus pontos normais (F2 D2 V3 A2 I1 S3), ele recebe +1 ponto que o jogador escolhe onde colocar para cada nível acima do 1. Ele causa dano com Mordida, Batida ou Patada (1d6 de dano de contusão), Corredor (sua D é multiplicada por dois para corrida fora de combate) e é Treinado."
+          "text": "Invocar Besta. Um animal terrestre médio (lobo, cachorro, javali, jaguatirica, bode) que funciona como um contato (ocupando I). Além dos seus pontos normais (F2 D2 V3 A2 I1 S3), ele recebe +1 ponto que o jogador escolhe onde colocar para cada nível acima do 1. Ele causa dano com Mordida, Batida ou Patada (1d6 de dano de contusão), Corredor (sua D é multiplicada por dois para corrida fora de combate) e é Treinado, pode ser invocado novamente em uma semana caso faleça."
         }
       ]
     },

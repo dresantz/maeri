@@ -57,7 +57,7 @@
         {
           "type": "paragraph",
           "combate_item": "Disparo (A). Sucesso em embate usando A permite causar dano arremessando algo contra um inimigo ou com uma arma de combate a distância. Não é possível usar Disparo enquanto engajado (tópico Posições de Combate). O dano, no caso de armas arremessadas, será o normal da arma, e no caso de objetos, fica a cargo do mestre comparar o objeto às armas para se ter uma ideia do dano.",
-          "text": "**Disparo (A)**. Sucesso em embate usando A permite causar dano arremessando algo contra um inimigo ou com uma arma de combate a distância. Não é possível usar Disparo enquanto engajado (tópico Posições de Combate). O dano, no caso de armas arremessadas, será o normal da arma, e no caso de objetos, fica a cargo do mestre comparar o objeto às armas para se ter uma ideia do dano. Ainda sobre Disparo:"
+          "text": "**Disparo (A)**. Sucesso em embate usando A permite causar dano arremessando algo contra um inimigo ou com uma arma de combate a distância. Não é possível usar Disparo enquanto engajado (tópico Posições de Combate). Um disparo envolve mirar e disparar, por isso, não é possível se movimentar enquanto dispara, jogadores que queiram se movimentar disparando realizarão o embate com desvantagem. O dano, no caso de armas arremessadas, será o normal da arma, e no caso de objetos, fica a cargo do mestre comparar o objeto às armas para se ter uma ideia do dano. Ainda sobre Disparo:"
         },
         {
           "type": "list",
