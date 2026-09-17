@@ -1,9 +1,10 @@
+// ============================================================
+// Service Worker — Maeri RPG
+// ============================================================
+
 const CACHE_NAME = 'maeri-rpg-v5';
 
-// Detecta automaticamente se está no GitHub Pages
-const BASE_PATH = self.location.pathname.includes('/maeri/') 
-  ? '/maeri' 
-  : '';
+const BASE_PATH = self.location.pathname.replace(/\/service-worker\.js$/, '');
 
 const urlsToCache = [
   `${BASE_PATH}/`,
@@ -47,13 +48,9 @@ const urlsToCache = [
   `${BASE_PATH}/css/gmnotes/gmnotes-npcs.css`,
   `${BASE_PATH}/css/gmnotes/gmnotes-players.css`,
 
-  `${BASE_PATH}/icons/icon-72.png`,
-  `${BASE_PATH}/icons/icon-96.png`,
-  `${BASE_PATH}/icons/icon-144.png`,
-  `${BASE_PATH}/icons/icon-152.png`,
   `${BASE_PATH}/icons/icon-192.png`,
-  `${BASE_PATH}/icons/icon-192-maskable.png`,
   `${BASE_PATH}/icons/icon-512.png`,
+  `${BASE_PATH}/icons/icon-192-maskable.png`,
   `${BASE_PATH}/icons/icon-512-maskable.png`,
   `${BASE_PATH}/icons/apple-touch-icon.png`,
 
@@ -117,77 +114,95 @@ const urlsToCache = [
   `${BASE_PATH}/data/char-template/warrior-1.json`
 ];
 
-// Instalação do Service Worker
+// ------------------------------------------------------------
+// INSTALL — precache resiliente (um 404 não derruba o SW)
+// ------------------------------------------------------------
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Cache aberto com BASE_PATH:', BASE_PATH);
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      console.log('[SW] Cache aberto. BASE_PATH =', BASE_PATH || '(raiz)');
 
-// Intercepta requisições e serve do cache se disponível
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-
-        if (response) {
-          return response;
-        }
-
-        return fetch(event.request).then(response => {
-
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
+      const resultados = await Promise.allSettled(
+        urlsToCache.map(async url => {
+          try {
+            await cache.add(new Request(url, { cache: 'reload' }));
+          } catch (err) {
+            console.warn(`[SW] Falha ao cachear: ${url}`, err);
+            throw err;
           }
-
-          const responseToCache = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
-
-      })
-  );
-});
-
-// Limpa caches antigos quando uma nova versão é ativada
-self.addEventListener('activate', event => {
-
-  const cacheWhitelist = [CACHE_NAME];
-
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-
-      return Promise.all(
-        cacheNames.map(cacheName => {
-
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-
         })
       );
 
-    })
+      const falhas = resultados.filter(r => r.status === 'rejected').length;
+      if (falhas > 0) {
+        console.warn(`[SW] ${falhas} de ${urlsToCache.length} recurso(s) não foram cacheados.`);
+      } else {
+        console.log(`[SW] Precache completo: ${urlsToCache.length} recurso(s).`);
+      }
+    })()
   );
-
-  self.clients.claim();
-
 });
 
-// Escuta mensagens do frontend para pular a espera
-self.addEventListener('message', (event) => {
+// ------------------------------------------------------------
+// FETCH — cache-first com filtros (só GET same-origin)
+// ------------------------------------------------------------
+self.addEventListener('fetch', event => {
+  const { request } = event;
 
+  // Só intercepta GET
+  if (request.method !== 'GET') return;
+
+  // Só same-origin (ignora CDNs, fontes externas, analytics, etc.)
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith(
+    caches.match(request).then(cached => {
+      if (cached) return cached;
+
+      return fetch(request).then(response => {
+        // Não cacheia respostas inválidas
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+        return response;
+      });
+    })
+  );
+});
+
+// ------------------------------------------------------------
+// ACTIVATE — limpa caches antigos e assume controle
+// ------------------------------------------------------------
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+
+  event.waitUntil(
+    (async () => {
+      const cacheNames = await caches.keys();
+      await Promise.all(
+        cacheNames.map(name => {
+          if (!cacheWhitelist.includes(name)) {
+            console.log('[SW] Removendo cache antigo:', name);
+            return caches.delete(name);
+          }
+        })
+      );
+      await self.clients.claim();
+      console.log('[SW] Ativo. CACHE_NAME =', CACHE_NAME);
+    })()
+  );
+});
+
+// ------------------------------------------------------------
+// MESSAGE — frontend pode pedir para ativar imediatamente
+// ------------------------------------------------------------
+self.addEventListener('message', event => {
   if (event.data === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-
 });
