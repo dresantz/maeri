@@ -2,7 +2,7 @@
 // Service Worker — Maeri RPG
 // ============================================================
 
-const CACHE_NAME = 'maeri-rpg-v5';
+const CACHE_NAME = 'maeri-rpg-v6';
 
 const BASE_PATH = self.location.pathname.replace(/\/service-worker\.js$/, '');
 
