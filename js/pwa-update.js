@@ -142,14 +142,20 @@
   }
 
   // ------------------------------------------------------------
-  // Guarda contra múltiplos reloads
+  // Quando o novo SW assume o controle, mostra a notificação
+  // em vez de recarregar automaticamente
   // ------------------------------------------------------------
   let refreshing = false;
+  let updateAvailable = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (refreshing) return;
-    refreshing = true;
-    console.log('📜 Maeri RPG: Nova versão ativada, recarregando...');
-    window.location.reload();
+    if (updateAvailable) return;
+    updateAvailable = true;
+    console.log('📜 Maeri RPG: Nova versão ativada. Mostrando notificação...');
+    showUpdateNotification(() => {
+      refreshing = true;
+      window.location.reload();
+    });
   });
 
   // ------------------------------------------------------------
@@ -161,6 +167,9 @@
     navigator.serviceWorker.register(BASE_PATH + 'service-worker.js')
       .then(registration => {
         console.log('📜 Maeri RPG: ServiceWorker registrado', registration.scope);
+
+        // Força uma verificação de atualização assim que o app abre
+        registration.update().catch(() => {});
 
         // Se já existe um waiting ao carregar a página, mostra a notificação
         if (registration.waiting && navigator.serviceWorker.controller) {

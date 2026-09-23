@@ -142,6 +142,8 @@ self.addEventListener('install', event => {
       } else {
         console.log(`[SW] Precache completo: ${urlsToCache.length} recurso(s).`);
       }
+
+      await self.skipWaiting();
     })()
   );
 });
