@@ -2,7 +2,7 @@
 // Service Worker — Maeri RPG
 // ============================================================
 
-const CACHE_NAME = 'maeri-rpg-v6';
+const CACHE_NAME = 'maeri-rpg-v7';
 
 const BASE_PATH = self.location.pathname.replace(/\/service-worker\.js$/, '');
 
@@ -48,11 +48,11 @@ const urlsToCache = [
   `${BASE_PATH}/css/gmnotes/gmnotes-npcs.css`,
   `${BASE_PATH}/css/gmnotes/gmnotes-players.css`,
 
-  `${BASE_PATH}/icons/icon-192.png`,
-  `${BASE_PATH}/icons/icon-512.png`,
-  `${BASE_PATH}/icons/icon-192-maskable.png`,
-  `${BASE_PATH}/icons/icon-512-maskable.png`,
-  `${BASE_PATH}/icons/apple-touch-icon.png`,
+  `${BASE_PATH}/icons/icon-192-v2.png`,
+  `${BASE_PATH}/icons/icon-512-v2.png`,
+  `${BASE_PATH}/icons/icon-192-maskable-v2.png`,
+  `${BASE_PATH}/icons/icon-512-maskable-v2.png`,
+  `${BASE_PATH}/icons/apple-touch-icon-v2.png`,
 
   `${BASE_PATH}/favicon.ico`,
 
@@ -94,7 +94,7 @@ const urlsToCache = [
   `${BASE_PATH}/js/shield/gmnotes.js`,
   `${BASE_PATH}/js/shield/shield-modal.js`,
 
-  `${BASE_PATH}/data/regras-maeri.pdf`,
+  `${BASE_PATH}/data/Maeri - Livro I.pdf`,
 
   `${BASE_PATH}/data/rulebook/00-modelo.json`,
   `${BASE_PATH}/data/rulebook/01-fundamentos.json`,
@@ -117,7 +117,10 @@ const urlsToCache = [
 ];
 
 // ------------------------------------------------------------
-// INSTALL — precache resiliente (um 404 não derruba o SW)
+// INSTALL — precache resiliente.
+// ⚠️ NÃO adicionar self.skipWaiting() aqui. O skipWaiting deve
+//    ser acionado apenas via mensagem do frontend, para que o
+//    usuário veja a notificação antes do reload.
 // ------------------------------------------------------------
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -142,8 +145,6 @@ self.addEventListener('install', event => {
       } else {
         console.log(`[SW] Precache completo: ${urlsToCache.length} recurso(s).`);
       }
-
-      await self.skipWaiting();
     })()
   );
 });
@@ -154,10 +155,8 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
   const { request } = event;
 
-  // Só intercepta GET
   if (request.method !== 'GET') return;
 
-  // Só same-origin (ignora CDNs, fontes externas, analytics, etc.)
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
@@ -166,7 +165,6 @@ self.addEventListener('fetch', event => {
       if (cached) return cached;
 
       return fetch(request).then(response => {
-        // Não cacheia respostas inválidas
         if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
@@ -203,7 +201,7 @@ self.addEventListener('activate', event => {
 });
 
 // ------------------------------------------------------------
-// MESSAGE — frontend pode pedir para ativar imediatamente
+// MESSAGE — frontend pede para ativar imediatamente
 // ------------------------------------------------------------
 self.addEventListener('message', event => {
   if (event.data === 'SKIP_WAITING') {

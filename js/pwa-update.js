@@ -5,28 +5,17 @@
   console.log('📜 PWA Update: Inicializando...');
 
   // ------------------------------------------------------------
-  // BASE_PATH — detecta a raiz do app de forma infalível.
-  //
-  // Este arquivo SEMPRE vive em <base>/js/pwa-update.js:
-  //   Local:    /js/pwa-update.js          → base = /
-  //   GH Pages: /maeri/js/pwa-update.js    → base = /maeri/
-  //
-  // Basta remover "js/<arquivo>" do final da própria URL.
-  // Se quiser sobrepor, defina window.MAERI_BASE_PATH no HTML.
+  // BASE_PATH — deriva do próprio <script src>
   // ------------------------------------------------------------
   const getBasePath = () => {
-    // 1. Override manual (opcional)
     if (window.MAERI_BASE_PATH) return window.MAERI_BASE_PATH;
 
-    // 2. Do próprio <script src="..."> — caminho preferido
     const script = document.currentScript;
     if (script && script.src) {
       const pathname = new URL(script.src, window.location.origin).pathname;
-      // Remove "/js/<arquivo>.js" do final → sobra o base com "/"
       return pathname.replace(/\/js\/[^/]+$/, '/');
     }
 
-    // 3. Fallback raro (script injetado dinamicamente)
     const path = window.location.pathname;
     const dir = path.endsWith('.html')
       ? path.slice(0, path.lastIndexOf('/') + 1)
@@ -57,13 +46,13 @@
       bottom: 90px;
       left: 16px;
       right: 16px;
-      background: var(--surface, var(--bg-base));
-      border: 2px solid var(--accent, var(--accent));
-      border-radius: 12px;
+      background: var(--surface, #1a1a2e);
+      border: 2px solid var(--accent, #d4af37);
+      border-radius: var(--radius, 12px);
       padding: 16px;
-      font-family: var(--font-primary);
+      font-family: 'Cinzel', serif;
       color: var(--text, #f0f0f0);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-shadow: var(--shadow, 0 8px 24px rgba(0,0,0,0.4));
       z-index: 10000;
       backdrop-filter: blur(8px);
       animation: maeriSlideUp 0.3s ease;
@@ -74,7 +63,7 @@
       <div style="margin-bottom: 12px;">
         <span style="color: var(--accent, #d4af37); font-size: 1.2rem;">NOVA VERSÃO!</span>
       </div>
-      <p style="font-family: var(--font-secondary); margin: 0 0 16px 0; color: var(--text-muted, #b0b0c0);">
+      <p style="font-family: 'Crimson Text', serif; margin: 0 0 16px 0; color: var(--text-muted, #b0b0c0);">
         Uma atualização está disponível!
       </p>
       <div style="display: flex; gap: 12px; justify-content: center;">
@@ -85,7 +74,6 @@
 
     document.body.appendChild(notification);
 
-    // Estilos (só injeta uma vez)
     if (!document.getElementById('maeri-update-styles')) {
       const style = document.createElement('style');
       style.id = 'maeri-update-styles';
@@ -142,20 +130,23 @@
   }
 
   // ------------------------------------------------------------
-  // Quando o novo SW assume o controle, mostra a notificação
-  // em vez de recarregar automaticamente
+  // Guarda contra reload desnecessário na PRIMEIRA instalação.
+  // Se não havia controller no carregamento da página, qualquer
+  // controllerchange subsequente é a primeira instalação — não
+  // deve recarregar.
   // ------------------------------------------------------------
+  const hadControllerAtLoad = !!navigator.serviceWorker.controller;
   let refreshing = false;
-  let updateAvailable = false;
+
   navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadControllerAtLoad) {
+      console.log('📜 Maeri RPG: controllerchange (primeira instalação) — sem reload');
+      return;
+    }
     if (refreshing) return;
-    if (updateAvailable) return;
-    updateAvailable = true;
-    console.log('📜 Maeri RPG: Nova versão ativada. Mostrando notificação...');
-    showUpdateNotification(() => {
-      refreshing = true;
-      window.location.reload();
-    });
+    refreshing = true;
+    console.log('📜 Maeri RPG: Nova versão ativada, recarregando...');
+    window.location.reload();
   });
 
   // ------------------------------------------------------------
@@ -168,17 +159,12 @@
       .then(registration => {
         console.log('📜 Maeri RPG: ServiceWorker registrado', registration.scope);
 
-        // Força uma verificação de atualização assim que o app abre
-        registration.update().catch(() => {});
-
-        // Se já existe um waiting ao carregar a página, mostra a notificação
         if (registration.waiting && navigator.serviceWorker.controller) {
           showUpdateNotification(() => {
             registration.waiting.postMessage('SKIP_WAITING');
           });
         }
 
-        // Detecta novas atualizações
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
           if (!newWorker) return;
@@ -193,14 +179,12 @@
           });
         });
 
-        // Checa atualização quando o usuário volta pra aba
         document.addEventListener('visibilitychange', () => {
           if (document.visibilityState === 'visible') {
             registration.update();
           }
         });
 
-        // Fallback: checa a cada 1 hora
         setInterval(() => registration.update(), 60 * 60 * 1000);
       })
       .catch(error => {
