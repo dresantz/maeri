@@ -94,6 +94,8 @@ const urlsToCache = [
   `${BASE_PATH}/js/shield/gmnotes.js`,
   `${BASE_PATH}/js/shield/shield-modal.js`,
 
+  `${BASE_PATH}/data/regras-maeri.pdf`,
+
   `${BASE_PATH}/data/rulebook/00-modelo.json`,
   `${BASE_PATH}/data/rulebook/01-fundamentos.json`,
   `${BASE_PATH}/data/rulebook/02-personagem.json`,
